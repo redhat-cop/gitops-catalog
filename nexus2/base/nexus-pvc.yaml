@@ -5,7 +5,7 @@ metadata:
   - kubernetes.io/pvc-protection
   labels:
     app: nexus
-  name: nexus-pvc
+  name: nexus
 spec:
   accessModes:
   - ReadWriteOnce

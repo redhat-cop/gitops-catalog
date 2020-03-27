@@ -76,7 +76,7 @@ spec:
       volumes:
       - name: nexus-data
         persistentVolumeClaim:
-          claimName: nexus-pv
+          claimName: nexus
   test: false
   triggers:
   - type: ConfigChange
