@@ -1,0 +1,18 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: nexus
+  name: nexus
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: docker.io/sonatype/nexus:2.14.5
+    importPolicy: {}
+    name: 2.14.5
+    referencePolicy:
+      type: Source

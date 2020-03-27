@@ -1,0 +1,90 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: nexus
+  name: nexus
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    deploymentconfig: nexus
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      post:
+        execNewPod:
+          command:
+          - /bin/bash
+          - -c
+          - curl -o /tmp/nexus-functions -s https://raw.githubusercontent.com/OpenShiftDemos/nexus/master/scripts/nexus-functions;
+            source /tmp/nexus-functions; add_nexus2_redhat_repos admin admin123 http://nexus:8081
+          containerName: nexus
+        failurePolicy: Abort
+      timeoutSeconds: 600
+    resources: {}
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        deploymentconfig: nexus
+    spec:
+      containers:
+      - env:
+        - name: CONTEXT_PATH
+          value: /
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - echo
+            - ok
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: nexus
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /content/groups/public
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 1Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /sonatype-work
+          name: nexus-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: nexus-data
+        persistentVolumeClaim:
+          claimName: nexus-pv
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - nexus
+      from:
+        kind: ImageStreamTag
+        name: nexus:2.14.5
+    type: ImageChange

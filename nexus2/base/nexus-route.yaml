@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 4m
+    template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
+  labels:
+    app: nexus
+  name: nexus
+spec:
+  port:
+    targetPort: 8081-tcp
+  to:
+    kind: Service
+    name: nexus
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: []
