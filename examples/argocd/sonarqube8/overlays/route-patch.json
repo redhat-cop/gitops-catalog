@@ -1,0 +1,3 @@
+[
+    {"op": "replace", "path": "/spec/host", "value": "sonarqube-cicd.apps.<your ocp domain>"}
+]

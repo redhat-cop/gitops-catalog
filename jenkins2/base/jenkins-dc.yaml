@@ -1,0 +1,105 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: jenkins
+  labels:
+    app: jenkins
+    app.kubernetes.io/component: jenkins-dc
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/part-of: jenkins
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    name: jenkins
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: jenkins
+    spec:
+      containers:
+      - env:
+        - name: INSTALL_PLUGINS
+          value: structs:1.20,dependency-track:2.1.0
+        - name: OPENSHIFT_ENABLE_OAUTH
+          value: "true"
+        - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
+          value: "true"
+        - name: DISABLE_ADMINISTRATIVE_MONITORS
+          value: "false"
+        - name: KUBERNETES_MASTER
+          value: https://kubernetes.default:443
+        - name: KUBERNETES_TRUST_CERTIFICATES
+          value: "true"
+        - name: JENKINS_SERVICE_NAME
+          value: jenkins
+        - name: JNLP_SERVICE_NAME
+          value: jenkins-jnlp
+        - name: ENABLE_FATAL_ERROR_LOG_FILE
+          value: "false"
+        - name: JENKINS_UC_INSECURE
+          value: "false"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /login
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 420
+          periodSeconds: 360
+          successThreshold: 1
+          timeoutSeconds: 240
+        name: jenkins
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /login
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 240
+        resources:
+          limits:
+            memory: 1Gi
+        securityContext:
+          capabilities: {}
+          privileged: false
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/jenkins
+          name: jenkins-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: jenkins
+      serviceAccountName: jenkins
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: jenkins-data
+        persistentVolumeClaim:
+          claimName: jenkins
+  test: false
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - jenkins
+      from:
+        kind: ImageStreamTag
+        name: jenkins:2
+        namespace: openshift
+    type: ImageChange
+  - type: ConfigChange
+

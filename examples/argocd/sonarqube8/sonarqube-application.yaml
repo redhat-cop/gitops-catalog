@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarqube
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: cicd
+  source:
+    path: path/to/overlays
+    repoURL: https://github.com/<your username>/<your repo>.git
+    targetRevision: master
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+  - group: route.openshift.io
+    kind: Route
+    jsonPointers:
+    - /status/ingress
+  sync:
+    comparedTo:
+      destination:
+        namespace: argocd
+        server: https://kubernetes.default.svc
+      source:
+        path: path/to/overlays
+        repoURL: https://github.com/<your username>/<your repo>.git
+        targetRevision: master

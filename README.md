@@ -31,8 +31,13 @@ kind: Kustomization
 
 namespace: product-catalog-cicd
 
+<<<<<<< HEAD
 resources:
 - github.com/redhat-canada-gitops/10-devtools//nexus/bases/?ref=master
+=======
+bases:
+- github.com/redhat-canada-gitops//nexus/bases/?ref=master
+>>>>>>> 4dae55ee6b3111b77bd8a4673b980b2e592fc55f
 ```
 
 This enables you to patch these resources for your specific environments. Note that none of these bases specify a namespace, in your kustomization

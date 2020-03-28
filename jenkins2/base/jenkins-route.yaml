@@ -1,0 +1,23 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/timeout: 4m
+    template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
+  labels:
+    app: jenkins-persistent
+    app.kubernetes.io/component: jenkins-route
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/part-of: jenkins
+  name: jenkins
+spec:
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: jenkins
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: []
