@@ -4,7 +4,7 @@ resources:
 - postgresql-data-pvc.yaml
 - postgresql-dc.yaml
 - postgresql-svc.yaml
-- sonarqube-data.yaml
+- sonarqube-data-pvc.yaml
 - sonarqube-dc.yaml
 - sonarqube-is-yaml
 - sonarqube-route.yaml
