@@ -16,4 +16,3 @@ spec:
     requests:
       storage: 5Gi
   volumeMode: Filesystem
-  persistentVolumeReclaimPolicy: Retain
