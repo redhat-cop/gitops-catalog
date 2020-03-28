@@ -3,7 +3,7 @@
 Kustomize bases for various CI/CD Tools, including:
 * Jenkins
 * Nexus
-* SonarQube
+* [SonarQube 8.2 Community](docs/sonarqube.md)
 * Builds (skopeo Jenkins agent, Selenium Hub and agents)
 
 ## Setup
