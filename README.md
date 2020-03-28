@@ -31,7 +31,7 @@ kind: Kustomization
 
 namespace: product-catalog-cicd
 
-resources:
+bases:
 - github.com/redhat-canada-gitops//nexus/bases/?ref=master
 ```
 
