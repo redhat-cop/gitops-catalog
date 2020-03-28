@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  finalizers:
+  - kubernetes.io/pvc-protection
+  labels:
+    app: jenkins
+    app.kubernetes.io/component: jenkins-pvc
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/part-of: jenkins
+  name: jenkins
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

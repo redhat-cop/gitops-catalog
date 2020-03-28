@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jenkins
+    app.kubernetes.io/component: jenkins-jnlp-svc
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/part-of: jenkins
+  name: jenkins-jnlp
+spec:
+  ports:
+  - name: agent
+    port: 50000
+    protocol: TCP
+    targetPort: 50000
+  selector:
+    name: jenkins
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
