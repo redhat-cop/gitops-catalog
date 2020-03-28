@@ -2,7 +2,6 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "11"
     haproxy.router.openshift.io/timeout: 4m
     template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
   labels:
