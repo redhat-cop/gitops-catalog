@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sonarqube
+    app.kubernetes.io/component: postgresql-sonarqube-svc
+    app.kubernetes.io/instance: sonarqube
+    app.kubernetes.io/part-of: sonarqube
+  name: postgresql-sonarqube
+spec:
+  ports:
+  - name: postgresql
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: sonarqube
+    deploymentconfig: postgresql-sonarqube
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

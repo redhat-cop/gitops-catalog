@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sonarqube
+    app.kubernetes.io/component: sonarqube-svc
+    app.kubernetes.io/instance: sonarqube
+    app.kubernetes.io/part-of: sonarqube
+  name: sonarqube
+spec:
+  ports:
+  - name: sonarqube
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: sonarqube
+    deploymentconfig: sonarqube
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
