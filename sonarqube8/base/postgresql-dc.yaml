@@ -12,6 +12,7 @@ spec:
   replicas: 1
   revisionHistoryLimit: 3
   selector:
+    name: postgresql-sonarqube
     app: sonarqube
     deploymentconfig: postgresql-sonarqube
   strategy:
