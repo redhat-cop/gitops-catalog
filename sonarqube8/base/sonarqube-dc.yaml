@@ -1,8 +1,6 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations:
-    argocd.argoproj.io/sync-wave: "11"
   labels:
     app: sonarqube
     app.kubernetes.io/component: sonarqube-dc
