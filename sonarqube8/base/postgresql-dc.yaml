@@ -22,8 +22,10 @@ spec:
     type: Recreate
   template:
     metadata:
+      name: postgresql-sonarqube
       labels:
         app: sonarqube
+        name: postgresql-sonarqube
         deploymentconfig: postgresql-sonarqube
     spec:
       containers:
