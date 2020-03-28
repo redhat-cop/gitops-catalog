@@ -1,8 +1,6 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  annotations:
-    app.openshift.io/connects-to: {.metadata.annotations['app.kubernetes.io/instance']}
   labels:
     app: sonarqube
     app.kubernetes.io/component: sonarqube-dc
