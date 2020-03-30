@@ -1,0 +1,47 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: selenium
+    build: selenium-node-chrome
+    type: image
+  name: selenium-node-chrome
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: {}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: selenium-node-chrome:3.141.59
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: selenium-node-chrome
+    git:
+      ref: master
+      uri: https://github.com/pittar/openshift-selenium.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      buildArgs:
+      - name: SELENIUM_VERSION
+        value: 3.141.59
+      - name: GRID_DEBUG
+        value: "false"
+      dockerfilePath: Dockerfile
+      forcePull: true
+      from:
+        kind: ImageStreamTag
+        name: selenium-node-base:3.141.59
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - type: ConfigChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: selenium-node-base:3.141.59
+    type: ImageChange
+status:
+  lastVersion: 0

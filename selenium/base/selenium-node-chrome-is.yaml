@@ -1,0 +1,10 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: selenium
+    build: selenium-node-chrome
+  name: selenium-node-chrome
+spec:
+  lookupPolicy:
+    local: false

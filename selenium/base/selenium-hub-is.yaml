@@ -1,0 +1,10 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: selenium
+    build: selenium-hub
+  name: selenium-hub
+spec:
+  lookupPolicy:
+    local: false

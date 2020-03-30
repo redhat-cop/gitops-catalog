@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- centos7-is.yaml
+- selenium-base-bc.yaml
+- selenium-base-is.yaml
+- selenium-hub-bc.yaml
+- selenium-hub-dc.yaml
+- selenium-hub-is.yaml
+- selenium-hub-route.yaml
+- selenium-hub-svc.yaml
+- selenium-node-base-bc.yaml
+- selenium-node-base-is.yaml
+- selenium-node-chrome-bc.yaml
+- selenium-node-chrome-dc.yaml
+- selenium-node-chrome-debug-bc.yaml
+- selenium-node-chrome-debug-dc.yaml
+- selenium-node-chrome-debug-is.yaml
+- selenium-node-chrome-is.yaml
+- selenium-node-firefox-bc.yaml
+- selenium-node-firefox-dc.yaml
+- selenium-node-firefox-debug-bc.yaml
+- selenium-node-firefox-debug-dc.yaml
+- selenium-node-firefox-debug-is.yaml
+- selenium-node-firefox-is.yaml

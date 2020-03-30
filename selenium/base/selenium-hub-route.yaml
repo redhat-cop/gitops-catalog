@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: selenium
+  name: selenium-hub
+spec:
+  host: selenium-hub-cicd.apps.ocp.pitt.ca
+  port:
+    targetPort: 4444-tcp
+  to:
+    kind: Service
+    name: selenium-hub
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress: []

@@ -1,0 +1,47 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: selenium
+    build: selenium-base
+    type: image
+  name: selenium-base
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: {}
+  output:
+    to:
+      kind: ImageStreamTag
+      name: selenium-base:3.141.59
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: selenium-base
+    git:
+      ref: master
+      uri: https://github.com/pittar/openshift-selenium.git
+    type: Git
+  strategy:
+    dockerStrategy:
+      buildArgs:
+      - name: SELENIUM_VERSION
+        value: 3.141.59
+      - name: GRID_DEBUG
+        value: "false"
+      dockerfilePath: Dockerfile
+      forcePull: true
+      from:
+        kind: ImageStreamTag
+        name: centos:centos7
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - type: ConfigChange
+  - imageChange:
+      from:
+        kind: ImageStreamTag
+        name: centos:centos7
+    type: ImageChange
+status:
+  lastVersion: 0

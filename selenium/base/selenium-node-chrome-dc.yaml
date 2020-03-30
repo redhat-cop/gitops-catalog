@@ -1,0 +1,78 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: selenium
+  name: selenium-node-chrome
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    app: selenium
+    deploymentconfig: selenium-node-chrome
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: selenium
+        deploymentconfig: selenium-node-chrome
+    spec:
+      containers:
+      - env:
+        - name: HUB_HOST
+          value: selenium-hub
+        - name: HUB_PORT_PARAM
+          value: "4444"
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /status
+            port: 5555
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: selenium-node-chrome
+        ports:
+        - containerPort: 5555
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /status
+            port: 5555
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - selenium-node-chrome
+      from:
+        kind: ImageStreamTag
+        name: selenium-node-chrome:3.141.59
+    type: ImageChange
+  - type: ConfigChange
