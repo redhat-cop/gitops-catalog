@@ -80,5 +80,4 @@ spec:
       from:
         kind: ImageStreamTag
         name: sonarqube:8.2-community
-        namespace: cicd
     type: ImageChange
