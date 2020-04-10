@@ -59,6 +59,7 @@ spec:
           name: sonarqube-data
         - mountPath: /opt/sonarqube/temp
           name: sonarqube-temp
+      initContainers: []
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

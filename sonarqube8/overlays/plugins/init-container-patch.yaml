@@ -1,9 +1,8 @@
 - op: add
-  path: "/spec/template/spec"
+  path: "/spec/template/spec/initcontainers/-"
   value:
-    initContainers:
-    - name: download-plugins
-      image: quay.io/pittar/sonarqube8-plugin-download-init-container:latest
-      volumeMounts:
-        - mountPath: /opt/sonarqube/extensions
-          name: sonarqube-data
+    name: download-plugins
+    image: quay.io/pittar/sonarqube8-plugin-download-init-container:latest
+    volumeMounts:
+      - mountPath: /opt/sonarqube/extensions
+        name: sonarqube-data
