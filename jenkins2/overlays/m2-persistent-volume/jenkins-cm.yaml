@@ -53,18 +53,7 @@ data:
           <resourceRequestMemory></resourceRequestMemory>
           <resourceLimitCpu></resourceLimitCpu>
           <resourceLimitMemory></resourceLimitMemory>
-          <envVars>
-            <org.csanchez.jenkins.plugins.kubernetes.model.SecretEnvVar>
-              <key>MAVEN_SERVER_USERNAME</key>
-              <secretName>nexus-secret</secretName>
-              <secretKey>username</secretKey>
-            </org.csanchez.jenkins.plugins.kubernetes.model.SecretEnvVar>
-            <org.csanchez.jenkins.plugins.kubernetes.model.SecretEnvVar>
-              <key>MAVEN_SERVER_PASSWORD</key>
-              <secretName>nexus-secret</secretName>
-              <secretKey>password</secretKey>
-            </org.csanchez.jenkins.plugins.kubernetes.model.SecretEnvVar>
-          </envVars>
+          <envVars />
           <ports/>
           <livenessProbe>
             <execArgs></execArgs>
