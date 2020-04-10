@@ -7,3 +7,14 @@ bases:
 resources:
 - jenkins-cm.yaml
 - maven-m2-pvc.yaml
+generatorOptions:
+  labels:
+    app: jenkins
+    app.kubernetes.io/component: maven-settings-cm
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/part-of: jenkins
+  disableNameSuffixHash: true
+configMapGenerator:
+- name: maven-settings-cm
+  files:
+  - settings.xml
