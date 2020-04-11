@@ -46,8 +46,6 @@ spec:
           value: jdbc:postgresql://postgresql-sonarqube/sonar
         - name: SONARQUBE_JDBC_USERNAME
           value: sonar
-        - name: SONARQUBE_PLUGINS
-          value: "java,javascript,dependencycheck,jacoco,pmd"
         imagePullPolicy: IfNotPresent
         name: sonarqube
         ports:
@@ -71,7 +69,6 @@ spec:
           name: sonarqube-data
         - mountPath: /opt/sonarqube/temp
           name: sonarqube-temp
-      initContainers: []
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
