@@ -24,6 +24,7 @@ spec:
           - /bin/bash
           - -c
           - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/sonarqube-api/sonarqube8/base/scripts/sonarqube-plugins;
+            chmod +x /tmp/sonarqube-plugins;
             /tmp/sonarqube-plugins
           containerName:
         failurePolicy: Abort

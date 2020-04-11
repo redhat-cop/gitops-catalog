@@ -1,6 +1,10 @@
-for i in ${PLUGINS//,/ }
+# echo "Sleeping for 5 seconds..."
+# sleep 5
+echo "Installing plugins ${SONARQUBE_PLUGINS}"
+for i in ${SONARQUBE_PLUGINS//,/ }
 do
   echo "Installing $i"
-  curl -u admin:admin --data "key=$i" http://sonarqube:9000/api/plugins/install
+  curl -v -u admin:admin --data "key=$i" http://sonarqube:9000/api/plugins/install
 done
-curl -u admin:admin --data "" http://sonarqube:9000/api/system/restart
+echo "Restarting server..."
+curl -v -u admin:admin --data "" http://sonarqube:9000/api/system/restart
