@@ -1,0 +1,6 @@
+for i in ${PLUGINS//,/ }
+do
+  echo "Installing $i"
+  curl -u admin:admin --data "key=$i" http://localhost:9000/api/plugins/install
+done
+curl -u admin:admin --data "" http://localhost:9000/api/system/restart
