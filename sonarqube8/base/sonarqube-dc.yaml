@@ -23,8 +23,8 @@ spec:
           command:
           - /bin/bash
           - -c
-          - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/sonarqube-api/scripts/sonarqube-plugins;
-            ./sonarqube-plugins
+          - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/sonarqube-api/sonarqube8/base/scripts/sonarqube-plugins;
+            /tmp/sonarqube-plugins
           containerName:
         failurePolicy: Abort
     resources: {}
@@ -45,6 +45,8 @@ spec:
           value: jdbc:postgresql://postgresql-sonarqube/sonar
         - name: SONARQUBE_JDBC_USERNAME
           value: sonar
+        - name: SONARQUBE_PLUGINS
+          value: "java,javascript,dependencycheck,jacoco,pmd"
         imagePullPolicy: IfNotPresent
         name: sonarqube
         ports:
