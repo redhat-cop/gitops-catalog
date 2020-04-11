@@ -4,8 +4,9 @@ metadata:
   labels:
     app: sonarqube
     app.kubernetes.io/component: postgresql-sonarqube-dc
-    app.kubernetes.io/instance: sonarqube
+    app.kubernetes.io/instance: database
     app.kubernetes.io/part-of: sonarqube
+    app.openshift.io/runtime: postgresql
     deploymentconfig: postgresql-sonarqube
   name: postgresql-sonarqube
 spec:

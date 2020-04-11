@@ -7,6 +7,8 @@ metadata:
     app.kubernetes.io/instance: sonarqube
     app.kubernetes.io/part-of: sonarqube
     deploymentconfig: sonarqube
+  annotations:
+    app.openshift.io/connects-to: database
   name: sonarqube
 spec:
   replicas: 1
