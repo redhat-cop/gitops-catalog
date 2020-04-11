@@ -1,13 +1,19 @@
-echo "Sleeping for 60 seconds..."
-sleep 60
+SONARQUBE_HOST=sonarqube:9000
 
-echo "Installing plugins ${SONARQUBE_PLUGINS}"
+echo "Waiting for sonarqube to be ready..."
+
+until [ "$(curl --silent --show-error --connect-timeout 1 http://${SONARQUBE_HOST}/api/system/status | grep 'UP')" ];
+do
+  sleep 5
+done
+
+echo "Installing plugins ${SONARQUBE_PLUGINS} on server ${SONARQUBE_HOST}"
 
 for i in ${SONARQUBE_PLUGINS//,/ }
 do
   echo "Installing $i"
-  curl -u admin:admin --data "key=$i" http://sonarqube:9000/api/plugins/install
+  curl -u admin:admin --data "key=$i" http://${SONARQUBE_HOST}/api/plugins/install
 done
 
-echo "Restarting server..."
-curl  -u admin:admin -X POST http://sonarqube:9000/api/system/restart
+echo "Restarting server ${SONARQUBE_HOST} ..."
+curl  -u admin:admin -X POST http://${SONARQUBE_HOST}/api/system/restart
