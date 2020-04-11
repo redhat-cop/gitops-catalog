@@ -1,8 +1,13 @@
+echo "Sleeping for 30 seconds..."
+sleep 30
+
 echo "Installing plugins ${SONARQUBE_PLUGINS}"
+
 for i in ${SONARQUBE_PLUGINS//,/ }
 do
   echo "Installing $i"
   curl --retry 3 --retry-delay 5 -v -u admin:admin --data "key=$i" http://sonarqube:9000/api/plugins/install
 done
+
 echo "Restarting server..."
 curl --retry 3 --retry-delay 5 -v -u admin:admin --data "" http://sonarqube:9000/api/system/restart
