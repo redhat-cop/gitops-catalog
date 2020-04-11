@@ -10,4 +10,4 @@ patchesJson6902:
     version: v1
     kind: DeploymentConfig
     name: sonarqube
-  path: env-plugins.yaml
+  path: plugins-patches.yaml

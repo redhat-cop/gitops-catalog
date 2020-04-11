@@ -18,16 +18,6 @@ spec:
     activeDeadlineSeconds: 21600
     recreateParams:
       timeoutSeconds: 600
-      post:
-        execNewPod:
-          command:
-          - /bin/bash
-          - -c
-          - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/example-overlays/sonarqube8/base/scripts/sonarqube-plugins;
-            chmod +x /tmp/sonarqube-plugins;
-            /tmp/sonarqube-plugins
-          containerName: 
-        failurePolicy: Abort
     resources: {}
     type: Recreate
   template:

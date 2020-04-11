@@ -1,0 +1,18 @@
+- op: add
+  path: "/spec/strategy/recreateParams"
+  value:
+    post:
+      execNewPod:
+        command:
+        - /bin/bash
+        - -c
+        - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/example-overlays/sonarqube8/base/scripts/sonarqube-plugins;
+          chmod +x /tmp/sonarqube-plugins;
+          /tmp/sonarqube-plugins
+        containerName: 
+      failurePolicy: Abort
+- op: add
+  path: "/spec/template/spec/containers/0/env/-"
+  value:
+    name: SONARQUBE_PLUGINS
+    value: "java,javascript,dependencycheck,jacoco,pmd"
