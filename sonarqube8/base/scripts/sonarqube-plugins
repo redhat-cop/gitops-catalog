@@ -6,6 +6,8 @@ until [ "$(curl --silent --show-error --connect-timeout 1 http://${SONARQUBE_HOS
 do
   sleep 5
 done
+echo "SonarQube reporting UP.  Wait 5 seconds to be sure."
+sleep 5
 
 echo "Installing plugins ${SONARQUBE_PLUGINS} on server ${SONARQUBE_HOST}"
 
