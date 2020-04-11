@@ -18,6 +18,16 @@ spec:
     activeDeadlineSeconds: 21600
     recreateParams:
       timeoutSeconds: 600
+      post:
+        execNewPod:
+          command:
+          - /bin/bash
+          - -c
+          - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/sonarqube-api/sonarqube8/base/scripts/sonarqube-plugins;
+            chmod +x /tmp/sonarqube-plugins;
+            /tmp/sonarqube-plugins
+          containerName:
+        failurePolicy: Abort
     resources: {}
     type: Recreate
   template:
@@ -36,6 +46,8 @@ spec:
           value: jdbc:postgresql://postgresql-sonarqube/sonar
         - name: SONARQUBE_JDBC_USERNAME
           value: sonar
+        - name: SONARQUBE_PLUGINS
+          value: "java,javascript,dependencycheck,jacoco,pmd"
         imagePullPolicy: IfNotPresent
         name: sonarqube
         ports:
