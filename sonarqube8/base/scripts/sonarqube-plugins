@@ -6,8 +6,8 @@ echo "Installing plugins ${SONARQUBE_PLUGINS}"
 for i in ${SONARQUBE_PLUGINS//,/ }
 do
   echo "Installing $i"
-  curl -v -u admin:admin --data "key=$i" http://sonarqube:9000/api/plugins/install
+  curl -u admin:admin --data "key=$i" http://sonarqube:9000/api/plugins/install
 done
 
 echo "Restarting server..."
-curl -v -u admin:admin --data "" http://sonarqube:9000/api/system/restart
+curl  -u admin:admin -X POST http://sonarqube:9000/api/system/restart
