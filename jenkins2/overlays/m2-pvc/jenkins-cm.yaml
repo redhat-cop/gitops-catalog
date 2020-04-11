@@ -1,0 +1,74 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: jenkins-agent
+  labels:
+    role: jenkins-slave
+    app.kubernetes.io/component: jenkins-cm
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/part-of: jenkins
+data:
+  template1: |-
+    <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+      <inheritFrom></inheritFrom>
+      <name>maven</name>
+      <namespace></namespace>
+      <privileged>false</privileged>
+      <capOnlyOnAlivePods>false</capOnlyOnAlivePods>
+      <alwaysPullImage>false</alwaysPullImage>
+      <instanceCap>2147483647</instanceCap>
+      <slaveConnectTimeout>100</slaveConnectTimeout>
+      <idleMinutes>0</idleMinutes>
+      <activeDeadlineSeconds>0</activeDeadlineSeconds>
+      <label>maven</label>
+      <serviceAccount>jenkins</serviceAccount>
+      <nodeSelector></nodeSelector>
+      <nodeUsageMode>NORMAL</nodeUsageMode>
+      <customWorkspaceVolumeEnabled>false</customWorkspaceVolumeEnabled>
+      <workspaceVolume class="org.csanchez.jenkins.plugins.kubernetes.volumes.workspace.EmptyDirWorkspaceVolume">
+        <memory>false</memory>
+      </workspaceVolume>
+      <volumes>
+        <org.csanchez.jenkins.plugins.kubernetes.volumes.ConfigMapVolume>
+          <mountPath>/home/jenkins/.m2</mountPath>
+          <configMapName>maven-settings-cm</configMapName>
+        </org.csanchez.jenkins.plugins.kubernetes.volumes.ConfigMapVolume>
+        <org.csanchez.jenkins.plugins.kubernetes.volumes.PersistentVolumeClaim>
+          <mountPath>/data/m2</mountPath>
+          <claimName>maven-m2</claimName>
+          <readOnly>false</readOnly>
+        </org.csanchez.jenkins.plugins.kubernetes.volumes.PersistentVolumeClaim>
+      </volumes>
+      <containers>
+        <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+          <name>jnlp</name>
+          <image>registry.redhat.io/openshift4/ose-jenkins-agent-maven:v4.3</image>
+          <privileged>false</privileged>
+          <alwaysPullImage>true</alwaysPullImage>
+          <workingDir>/tmp</workingDir>
+          <command></command>
+          <args>${computer.jnlpmac} ${computer.name}</args>
+          <ttyEnabled>false</ttyEnabled>
+          <resourceRequestCpu></resourceRequestCpu>
+          <resourceRequestMemory></resourceRequestMemory>
+          <resourceLimitCpu></resourceLimitCpu>
+          <resourceLimitMemory></resourceLimitMemory>
+          <envVars />
+          <ports/>
+          <livenessProbe>
+            <execArgs></execArgs>
+            <timeoutSeconds>0</timeoutSeconds>
+            <initialDelaySeconds>0</initialDelaySeconds>
+            <failureThreshold>0</failureThreshold>
+            <periodSeconds>0</periodSeconds>
+            <successThreshold>0</successThreshold>
+          </livenessProbe>
+        </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+      </containers>
+      <envVars/>
+      <annotations/>
+      <imagePullSecrets/>
+      <nodeProperties/>
+      <yaml></yaml>
+      <podRetention class="org.csanchez.jenkins.plugins.kubernetes.pod.retention.Default"/>
+    </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>  
