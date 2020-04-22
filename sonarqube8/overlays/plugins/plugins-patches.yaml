@@ -6,7 +6,7 @@
         command:
         - /bin/bash
         - -c
-        - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/10-devtools/master/sonarqube8/base/scripts/sonarqube-plugins;
+        - curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/catalog/master/sonarqube8/base/scripts/sonarqube-plugins;
           chmod +x /tmp/sonarqube-plugins;
           /tmp/sonarqube-plugins
         containerName: sonarqube
