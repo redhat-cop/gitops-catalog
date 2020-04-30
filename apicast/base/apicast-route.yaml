@@ -1,0 +1,16 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: 3scale-gateway
+    app.kubernetes.io/component: 3scale-gateway
+    app.kubernetes.io/instance: 3scale-gateway
+  name: apicast
+spec:
+  port:
+    targetPort: proxy
+  to:
+    kind: Service
+    name: apicast-prod
+    weight: 100
+  wildcardPolicy: None
