@@ -1,0 +1,17 @@
+- op: replace
+  path: /spec/template/metadata/labels/deploymentconfig
+  value: apicast-stage
+
+- op: replace
+  path: /spec/template/spec/containers/0/name
+  value: apicast-stage
+
+- op: replace
+  path: /spec/selector/deploymentconfig
+  value: apicast-stage
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: THREESCALE_DEPLOYMENT_ENV
+    value: staging

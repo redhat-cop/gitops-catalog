@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: 3scale-gateway
+    app.kubernetes.io/component: 3scale-gateway
+    app.kubernetes.io/instance: 3scale-gateway
+  name: apicast
+spec:
+  ports:
+  - name: proxy
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: management
+    port: 8090
+    protocol: TCP
+    targetPort: 8090
+  selector:
+    deploymentconfig: apicast-prod
+  sessionAffinity: None
+  type: ClusterIP
