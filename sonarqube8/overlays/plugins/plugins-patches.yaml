@@ -15,4 +15,4 @@
   path: "/spec/template/spec/containers/0/env/-"
   value:
     name: SONARQUBE_PLUGINS
-    value: "java,javascript,dependencycheck,jacoco,pmd"
+    value: "java,javascript,dependencycheck,jacoco,pmd,scmgit"
