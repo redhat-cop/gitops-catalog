@@ -42,7 +42,7 @@ data:
       <containers>
         <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
           <name>jnlp</name>
-          <image>registry.redhat.io/openshift4/ose-jenkins-agent-maven:v4.3</image>
+          <image>registry.redhat.io/openshift4/ose-jenkins-agent-maven:v4.3.9</image>
           <privileged>false</privileged>
           <alwaysPullImage>true</alwaysPullImage>
           <workingDir>/tmp</workingDir>
