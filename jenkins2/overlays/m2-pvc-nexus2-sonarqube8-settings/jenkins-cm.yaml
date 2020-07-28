@@ -83,3 +83,67 @@ data:
       <yaml></yaml>
       <podRetention class="org.csanchez.jenkins.plugins.kubernetes.pod.retention.Default"/>
     </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>  
+  node12: |-
+    <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+      <inheritFrom></inheritFrom>
+      <name>node12</name>
+      <instanceCap>2147483647</instanceCap>
+      <idleMinutes>0</idleMinutes>
+      <label>node12</label>
+      <serviceAccount>jenkins</serviceAccount>
+      <nodeSelector></nodeSelector>
+      <volumes />
+      <containers>
+        <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+          <name>jnlp</name>
+          <image>registry.redhat.io/openshift4/jenkins-agent-nodejs-12-rhel7</image>
+          <privileged>false</privileged>
+          <alwaysPullImage>true</alwaysPullImage>
+          <workingDir>/tmp</workingDir>
+          <command></command>
+          <args>${computer.jnlpmac} ${computer.name}</args>
+          <ttyEnabled>false</ttyEnabled>
+          <resourceRequestCpu></resourceRequestCpu>
+          <resourceRequestMemory>1Gi</resourceRequestMemory>
+          <resourceLimitCpu></resourceLimitCpu>
+          <resourceLimitMemory>2Gi</resourceLimitMemory>
+          <envVars/>
+        </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+      </containers>
+      <envVars/>
+      <annotations/>
+      <imagePullSecrets/>
+      <nodeProperties/>
+    </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+  node10: |-
+    <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+      <inheritFrom></inheritFrom>
+      <name>node10</name>
+      <instanceCap>2147483647</instanceCap>
+      <idleMinutes>0</idleMinutes>
+      <label>node10</label>
+      <serviceAccount>jenkins</serviceAccount>
+      <nodeSelector></nodeSelector>
+      <volumes/>
+      <containers>
+        <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+          <name>jnlp</name>
+          <image>registry.redhat.io/openshift4/jenkins-agent-nodejs-10-rhel7</image>
+          <privileged>false</privileged>
+          <alwaysPullImage>true</alwaysPullImage>
+          <workingDir>/tmp</workingDir>
+          <command></command>
+          <args>${computer.jnlpmac} ${computer.name}</args>
+          <ttyEnabled>false</ttyEnabled>
+          <resourceRequestCpu></resourceRequestCpu>
+          <resourceRequestMemory>1Gi</resourceRequestMemory>
+          <resourceLimitCpu></resourceLimitCpu>
+          <resourceLimitMemory>2Gi</resourceLimitMemory>
+          <envVars/>
+        </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
+      </containers>
+      <envVars/>
+      <annotations/>
+      <imagePullSecrets/>
+      <nodeProperties/>
+    </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
