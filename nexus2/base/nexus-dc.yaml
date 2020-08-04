@@ -86,5 +86,5 @@ spec:
       - nexus
       from:
         kind: ImageStreamTag
-        name: nexus:2.14.5
+        name: nexus:2.14.18
     type: ImageChange
