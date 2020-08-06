@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/client/redirectUris
+  value: ["https://oauth-openshift.apps-crc.testing/oauth2callback/rhsso"]

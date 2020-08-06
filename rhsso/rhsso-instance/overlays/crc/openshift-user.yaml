@@ -1,0 +1,22 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakUser
+metadata:
+  name: ocpadmin-user
+  labels:
+    app: sso
+  namespace: sso
+spec:
+  user:
+    username: ocpadmin
+    firstName: John
+    lastName: Doe
+    email: user@example.com
+    enabled: true
+    emailVerified: false
+    credentials:
+       - temporary: false
+         type: password
+         value: password
+  realmSelector:
+    matchLabels:
+      app: openshift
