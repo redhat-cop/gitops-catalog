@@ -6,8 +6,12 @@ bases:
   - ../../base/openshift-authentication
 
 resources:
+  - oauth-rhsso-openid.yaml
   - openshift-user.yaml
   - rhsso-default-cluster-admin-user.yaml
+  - client-secret.yaml
+  - openshift-realm.yaml
+  - openshift-client.yaml
   
 patchesJson6902:
   - target:

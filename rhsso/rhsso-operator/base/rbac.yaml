@@ -14,6 +14,21 @@ rules:
       - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rhsso-cert-secret-creator
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - secrets
+    verbs:
+      - get
+      - list
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: installplan-approvers
@@ -25,3 +40,17 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rhsso-operator-job
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: rhsso-cert-secret-creators
+  namespace: sso
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rhsso-cert-secret-creator
+subjects:
+  - kind: ServiceAccount
+    name: rhsso-operator-job
+    namespace: sso

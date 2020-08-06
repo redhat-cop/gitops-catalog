@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  name: installplan-approver
+  namespace: sso
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:v4.4
+          env:
+            - name: APPROVAL_NAMESPACES
+              value: "sso"
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/approver
+
+              echo "Approving RH-SSO operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
+              sleep 20
+              for subscription in `oc get subscription -n sso -o name`
+              do 
+                desiredcsv=$(oc get $subscription -n sso -o jsonpath='{ .spec.startingCSV }')
+
+                until [ "$(oc get installplan -n sso -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
+
+                installplan=$(oc get installplan -n sso -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
+
+                if [ "`oc get installplan $installplan -n sso -o jsonpath="{.spec.approved}"`" == "false" ]; then
+
+                  echo "Approving Subscription $subscription with install plan $installplan"
+
+                  oc patch -n sso installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
+
+                else
+                  echo "Install Plan '$installplan' already approved"
+                fi
+              done
+
+              echo "Creating openid cert secret from OpenShift router cert."
+
+              # Get name of certs secret.  It can be router-certs or router-certs-default.
+              CERT_SECRET=$(oc get secrets -n openshift-ingress | grep router-certs | cut -d ' ' -f1)
+
+              tlscert=`oc get secrets/$CERT_SECRET -o jsonpath={.data.'tls\.crt'} -n openshift-ingress | base64 --decode`
+              oc create configmap openidcacrt --from-literal ca.crt="$tlscert" -n openshift-config
+
+          imagePullPolicy: Always
+          name: installplan-approver-and-cert-secret
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: rhsso-operator-job
+      serviceAccountName: rhsso-operator-job
+      terminationGracePeriodSeconds: 30
