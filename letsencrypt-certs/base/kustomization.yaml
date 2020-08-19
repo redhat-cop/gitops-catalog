@@ -1,0 +1,12 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+# Namespace for the Let's Encrypt job.
+namespace: letsencrypt-job
+
+# Job resources.
+resources:
+  - namespace.yaml
+  - job-serviceaccount.yaml
+  - rbac.yaml
+  - job.yaml
