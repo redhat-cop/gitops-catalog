@@ -1,0 +1,16 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+bases:
+  - ../../base
+
+resources:
+  - htpass-secret.yaml
+
+patchesJson6902:
+  - target:
+      group: config.openshift.io
+      version: v1
+      kind: OAuth
+      name: cluster
+    path: oauth-htpass-patch.yaml

@@ -1,0 +1,9 @@
+- op: add
+  path: /spec/identityProviders/-
+  value:
+    name: htpasswd
+    mappingMethod: claim
+    type: HTPasswd
+    htpasswd:
+      fileData:
+        name: htpass-secret
