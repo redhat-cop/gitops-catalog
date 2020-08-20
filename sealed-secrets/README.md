@@ -1,5 +1,7 @@
 # Bitnami Sealed Secrets
 
+**Version: 0.12.5**
+
 ## Project Reference
 
 GitHub: [Bitnami Labs - Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets)
