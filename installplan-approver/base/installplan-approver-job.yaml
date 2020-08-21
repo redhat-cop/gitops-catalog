@@ -12,21 +12,19 @@ spec:
             - -c
             - |
 
-              oc status
-
               export HOME=/tmp/approver
 
               echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
               sleep $SLEEP
-              for subscription in `oc get subscription -n $NAMESPACE -o name`
+              for subscription in `oc get subscription -o name`
               do
-                desiredcsv=$(oc get $subscription -n $NAMESPACE -o jsonpath='{ .spec.startingCSV }')
+                desiredcsv=$(oc get $subscription -o jsonpath='{ .spec.startingCSV }')
 
-                until [ "$(oc get installplan -n $NAMESPACE -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
+                until [ "$(oc get installplan -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
 
-                installplan=$(oc get installplan -n $NAMESPACE -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
+                installplan=$(oc get installplan -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
 
-                if [ "`oc get installplan $installplan -n $NAMESPACE -o jsonpath="{.spec.approved}"`" == "false" ]; then
+                if [ "`oc get installplan $installplan -o jsonpath="{.spec.approved}"`" == "false" ]; then
 
                   echo "Approving Subscription $subscription with install plan $installplan"
 
@@ -39,10 +37,8 @@ spec:
           imagePullPolicy: Always
           name: installplan-approver
           env:
-          - name: NAMESPACE
-            value: argocd
           - name: SLEEP
-            value: "30"
+            value: "20"
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
       serviceAccount: installplan-approver-job
