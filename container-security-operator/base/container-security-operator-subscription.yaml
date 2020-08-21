@@ -4,9 +4,9 @@ metadata:
   name: container-security-operator
   namespace: openshift-operators
 spec:
-  channel: alpha
+  channel: quay-v3.3
   installPlanApproval: Automatic
   name: container-security-operator
-  source: community-operators
+  source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: container-security-operator.v1.0.1
+  startingCSV: container-security-operator.v3.3.0
