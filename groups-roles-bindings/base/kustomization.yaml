@@ -1,0 +1,8 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+# Default groups and user config.
+resources:
+  - argocdadmins-group-base.yaml
+  - developer-group-base.yaml
+  - cluster-admin-users-rolebinding.yaml

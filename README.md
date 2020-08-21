@@ -1,10 +1,11 @@
 # Tools
 
-Kustomize bases for various CI/CD Tools, including:
+Kustomize bases for various applications, tools and operators including:
 * Jenkins
 * Nexus
 * [SonarQube 8.2 Community](docs/sonarqube.md)
 * Builds (skopeo Jenkins agent, Selenium Hub and agents)
+* Operators (jaeger, cso, pipelines, etc)
 
 ## Setup
 

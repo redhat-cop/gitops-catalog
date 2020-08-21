@@ -1,0 +1,29 @@
+- op: add
+  path: /spec/identityProviders/-
+  value:
+    name: rhsso
+    mappingMethod: claim
+    type: OpenID
+    openID:
+      clientID: openshift
+      clientSecret:
+        name: openid-client-secret
+      ca:
+        name: openidcacrt
+      extraScopes:
+      - email
+      - profile
+      extraAuthorizeParameters:
+        include_granted_scopes: "true"
+      claims:
+        preferredUsername:
+        - preferred_username
+        - email
+        name:
+        - nickname
+        - given_name
+        - name
+        email:
+        - custom_email_claim
+        - email
+      issuer: https://keycloak-sso.apps.cluster-39b2.39b2.example.opentlc.com/auth/realms/openshift

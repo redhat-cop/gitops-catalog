@@ -1,0 +1,38 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/name: kubeseal
+    app.kubernetes.io/part-of: kubeseal
+    app.kubernetes.io/version: v0.12.1
+    name: sealed-secrets-key-anyuid
+  name: sealed-secrets-key-anyuid
+rules:
+- apiGroups:
+  - security.openshift.io 
+  resourceNames:
+  - anyuid 
+  resources:
+  - securitycontextconstraints 
+  verbs: 
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/name: kubeseal
+    app.kubernetes.io/part-of: kubeseal
+    app.kubernetes.io/version: v0.12.1
+    name: sealed-secrets-controller-anyuid
+  name: sealed-secrets-controller-anyuid
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: sealed-secrets-key-anyuid
+subjects:
+- kind: ServiceAccount
+  name: sealed-secrets-controller
