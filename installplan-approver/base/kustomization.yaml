@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
 - installplan-approver-job.yaml
+- rbac.yaml

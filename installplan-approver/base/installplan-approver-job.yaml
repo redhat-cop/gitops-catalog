@@ -18,17 +18,22 @@ spec:
               sleep $SLEEP
               for subscription in `oc get subscription -o name`
               do
+                echo "Processing subscription '$subscription'"
+
                 desiredcsv=$(oc get $subscription -o jsonpath='{ .spec.startingCSV }')
 
                 until [ "$(oc get installplan -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
 
                 installplan=$(oc get installplan -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
 
+                echo "Check installplan approved status"
+                oc get installplan $installplan -o jsonpath="{.spec.approved}"
+
                 if [ "`oc get installplan $installplan -o jsonpath="{.spec.approved}"`" == "false" ]; then
 
                   echo "Approving Subscription $subscription with install plan $installplan"
 
-                  oc patch -n $NAMESPACE installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
+                  oc patch installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
 
                 else
                   echo "Install Plan '$installplan' already approved"
