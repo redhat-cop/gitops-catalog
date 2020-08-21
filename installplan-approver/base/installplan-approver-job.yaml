@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: installplan-approver
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:v4.4
+          command:
+            - /bin/bash
+            - -c
+            - |
+
+              oc status
+
+              export HOME=/tmp/approver
+
+              echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
+              sleep $SLEEP
+              for subscription in `oc get subscription -n $NAMESPACE -o name`
+              do
+                desiredcsv=$(oc get $subscription -n $NAMESPACE -o jsonpath='{ .spec.startingCSV }')
+
+                until [ "$(oc get installplan -n $NAMESPACE -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
+
+                installplan=$(oc get installplan -n $NAMESPACE -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
+
+                if [ "`oc get installplan $installplan -n $NAMESPACE -o jsonpath="{.spec.approved}"`" == "false" ]; then
+
+                  echo "Approving Subscription $subscription with install plan $installplan"
+
+                  oc patch -n $NAMESPACE installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
+
+                else
+                  echo "Install Plan '$installplan' already approved"
+                fi
+              done
+          imagePullPolicy: Always
+          name: installplan-approver
+          env:
+          - name: NAMESPACE
+            value: argocd
+          - name: SLEEP
+            value: "30"
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: installplan-approver-job
+      serviceAccountName: installplan-approver-job
+      terminationGracePeriodSeconds: 30
