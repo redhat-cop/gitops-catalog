@@ -1,0 +1,19 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  name: prometheus-app
+spec:
+  port:
+    targetPort: web-tls
+  host: ""
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: prometheus-app
+    weight: 100
+  wildcardPolicy: None
