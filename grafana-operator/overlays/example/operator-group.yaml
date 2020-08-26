@@ -5,4 +5,4 @@ metadata:
   name: grafana
 spec:
   targetNamespaces:
-   - somenamespace
+   - grafana

@@ -3,4 +3,3 @@ kind: Kustomization
 
 resources:
 - prometheus-subscription.yaml
-- prometheus-operator-group.yaml

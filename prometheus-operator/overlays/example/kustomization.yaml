@@ -8,12 +8,4 @@ bases:
 
 resources:
 - namespace.yaml
-
-
-patchesJson6902:
-- target:
-    version: v1
-    group: operators.coreos.com
-    kind: OperatorGroup
-    name: app-prometheus
-  path: patch-operator-group.yaml
+- operator-group.yaml
