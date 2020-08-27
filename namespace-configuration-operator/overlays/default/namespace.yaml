@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: Operator that enables the automatic creation of namespaces based on users, groups and labels
+    openshift.io/display-name:  Namespace Configuration Operator
+  name: namespace-configuration-operator
