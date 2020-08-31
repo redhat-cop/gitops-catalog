@@ -16,15 +16,11 @@ spec:
 
               echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
               sleep $SLEEP
-              for subscription in `oc get subscription -o name`
+              for subscription in `oc get subscription -o jsonpath='{.items[0].metadata.name}'`
               do
                 echo "Processing subscription '$subscription'"
 
-                desiredcsv=$(oc get $subscription -o jsonpath='{ .spec.startingCSV }')
-
-                until [ "$(oc get installplan -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
-
-                installplan=$(oc get installplan -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
+                installplan=$(oc get subscription --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
 
                 echo "Check installplan approved status"
                 oc get installplan $installplan -o jsonpath="{.spec.approved}"
