@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: app-migration
+resources:
+  - mta-web-console-dc.yaml
+  - mta-web-console-executor-dc.yaml
+  - mta-web-console-executor-svc.yaml
+  - mta-web-console-mta-web-claim-pvc.yaml
+  - mta-web-console-postgresql-claim-pvc.yaml
+  - mta-web-console-postgresql-dc.yaml
+  - mta-web-console-postgresql-svc.yaml
+  - mta-web-console-svc.yaml
+  - secure-mta-web-console-route.yaml
