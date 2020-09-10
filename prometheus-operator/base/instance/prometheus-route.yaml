@@ -8,7 +8,6 @@ metadata:
 spec:
   port:
     targetPort: web-tls
-  host: ""
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: reencrypt
