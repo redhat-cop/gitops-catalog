@@ -20,7 +20,7 @@ spec:
               do
                 echo "Processing subscription '$subscription'"
 
-                installplan=$(oc get subscription --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
+                installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
 
                 echo "Check installplan approved status"
                 oc get installplan $installplan -o jsonpath="{.spec.approved}"

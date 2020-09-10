@@ -1,0 +1,93 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: mta-web-console
+    application: mta-web-console-executor
+    xpaas: 1.3.2
+    manager: openshift-controller-manager
+  name: mta-web-console-executor
+  namespace: app-migration
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    deploymentConfig: mta-web-console-executor
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    resources: {}
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        application: mta-web-console-executor
+        deploymentConfig: mta-web-console-executor
+      name: mta-web-console-executor
+    spec:
+      containers:
+      - env:
+        - name: IS_MASTER
+          value: "false"
+        - name: MESSAGING_SERIALIZER
+          value: http.post.serializer
+        - name: MESSAGING_USER
+          value: jms-user
+        - name: MESSAGING_PASSWORD
+          value: gthudfal
+        - name: MESSAGING_HOST_VAR
+          value: mta-web-console_SERVICE_HOST
+        image: docker.io/windup3/windup-web-openshift-messaging-executor:5.0.0.Final
+        imagePullPolicy: Always
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - /opt/mta-cli/bin/stop.sh
+        livenessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - /opt/mta-cli/bin/livenessProbe.sh
+          failureThreshold: 3
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: mta-web-console-executor
+        readinessProbe:
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - /opt/mta-cli/bin/livenessProbe.sh
+          failureThreshold: 3
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        resources:
+          limits:
+            cpu: "2"
+            memory: 4Gi
+          requests:
+            cpu: "2"
+            memory: 4Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/eap/standalone/data
+          name: mta-web-console-mta-web-executor-volume
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 75
+      volumes:
+      - emptyDir: {}
+        name: mta-web-console-mta-web-executor-volume
+  test: false
+  triggers:
+  - type: ConfigChange
