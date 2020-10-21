@@ -45,7 +45,7 @@ spec:
                   echo "GENERATE_OPENID_CERT set to 'true'.  Create a ConfigMap named openidcrt in the openshift-config project."
 
                   # Get name of certs secret.  It can be router-certs or router-certs-default.
-                  CERT_SECRET=$(oc get secrets -n openshift-ingress | grep 'router-certs\|ingress-certs' | cut -d ' ' -f1)
+                  CERT_SECRET=$(oc get secrets -n openshift-ingress | grep 'router-certs\|ingress-certs\|-ingress' | cut -d ' ' -f1)
 
                   tlscert=`oc get secrets/$CERT_SECRET -o jsonpath={.data.'tls\.crt'} -n openshift-ingress | base64 --decode`
                   oc create configmap openidcacrt --from-literal ca.crt="$tlscert" -n openshift-config
