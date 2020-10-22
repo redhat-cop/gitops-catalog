@@ -9,4 +9,4 @@ spec:
   name: container-security-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: container-security-operator.v3.3.0
+  startingCSV: container-security-operator.v3.3.1
