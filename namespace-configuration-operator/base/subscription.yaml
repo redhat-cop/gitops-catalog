@@ -8,4 +8,4 @@ spec:
   name: namespace-configuration-operator
   source: community-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: namespace-configuration-operator.v0.2.2
+  startingCSV: namespace-configuration-operator.v0.2.4
