@@ -1,0 +1,14 @@
+apiVersion: compliance.openshift.io/v1alpha1
+debug: true
+kind: ScanSetting
+metadata:
+  name: moderate
+  namespace: openshift-operators
+roles:
+- worker
+- master
+scanTolerations:
+- effect: NoSchedule
+  key: node-role.kubernetes.io/master
+  operator: Exists
+schedule: '0 1 * * *'
