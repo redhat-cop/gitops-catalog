@@ -1,0 +1,1 @@
+Installs the 4.5 channel version of the Pipeline Operator
