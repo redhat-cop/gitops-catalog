@@ -50,7 +50,7 @@ spec:
         - name: APICAST_PATH_ROUTING
           value: "false"
         - name: APICAST_RESPONSE_CODES
-          value: "false"
+          value: "true"
         - name: APICAST_CONFIGURATION_CACHE
         - name: REDIS_URL
         - name: APICAST_MANAGEMENT_API
