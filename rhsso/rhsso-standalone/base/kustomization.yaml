@@ -10,5 +10,5 @@ resources:
 - sso-postgresql-svc.yaml
 - sso-ss.yaml
 - sso-svc.yaml
-- sso=discovery-svc.yaml
+- sso-discovery-svc.yaml
 - sso-route.yaml
