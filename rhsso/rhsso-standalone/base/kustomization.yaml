@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- sso-postgresql-pvc.yaml
+- sso-credential-secret.yaml
+- sso-db-secret.yaml
+- sso-probes-cm.yaml
+- sso-postgresql-deploy.yaml
+- sso-postgresql-svc.yaml
+- sso-ss.yaml
+- sso-svc.yaml
+- sso-discovery-svc.yaml
+- sso-route.yaml

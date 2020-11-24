@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: "Project that hosts Red Hat Single Sign-On to manage single sign-on capabilities for other applications"
+    openshift.io/display-name: "Red Hat SSO"
+  name: sso
