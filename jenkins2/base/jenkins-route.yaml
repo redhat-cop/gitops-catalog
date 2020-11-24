@@ -5,7 +5,7 @@ metadata:
     haproxy.router.openshift.io/timeout: 4m
     template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
   labels:
-    app: jenkins-persistent
+    app: jenkins
     app.kubernetes.io/component: jenkins-route
     app.kubernetes.io/instance: jenkins
     app.kubernetes.io/part-of: jenkins
