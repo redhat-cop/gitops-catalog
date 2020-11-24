@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: sso
+    keycloak: sso
+  name: sso-probes
+data:
+  liveness_probe.sh: |
+    #!/bin/bash
+    set -e
+    curl -s --max-time 10 --fail http://$(hostname -i):8080/auth > /dev/null
+  readiness_probe.sh: "#!/bin/bash\nset -e\n\nDATASOURCE_POOL_TYPE=\"data-source\"\nDATASOURCE_POOL_NAME=\"KeycloakDS\"\n\nPASSWORD_FILE=\"/tmp/management-password\"\nPASSWORD=\"not set\"\nUSERNAME=\"admin\"\nAUTH_STRING=\"\"\n\nif [ -d \"/opt/eap/bin\" ]; then\n    pushd /opt/eap/bin > /dev/null\n\tDATASOURCE_POOL_TYPE=\"xa-data-source\"\n\tDATASOURCE_POOL_NAME=\"sso_postgresql-DB\"\nelse\n    pushd /opt/jboss/keycloak/bin > /dev/null\n\tif [ -f \"$PASSWORD_FILE\" ]; then\n\t\tPASSWORD=$(cat $PASSWORD_FILE)\n\telse\n\t\tPASSWORD=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)\n\t\t./add-user.sh -u $USERNAME -p $PASSWORD> /dev/null\n\t\techo $PASSWORD > $PASSWORD_FILE\n\tfi\n\tAUTH_STRING=\"--digest -u $USERNAME:$PASSWORD\"\nfi\n\ncurl -s --max-time 10 --fail http://localhost:9990/management $AUTH_STRING --header \"Content-Type: application/json\" -d \"{\\\"operation\\\":\\\"test-connection-in-pool\\\", \\\"address\\\":[\\\"subsystem\\\",\\\"datasources\\\",\\\"${DATASOURCE_POOL_TYPE}\\\",\\\"${DATASOURCE_POOL_NAME}\\\"], \\\"json.pretty\\\":1}\"\ncurl -s --max-time 10 --fail http://$(hostname -i):8080/auth > /dev/null\n"

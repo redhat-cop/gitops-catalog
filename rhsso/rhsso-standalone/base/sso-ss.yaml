@@ -1,0 +1,144 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    app.openshift.io/connects-to: database
+  labels:
+    app: keycloak
+    component: keycloak
+    app.kubernetes.io/part-of: sso
+    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/instance: keycloak
+    app.openshift.io/runtime: sso
+  name: sso
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  serviceName: ""
+  selector:
+    matchLabels:
+      app: sso
+      component: keycloak
+  template:
+    metadata:
+      labels:
+        app: sso
+        component: keycloak
+      name: keycloak
+      namespace: test-sso
+    spec:
+      containers:
+      - env:
+        - name: DB_SERVICE_PREFIX_MAPPING
+          value: sso-postgresql=DB
+        - name: TX_DATABASE_PREFIX_MAPPING
+          value: sso-postgresql=DB
+        - name: DB_JNDI
+          value: java:jboss/datasources/KeycloakDS
+        - name: DB_SCHEMA
+          value: public
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_USERNAME
+              name: sso-db-secret
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: sso-db-secret
+        - name: DB_DATABASE
+          value: root
+        - name: JGROUPS_PING_PROTOCOL
+          value: dns.DNS_PING
+        - name: OPENSHIFT_DNS_PING_SERVICE_NAME
+          value: keycloak-discovery.test-sso.svc.cluster.local
+        - name: SSO_ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: ADMIN_USERNAME
+              name: sso-admin-credential
+        - name: SSO_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ADMIN_PASSWORD
+              name: sso-admin-credential
+        - name: X509_CA_BUNDLE
+          value: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        image: registry.redhat.io/rh-sso-7/sso74-openshift-rhel8:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /probes/liveness_probe.sh
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 22
+        name: sso
+        ports:
+        - containerPort: 8443
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 9990
+          protocol: TCP
+        - containerPort: 8778
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - /probes/readiness_probe.sh
+          failureThreshold: 3
+          initialDelaySeconds: 40
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 22
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/x509/https
+          name: sso-x509-https-secret
+        - mountPath: /opt/eap/providers
+          name: keycloak-extensions
+        - mountPath: /probes
+          name: sso-probes
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - env:
+        - name: KEYCLOAK_EXTENSIONS
+        image: registry.redhat.io/rh-sso-7-tech-preview/sso74-init-container-rhel8:latest
+        imagePullPolicy: Always
+        name: extensions-init
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/extensions
+          name: keycloak-extensions
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: sso-x509-https-secret
+        secret:
+          defaultMode: 420
+          optional: true
+          secretName: sso-x509-https-secret
+      - emptyDir: {}
+        name: keycloak-extensions
+      - configMap:
+          defaultMode: 365
+          name: sso-probes
+        name: sso-probes
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
