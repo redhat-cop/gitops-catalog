@@ -15,14 +15,17 @@ spec:
     auth.anonymous:
       enabled: True
   containers:
-    - args:
+    - env:
+      - name: SAR
+        value: '-openshift-sar={"resource": "namespaces", "verb": "get"}'
+      args:
         - '-provider=openshift'
         - '-pass-basic-auth=false'
         - '-https-address=:9091'
         - '-http-address='
         - '-email-domain=*'
         - '-upstream=http://localhost:3000'
-        - '-openshift-sar={"resource": "namespaces", "verb": "get"}'
+        - "$(SAR)"
         - '-openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}'
         - '-tls-cert=/etc/tls/private/tls.crt'
         - '-tls-key=/etc/tls/private/tls.key'
