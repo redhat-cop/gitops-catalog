@@ -27,6 +27,30 @@
           <repository.snapshots>http://nexus:8081/content/repositories/snapshots</repository.snapshots>
           <repository.releases>http://nexus:8081/content/repositories/releases</repository.releases>
         </properties>
+        <repositories>
+          <repository>
+            <id>maven-releases</id>
+            <url>${repository.releases}</url>
+            <layout>default</layout>
+            <releases>
+              <enabled>true</enabled>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </repository>
+          <repository>
+            <id>maven-snapshots</id>
+            <url>${repository.snapshots}</url>
+            <layout>default</layout>
+              <releases>
+                <enabled>false</enabled>
+              </releases>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
+          </repository>
+        </repositories>
       </profile>
     </profiles>
     <activeProfiles>
