@@ -4,9 +4,11 @@ kind: Kustomization
 commonAnnotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-resources:
+bases:
 - ../../base/operator
 - ../../base/instance
+
+resources:
 - grafana-ds.yaml
 - patch-grafana-ds-sa.yaml
 - patch-grafana-ds-job.yaml
