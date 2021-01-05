@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: Example Project for deploying grafana for user application monitoring
+    openshift.io/display-name:  Example Grafana User App Monitoring
+  name: user-grafana
