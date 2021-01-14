@@ -9,11 +9,3 @@ bases:
 resources:
 - namespace.yaml
 - operator-group.yaml
-
-patchesJson6902:
-- target:
-    version: v1
-    group: rbac.authorization.k8s.io
-    kind: ClusterRoleBinding
-    name: grafana-proxy
-  path: patch-proxy-namespace.yaml
