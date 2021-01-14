@@ -13,20 +13,8 @@ resources:
 
 patchesJson6902:
 - target:
-    version: v1
-    group: rbac.authorization.k8s.io
-    kind: ClusterRoleBinding
-    name: grafana-proxy
-  path: patch-proxy-namespace.yaml
-- target:
     version: v1alpha1
     group: integreatly.org
     kind: Grafana
     name: grafana
   path: patch-grafana-sar.yaml
-- target:
-    version: v1
-    group: rbac.authorization.k8s.io
-    kind: ClusterRoleBinding
-    name: cluster-monitoring-view
-  path: patch-cluster-monitoring-view-name.yaml
