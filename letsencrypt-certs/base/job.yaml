@@ -12,8 +12,6 @@ spec:
             - name: STAGING
               value: 'false'
             - name: PATCH_API_SERVER
-              value: 'true'
-            - name: PATCH_API_SERVER
               value: 'false'
           envFrom:
             - secretRef:
