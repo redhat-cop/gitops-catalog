@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: KokuMetricsConfig.v1alpha1.koku-metrics-cfg.openshift.io,KokuMetricsConfig.v1beta1.koku-metrics-cfg.openshift.io
+  name: koku-metrics-operator
+spec:
+  targetNamespaces:
+  - koku-metrics-operator

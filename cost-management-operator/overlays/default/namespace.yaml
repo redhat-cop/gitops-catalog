@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: Operator that provides cost management information to cloud.redhat.com
+    openshift.io/display-name:  Koku Cost Management Operator
+  name: koku-metrics-operator

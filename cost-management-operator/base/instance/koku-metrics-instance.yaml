@@ -1,0 +1,25 @@
+apiVersion: koku-metrics-cfg.openshift.io/v1beta1
+kind: KokuMetricsConfig
+metadata:
+  name: instance
+  namespace: koku-metrics-operator
+spec:
+  api_url: https://cloud.redhat.com
+  authentication:
+    type: token
+  packaging:
+    max_reports_to_store: 30
+    max_size_MB: 100
+  prometheus_config:
+    service_address: https://thanos-querier.openshift-monitoring.svc:9091
+    skip_tls_verification: false
+  source:
+    check_cycle: 1440
+    create_source: false
+    name: INSERT-SOURCE-HERE
+    sources_path: /api/sources/v1.0/
+  upload:
+    ingress_path: /api/ingress/v1/upload
+    upload_cycle: 360
+    upload_toggle: true
+    validate_cert: true
