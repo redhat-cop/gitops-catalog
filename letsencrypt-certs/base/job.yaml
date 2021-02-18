@@ -7,9 +7,11 @@ spec:
   template:
     spec:
       containers:
-        - image: quay.io/pittar/oc-acme:4.4
+        - image: quay.io/pittar/oc-acme:latest
           env:
             - name: STAGING
+              value: 'false'
+            - name: PATCH_API_SERVER
               value: 'false'
           envFrom:
             - secretRef:
@@ -19,19 +21,8 @@ spec:
             - -c
             - |
               #!/usr/bin/env bash
-              
-              echo "Wait a few seconds for the secret to unseal."
-              sleep 10              
 
               /scripts/aws.sh
-
-              echo "Creating openid cert secret from OpenShift router cert."
-
-              # Get name of certs secret.  It can be router-certs or router-certs-default.
-              CERT_SECRET=$(oc get secrets -n openshift-ingress | grep router-certs | cut -d ' ' -f1)
-              
-              tlscert=`oc get secrets/$CERT_SECRET -o jsonpath={.data.'tls\.crt'} -n openshift-ingress | base64 --decode`
-              oc create configmap openidcacrt --from-literal ca.crt="$tlscert" -n openshift-config
 
               echo "Done!"
 
