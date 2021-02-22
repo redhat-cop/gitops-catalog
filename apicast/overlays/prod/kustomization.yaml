@@ -3,6 +3,10 @@ kind: Kustomization
 
 nameSuffix: -prod
 
+commonLabels:
+  app.kubernetes.io/component: 3scale-gateway-prod
+  app.kubernetes.io/instance: 3scale-gateway-prod
+
 bases:
 - ../../base
 

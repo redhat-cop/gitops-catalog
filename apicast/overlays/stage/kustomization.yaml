@@ -3,6 +3,10 @@ kind: Kustomization
 
 nameSuffix: -stage
 
+commonLabels:
+  app.kubernetes.io/component: 3scale-gateway-stage
+  app.kubernetes.io/instance: 3scale-gateway-stage
+
 bases:
 - ../../base
 
