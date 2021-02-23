@@ -1,0 +1,10 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: k8s-labels
+labels:
+  app.kubernetes.io/component: 3scale-gateway-prod
+  app.kubernetes.io/instance: 3scale-gateway-prod
+fieldSpecs:
+- path: metadata/labels
+  create: true

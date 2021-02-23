@@ -3,10 +3,6 @@ kind: Kustomization
 
 nameSuffix: -stage
 
-commonLabels:
-  app.kubernetes.io/component: 3scale-gateway-stage
-  app.kubernetes.io/instance: 3scale-gateway-stage
-
 bases:
 - ../../base
 
@@ -17,3 +13,6 @@ patchesJson6902:
     kind: DeploymentConfig
     name: apicast-stage
   path: patch-stage-dc.yaml
+
+transformers:
+- update-k8s-labels.yaml  
