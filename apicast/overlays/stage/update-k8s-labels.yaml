@@ -3,6 +3,7 @@ kind: LabelTransformer
 metadata:
   name: k8s-labels
 labels:
+  app: 3scale-gateway-prod
   app.kubernetes.io/component: 3scale-gateway-stage
   app.kubernetes.io/instance: 3scale-gateway-stage
 fieldSpecs:
