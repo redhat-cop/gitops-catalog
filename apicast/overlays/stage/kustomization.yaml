@@ -13,6 +13,19 @@ patchesJson6902:
     kind: DeploymentConfig
     name: apicast-stage
   path: patch-stage-dc.yaml
+- target:
+    version: v1
+    group: route.openshift.io
+    kind: Route
+    name: apicast-stage
+  path: patch-stage-route.yaml
+- target:
+    version: v1
+    group: ""
+    kind: Service
+    name: apicast-stage
+  path: patch-stage-svc.yaml
+
 
 transformers:
 - update-k8s-labels.yaml  

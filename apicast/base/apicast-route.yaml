@@ -11,6 +11,6 @@ spec:
     targetPort: proxy
   to:
     kind: Service
-    name: apicast-prod
+    name: apicast
     weight: 100
   wildcardPolicy: None

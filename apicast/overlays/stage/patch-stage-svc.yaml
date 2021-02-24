@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/selector/deploymentconfig
+  value: apicast-stage

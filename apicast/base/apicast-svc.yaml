@@ -17,6 +17,6 @@ spec:
     protocol: TCP
     targetPort: 8090
   selector:
-    deploymentconfig: apicast-prod
+    deploymentconfig: apicast
   sessionAffinity: None
   type: ClusterIP
