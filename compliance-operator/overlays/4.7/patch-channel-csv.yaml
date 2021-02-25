@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: "4.7"
+- op: replace
+  path: /spec/startingCSV
+  value: "compliance-operator.v0.1.26"  

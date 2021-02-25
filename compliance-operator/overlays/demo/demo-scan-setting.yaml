@@ -3,7 +3,6 @@ debug: true
 kind: ScanSetting
 metadata:
   name: demo
-  namespace: openshift-operators
 roles:
 - worker
 scanTolerations:

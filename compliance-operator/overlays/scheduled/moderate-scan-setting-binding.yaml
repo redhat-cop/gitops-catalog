@@ -2,7 +2,6 @@ apiVersion: compliance.openshift.io/v1alpha1
 kind: ScanSettingBinding
 metadata:
   name: moderate-compliance-requirements
-  namespace: openshift-operators
 profiles:
   - apiGroup: compliance.openshift.io/v1alpha1
     kind: Profile

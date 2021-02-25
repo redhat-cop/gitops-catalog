@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: ComplianceCheckResult.v1alpha1.compliance.openshift.io,ComplianceRemediation.v1alpha1.compliance.openshift.io,ComplianceScan.v1alpha1.compliance.openshift.io,ComplianceSuite.v1alpha1.compliance.openshift.io,Profile.v1alpha1.compliance.openshift.io,ProfileBundle.v1alpha1.compliance.openshift.io,Rule.v1alpha1.compliance.openshift.io,ScanSetting.v1alpha1.compliance.openshift.io,ScanSettingBinding.v1alpha1.compliance.openshift.io,TailoredProfile.v1alpha1.compliance.openshift.io,Variable.v1alpha1.compliance.openshift.io
+  name: openshift-compliance
+spec:
+  targetNamespaces:
+  - openshift-compliance

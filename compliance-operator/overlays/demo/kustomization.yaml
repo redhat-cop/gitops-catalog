@@ -1,9 +1,9 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-namespace: openshift-operators
+namespace: openshift-compliance
 
 resources:
-- ../../base
+- ../4.7
 - demo-scan-setting.yaml
 - demo-scan-setting-binding.yaml
