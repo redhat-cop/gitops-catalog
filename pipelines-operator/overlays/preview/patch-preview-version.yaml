@@ -3,4 +3,4 @@
   value: preview
 - op: replace
   path: /spec/startingCSV
-  value: redhat-openshift-pipelines-operator.v1.2.0
+  value: redhat-openshift-pipelines-operator.v1.3.0
