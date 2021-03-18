@@ -19,4 +19,4 @@ spec:
       workingDir: $(workspaces.build-workspace.path)
       script: |
         #!/usr/bin/env bash
-        oc start-build $(params.build-name) --from-file=$(workspaces.build-workspace.path)$(params.binary-relative-path) --follow
+        oc start-build $(params.BUILD_NAME) --from-file=$(workspaces.build-workspace.path)$(params.BINARY_PATH) --follow
