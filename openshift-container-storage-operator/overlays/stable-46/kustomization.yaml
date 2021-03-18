@@ -10,5 +10,5 @@ patchesJson6902:
     version: v1alpha1
     kind: Subscription
     name: ocs-operator
-    namespace: openshift-operators
+    namespace: openshift-storage
   path: patch-channel-and-version.yaml
