@@ -1,0 +1,22 @@
+kind: Task
+apiVersion: tekton.dev/v1beta1
+metadata:
+  name: binary-build
+spec:
+  workspaces:
+    - name: build-workspace
+      description: Build workspace.
+  params:
+    - name: BUILD_NAME
+      type: string
+      description: Name of the binary BuildConfig to start.
+    - name: BINARY_PATH
+      type: string
+      description: Path to binary, relative to workspace directory.
+  steps:
+    - name: run-commands
+      image: quay.io/openshift/origin-cli:latest
+      workingDir: $(workspaces.build-workspace.path)
+      script: |
+        #!/usr/bin/env bash
+        oc start-build $(params.build-name) --from-file=$(workspaces.build-workspace.path)$(params.binary-relative-path) --follow
