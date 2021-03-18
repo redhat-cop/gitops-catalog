@@ -18,7 +18,7 @@ oc apply -k amq-streams-operator/overlays/<channel>
 Or, without cloning:
 
 ```
-oc apply -k oc apply -k https://github.com/redhat-canada-gitops/catalog/amq-streams-operator/overlays/<channel>
+oc apply -k https://github.com/redhat-canada-gitops/catalog/amq-streams-operator/overlays/<channel>
 ```
 
 As part of a different overlay in your own GitOps repo:
