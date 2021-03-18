@@ -5,3 +5,4 @@ namespace: openshift-storage
 
 resources:
   - openshift-container-storage-operator-subscription.yaml
+  - openshift-container-storage-operator-operatorgroup.yaml
