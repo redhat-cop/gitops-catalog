@@ -1,25 +1,41 @@
-# Tools
+# Catalog Contents
 
 Kustomize bases for various applications, tools and operators including:
-* Jenkins
-* Nexus
-* [SonarQube 8.2 Community](docs/sonarqube.md)
-* Builds (skopeo Jenkins agent, Selenium Hub and agents)
-* Operators (jaeger, cso, pipelines, etc)
+* APIcast
+* Compliance Operator
+* Container Security Operator
+* Cost Management Operator
+* ElasticSearch Operator
+* Grafana Operator
+* InstallPlan Approver Job
+* Jaeger Operator
+* Jenkins 2
+* Let's Encrypt Certificate Job
+* Migration Toolklit for Applications
+* Namespace Configuration Operator
+* Nexus 2
+* OAuth Example
+* OpenShift Pipelines Operator
+* Red Hat SSO
+* Sealed Secrets Operator
+* Selenium
+* SonarQube 8 Community
+* Virtualization Operator
+* Web Terminal Operator
 
-## Setup
+## Usage
 
-If you want to apply the base as is, you can simply clone the repo and run kustomize to add it to the current project/namespace:
+Each catalog item has (or will have) its own README in its directory root with instructions.  Generally speaking, you can usually just apply a "base" or "overlay" directly in your cluster by cloning this repostitory and using the `-k` flag (for Kustomize) built into `oc` and `kubectl`:
 
 ```
-git clone https://github.com/redhat-canada-gitops/10-devtools
-oc apply -k nexus2/base
+git clone https://github.com/redhat-canada-gitops
+oc apply -k catalog/jenkins2/overlays/default
 ```
 
 Or to skip the cloning step:
 
 ```
-oc apply -k https://github.com/redhat-canada-gitops/10-devtools/nexus2/baseservice/nexus
+oc apply -k https://github.com/redhat-canada-gitops/catalog/jenkins2/overlays/default
 ```
 
 ## Kustomize
@@ -33,7 +49,7 @@ kind: Kustomization
 namespace: product-catalog-cicd
 
 resources:
-- github.com/redhat-canada-gitops/10-devtools//nexus/bases/?ref=master
+- github.com/redhat-canada-gitops/catalog/jenkins2/bases/?ref=master
 ```
 
 This enables you to patch these resources for your specific environments. Note that none of these bases specify a namespace, in your kustomization
