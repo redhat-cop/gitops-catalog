@@ -1,5 +1,7 @@
 # Red Hat Migration Toolkit for Applictions
 
+**DEPRECATED:** This needs to be updated to use the MTA Operator instead.
+
 This deploys an instance of Red Hat MTA with default settings in the namespace `app-migration`.
 
 ## Deploying
