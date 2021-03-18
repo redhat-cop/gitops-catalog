@@ -1,7 +1,7 @@
 kind: Task
 apiVersion: tekton.dev/v1beta1
 metadata:
-  name: oc-rollout-restart
+  name: rollout-restart
 spec:
   description: Call rollout restart on a Deployment, then status to follow progress.
   params:
