@@ -1,0 +1,4 @@
+# Small storage value for demo clusters.
+- op: replace
+  path: /spec/pvPool/resources/requests/storage
+  value: 10Gi

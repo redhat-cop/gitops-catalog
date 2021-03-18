@@ -1,0 +1,16 @@
+apiVersion: noobaa.io/v1alpha1
+kind: BackingStore
+metadata:
+  finalizers:
+  - noobaa.io/finalizer
+  labels:
+    app: noobaa
+  name: mcg-pv-pool-bs
+spec:
+  pvPool:
+    numVolumes: 3 
+    resources:
+      requests:
+        storage: 50Gi 
+#    storageClass: gp2 
+  type: pv-pool

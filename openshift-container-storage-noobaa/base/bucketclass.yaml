@@ -1,0 +1,12 @@
+apiVersion: noobaa.io/v1alpha1
+kind: BucketClass
+metadata:
+  labels:
+    app: noobaa
+  name: noobaa-bucket
+spec:
+  placementPolicy:
+    tiers:
+    - backingStores:
+      - mcg-pv-pool-bs
+      placement: Spread

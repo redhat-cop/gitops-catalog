@@ -12,7 +12,7 @@ The current *overlays* available are for the following channels:
 If you have cloned the `catalog` repository, you can install the OpenShift Container Storage operator based on the overlay of your choice by running from the root `catalog` directory
 
 ```
-oc apply -k openshift-pipelines-operator/overlays/<channel>
+oc apply -k openshift-container-storage-operator/overlays/<channel>
 ```
 
 Or, without cloning:

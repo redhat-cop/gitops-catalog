@@ -1,3 +1,3 @@
-Installs the *OpenShift 4.6* channel version of the Pipeline Operator
+Installs the *stable-46* channel version of the OpenShift Container Storage Operator
 
-**Version: 1.2.3**
+**Version: 4.6.3**

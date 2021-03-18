@@ -1,0 +1,13 @@
+apiVersion: noobaa.io/v1alpha1
+kind: NooBaa
+metadata:
+  name: noobaa
+spec:
+ dbResources:
+   requests:
+     cpu: 1 
+     memory: 1Gi
+ coreResources:
+   requests:
+     cpu: 1
+     memory: 1Gi
