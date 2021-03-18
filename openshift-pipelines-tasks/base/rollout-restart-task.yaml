@@ -1,0 +1,17 @@
+kind: Task
+apiVersion: tekton.dev/v1beta1
+metadata:
+  name: oc-rollout-restart
+spec:
+  description: Call rollout restart on a Deployment, then status to follow progress.
+  params:
+    - name: APP_NAME
+      type: string
+    - name: NAMESPACE
+      type: string
+  steps:
+    - name: run-commands
+      image: quay.io/openshift/origin-cli:latest
+      script: |
+        oc rollout restart deployment $(params.APP_NAME) -n $(params.NAMESPACE)
+        oc rollout status deployment $(params.APP_NAME) -n $(params.NAMESPACE)

@@ -17,4 +17,4 @@ These tasks are being used in at least two separate demos, proving at least a sm
 This is the list of `Task`s that are a work in progress.  They are used in at least 1 demo currently.
 
 * **Maven:** Based on the existing maven *ClusterTask*, but exteneded to reference a `Secret` that can hold *maven repository configuration* details, such as Nexus username and password, maven repo URL, etc...
-* **Rollout Restart:** This takes the name and namespace of a `Deployment` as parameters and calls `oc rollout restart deployment <deployment name> -n <namespace>`
+* **Rollout Restart:** This takes the name and namespace of a `Deployment` as parameters and calls `oc rollout restart deployment <deployment name> -n <namespace>`, then calls `status` to follow deployment progress.
