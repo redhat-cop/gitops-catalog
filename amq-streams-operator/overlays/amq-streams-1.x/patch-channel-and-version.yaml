@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: amq-streams-1.x
+- op: replace
+  path: /spec/startingCSV
+  value: amqstreams.v1.6.2
