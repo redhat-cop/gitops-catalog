@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: stable-46
+- op: replace
+  path: /spec/startingCSV
+  value: ocs-operator.v4.6.3
