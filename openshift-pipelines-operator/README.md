@@ -20,7 +20,7 @@ oc apply -k openshift-pipelines-operator/overlays/<channel>
 Or, without cloning:
 
 ```
-oc apply -k oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-pipelines-operator/overlays/<channel>
+oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-pipelines-operator/overlays/<channel>
 ```
 
 As part of a different overlay in your own GitOps repo:
