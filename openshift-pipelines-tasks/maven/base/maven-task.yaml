@@ -22,6 +22,10 @@ spec:
       type: string
       description: name of the secret holding the maven repo credentials and config.
       default: maven-repo-config
+    - name: ARGUMENTS
+      description: Maven arguments, typically -D switches like -DskipTests
+      type: string
+      default: ""
     - default: ''
       description: The username for the proxy server
       name: PROXY_USER
@@ -116,6 +120,7 @@ spec:
         - '-s'
         - $(workspaces.maven-settings.path)/settings.xml
         - $(params.GOALS)
+        - $(params.ARGUMENTS)
       command:
         - /usr/bin/mvn
       image: $(params.MAVEN_IMAGE)
