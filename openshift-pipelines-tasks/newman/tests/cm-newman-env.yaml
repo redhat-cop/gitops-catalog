@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: newman-env
+data:
+  newman-env.json: |-
+    {
+      "id": "106ad0b7-2293-413b-9135-341e5a3f3c31",
+      "name": "ttc",
+      "values": [
+        {
+          "key": "scheme",
+          "value": "https",
+          "enabled": true
+        },
+        {
+          "key": "host",
+          "value": "myttc.ca",
+          "enabled": true
+        }
+      ],
+      "_postman_variable_scope": "environment"
+    }

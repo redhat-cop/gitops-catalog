@@ -1,7 +1,7 @@
 kind: Task
 apiVersion: tekton.dev/v1beta1
 metadata:
-  name: binary-build
+  name: s2i-binary-build
 spec:
   workspaces:
     - name: build-workspace
