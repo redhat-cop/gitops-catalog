@@ -19,12 +19,8 @@ spec:
         - run
         - $(inputs.params.COLLECTION)
         - -e
-        - /config/$(inputs.params.ENVIRONMENT)
+        - /$(workspaces.newman-env.path)/$(inputs.params.ENVIRONMENT)
         - --bail
-      volumeMounts:
-        - name: newman-env
-          mountPath: /config
-  volumes:
+  workspaces:
     - name: newman-env
-      configMap:
-        name: newman-env
+      description: The newman environments to use for variables
