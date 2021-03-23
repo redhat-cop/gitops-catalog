@@ -5,7 +5,7 @@ metadata:
 spec:
   description: This Task can be used to run a Maven build.  Based on the maven ClusterTask.
   params:
-    - default: gcr.io/cloud-builders/mvn
+    - default: registry.access.redhat.com/ubi8/openjdk-11
       description: Maven base image
       name: MAVEN_IMAGE
       type: string
