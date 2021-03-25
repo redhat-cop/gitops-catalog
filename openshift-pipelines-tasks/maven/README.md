@@ -3,7 +3,7 @@
 This is a tekton maven task with some enhancements over the default cluster task including:
 
 - Uses a supported Red Hat image for maven instead of a maven image from the Google Container Registry
-- Includes an overlay to cache the M2 Repository in a PV for improvemed build times at the cost of storage
+- Includes an overlay to cache the M2 Repository in a PV for improved build times at the cost of storage
 
 ### M2 Repository Caching
 
