@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: '4.7'
+- op: replace
+  path: /spec/startingCSV
+  value: serverless-operator.v1.13.0
