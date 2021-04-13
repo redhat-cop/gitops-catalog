@@ -1,0 +1,18 @@
+- op: replace
+  path: /spec/volumes
+  value:
+    - name: m2-repository
+      persistentVolumeClaim:
+        claimName: m2-cache
+- op: replace
+  path: /spec/stepTemplate/volumeMounts
+  value:
+    - name: m2-repository
+      mountPath: $(params.M2_DIRECTORY)
+- op: add
+  path: /spec/params/-
+  value:
+    name: M2_DIRECTORY
+    type: string
+    description: Location of M2 directory, do not change
+    default: /home/jboss/.m2/

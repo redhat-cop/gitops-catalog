@@ -1,8 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: openshift-storage
-
 resources:
   - openshift-container-storage-operator-subscription.yaml
   - openshift-container-storage-operator-operatorgroup.yaml

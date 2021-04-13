@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: beta
+- op: replace
+  path: /spec/startingCSV
+  value: opendatahub-operator.v1.0.0

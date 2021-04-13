@@ -11,6 +11,6 @@ patchesJson6902:
     group: operators.coreos.com
     version: v1alpha1
     kind: Subscription
-    name: ocs-operator
+    name: openshift-gitops-operator
     namespace: openshift-operators
   path: patch-channel-and-version.yaml

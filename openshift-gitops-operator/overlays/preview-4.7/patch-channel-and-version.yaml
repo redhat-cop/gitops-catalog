@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: preview
+- op: replace
+  path: /spec/startingCSV
+  value: openshift-gitops-operator.v1.0.1
