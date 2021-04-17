@@ -3,4 +3,4 @@
   value: stable-4.6
 - op: replace
   path: /spec/startingCSV
-  value: ocs-operator.v4.6.3
+  value: ocs-operator.v4.6.4
