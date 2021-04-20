@@ -1,6 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: openshift-operators
+
 bases:
   - ../../base
 
@@ -10,5 +12,5 @@ patchesJson6902:
     version: v1alpha1
     kind: Subscription
     name: ocs-operator
-    namespace: openshift-storage
+    namespace: openshift-operators
   path: patch-channel-and-version.yaml
