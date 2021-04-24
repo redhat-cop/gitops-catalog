@@ -3,4 +3,4 @@
   value: stable
 - op: replace
   path: /spec/startingCSV
-  value: redhat-openshift-pipelines.v1.3.1
+  value: redhat-openshift-pipelines.v1.4.0
