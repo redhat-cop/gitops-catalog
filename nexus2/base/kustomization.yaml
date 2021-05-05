@@ -7,3 +7,4 @@ resources:
 - nexus-svc.yaml
 - nexus-route.yaml
 - nexus-dc.yaml
+- configure-nexus-job.yaml
