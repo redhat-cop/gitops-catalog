@@ -16,7 +16,7 @@ spec:
 
               echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
               sleep $SLEEP
-              for subscription in `oc get subscription -o jsonpath='{.items[0].metadata.name}'`
+              for subscription in `oc get subscriptions.operators.coreos.com -o jsonpath='{.items[0].metadata.name}'`
               do
                 echo "Processing subscription '$subscription'"
 
