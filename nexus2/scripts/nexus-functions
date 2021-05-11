@@ -129,7 +129,6 @@ function add_nexus2_redhat_repos() {
   add_nexus2_group_repo redhat-ga public $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
   add_nexus2_group_repo redhat-ea public $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
   add_nexus2_group_repo redhat-techpreview public $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
-  add_nexus2_group_repo nuget-gallery public $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
 
 }
 
