@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: sonarqube
-        image: sonarqube:8.9-community
+        image: sonarqube:8.2-community
         env:
         - name: SONARQUBE_JDBC_PASSWORD
           value: kHPdpIYtdtGXeStv
