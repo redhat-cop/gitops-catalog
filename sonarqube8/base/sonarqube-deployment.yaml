@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: sonarqube
-        image: sonarqube:8.2-community
+        image: sonarqube:8.9-community
         env:
         - name: SONARQUBE_JDBC_PASSWORD
           value: kHPdpIYtdtGXeStv
@@ -40,6 +40,10 @@ spec:
           value: jdbc:postgresql://postgresql-sonarqube/sonar
         - name: SONARQUBE_JDBC_USERNAME
           value: sonar
+        - name: SONAR_TELEMETRY_ENABLE
+          value: "false"
+        - name: SONAR_PLUGINS_RISK_CONSENT
+          value: ACCEPTED
         imagePullPolicy: Always
         ports:
         - containerPort: 9000
