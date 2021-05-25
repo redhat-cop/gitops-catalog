@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - nexus-pvc.yaml
-- nexus-is.yaml
 - nexus-svc.yaml
 - nexus-route.yaml
-- nexus-dc.yaml
+- nexus-deployment.yaml
+- configure-nexus-job.yaml

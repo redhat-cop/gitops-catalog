@@ -5,6 +5,7 @@ Installs the AMQ Streams operator into all namespaces.
 Current channel overlays include:
 * [amq-streams-1.x](overlays/1.x)
 * [amq-streams-1.6.x](overlays/1.6.x)
+* [amq-streams-1.7.x](overlays/1.7.x)
 * [stable](overlays/stable)
 
 ## Usage

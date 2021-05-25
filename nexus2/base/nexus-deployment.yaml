@@ -1,39 +1,32 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: nexus
   name: nexus
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 10
   selector:
-    deploymentconfig: nexus
+    matchLabels:
+      app: nexus
   strategy:
-    activeDeadlineSeconds: 21600
-    recreateParams:
-      post:
-        execNewPod:
-          command:
-          - /bin/bash
-          - -c
-          - curl -o /tmp/nexus-functions -s https://raw.githubusercontent.com/OpenShiftDemos/nexus/master/scripts/nexus-functions;
-            source /tmp/nexus-functions; add_nexus2_redhat_repos admin admin123 http://nexus:8081
-          containerName: nexus
-        failurePolicy: Abort
-      timeoutSeconds: 600
-    resources: {}
-    type: Recreate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
+        app: nexus
         deploymentconfig: nexus
     spec:
       containers:
       - env:
         - name: CONTEXT_PATH
           value: /
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         livenessProbe:
           exec:
             command:
@@ -45,6 +38,7 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         name: nexus
+        image: docker.io/sonatype/nexus:2.14.20
         ports:
         - containerPort: 8081
           protocol: TCP
@@ -79,14 +73,3 @@ spec:
       - name: nexus-data
         persistentVolumeClaim:
           claimName: nexus
-  test: false
-  triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - nexus
-      from:
-        kind: ImageStreamTag
-        name: nexus:2.14.18
-    type: ImageChange

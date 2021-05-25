@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: configure-sonarqube
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.access.redhat.com/ubi8/ubi:8.3
+          command:
+            - /bin/bash
+            - -c
+            - |
+              curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/catalog/master/sonarqube8/scripts/sonarqube-plugins;
+              chmod +x /tmp/sonarqube-plugins;
+              /tmp/sonarqube-plugins
+          imagePullPolicy: Always
+          name: configure-sonarqube
+          env:
+          - name: SONARQUBE_PLUGINS
+            value: "java,javascript,dependencycheck,jacoco,pmd,scmgit"
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30

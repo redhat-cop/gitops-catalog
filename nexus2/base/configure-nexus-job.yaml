@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: configure-nexus
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.access.redhat.com/ubi8/ubi:8.3
+          command:
+            - /bin/bash
+            - -c
+            - |
+              echo "Waiting for Nexus to come online..."
+
+              bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' nexus:8081)" != "200" ]]; do sleep 5; done'
+
+              echo "Nexus is up!  Configure repository proxies."
+
+              curl -o /tmp/nexus-functions -s https://raw.githubusercontent.com/redhat-canada-gitops/catalog/master/nexus2/scripts/nexus-functions;
+
+              source /tmp/nexus-functions; add_nexus2_redhat_repos admin admin123 http://nexus:8081
+          imagePullPolicy: Always
+          name: configure-nexus
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30

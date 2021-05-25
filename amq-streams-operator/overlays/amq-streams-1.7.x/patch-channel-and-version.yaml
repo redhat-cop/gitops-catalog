@@ -1,6 +1,6 @@
 - op: replace
   path: /spec/channel
-  value: stable
+  value: amq-streams-1.7.x
 - op: replace
   path: /spec/startingCSV
-  value: redhat-openshift-pipelines.v1.4.1
+  value: amqstreams.v1.7.0

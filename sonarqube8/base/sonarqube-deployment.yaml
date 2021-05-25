@@ -1,9 +1,9 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: sonarqube
-    app.kubernetes.io/component: sonarqube-dc
+    app.kubernetes.io/component: sonarqube
     app.kubernetes.io/instance: sonarqube
     app.kubernetes.io/part-of: sonarqube
     deploymentconfig: sonarqube
@@ -11,35 +11,40 @@ metadata:
     app.openshift.io/connects-to: database
   name: sonarqube
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 10
   selector:
-    app: sonarqube
-    deploymentconfig: sonarqube
+    matchLabels:
+      app: sonarqube
+      deploymentconfig: sonarqube
   strategy:
-    activeDeadlineSeconds: 21600
-    recreateParams:
-      timeoutSeconds: 600
-    resources: {}
-    type: Recreate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: sonarqube
         deploymentconfig: sonarqube
         tuned.openshift.io/elasticsearch: ''
     spec:
       containers:
-      - env:
+      - name: sonarqube
+        image: sonarqube:8.2-community
+        env:
         - name: SONARQUBE_JDBC_PASSWORD
           value: kHPdpIYtdtGXeStv
         - name: SONARQUBE_JDBC_URL
           value: jdbc:postgresql://postgresql-sonarqube/sonar
         - name: SONARQUBE_JDBC_USERNAME
           value: sonar
-        imagePullPolicy: IfNotPresent
-        name: sonarqube
+        - name: SONAR_TELEMETRY_ENABLE
+          value: "false"
+        - name: SONAR_PLUGINS_RISK_CONSENT
+          value: ACCEPTED
+        imagePullPolicy: Always
         ports:
         - containerPort: 9000
           protocol: TCP
@@ -87,14 +92,3 @@ spec:
           claimName: sonarqube-data
       - name: sonarqube-temp
         emptyDir: {}
-  test: false
-  triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - sonarqube
-      from:
-        kind: ImageStreamTag
-        name: sonarqube:8.2-community
-    type: ImageChange

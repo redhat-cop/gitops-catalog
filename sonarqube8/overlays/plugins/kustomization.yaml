@@ -2,12 +2,9 @@
 # Point to this directory in the "bases" field.
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 bases:
 - ../../base
-patchesJson6902:
-- target:
-    group: apps.openshift.io
-    version: v1
-    kind: DeploymentConfig
-    name: sonarqube
-  path: plugins-patches.yaml
+
+resources:
+  - configure-sonarqube-job.yaml
