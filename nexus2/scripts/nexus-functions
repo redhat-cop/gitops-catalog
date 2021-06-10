@@ -51,6 +51,45 @@ EOM
 
 }
 
+function add_nexus2_nuget_repo() {
+  local _REPO_ID=$1
+  local _REPO_URL=$2
+  local _NEXUS_USER=$3
+  local _NEXUS_PWD=$4
+  local _NEXUS_URL=$5
+
+  read -r -d '' _REPO_JSON << EOM
+{
+    "data": {
+        "repoType": "proxy",
+        "id": "$_REPO_ID",
+        "name": "$_REPO_ID",
+        "browseable": true,
+        "indexable": true,
+        "notFoundCacheTTL": 1440,
+        "artifactMaxAge": -1,
+        "metadataMaxAge": 1440,
+        "itemMaxAge": 1440,
+        "repoPolicy": "RELEASE",
+        "provider": "nuget-proxy",
+        "providerRole": "org.sonatype.nexus.proxy.repository.Repository",
+        "downloadRemoteIndexes": false,
+        "autoBlockActive": true,
+        "fileTypeValidation": true,
+        "exposed": true,
+        "checksumPolicy": "WARN",
+        "remoteStorage": {
+            "remoteStorageUrl": "$_REPO_URL",
+            "authentication": null,
+            "connectionSettings": null
+        }
+    }
+}
+EOM
+
+  curl -v -f -X POST -H "Accept: application/json" -H "Content-Type: application/json" -d "$_REPO_JSON" -u "$_NEXUS_USER:$_NEXUS_PWD" "$_NEXUS_URL/service/local/repositories"
+
+}
 
 #
 # add_nexus2_group_repo [repo-id] [group-id] [nexus-username] [nexus-password] [nexus-url]
@@ -80,6 +119,7 @@ function add_nexus2_redhat_repos() {
   add_nexus2_repo redhat-ea https://maven.repository.redhat.com/earlyaccess/all/ $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
   add_nexus2_repo redhat-techpreview https://maven.repository.redhat.com/techpreview/all $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
   add_nexus2_repo jboss-ce https://repository.jboss.org/nexus/content/groups/public/ $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
+  add_nexus2_nuget_repo nuget-gallery https://www.nuget.org/api/v2/ $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
 
   add_nexus2_group_repo jboss-ce public $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
   add_nexus2_group_repo redhat-ga public $_NEXUS_USER $_NEXUS_PWD $_NEXUS_URL
