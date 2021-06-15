@@ -1,0 +1,30 @@
+name: Kustomize Check
+
+# Controls when the action will run. 
+on: 
+  push: {}
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint-kustomize:
+    runs-on: ubuntu-latest
+    container:
+      # Use the same version of kustomize available with Argo
+      image: zillownyc/kustomize:3.5.4
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Validate all kustomization.yaml files
+        run: |
+          #!/bin/bash
+          set -e
+          find -type f -name "kustomization.yaml" | while read file
+          do
+              dir=$(dirname "$file")
+              echo "Testing ${dir}"
+              kustomize build "${dir}"
+              echo ""
+          done
