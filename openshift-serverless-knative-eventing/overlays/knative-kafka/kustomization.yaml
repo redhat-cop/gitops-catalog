@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: knative-eventing
 
 resources:
-  - knative-kafka-instance.yaml
+  - knative-kafka.yaml
 
 bases:
   - ../../base
