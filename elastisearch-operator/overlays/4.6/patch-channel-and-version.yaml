@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: '4.6'
+- op: replace
+  path: /spec/startingCSV
+  value: elasticsearch-operator.4.6.0-202103010126.p0
