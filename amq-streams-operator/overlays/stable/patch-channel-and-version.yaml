@@ -3,4 +3,4 @@
   value: stable
 - op: replace
   path: /spec/startingCSV
-  value: amqstreams.v1.6.2
+  value: amqstreams.v1.7.2
