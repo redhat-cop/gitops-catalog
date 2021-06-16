@@ -10,4 +10,5 @@ patchesJson6902:
       group: koku-metrics-cfg.openshift.io
       kind: KokuMetricsConfig
       name: instance
+      namespace: koku-metrics-operator
       version: v1beta1
