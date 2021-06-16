@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: 'tech-preview'
+- op: replace
+  path: /spec/startingCSV
+  value: jaeger-operator.v2.0.0-tp.1
