@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: 'stable'
+- op: replace
+  path: /spec/startingCSV
+  value: elasticsearch-operator.5.0.5-11
