@@ -4,9 +4,6 @@ kind: Kustomization
 bases:
   - ../../base
 
-resources:
-  - knative-kafka-instance.yaml
-
 patchesJson6902:
 - target:
     group: operators.coreos.com
