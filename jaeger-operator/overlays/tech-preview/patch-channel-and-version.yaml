@@ -1,6 +1,6 @@
 - op: replace
   path: /spec/channel
-  value: stable
+  value: 'tech-preview'
 - op: replace
   path: /spec/startingCSV
-  value: amqstreams.v1.7.2
+  value: jaeger-operator.v2.0.0-tp.1

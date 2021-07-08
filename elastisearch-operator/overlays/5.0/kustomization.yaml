@@ -9,6 +9,6 @@ patchesJson6902:
     group: operators.coreos.com
     version: v1alpha1
     kind: Subscription
-    name: serverless-operator
-    namespace: openshift-operators
+    name: elasticsearch-operator
+    namespace: openshift-operators-redhat
   path: patch-channel-and-version.yaml

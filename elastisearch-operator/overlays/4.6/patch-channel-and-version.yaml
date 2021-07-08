@@ -1,6 +1,6 @@
 - op: replace
   path: /spec/channel
-  value: stable
+  value: '4.6'
 - op: replace
   path: /spec/startingCSV
-  value: amqstreams.v1.7.2
+  value: elasticsearch-operator.4.6.0-202103010126.p0
