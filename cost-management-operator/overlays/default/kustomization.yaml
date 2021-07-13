@@ -1,12 +1,12 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-namespace: koku-metrics-operator
+namespace: costmanagement-metrics-operator
 
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-resources: 
+resources:
  - namespace.yaml
  - operator-group.yaml
  - ../../base/operator

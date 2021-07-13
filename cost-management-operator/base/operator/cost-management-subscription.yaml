@@ -1,0 +1,13 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/costmanagement-metrics-operator.costmanagement-metrics-operator: ''
+  name: costmanagement-metrics-operator
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: costmanagement-metrics-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: costmanagement-metrics-operator.1.0.0
