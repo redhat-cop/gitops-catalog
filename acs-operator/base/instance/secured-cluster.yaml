@@ -1,0 +1,17 @@
+apiVersion: platform.stackrox.io/v1alpha1
+kind: SecuredCluster
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+  name: secured-cluster
+spec:
+  clusterName: local.home
+  admissionControl:
+    listenOnCreates: false
+    listenOnEvents: true
+    listenOnUpdates: false
+  perNode:
+    collector:
+      collection: KernelModule
+      imageFlavor: Regular
+    taintToleration: TolerateTaints

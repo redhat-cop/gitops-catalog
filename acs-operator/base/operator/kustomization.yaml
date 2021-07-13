@@ -1,0 +1,4 @@
+namespace: openshift-operators
+
+resources:
+- subscription.yaml

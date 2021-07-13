@@ -1,0 +1,6 @@
+namespace: stackrox
+
+resources:
+- namespace.yaml
+- central.yaml
+- secured-cluster.yaml
