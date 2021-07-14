@@ -17,6 +17,7 @@ spec:
               #!/usr/bin/env bash
               if kubectl get secret/sensor-tls &> /dev/null; then
                 echo "cluster-init bundle has already been configured, doing nothing"
+                exit 0
               else
 
                 # Wait for central to be ready
@@ -46,6 +47,8 @@ spec:
                 echo "Applying bundle"
                 # No jq in container, python to the rescue
                 cat /tmp/bundle.json | python3 -c "import sys, json; print(json.load(sys.stdin)['kubectlBundle'])" | base64 -d | oc apply -f -
+                # Touch SecuredCluster to force operator to reconcile
+                oc label SecuredCluster cluster-init-job-status=created
 
                 echo "ACS Cluster init bundle generated and applied"
               fi

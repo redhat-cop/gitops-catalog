@@ -6,7 +6,6 @@ metadata:
   labels:
     operators.coreos.com/rhacs-operator.openshift-operators: ''
   name: rhacs-operator
-  namespace: openshift-operators
 spec:
   channel: latest
   installPlanApproval: Automatic
