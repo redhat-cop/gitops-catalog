@@ -3,9 +3,9 @@ kind: SecuredCluster
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "5"
-  name: secured-cluster
+  name: local-cluster
 spec:
-  clusterName: local.home
+  clusterName: local-cluster
   admissionControl:
     listenOnCreates: false
     listenOnEvents: true

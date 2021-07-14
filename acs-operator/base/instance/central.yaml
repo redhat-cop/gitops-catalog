@@ -39,12 +39,4 @@ spec:
         maxReplicas: 5
         minReplicas: 2
         replicas: 2
-    db:
-      resources:
-        limits:
-          cpu: '1'
-          memory: '1'
-        requests:
-          cpu: '1'
-          memory: '1'
     scannerComponent: Enabled
