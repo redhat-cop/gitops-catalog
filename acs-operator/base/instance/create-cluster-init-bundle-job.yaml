@@ -1,0 +1,39 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  name: create-cluster-init-bundle
+spec:
+  template:
+    spec:
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+          env:
+            - name: CLUSTER_NAME
+              value: 'local-cluster'
+          envFrom:
+            - secretRef:
+                name: cloud-dns-credentials
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+              if kubectl get secret/sensor-tls &> /dev/null; then
+                echo "cluster-init bundle has already been configured, doing nothing"
+              else
+                echo "Configuring cluster-init bundle"
+                PASSWORD=$(oc get secret central-htpasswd --output jsonpath='{.data.password}' | base64 -d)
+                export DATA={\"name\":\"${CLUSTER_NAME}\"}
+                curl -k -o secret.yaml -X POST -u "admin:$PASSWORD" -H "Content-Type: application/json" --data '$DATA' https://central.svc.cluster.local/v1/cluster-init/init-bundles
+                jq -r .kubectlBundle bundle.json | base64 -d | oc apply -f -
+
+                echo "ACS Cluster init bundle generated and applied"
+              fi
+          imagePullPolicy: Always
+          name: create-cluster-init-bundle
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
