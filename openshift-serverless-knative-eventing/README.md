@@ -6,7 +6,7 @@ Installs the Knative Eventing component of OpenShift Serverless.
 
 First, install the [OpenShift Serverless Operator](../openshift-serverless-operator) in your cluster.
 
-Do not use the `base` directory directly, as you will need to patch the `chanel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
+Do not use the `base` directory directly, as you will need to patch the `channel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are:
 * [default](overlays/default)
