@@ -4,10 +4,6 @@ kind: Kustomization
 commonAnnotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-namespace: stackrox
-
 resources:
-- namespace.yaml
-- operator-group.yaml
 - ../../base/operator
 - ../../base/instance

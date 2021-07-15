@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: stackrox
 
 resources:
+- namespace.yaml
 - create-cluster-init-bundle-sa.yaml
 - central.yaml
 - create-cluster-init-bundle-job.yaml
