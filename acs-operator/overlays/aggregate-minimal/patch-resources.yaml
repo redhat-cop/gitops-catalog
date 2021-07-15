@@ -1,0 +1,23 @@
+- op: add
+  path: /spec/central/resources
+  value:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+- op: add
+  path: /spec/scanner/analyzer/resources
+  value:
+    limits:
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 500Mi
+- op: replace
+  path: /spec/scanner/analyzer/scaling/autoScaling
+  value: Disabled
+- op: replace
+  path: /spec/scanner/analyzer/scaling/replicas
+  value: 2
+
