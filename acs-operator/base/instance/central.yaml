@@ -18,24 +18,12 @@ spec:
     persistence:
       persistentVolumeClaim:
         claimName: stackrox-db
-    resources:
-      limits:
-        memory: 2Gi
-      requests:
-        cpu: 500m
-        memory: 512Mi
   egress:
     connectivityPolicy: Online
   scanner:
     analyzer:
-      resources:
-        limits:
-          memory: 1Gi
-        requests:
-          cpu: 250m
-          memory: 500Mi
       scaling:
-        autoScaling: Disabled
+        autoScaling: Enabled
         maxReplicas: 5
         minReplicas: 2
         replicas: 2
