@@ -2,7 +2,7 @@
 
 Installs the OpenShift Pipelines (Tekton) operator.
 
-Do not use the `base` directory directly, as you will need to patch the `chanel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
+Do not use the `base` directory directly, as you will need to patch the `channel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
 * [ocp-46](overlays/ocp-46)
