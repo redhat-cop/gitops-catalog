@@ -1,5 +1,5 @@
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   annotations: {}
@@ -11,15 +11,15 @@ metadata:
   name: sealed-secrets-key-anyuid
 rules:
 - apiGroups:
-  - security.openshift.io 
+  - security.openshift.io
   resourceNames:
-  - anyuid 
+  - anyuid
   resources:
-  - securitycontextconstraints 
-  verbs: 
+  - securitycontextconstraints
+  verbs:
   - use
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   annotations: {}
