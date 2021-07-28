@@ -1,6 +1,6 @@
 #!/bin/bash
-echo "Getting public key from Sealed Secrets secret and copying it to ~/bitnami"
-echo "Create dir for Sealed Secrets public key. (~/bitnami)."
+echo "Getting public key from Sealed Secrets secret and copying it to ~/.bitnami"
+echo "Create dir for Sealed Secrets public key. (~/.bitnami)."
 mkdir -p ~/.bitnami
 echo "Backup secret itself"
 oc get $(oc get secret -n sealed-secrets -l sealedsecrets.bitnami.com/sealed-secrets-key=active -o name) -n sealed-secrets -o yaml >  ~/.bitnami/sealed-secrets-secret.yaml

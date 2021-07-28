@@ -1,0 +1,30 @@
+# Note this is resource reduced, this should not be taken as a production ready installation
+apiVersion: platform.stackrox.io/v1alpha1
+kind: Central
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: central
+spec:
+  central:
+    exposure:
+      loadBalancer:
+        enabled: false
+        port: 443
+      nodePort:
+        enabled: false
+      route:
+        enabled: true
+    persistence:
+      persistentVolumeClaim:
+        claimName: stackrox-db
+  egress:
+    connectivityPolicy: Online
+  scanner:
+    analyzer:
+      scaling:
+        autoScaling: Enabled
+        maxReplicas: 5
+        minReplicas: 2
+        replicas: 2
+    scannerComponent: Enabled
