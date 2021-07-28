@@ -22,6 +22,6 @@ spec:
       enabled: true
     prometheus:
       enabled: true
-  version: patch-me-see-overlays-dir
+  version: v2.0
   telemetry:
     type: Istiod
