@@ -10,6 +10,12 @@ spec:
     spec:
       containers:
         - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+          env:
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: central-htpasswd
+                key: password
           command:
             - /bin/bash
             - -c
@@ -37,7 +43,6 @@ spec:
                 done
 
                 echo "Configuring cluster-init bundle"
-                PASSWORD=$(oc get secret central-htpasswd --output jsonpath='{.data.password}' | base64 -d)
                 export DATA={\"name\":\"local-cluster\"}
                 curl -k -o /tmp/bundle.json -X POST -u "admin:$PASSWORD" -H "Content-Type: application/json" --data $DATA https://central/v1/cluster-init/init-bundles
 
