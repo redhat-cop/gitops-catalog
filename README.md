@@ -1,27 +1,8 @@
-# Catalog Contents
+# GitOps Catalog
 
-Kustomize bases for various applications, tools and operators including:
-* APIcast
-* Compliance Operator
-* Container Security Operator
-* Cost Management Operator
-* ElasticSearch Operator
-* Grafana Operator
-* InstallPlan Approver Job
-* Jaeger Operator
-* Jenkins 2
-* Let's Encrypt Certificate Job
-* Migration Toolklit for Applications
-* Namespace Configuration Operator
-* Nexus 2
-* OAuth Example
-* OpenShift Pipelines Operator
-* Red Hat SSO
-* Sealed Secrets Operator
-* Selenium
-* SonarQube 8 Community
-* Virtualization Operator
-* Web Terminal Operator
+The GitOps Catalog includes kustomize bases and overlays for a number of OpenShift operators and applications.
+
+This catalog is not officially supported by Red Hat and customers are discouraged from referencing this repo directly as a remote repo in kustomize as future changes may break these references. Instead customers are encouraged to take individual items of interest into their own curated catalog and maintain it as their own.
 
 ## Usage
 
