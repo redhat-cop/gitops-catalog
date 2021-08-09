@@ -10,4 +10,3 @@ spec:
   name: costmanagement-metrics-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: costmanagement-metrics-operator.1.0.0

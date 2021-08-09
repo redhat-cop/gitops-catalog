@@ -5,8 +5,6 @@ Installs the OpenShift Jaeger operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [1.17-stable](overlays/1.17-stable)
-* [1.20-stable](overlays/1.20-stable)
 * [stable](overlays/stable)
 * [tech-preview](overlays/tech-preview)
 

@@ -1,3 +1,1 @@
-Installs the *stable* channel version of the OpenShift Jaeger Operator
-
-**Version: 1.20.3**
+Installs the *stable* channel version of the OpenShift Jaeger Operator with the latest version

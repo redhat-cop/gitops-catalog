@@ -1,6 +1,0 @@
-- op: replace
-  path: /spec/channel
-  value: ocp-46
-- op: replace
-  path: /spec/startingCSV
-  value: redhat-openshift-pipelines-operator.v1.2.3

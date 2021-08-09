@@ -5,9 +5,8 @@ metadata:
     operators.coreos.com/amq-streams.openshift-operators: ""
   name: amq-streams
 spec:
-  channel: patch-me-see-overlays-dir
+  channel: stable
   installPlanApproval: Automatic
   name: amq-streams
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: patch-me-see-overlays-dir

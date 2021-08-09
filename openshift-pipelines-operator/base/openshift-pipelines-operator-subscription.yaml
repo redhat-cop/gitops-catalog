@@ -9,4 +9,3 @@ spec:
   name: openshift-pipelines-operator-rh
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: patch-me-see-overlays-dir
