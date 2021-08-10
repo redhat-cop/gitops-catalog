@@ -9,4 +9,3 @@ spec:
   name: opendatahub-operator
   source: community-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: patch-me-see-overlays-dir

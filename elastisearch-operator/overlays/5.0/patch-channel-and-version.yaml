@@ -1,6 +1,3 @@
 - op: replace
   path: /spec/channel
   value: '5.0'
-- op: replace
-  path: /spec/startingCSV
-  value: elasticsearch-operator.5.0.5-11

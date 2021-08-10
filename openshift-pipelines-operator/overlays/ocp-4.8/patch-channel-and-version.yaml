@@ -1,6 +1,0 @@
-- op: replace
-  path: /spec/channel
-  value: stable
-- op: replace
-  path: /spec/startingCSV
-  value: redhat-openshift-pipelines.v1.5.0

@@ -1,6 +1,0 @@
-- op: replace
-  path: /spec/channel
-  value: '1.20-stable'
-- op: replace
-  path: /spec/startingCSV
-  value: jaeger-operator.v1.20.3

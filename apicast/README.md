@@ -1,0 +1,1 @@
+This deploys prod/stage 3scale apicast gateways directly without using the operator. In general customers should prefer the operator based approach versus this however this can be handy to quickly deploy a gateway on clusters where you do not have sufficient privileges to use the operator.

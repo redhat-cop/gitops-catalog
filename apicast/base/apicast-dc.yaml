@@ -57,7 +57,7 @@ spec:
           value: status
         - name: OPENSSL_VERIFY
           value: "false"
-        image: registry.redhat.io/3scale-amp2/apicast-gateway-rhel8:3scale2.9
+        image: registry.redhat.io/3scale-amp2/apicast-gateway-rhel8:3scale2.10
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
