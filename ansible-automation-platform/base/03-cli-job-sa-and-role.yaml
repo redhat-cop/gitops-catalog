@@ -1,0 +1,19 @@
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ansible-job-sa-cluster-admin
+roleRef: # hack for job ansible to run... FIXME
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: ansible-cli-job-sa
+    namespace: openshift-ansible
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ansible-cli-job-sa
+  namespace: openshift-ansible
