@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       # Use the same version of kustomize available with Argo
-      image: zillownyc/kustomize:3.5.4
+      image: nekottyo/kustomize-kubeval:kustomizev4
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
