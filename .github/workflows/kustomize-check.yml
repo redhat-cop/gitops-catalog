@@ -20,6 +20,10 @@ jobs:
         run: |
           #!/bin/bash
           set -e
+
+          echo "Kustomize Version:"
+          kustomize version
+
           find -type f -name "kustomization.yaml" | while read file
           do
               dir=$(dirname "$file")
