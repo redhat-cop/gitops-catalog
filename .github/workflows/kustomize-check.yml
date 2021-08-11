@@ -25,7 +25,7 @@ jobs:
           kustomize version
           echo ""
 
-          find -type f -name "kustomization.yaml" | while read file
+          find -type f -iname "kustomization.y*ml" | while read file
           do
               dir=$(dirname "$file")
               echo "Testing ${dir}"
