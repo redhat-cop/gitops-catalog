@@ -19,7 +19,7 @@ The current *overlays* available are:
 
 ## Usage
 
-If you have cloned the `catalog` repository, you can install Noobaa by running from the root `catalog` directory
+If you have cloned the `gitops-catalog` repository, you can install Noobaa by running from the root `gitops-catalog` directory
 
 ```
 oc apply -k openshift-container-storage-noobaa/overlays/default
@@ -28,7 +28,7 @@ oc apply -k openshift-container-storage-noobaa/overlays/default
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-container-storage-noobaa/overlays/default
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-container-storage-noobaa/overlays/default
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -38,5 +38,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
-  - github.com/redhat-canada-gitops/catalog/openshift-container-storage-noobaa/overlays/default?ref=master
+  - github.com/redhat-cop/gitops-catalog/openshift-container-storage-noobaa/overlays/default?ref=main
 ```

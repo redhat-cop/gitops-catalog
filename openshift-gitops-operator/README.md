@@ -11,7 +11,7 @@ The current *overlays* available are for the following channels:
 
 ## Usage
 
-If you have cloned the `catalog` repository, you can install the OpenShift GitOps operator based on the overlay of your choice by running from the root `catalog` directory
+If you have cloned the `gitops-catalog` repository, you can install the OpenShift GitOps operator based on the overlay of your choice by running from the root `gitops-catalog` directory
 
 ```
 oc apply -k openshift-gitops-operator/overlays/<channel>
@@ -20,5 +20,5 @@ oc apply -k openshift-gitops-operator/overlays/<channel>
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-gitops-operator/overlays/<channel>
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/<channel>
 ```
