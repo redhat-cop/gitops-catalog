@@ -1,14 +1,12 @@
 # Bitnami Sealed Secrets
 
-**Version: 0.12.5**
+**Version: 0.16.0**
 
 ## Project Reference
 
 GitHub: [Bitnami Labs - Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets)
 
 ## Usage
-
-The main `sealed-secrets-controller` Service Account requires `anyuid` when running in an OpenShift cluster.  A `Role` and `RoleBinding` are provided in the `default` overlay.
 
 No `namespace` is provided in this repository, so you are free to choose whatever namespace you like.  For example, in your own repository, you might have the following `namespace.yaml` and `kustomization.yaml` to deploy the Sealed Secrets operator into a `sealed-secrets` namespace.
 
@@ -27,7 +25,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 
 # Remote base.  Use the configuration from the Red Hat Canada GitOps repo (unofficial).
 bases:
-  - github.com/redhat-canada-gitops/catalog/sealed-secrets-operator/overlays/default
+  - https://github.com/redhat-cop/gitops-catalog/catalog/sealed-secrets-operator/overlays/default
 
 resources:
   - namespace.yaml
