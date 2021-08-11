@@ -13,4 +13,4 @@ patchesJson6902:
     kind: Subscription
     name: openshift-gitops-operator
     namespace: openshift-operators
-  path: patch-channel-and-version.yaml
+  path: patch-channel.yaml
