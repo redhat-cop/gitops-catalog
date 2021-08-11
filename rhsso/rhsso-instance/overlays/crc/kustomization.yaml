@@ -2,8 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
+<<<<<<< HEAD
   - ../../base/sso
   - ../../base/openshift-authentication
+=======
+  - ../../base
+>>>>>>> f426413... fix base ref issue
 
 resources:
   - oauth-rhsso-openid.yaml
