@@ -22,4 +22,4 @@ Sample task usage:
 
 **Note:** the `--source` parameter in the example is just one way to use your own artifact repository for NuGet, provided it has been properly configured as a NuGet proxy.
 
-The [Nexus 2](https://github.com/redhat-canada-gitops/catalog/tree/master/nexus2/base) instance is configured by default (through a Job that runs after Nexus is running) as a NuGet proxy.
+The [Nexus 2](https://github.com/redhat-cop/gitops-catalog/tree/master/nexus2/base) instance is configured by default (through a Job that runs after Nexus is running) as a NuGet proxy.

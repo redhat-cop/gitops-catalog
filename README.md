@@ -9,14 +9,14 @@ This catalog is not officially supported by Red Hat and customers are discourage
 Each catalog item has (or will have) its own README in its directory root with instructions.  Generally speaking, you can usually just apply a "base" or "overlay" directly in your cluster by cloning this repostitory and using the `-k` flag (for Kustomize) built into `oc` and `kubectl`:
 
 ```
-git clone https://github.com/redhat-canada-gitops
+git clone https://github.com/redhat-cop/gitops-catalog
 oc apply -k catalog/jenkins2/overlays/default
 ```
 
 Or to skip the cloning step:
 
 ```
-oc apply -k https://github.com/redhat-canada-gitops/catalog/jenkins2/overlays/default
+oc apply -k https://github.com/redhat-cop/gitops-catalog/jenkins2/overlays/default
 ```
 
 ## Kustomize
@@ -30,7 +30,7 @@ kind: Kustomization
 namespace: product-catalog-cicd
 
 resources:
-- github.com/redhat-canada-gitops/catalog/jenkins2/bases/?ref=master
+- github.com/redhat-cop/gitops-catalog/jenkins2/bases/?ref=master
 ```
 
 This enables you to patch these resources for your specific environments. Note that none of these bases specify a namespace, in your kustomization
