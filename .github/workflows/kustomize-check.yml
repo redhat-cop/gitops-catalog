@@ -23,6 +23,7 @@ jobs:
 
           echo "Kustomize Version:"
           kustomize version
+          echo ""
 
           find -type f -name "kustomization.yaml" | while read file
           do
