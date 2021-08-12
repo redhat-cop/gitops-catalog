@@ -8,7 +8,7 @@ bases:
 patches:
 -  target:
      kind: ConsoleLink
-     name: kibana-public-url
+     name: tower
    patch: |-
     - op: replace
       path: /spec/href
