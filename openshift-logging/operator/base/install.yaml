@@ -23,7 +23,7 @@ metadata:
   name: cluster-logging
   namespace: openshift-logging
 spec:
-  channel: "stable"
+  channel: patch-me
   name: cluster-logging
   source: redhat-operators
   sourceNamespace: openshift-marketplace
