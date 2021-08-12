@@ -11,7 +11,7 @@ First, install the following operators in your cluster:
 Do not use the `base` directory directly, as you will need to patch the `channel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are:
-* [stable](overlays/stable)
+* [default](overlays/default)
 
 ## Usage
 
