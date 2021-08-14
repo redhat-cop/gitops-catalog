@@ -5,6 +5,7 @@ metadata:
     app: selenium
     build: selenium-node-firefox-debug
     type: image
+  name: selenium-node-firefox-debug
 spec:
   failedBuildsHistoryLimit: 5
   nodeSelector: {}

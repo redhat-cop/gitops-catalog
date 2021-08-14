@@ -1,0 +1,23 @@
+name: Lint
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      KUSTOMIZE_VERSION: 3.9.4
+    steps:
+      - name: Install Kustomize
+        run: |
+          sudo curl -L -o /usr/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
+          sudo chmod +x /usr/bin/kustomize
+      - name: Code Checkout
+        uses: actions/checkout@v2
+      - name: Validate Manifests
+        run: ./hack/validate_manifests.sh
