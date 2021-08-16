@@ -15,3 +15,4 @@ patchesJson6902:
       kind: Subscription
       name: compliance-operator
       version: v1alpha1
+      namespace: openshift-compliance

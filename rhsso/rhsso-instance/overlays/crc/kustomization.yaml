@@ -2,8 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
-  - ../../base/sso
-  - ../../base/openshift-authentication
+  - ../../base
+#  - ../../base/openshift-authentication
 
 resources:
   - oauth-rhsso-openid.yaml
@@ -12,7 +12,7 @@ resources:
   - client-secret.yaml
   - openshift-realm.yaml
   - openshift-client.yaml
-  
+
 patchesJson6902:
   - target:
       group: keycloak.org
