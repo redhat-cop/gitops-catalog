@@ -28,7 +28,7 @@ platform.stackrox.io/Central:
     hs = {}
     if obj.status ~= nil and obj.status.conditions ~= nil then
         for i, condition in ipairs(obj.status.conditions) do
-            if condition.status == "True" and condition.reason == "InstallSuccessful" then
+            if condition.status == "True" and (condition.reason == "InstallSuccessful" or condition.reason =="UpgradeSuccessful") then
                 hs.status = "Healthy"
                 hs.message = condition.message
                 return hs
