@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  annotations:
+    olm.providedAPIs: patch-me-see-overlays-dir
+  name: openshift-storage
+spec:
+  targetNamespaces:
+  - openshift-storage
+
+
