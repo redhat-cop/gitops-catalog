@@ -1,14 +1,14 @@
-name: Lint
+name: Kustomize Build Check
 on:
   push:
     branches:
-      - "main"
+      - "*"
   pull_request:
     branches:
       - "*"
 
 jobs:
-  lint:
+  kustomize-lint:
     runs-on: ubuntu-latest
     env:
       KUSTOMIZE_VERSION: 3.9.4
