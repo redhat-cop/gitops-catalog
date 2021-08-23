@@ -14,10 +14,3 @@ patchesJson6902:
     name: ocs-operator
     namespace: openshift-storage
   path: patch-channel.yaml
-- target:
-    group: operators.coreos.com
-    version: v1
-    kind: OperatorGroup
-    name: openshift-storage
-    namespace: openshift-storage
-  path: patch-operatorgroup.yaml
