@@ -1,17 +1,3 @@
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: installplan-approver
-rules:
-  - apiGroups:
-      - operators.coreos.com
-    resources:
-      - installplans
-      - subscriptions
-    verbs:
-      - get
-      - list
-      - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -29,19 +15,6 @@ rules:
       - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: installplan-approvers
-  namespace: sso
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: installplan-approver
-subjects:
-  - kind: ServiceAccount
-    name: rhsso-operator-job
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: rhsso-cert-secret-creators
@@ -52,5 +25,5 @@ roleRef:
   name: rhsso-cert-secret-creator
 subjects:
   - kind: ServiceAccount
-    name: rhsso-operator-job
+    name: rhsso-operator-config-job
     namespace: sso
