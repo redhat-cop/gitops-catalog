@@ -1,11 +1,10 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: container-security-operator
-  namespace: openshift-operators
+  name: compliance-operator
 spec:
-  channel: quay-v3.4
+  channel: "patch-me-in-overlay"
   installPlanApproval: Automatic
-  name: container-security-operator
+  name: compliance-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
