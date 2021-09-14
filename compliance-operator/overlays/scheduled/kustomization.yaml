@@ -1,9 +1,0 @@
-kind: Kustomization
-apiVersion: kustomize.config.k8s.io/v1beta1
-
-namespace: openshift-compliance
-
-resources:
-- ../release-0.1
-- moderate-scan-setting.yaml
-- moderate-scan-setting-binding.yaml
