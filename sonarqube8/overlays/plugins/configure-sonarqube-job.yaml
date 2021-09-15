@@ -11,7 +11,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-canada-gitops/catalog/master/sonarqube8/scripts/sonarqube-plugins;
+              curl -o /tmp/sonarqube-plugins -s https://raw.githubusercontent.com/redhat-cop/gitops-catalog/main/sonarqube8/scripts/sonarqube-plugins;
               chmod +x /tmp/sonarqube-plugins;
               /tmp/sonarqube-plugins
           imagePullPolicy: Always
