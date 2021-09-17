@@ -66,6 +66,9 @@ spec:
                   sleep 10
               done
 
+              # It takes some time for default integrations to be created, so sleep for 3min.
+              sleep 180
+
               echo "Getting stackrox-image-puller service account token and Central URL."
               SATOKEN=`oc sa get-token stackrox-image-puller -n stackrox`
               CENTRAL_URL="https://`oc -n stackrox get route central -o go-template='{{.spec.host}}'`"
