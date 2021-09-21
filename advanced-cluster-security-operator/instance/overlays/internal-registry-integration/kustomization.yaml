@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: stackrox
+
+bases:
+  - ../../base
+
+resources:
+  - stackrox-image-puller-sa.yaml
+  - stackrox-image-integration-update-job-sa.yaml
+  - stackrox-image-integration-update-job.yaml
