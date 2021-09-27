@@ -6,8 +6,6 @@ spec:
   audit:
     logLevel: INFO
     replicas: 1
-  image:
-    image: 'docker.io/openpolicyagent/gatekeeper:v3.3.0'
   validatingWebhook: Enabled
   mutatingWebhook: Disabled
   webhook:
