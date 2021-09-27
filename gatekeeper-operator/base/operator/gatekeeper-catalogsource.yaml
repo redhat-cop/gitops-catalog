@@ -1,0 +1,13 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: gatekeeper-operator
+  namespace: openshift-gatekeeper-operator
+spec:
+  displayName: Gatekeeper Operator Upstream
+  publisher: github.com/font/gatekeeper-operator
+  sourceType: grpc
+  image: 'quay.io/gatekeeper/gatekeeper-operator-bundle-index:latest'
+  updateStrategy:
+    registryPoll:
+      interval: 45m

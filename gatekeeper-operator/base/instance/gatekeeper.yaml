@@ -1,0 +1,16 @@
+apiVersion: operator.gatekeeper.sh/v1alpha1
+kind: Gatekeeper
+metadata:
+  name: gatekeeper
+spec:
+  audit:
+    logLevel: INFO
+    replicas: 1
+  image:
+    image: 'docker.io/openpolicyagent/gatekeeper:v3.3.0'
+  validatingWebhook: Enabled
+  mutatingWebhook: Disabled
+  webhook:
+    emitAdmissionEvents: Enabled
+    logLevel: INFO
+    replicas: 2
