@@ -12,5 +12,4 @@ spec:
     resources:
       requests:
         storage: 50Gi 
-#    storageClass: gp2 
   type: pv-pool
