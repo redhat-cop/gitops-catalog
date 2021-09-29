@@ -20,4 +20,3 @@
 - op: replace
   path: /spec/scanner/analyzer/scaling/replicas
   value: 2
-

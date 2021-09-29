@@ -5,4 +5,3 @@ metadata:
     openshift.io/description: "SSO project"
     openshift.io/display-name: "Red Hat SSO"
   name: sso
-
