@@ -21,7 +21,7 @@ spec:
             - -c
             - |
               #!/usr/bin/env bash
-              
+
               # Create a temporary python script to handle the JSON transformations.
               cat << EOF > /tmp/jsontransform.py
               import sys,json;

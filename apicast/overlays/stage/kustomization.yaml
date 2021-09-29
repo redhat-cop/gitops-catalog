@@ -28,4 +28,4 @@ patchesJson6902:
 
 
 transformers:
-- update-k8s-labels.yaml  
+- update-k8s-labels.yaml

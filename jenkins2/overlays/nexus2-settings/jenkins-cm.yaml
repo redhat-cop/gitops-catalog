@@ -82,7 +82,7 @@ data:
       <nodeProperties/>
       <yaml></yaml>
       <podRetention class="org.csanchez.jenkins.plugins.kubernetes.pod.retention.Default"/>
-    </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>  
+    </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
   node12: |-
     <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
       <inheritFrom></inheritFrom>
