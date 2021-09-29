@@ -8,9 +8,9 @@ metadata:
   name: mcg-pv-pool-bs
 spec:
   pvPool:
-    numVolumes: 3 
+    numVolumes: 3
     resources:
       requests:
-        storage: 50Gi 
+        storage: 50Gi
 #    storageClass: gp2 
   type: pv-pool

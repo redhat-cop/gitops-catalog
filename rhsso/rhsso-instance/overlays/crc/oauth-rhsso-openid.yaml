@@ -9,24 +9,24 @@ spec:
     type: OpenID
     openID:
       clientID: openshift
-      clientSecret: 
+      clientSecret:
         name: openid-client-secret
-      ca: 
+      ca:
         name: openidcacrt
-      extraScopes: 
+      extraScopes:
       - email
       - profile
-      extraAuthorizeParameters: 
+      extraAuthorizeParameters:
         include_granted_scopes: "true"
       claims:
-        preferredUsername: 
+        preferredUsername:
         - preferred_username
         - email
-        name: 
+        name:
         - nickname
         - given_name
         - name
-        email: 
+        email:
         - custom_email_claim
         - email
       issuer: https://keycloak.example.com/auth/realms/openshift

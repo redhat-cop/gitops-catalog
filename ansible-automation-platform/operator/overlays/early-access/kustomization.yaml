@@ -12,4 +12,4 @@ patches:
    patch: |-
     - op: replace
       path: /spec/channel
-      value: 'early-access' 
+      value: 'early-access'
