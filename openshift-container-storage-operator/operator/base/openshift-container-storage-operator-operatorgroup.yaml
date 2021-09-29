@@ -5,5 +5,3 @@ metadata:
 spec:
   targetNamespaces:
   - openshift-storage
-
-

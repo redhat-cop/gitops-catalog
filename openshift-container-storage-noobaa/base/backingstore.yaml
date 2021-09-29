@@ -8,7 +8,7 @@ metadata:
   name: mcg-pv-pool-bs
 spec:
   pvPool:
-    numVolumes: 3 
+    numVolumes: 3
     resources:
       requests:
         storage: 50Gi 

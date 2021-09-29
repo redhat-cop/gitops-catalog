@@ -100,4 +100,3 @@ spec:
         namespace: openshift
     type: ImageChange
   - type: ConfigChange
-

@@ -7,10 +7,10 @@ bases:
   - ../../base
 
 patches:
--  target:
-     kind: Subscription
-     name: rhacs-operator
-   patch: |-
+- target:
+    kind: Subscription
+    name: rhacs-operator
+  patch: |-
     - op: replace
       path: /spec/channel
       value: 'latest'
