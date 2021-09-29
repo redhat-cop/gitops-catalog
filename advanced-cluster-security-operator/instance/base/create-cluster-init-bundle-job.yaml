@@ -8,7 +8,7 @@ spec:
   template:
     spec:
       containers:
-        - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+        - image: registry.redhat.io/openshift4/ose-cli:latest
           env:
           - name: PASSWORD
             valueFrom:
