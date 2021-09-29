@@ -6,10 +6,10 @@ bases:
   - ../../base
 
 patches:
--  target:
-     kind: Subscription
-     name: ansible-automation-platform
-   patch: |-
+- target:
+    kind: Subscription
+    name: ansible-automation-platform
+  patch: |-
     - op: replace
       path: /spec/channel
       value: 'early-access'
