@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   annotations:
     openshift.io/description: Operator that provides cost management information to cloud.redhat.com
-    openshift.io/display-name:  Red Hat Cost Management Operator
+    openshift.io/display-name: Red Hat Cost Management Operator
   name: costmanagement-metrics-operator
