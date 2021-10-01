@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   annotations:
     openshift.io/description: Example prometheus oauth deployment
-    openshift.io/display-name:  Prometheus OAuth Example
+    openshift.io/display-name: Prometheus OAuth Example
   name: prom-test
