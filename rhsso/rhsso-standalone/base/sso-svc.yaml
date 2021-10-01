@@ -8,10 +8,10 @@ metadata:
   name: sso
 spec:
   ports:
-  - name: keycloak
-    port: 8443
-    protocol: TCP
-    targetPort: 8443
+    - name: keycloak
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
   selector:
     app: sso
     component: keycloak

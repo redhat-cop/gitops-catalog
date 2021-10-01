@@ -25,10 +25,10 @@ spec:
   strategy:
     dockerStrategy:
       buildArgs:
-      - name: SELENIUM_VERSION
-        value: 3.141.59
-      - name: GRID_DEBUG
-        value: "false"
+        - name: SELENIUM_VERSION
+          value: 3.141.59
+        - name: GRID_DEBUG
+          value: "false"
       dockerfilePath: Dockerfile
       forcePull: true
       from:
@@ -37,11 +37,11 @@ spec:
     type: Docker
   successfulBuildsHistoryLimit: 5
   triggers:
-  - type: ConfigChange
-  - imageChange:
-      from:
-        kind: ImageStreamTag
-        name: centos:centos7
-    type: ImageChange
+    - type: ConfigChange
+    - imageChange:
+        from:
+          kind: ImageStreamTag
+          name: centos:centos7
+      type: ImageChange
 status:
   lastVersion: 0

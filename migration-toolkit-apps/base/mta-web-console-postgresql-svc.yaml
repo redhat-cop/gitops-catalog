@@ -10,9 +10,9 @@ metadata:
   namespace: app-migration
 spec:
   ports:
-  - port: 5432
-    protocol: TCP
-    targetPort: 5432
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
   selector:
     deploymentConfig: mta-web-console-postgresql
   sessionAffinity: None

@@ -8,14 +8,14 @@ metadata:
   name: apicast
 spec:
   ports:
-  - name: proxy
-    port: 8080
-    protocol: TCP
-    targetPort: 8080
-  - name: management
-    port: 8090
-    protocol: TCP
-    targetPort: 8090
+    - name: proxy
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: management
+      port: 8090
+      protocol: TCP
+      targetPort: 8090
   selector:
     deploymentconfig: apicast
   sessionAffinity: None

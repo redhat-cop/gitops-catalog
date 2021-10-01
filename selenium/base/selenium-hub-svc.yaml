@@ -6,10 +6,10 @@ metadata:
   name: selenium-hub
 spec:
   ports:
-  - name: 4444-tcp
-    port: 4444
-    protocol: TCP
-    targetPort: 4444
+    - name: 4444-tcp
+      port: 4444
+      protocol: TCP
+      targetPort: 4444
   selector:
     deploymentconfig: selenium-hub
   sessionAffinity: None

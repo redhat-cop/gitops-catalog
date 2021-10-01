@@ -26,5 +26,5 @@ roleRef:
   kind: ClusterRole
   name: grafana-proxy
 subjects:
-- kind: ServiceAccount
-  name: grafana-serviceaccount
+  - kind: ServiceAccount
+    name: grafana-serviceaccount

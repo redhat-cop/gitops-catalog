@@ -7,11 +7,11 @@ metadata:
     app.kubernetes.io/instance: sonarqube
     app.kubernetes.io/part-of: sonarqube
   finalizers:
-  - kubernetes.io/pvc-protection
+    - kubernetes.io/pvc-protection
   name: sonarqube-data
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi

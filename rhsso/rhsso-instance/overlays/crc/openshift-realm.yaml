@@ -2,7 +2,7 @@ apiVersion: keycloak.org/v1alpha1
 kind: KeycloakRealm
 metadata:
   labels:
-     app: openshift
+    app: openshift
   name: openshift-realm
   namespace: sso
 spec:

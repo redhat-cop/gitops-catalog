@@ -5,4 +5,4 @@ metadata:
   name: prom-test
 spec:
   targetNamespaces:
-   - prom-test
+    - prom-test

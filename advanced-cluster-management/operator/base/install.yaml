@@ -13,7 +13,7 @@ metadata:
   namespace: open-cluster-management
 spec:
   targetNamespaces:
-  - open-cluster-management
+    - open-cluster-management
 ---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription

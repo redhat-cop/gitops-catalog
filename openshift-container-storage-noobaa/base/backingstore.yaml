@@ -2,7 +2,7 @@ apiVersion: noobaa.io/v1alpha1
 kind: BackingStore
 metadata:
   finalizers:
-  - noobaa.io/finalizer
+    - noobaa.io/finalizer
   labels:
     app: noobaa
   name: mcg-pv-pool-bs

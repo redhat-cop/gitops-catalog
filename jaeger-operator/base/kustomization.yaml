@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-- jaeger-subscription.yaml
+  - jaeger-subscription.yaml

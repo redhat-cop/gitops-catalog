@@ -7,10 +7,10 @@ bases:
   - ../../base
 
 patches:
-- target:
-    kind: Subscription
-    name: container-security-operator
-  patch: |-
-    - op: replace
-      path: /spec/channel
-      value: 'quay-v3.5'
+  - target:
+      kind: Subscription
+      name: container-security-operator
+    patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'quay-v3.5'

@@ -23,53 +23,53 @@ spec:
         deploymentconfig: nexus
     spec:
       containers:
-      - env:
-        - name: CONTEXT_PATH
-          value: /
-        imagePullPolicy: Always
-        livenessProbe:
-          exec:
-            command:
-            - echo
-            - ok
-          failureThreshold: 3
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        name: nexus
-        image: docker.io/sonatype/nexus:2.14.20
-        ports:
-        - containerPort: 8081
-          protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /content/groups/public
-            port: 8081
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        resources:
-          limits:
-            cpu: '2'
-            memory: 2Gi
-          requests:
-            cpu: 500m
-            memory: 2Gi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /sonatype-work
-          name: nexus-data
+        - env:
+            - name: CONTEXT_PATH
+              value: /
+          imagePullPolicy: Always
+          livenessProbe:
+            exec:
+              command:
+                - echo
+                - ok
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: nexus
+          image: docker.io/sonatype/nexus:2.14.20
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /content/groups/public
+              port: 8081
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: '2'
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /sonatype-work
+              name: nexus-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: nexus-data
-        persistentVolumeClaim:
-          claimName: nexus
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: nexus

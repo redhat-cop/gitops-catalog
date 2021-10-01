@@ -4,4 +4,4 @@ metadata:
   name: openshift-compliance
 spec:
   targetNamespaces:
-  - openshift-compliance
+    - openshift-compliance

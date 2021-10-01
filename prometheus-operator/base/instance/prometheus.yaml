@@ -14,35 +14,35 @@ spec:
   secrets:
     - prometheus-app-tls
   containers:
-  - args:
-    - -provider=openshift
-    - -https-address=:9091
-    - -http-address=
-    - -email-domain=*
-    - -upstream=http://localhost:9090
-    - -openshift-service-account=app-prometheus
-    - '-openshift-sar={"resource": "namespaces", "verb": "get"}'
-    - '-openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}'
-    - -tls-cert=/etc/tls/private/tls.crt
-    - -tls-key=/etc/tls/private/tls.key
-    - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
-    - -cookie-secret=bacon
-    - -openshift-ca=/etc/pki/tls/cert.pem
-    - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-    - -skip-auth-regex=^/metrics
-    image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.6
-    imagePullPolicy: Always
-    name: prometheus-proxy
-    ports:
-    - containerPort: 9091
-      name: web-tls
-    resources:
-      limits:
-        cpu: 200m
-        memory: 200Mi
-      requests:
-        cpu: 50m
-        memory: 100Mi
-    volumeMounts:
-    - mountPath: /etc/tls/private
-      name: secret-prometheus-app-tls
+    - args:
+        - -provider=openshift
+        - -https-address=:9091
+        - -http-address=
+        - -email-domain=*
+        - -upstream=http://localhost:9090
+        - -openshift-service-account=app-prometheus
+        - '-openshift-sar={"resource": "namespaces", "verb": "get"}'
+        - '-openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}'
+        - -tls-cert=/etc/tls/private/tls.crt
+        - -tls-key=/etc/tls/private/tls.key
+        - -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+        - -cookie-secret=bacon
+        - -openshift-ca=/etc/pki/tls/cert.pem
+        - -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        - -skip-auth-regex=^/metrics
+      image: registry.redhat.io/openshift4/ose-oauth-proxy:v4.6
+      imagePullPolicy: Always
+      name: prometheus-proxy
+      ports:
+        - containerPort: 9091
+          name: web-tls
+      resources:
+        limits:
+          cpu: 200m
+          memory: 200Mi
+        requests:
+          cpu: 50m
+          memory: 100Mi
+      volumeMounts:
+        - mountPath: /etc/tls/private
+          name: secret-prometheus-app-tls

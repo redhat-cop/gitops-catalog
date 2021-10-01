@@ -27,159 +27,159 @@ spec:
       name: mta-web-console
     spec:
       containers:
-      - env:
-        - name: IS_MASTER
-          value: "true"
-        - name: MESSAGING_SERIALIZER
-          value: http.post.serializer
-        - name: DB_SERVICE_PREFIX_MAPPING
-          value: mta-web-console-postgresql=DB
-        - name: DB_JNDI
-          value: java:jboss/datasources/WindupServicesDS
-        - name: DB_USERNAME
-          value: user8ke
-        - name: DB_PASSWORD
-          value: qecirheM
-        - name: DB_DATABASE
-          value: mta
-        - name: TX_DATABASE_PREFIX_MAPPING
-          value: mta-web-console-postgresql=DB
-        - name: DB_MIN_POOL_SIZE
-        - name: DB_MAX_POOL_SIZE
-        - name: DB_TX_ISOLATION
-        - name: OPENSHIFT_KUBE_PING_LABELS
-          value: application=mta-web-console
-        - name: OPENSHIFT_KUBE_PING_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: HTTPS_KEYSTORE_DIR
-          value: /etc/eap-secret-volume
-        - name: MQ_CLUSTER_PASSWORD
-          value: 4dh8qnwV
-        - name: MQ_QUEUES
-        - name: MQ_TOPICS
-        - name: JGROUPS_ENCRYPT_SECRET
-          value: eap-app-secret
-        - name: JGROUPS_ENCRYPT_KEYSTORE_DIR
-          value: /etc/jgroups-encrypt-secret-volume
-        - name: JGROUPS_ENCRYPT_KEYSTORE
-          value: jgroups.jceks
-        - name: JGROUPS_ENCRYPT_NAME
-        - name: JGROUPS_ENCRYPT_PASSWORD
-        - name: JGROUPS_CLUSTER_PASSWORD
-          value: DTLJfyqy
-        - name: AUTO_DEPLOY_EXPLODED
-          value: "false"
-        - name: DEFAULT_JOB_REPOSITORY
-          value: mta-web-console-postgresql
-        - name: TIMER_SERVICE_DATA_STORE
-          value: mta-web-console-postgresql
-        - name: SSO_URL
-          value: /auth
-        - name: SSO_SERVICE_URL
-          value: /auth
-        - name: SSO_REALM
-          value: mta
-        - name: SSO_USERNAME
-        - name: SSO_PASSWORD
-        - name: SSO_PUBLIC_KEY
-          value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhlI4WQ3tbIFE71M0HAO3TfvJFxH0P16wdOSzc/Fr9l8/tOn8cN5sgkGpnyEWcawgv2z4nouUkpV92/vo9fadKr3KVUMVaE3EaR3BmsC0Ct6TY7mYD+sz/yGoSWqwmGYocEJRIXAuMCX3jCu6CKMSV+1qjpcyYqzRaVWTB/EV76Sx+CSh9rEMLl8mE6owxNWQck03KgvWCA70l/LAu1M1bWy1aozoUKiTryX0nTxbHbj4qg3vvHC6igYndJ4zLr30QlCVn1iQ1jXC1MQUJ+Mwc8yZlkhaoAfDS1iM9I8NUcpcQAIn2baD8/aBrS1F9woYYRvo0vFH5N0+Rw4xjgSDlQIDAQAB
-        - name: SSO_BEARER_ONLY
-        - name: SSO_SAML_KEYSTORE_SECRET
-          value: eap7-app-secret
-        - name: SSO_SAML_KEYSTORE
-          value: keystore.jks
-        - name: SSO_SAML_KEYSTORE_DIR
-          value: /etc/sso-saml-secret-volume
-        - name: SSO_SAML_CERTIFICATE_NAME
-          value: jboss
-        - name: SSO_SAML_KEYSTORE_PASSWORD
-          value: mykeystorepass
-        - name: SSO_SECRET
-          value: BqkTUqJt
-        - name: SSO_ENABLE_CORS
-          value: "false"
-        - name: SSO_SAML_LOGOUT_PAGE
-          value: /
-        - name: SSO_DISABLE_SSL_CERTIFICATE_VALIDATION
-          value: "true"
-        - name: SSO_TRUSTSTORE
-        - name: SSO_TRUSTSTORE_DIR
-          value: /etc/sso-secret-volume
-        - name: SSO_TRUSTSTORE_PASSWORD
-        - name: GC_MAX_METASPACE_SIZE
-          value: "512"
-        - name: MAX_POST_SIZE
-          value: "4294967296"
-        image: docker.io/windup3/windup-web-openshift:5.0.0.Final
-        imagePullPolicy: Always
-        lifecycle:
-          preStop:
+        - env:
+            - name: IS_MASTER
+              value: "true"
+            - name: MESSAGING_SERIALIZER
+              value: http.post.serializer
+            - name: DB_SERVICE_PREFIX_MAPPING
+              value: mta-web-console-postgresql=DB
+            - name: DB_JNDI
+              value: java:jboss/datasources/WindupServicesDS
+            - name: DB_USERNAME
+              value: user8ke
+            - name: DB_PASSWORD
+              value: qecirheM
+            - name: DB_DATABASE
+              value: mta
+            - name: TX_DATABASE_PREFIX_MAPPING
+              value: mta-web-console-postgresql=DB
+            - name: DB_MIN_POOL_SIZE
+            - name: DB_MAX_POOL_SIZE
+            - name: DB_TX_ISOLATION
+            - name: OPENSHIFT_KUBE_PING_LABELS
+              value: application=mta-web-console
+            - name: OPENSHIFT_KUBE_PING_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: HTTPS_KEYSTORE_DIR
+              value: /etc/eap-secret-volume
+            - name: MQ_CLUSTER_PASSWORD
+              value: 4dh8qnwV
+            - name: MQ_QUEUES
+            - name: MQ_TOPICS
+            - name: JGROUPS_ENCRYPT_SECRET
+              value: eap-app-secret
+            - name: JGROUPS_ENCRYPT_KEYSTORE_DIR
+              value: /etc/jgroups-encrypt-secret-volume
+            - name: JGROUPS_ENCRYPT_KEYSTORE
+              value: jgroups.jceks
+            - name: JGROUPS_ENCRYPT_NAME
+            - name: JGROUPS_ENCRYPT_PASSWORD
+            - name: JGROUPS_CLUSTER_PASSWORD
+              value: DTLJfyqy
+            - name: AUTO_DEPLOY_EXPLODED
+              value: "false"
+            - name: DEFAULT_JOB_REPOSITORY
+              value: mta-web-console-postgresql
+            - name: TIMER_SERVICE_DATA_STORE
+              value: mta-web-console-postgresql
+            - name: SSO_URL
+              value: /auth
+            - name: SSO_SERVICE_URL
+              value: /auth
+            - name: SSO_REALM
+              value: mta
+            - name: SSO_USERNAME
+            - name: SSO_PASSWORD
+            - name: SSO_PUBLIC_KEY
+              value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhlI4WQ3tbIFE71M0HAO3TfvJFxH0P16wdOSzc/Fr9l8/tOn8cN5sgkGpnyEWcawgv2z4nouUkpV92/vo9fadKr3KVUMVaE3EaR3BmsC0Ct6TY7mYD+sz/yGoSWqwmGYocEJRIXAuMCX3jCu6CKMSV+1qjpcyYqzRaVWTB/EV76Sx+CSh9rEMLl8mE6owxNWQck03KgvWCA70l/LAu1M1bWy1aozoUKiTryX0nTxbHbj4qg3vvHC6igYndJ4zLr30QlCVn1iQ1jXC1MQUJ+Mwc8yZlkhaoAfDS1iM9I8NUcpcQAIn2baD8/aBrS1F9woYYRvo0vFH5N0+Rw4xjgSDlQIDAQAB
+            - name: SSO_BEARER_ONLY
+            - name: SSO_SAML_KEYSTORE_SECRET
+              value: eap7-app-secret
+            - name: SSO_SAML_KEYSTORE
+              value: keystore.jks
+            - name: SSO_SAML_KEYSTORE_DIR
+              value: /etc/sso-saml-secret-volume
+            - name: SSO_SAML_CERTIFICATE_NAME
+              value: jboss
+            - name: SSO_SAML_KEYSTORE_PASSWORD
+              value: mykeystorepass
+            - name: SSO_SECRET
+              value: BqkTUqJt
+            - name: SSO_ENABLE_CORS
+              value: "false"
+            - name: SSO_SAML_LOGOUT_PAGE
+              value: /
+            - name: SSO_DISABLE_SSL_CERTIFICATE_VALIDATION
+              value: "true"
+            - name: SSO_TRUSTSTORE
+            - name: SSO_TRUSTSTORE_DIR
+              value: /etc/sso-secret-volume
+            - name: SSO_TRUSTSTORE_PASSWORD
+            - name: GC_MAX_METASPACE_SIZE
+              value: "512"
+            - name: MAX_POST_SIZE
+              value: "4294967296"
+          image: docker.io/windup3/windup-web-openshift:5.0.0.Final
+          imagePullPolicy: Always
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /opt/eap/bin/jboss-cli.sh
+                  - -c
+                  - :shutdown(timeout=60)
+          livenessProbe:
             exec:
               command:
-              - /opt/eap/bin/jboss-cli.sh
-              - -c
-              - :shutdown(timeout=60)
-        livenessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - /opt/eap/bin/livenessProbe.sh
-          failureThreshold: 3
-          initialDelaySeconds: 120
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
-        name: mta-web-console
-        ports:
-        - containerPort: 8778
-          name: jolokia
-          protocol: TCP
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        - containerPort: 8888
-          name: ping
-          protocol: TCP
-        readinessProbe:
-          exec:
-            command:
-            - /bin/bash
-            - -c
-            - /opt/eap/bin/readinessProbe.sh
-          failureThreshold: 3
-          initialDelaySeconds: 120
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 10
-        resources:
-          limits:
-            cpu: "2"
-            memory: 4Gi
-          requests:
-            cpu: "2"
-            memory: 4Gi
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /opt/eap/standalone/data/windup
-          name: mta-web-console-mta-web-pvol
-        - mountPath: /opt/eap/standalone/data
-          name: mta-web-console-mta-web-pvol-data
+                - /bin/bash
+                - -c
+                - /opt/eap/bin/livenessProbe.sh
+            failureThreshold: 3
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: mta-web-console
+          ports:
+            - containerPort: 8778
+              name: jolokia
+              protocol: TCP
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 8888
+              name: ping
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - /opt/eap/bin/readinessProbe.sh
+            failureThreshold: 3
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4Gi
+            requests:
+              cpu: "2"
+              memory: 4Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /opt/eap/standalone/data/windup
+              name: mta-web-console-mta-web-pvol
+            - mountPath: /opt/eap/standalone/data
+              name: mta-web-console-mta-web-pvol-data
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 75
       volumes:
-      - name: mta-web-console-mta-web-pvol
-        persistentVolumeClaim:
-          claimName: mta-web-console-mta-web-claim
-      - emptyDir: {}
-        name: mta-web-console-mta-web-pvol-data
+        - name: mta-web-console-mta-web-pvol
+          persistentVolumeClaim:
+            claimName: mta-web-console-mta-web-claim
+        - emptyDir: {}
+          name: mta-web-console-mta-web-pvol-data
   test: false
   triggers:
-  - type: ConfigChange
+    - type: ConfigChange

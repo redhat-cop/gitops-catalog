@@ -5,7 +5,7 @@ namespace: sealed-secrets
 
 # Include the base Sealed Secrets manifests.
 bases:
-- ../../base
+  - ../../base
 
 # Remove the SCC requiring anyuid
 patchesJson6902:

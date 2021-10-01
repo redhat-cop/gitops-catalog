@@ -6,10 +6,10 @@ bases:
   - ../../base
 
 patches:
-- target:
-    kind: Subscription
-    name: cluster-logging
-  patch: |-
-    - op: replace
-      path: /spec/channel
-      value: 'stable'
+  - target:
+      kind: Subscription
+      name: cluster-logging
+    patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'stable'

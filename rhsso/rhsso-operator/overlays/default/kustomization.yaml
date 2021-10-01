@@ -4,10 +4,10 @@ kind: Kustomization
 namespace: sso
 
 bases:
-- ../../base
+  - ../../base
 
 resources:
-- namespace.yaml
+  - namespace.yaml
 
 patchesStrategicMerge:
-- patch-target-namespace.yaml
+  - patch-target-namespace.yaml
