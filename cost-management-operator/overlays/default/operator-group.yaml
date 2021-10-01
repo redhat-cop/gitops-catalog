@@ -6,4 +6,4 @@ metadata:
   name: costmanagement-metrics-operator
 spec:
   targetNamespaces:
-  - costmanagement-metrics-operator
+    - costmanagement-metrics-operator

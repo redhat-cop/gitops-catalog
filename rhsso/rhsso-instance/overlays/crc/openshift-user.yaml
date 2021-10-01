@@ -14,9 +14,9 @@ spec:
     enabled: true
     emailVerified: false
     credentials:
-       - temporary: false
-         type: password
-         value: password
+      - temporary: false
+        type: password
+        value: password
   realmSelector:
     matchLabels:
       app: openshift

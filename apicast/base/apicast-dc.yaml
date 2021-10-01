@@ -33,65 +33,65 @@ spec:
         deploymentconfig: apicast
     spec:
       containers:
-      - env:
-        - name: THREESCALE_PORTAL_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: apicast-configuration-url-secret
-        - name: THREESCALE_CONFIG_FILE
-        # - name: THREESCALE_DEPLOYMENT_ENV
-        #   value: production
-        - name: RESOLVER
-        - name: APICAST_SERVICES_LIST
-        - name: APICAST_CONFIGURATION_LOADER
-          value: boot
-        - name: APICAST_LOG_LEVEL
-        - name: APICAST_PATH_ROUTING
-          value: "false"
-        - name: APICAST_RESPONSE_CODES
-          value: "true"
-        - name: APICAST_CONFIGURATION_CACHE
-        - name: REDIS_URL
-        - name: APICAST_MANAGEMENT_API
-          value: status
-        - name: OPENSSL_VERIFY
-          value: "false"
-        image: registry.redhat.io/3scale-amp2/apicast-gateway-rhel8:3scale2.10
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /status/live
-            port: management
-            scheme: HTTP
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        name: apicast
-        ports:
-        - containerPort: 8080
-          name: proxy
-          protocol: TCP
-        - containerPort: 8090
-          name: management
-          protocol: TCP
-        - containerPort: 9421
-          name: metrics
-          protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /status/ready
-            port: management
-            scheme: HTTP
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+        - env:
+            - name: THREESCALE_PORTAL_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: apicast-configuration-url-secret
+            - name: THREESCALE_CONFIG_FILE
+            # - name: THREESCALE_DEPLOYMENT_ENV
+            #   value: production
+            - name: RESOLVER
+            - name: APICAST_SERVICES_LIST
+            - name: APICAST_CONFIGURATION_LOADER
+              value: boot
+            - name: APICAST_LOG_LEVEL
+            - name: APICAST_PATH_ROUTING
+              value: "false"
+            - name: APICAST_RESPONSE_CODES
+              value: "true"
+            - name: APICAST_CONFIGURATION_CACHE
+            - name: REDIS_URL
+            - name: APICAST_MANAGEMENT_API
+              value: status
+            - name: OPENSSL_VERIFY
+              value: "false"
+          image: registry.redhat.io/3scale-amp2/apicast-gateway-rhel8:3scale2.10
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status/live
+              port: management
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: apicast
+          ports:
+            - containerPort: 8080
+              name: proxy
+              protocol: TCP
+            - containerPort: 8090
+              name: management
+              protocol: TCP
+            - containerPort: 9421
+              name: metrics
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status/ready
+              port: management
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -99,4 +99,4 @@ spec:
       terminationGracePeriodSeconds: 30
   test: false
   triggers:
-  - type: ConfigChange
+    - type: ConfigChange

@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: prom-test
 
 bases:
-- ../aggregate
+  - ../aggregate
 
 resources:
-- namespace.yaml
-- operator-group.yaml
+  - namespace.yaml
+  - operator-group.yaml

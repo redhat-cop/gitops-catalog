@@ -8,10 +8,10 @@ spec:
   lookupPolicy:
     local: false
   tags:
-  - from:
-      kind: DockerImage
-      name: docker.io/centos/s2i-base-centos7
-    importPolicy: {}
-    name: centos7
-    referencePolicy:
-      type: Source
+    - from:
+        kind: DockerImage
+        name: docker.io/centos/s2i-base-centos7
+      importPolicy: {}
+      name: centos7
+      referencePolicy:
+        type: Source

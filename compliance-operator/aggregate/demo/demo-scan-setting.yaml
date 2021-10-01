@@ -4,8 +4,8 @@ kind: ScanSetting
 metadata:
   name: demo
 roles:
-- worker
+  - worker
 scanTolerations:
-- effect: NoSchedule
-  key: node-role.kubernetes.io/master
-  operator: Exists
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists

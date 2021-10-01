@@ -7,5 +7,5 @@ labels:
   app.kubernetes.io/component: 3scale-gateway-stage
   app.kubernetes.io/instance: 3scale-gateway-stage
 fieldSpecs:
-- path: metadata/labels
-  create: true
+  - path: metadata/labels
+    create: true

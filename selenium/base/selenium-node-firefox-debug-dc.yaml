@@ -27,39 +27,39 @@ spec:
         deploymentconfig: selenium-node-firefox-debug
     spec:
       containers:
-      - env:
-        - name: HUB_HOST
-          value: selenium-hub
-        - name: HUB_PORT_PARAM
-          value: "4444"
-        imagePullPolicy: Always
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /status
-            port: 5555
-            scheme: HTTP
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        name: selenium-node-firefox-debug
-        ports:
-        - containerPort: 5555
-          protocol: TCP
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /status
-            port: 5555
-            scheme: HTTP
-          initialDelaySeconds: 15
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+        - env:
+            - name: HUB_HOST
+              value: selenium-hub
+            - name: HUB_PORT_PARAM
+              value: "4444"
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status
+              port: 5555
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: selenium-node-firefox-debug
+          ports:
+            - containerPort: 5555
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status
+              port: 5555
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -67,12 +67,12 @@ spec:
       terminationGracePeriodSeconds: 30
   test: false
   triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - selenium-node-firefox-debug
-      from:
-        kind: ImageStreamTag
-        name: selenium-node-firefox-debug:3.141.59
-    type: ImageChange
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - selenium-node-firefox-debug
+        from:
+          kind: ImageStreamTag
+          name: selenium-node-firefox-debug:3.141.59
+      type: ImageChange

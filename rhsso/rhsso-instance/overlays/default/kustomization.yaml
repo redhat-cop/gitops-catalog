@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: sso
 
 bases:
-- ../../base
+  - ../../base

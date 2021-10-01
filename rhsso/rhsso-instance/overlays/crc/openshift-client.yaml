@@ -18,4 +18,4 @@ spec:
     implicitFlowEnabled: false
     directAccessGrantsEnabled: true
     redirectUris:
-        - "https://keycloak.example.com/auth/realms/master/protocol/openid-connect/token"
+      - "https://keycloak.example.com/auth/realms/master/protocol/openid-connect/token"

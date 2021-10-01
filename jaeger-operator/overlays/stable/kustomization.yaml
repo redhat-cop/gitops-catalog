@@ -5,10 +5,10 @@ bases:
   - ../../base
 
 patchesJson6902:
-- target:
-    group: operators.coreos.com
-    version: v1alpha1
-    kind: Subscription
-    name: jaeger-product
-    namespace: openshift-operators
-  path: patch-channel.yaml
+  - target:
+      group: operators.coreos.com
+      version: v1alpha1
+      kind: Subscription
+      name: jaeger-product
+      namespace: openshift-operators
+    path: patch-channel.yaml

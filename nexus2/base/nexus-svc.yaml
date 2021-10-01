@@ -7,10 +7,10 @@ metadata:
   name: nexus
 spec:
   ports:
-  - name: 8081-tcp
-    port: 8081
-    protocol: TCP
-    targetPort: 8081
+    - name: 8081-tcp
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
   selector:
     deploymentconfig: nexus
   sessionAffinity: None

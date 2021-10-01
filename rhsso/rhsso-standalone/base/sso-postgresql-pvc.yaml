@@ -6,7 +6,7 @@ metadata:
   name: sso-postgresql-claim
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi

@@ -16,8 +16,8 @@ spec:
       enabled: true
   containers:
     - env:
-      - name: SAR
-        value: '-openshift-sar={"resource": "namespaces", "verb": "get"}'
+        - name: SAR
+          value: '-openshift-sar={"resource": "namespaces", "verb": "get"}'
       args:
         - '-provider=openshift'
         - '-pass-basic-auth=false'

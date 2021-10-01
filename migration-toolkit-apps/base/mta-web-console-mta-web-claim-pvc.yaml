@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   finalizers:
-  - kubernetes.io/pvc-protection
+    - kubernetes.io/pvc-protection
   labels:
     app: mta-web-console
     application: mta-web-console
@@ -12,7 +12,7 @@ metadata:
   namespace: app-migration
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 20G

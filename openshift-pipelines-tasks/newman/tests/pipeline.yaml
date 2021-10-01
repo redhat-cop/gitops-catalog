@@ -3,7 +3,7 @@ kind: Pipeline
 metadata:
   name: test-newman
 spec:
-   tasks:
+  tasks:
     - name: test-api
       taskRef:
         name: newman

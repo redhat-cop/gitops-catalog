@@ -27,49 +27,49 @@ spec:
       name: mta-web-console-postgresql
     spec:
       containers:
-      - env:
-        - name: POSTGRESQL_USER
-          value: user8ke
-        - name: POSTGRESQL_PASSWORD
-          value: qecirheM
-        - name: POSTGRESQL_DATABASE
-          value: mta
-        - name: POSTGRESQL_MAX_CONNECTIONS
-          value: "200"
-        - name: POSTGRESQL_MAX_PREPARED_TRANSACTIONS
-          value: "200"
-        - name: POSTGRESQL_SHARED_BUFFERS
-        image: image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:fd6a31238840a009aa024a88a1dc95cc6e61067650cad2fad0db4f52c9265496
-        imagePullPolicy: Always
-        name: mta-web-console-postgresql
-        ports:
-        - containerPort: 5432
-          protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /var/lib/pgsql/data
-          name: mta-web-console-postgresql-pvol
+        - env:
+            - name: POSTGRESQL_USER
+              value: user8ke
+            - name: POSTGRESQL_PASSWORD
+              value: qecirheM
+            - name: POSTGRESQL_DATABASE
+              value: mta
+            - name: POSTGRESQL_MAX_CONNECTIONS
+              value: "200"
+            - name: POSTGRESQL_MAX_PREPARED_TRANSACTIONS
+              value: "200"
+            - name: POSTGRESQL_SHARED_BUFFERS
+          image: image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:fd6a31238840a009aa024a88a1dc95cc6e61067650cad2fad0db4f52c9265496
+          imagePullPolicy: Always
+          name: mta-web-console-postgresql
+          ports:
+            - containerPort: 5432
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /var/lib/pgsql/data
+              name: mta-web-console-postgresql-pvol
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 60
       volumes:
-      - name: mta-web-console-postgresql-pvol
-        persistentVolumeClaim:
-          claimName: mta-web-console-postgresql-claim
+        - name: mta-web-console-postgresql-pvol
+          persistentVolumeClaim:
+            claimName: mta-web-console-postgresql-claim
   test: false
   triggers:
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - mta-web-console-postgresql
-      from:
-        kind: ImageStreamTag
-        name: postgresql:latest
-        namespace: openshift
-      lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:fd6a31238840a009aa024a88a1dc95cc6e61067650cad2fad0db4f52c9265496
-    type: ImageChange
-  - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - mta-web-console-postgresql
+        from:
+          kind: ImageStreamTag
+          name: postgresql:latest
+          namespace: openshift
+        lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:fd6a31238840a009aa024a88a1dc95cc6e61067650cad2fad0db4f52c9265496
+      type: ImageChange
+    - type: ConfigChange

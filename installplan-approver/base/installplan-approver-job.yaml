@@ -38,8 +38,8 @@ spec:
           imagePullPolicy: Always
           name: installplan-approver
           env:
-          - name: SLEEP
-            value: "20"
+            - name: SLEEP
+              value: "20"
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
       serviceAccount: installplan-approver-job
