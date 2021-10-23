@@ -3,3 +3,12 @@ kind: Kustomization
 
 resources:
   - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.16.0/controller.yaml
+
+patches:
+- patch: |-
+    - op: replace
+      path: "/apiVersion"
+      value: rbac.authorization.k8s.io/v1
+  target:
+    group: rbac.authorization.k8s.io
+    version: v1beta1
