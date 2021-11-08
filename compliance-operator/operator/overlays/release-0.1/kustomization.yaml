@@ -7,10 +7,10 @@ bases:
   - ../../base
 
 patches:
--  target:
-     kind: Subscription
-     name: compliance-operator
-   patch: |-
-    - op: replace
-      path: /spec/channel
-      value: 'release-0.1'
+  - target:
+      kind: Subscription
+      name: compliance-operator
+    patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'release-0.1'

@@ -6,8 +6,8 @@ metadata:
 spec:
   config:
     env:
-    - name: KVM_EMULATION
-      value: "true"
+      - name: KVM_EMULATION
+        value: "true"
     selector:
       matchLabels:
         name: hyperconverged-cluster-operator

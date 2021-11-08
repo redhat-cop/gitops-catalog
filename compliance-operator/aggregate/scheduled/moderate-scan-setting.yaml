@@ -4,10 +4,10 @@ kind: ScanSetting
 metadata:
   name: moderate
 roles:
-- worker
-- master
+  - worker
+  - master
 scanTolerations:
-- effect: NoSchedule
-  key: node-role.kubernetes.io/master
-  operator: Exists
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
 schedule: '0 1 * * *'

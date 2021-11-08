@@ -8,6 +8,6 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-- ../../operator/overlays/release-0.1
-- demo-scan-setting.yaml
-- demo-scan-setting-binding.yaml
+  - ../../operator/overlays/release-0.1
+  - demo-scan-setting.yaml
+  - demo-scan-setting-binding.yaml

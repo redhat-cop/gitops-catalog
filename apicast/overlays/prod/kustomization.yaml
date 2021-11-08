@@ -4,28 +4,28 @@ kind: Kustomization
 nameSuffix: -prod
 
 bases:
-- ../../base
+  - ../../base
 
 patchesJson6902:
-- target:
-    version: v1
-    group: apps.openshift.io
-    kind: DeploymentConfig
-    name: apicast-prod
-  path: patch-prod-dc.yaml
-- target:
-    version: v1
-    group: route.openshift.io
-    kind: Route
-    name: apicast-prod
-  path: patch-prod-route.yaml
-- target:
-    version: v1
-    group: ""
-    kind: Service
-    name: apicast-prod
-  path: patch-prod-svc.yaml
+  - target:
+      version: v1
+      group: apps.openshift.io
+      kind: DeploymentConfig
+      name: apicast-prod
+    path: patch-prod-dc.yaml
+  - target:
+      version: v1
+      group: route.openshift.io
+      kind: Route
+      name: apicast-prod
+    path: patch-prod-route.yaml
+  - target:
+      version: v1
+      group: ""
+      kind: Service
+      name: apicast-prod
+    path: patch-prod-svc.yaml
 
 
 transformers:
-- update-k8s-labels.yaml
+  - update-k8s-labels.yaml

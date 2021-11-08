@@ -12,5 +12,5 @@ roleRef:
   kind: ClusterRole
   name: edit
 subjects:
-- kind: ServiceAccount
-  name: jenkins
+  - kind: ServiceAccount
+    name: jenkins

@@ -31,64 +31,64 @@ spec:
         tuned.openshift.io/elasticsearch: ''
     spec:
       containers:
-      - name: sonarqube
-        image: sonarqube:8.2-community
-        env:
-        - name: SONARQUBE_JDBC_PASSWORD
-          value: kHPdpIYtdtGXeStv
-        - name: SONARQUBE_JDBC_URL
-          value: jdbc:postgresql://postgresql-sonarqube/sonar
-        - name: SONARQUBE_JDBC_USERNAME
-          value: sonar
-        - name: SONAR_TELEMETRY_ENABLE
-          value: "false"
-        - name: SONAR_PLUGINS_RISK_CONSENT
-          value: ACCEPTED
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 9000
-          protocol: TCP
-        resources:
-          limits:
-            cpu: "2"
-            memory: 2Gi
-          requests:
-            cpu: 500m
-            memory: 2Gi
-        livenessProbe:
-          httpGet:
-            path: /api/system/status
-            port: 9000
-            scheme: HTTP
-          initialDelaySeconds: 60
-          periodSeconds: 30
-        readinessProbe:
-          httpGet:
-            path: /api/system/status
-            port: 9000
-            scheme: HTTP
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          failureThreshold: 6
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-        volumeMounts:
-        - mountPath: /opt/sonarqube/data
-          name: sonarqube-data
-        - mountPath: /opt/sonarqube/extensions
-          name: sonarqube-data
-        - mountPath: /opt/sonarqube/logs
-          name: sonarqube-data
-        - mountPath: /opt/sonarqube/temp
-          name: sonarqube-temp
+        - name: sonarqube
+          image: sonarqube:8.2-community
+          env:
+            - name: SONARQUBE_JDBC_PASSWORD
+              value: kHPdpIYtdtGXeStv
+            - name: SONARQUBE_JDBC_URL
+              value: jdbc:postgresql://postgresql-sonarqube/sonar
+            - name: SONARQUBE_JDBC_USERNAME
+              value: sonar
+            - name: SONAR_TELEMETRY_ENABLE
+              value: "false"
+            - name: SONAR_PLUGINS_RISK_CONSENT
+              value: ACCEPTED
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+          livenessProbe:
+            httpGet:
+              path: /api/system/status
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/system/status
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 6
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /opt/sonarqube/data
+              name: sonarqube-data
+            - mountPath: /opt/sonarqube/extensions
+              name: sonarqube-data
+            - mountPath: /opt/sonarqube/logs
+              name: sonarqube-data
+            - mountPath: /opt/sonarqube/temp
+              name: sonarqube-temp
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: sonarqube-data
-        persistentVolumeClaim:
-          claimName: sonarqube-data
-      - name: sonarqube-temp
-        emptyDir: {}
+        - name: sonarqube-data
+          persistentVolumeClaim:
+            claimName: sonarqube-data
+        - name: sonarqube-temp
+          emptyDir: {}

@@ -7,6 +7,6 @@ roleRef:
   kind: ClusterRole
   name: cluster-monitoring-view
 subjects:
-- kind: ServiceAccount
-  name: grafana-serviceaccount
-  namespace: patch-me
+  - kind: ServiceAccount
+    name: grafana-serviceaccount
+    namespace: patch-me

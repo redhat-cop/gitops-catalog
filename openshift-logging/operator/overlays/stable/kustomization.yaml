@@ -6,10 +6,13 @@ bases:
   - ../../base
 
 patches:
--  target:
-     kind: Subscription
-     name: cluster-logging
-   patch: |-
-    - op: replace
-      path: /spec/channel
-      value: 'stable'
+  - target:
+      group: operators.coreos.com
+      version: v1alpha1
+      kind: Subscription
+      name: cluster-logging
+      namespace: openshift-logging
+    patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'stable'

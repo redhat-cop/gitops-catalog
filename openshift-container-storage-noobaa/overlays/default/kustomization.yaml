@@ -7,10 +7,10 @@ bases:
   - ../../base
 
 patchesJson6902:
-- target:
-    group: noobaa.io
-    version: v1alpha1
-    kind: BackingStore
-    name: mcg-pv-pool-bs
-    namespace: openshift-storage
-  path: patch-storage-capacity.yaml
+  - target:
+      group: noobaa.io
+      version: v1alpha1
+      kind: BackingStore
+      name: mcg-pv-pool-bs
+      namespace: openshift-storage
+    path: patch-storage-capacity.yaml

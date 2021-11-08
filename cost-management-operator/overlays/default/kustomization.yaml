@@ -7,7 +7,7 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
- - namespace.yaml
- - operator-group.yaml
- - ../../base/operator
- - ../../base/instance
+  - namespace.yaml
+  - operator-group.yaml
+  - ../../base/operator
+  - ../../base/instance

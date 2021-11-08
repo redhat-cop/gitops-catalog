@@ -9,10 +9,10 @@ metadata:
   name: postgresql-sonarqube
 spec:
   ports:
-  - name: postgresql
-    port: 5432
-    protocol: TCP
-    targetPort: 5432
+    - name: postgresql
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
   selector:
     app: sonarqube
     deploymentconfig: postgresql-sonarqube

@@ -22,7 +22,7 @@ spec:
               echo "Approving RH-SSO operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
               sleep 20
               for subscription in `oc get subscription -n sso -o name`
-              do 
+              do
                 desiredcsv=$(oc get $subscription -n sso -o jsonpath='{ .spec.startingCSV }')
 
                 until [ "$(oc get installplan -n sso -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")" != "" ]; do sleep 2; done
@@ -41,7 +41,7 @@ spec:
               done
 
               if [ "$GENERATE_OPENID_CERT" == true ] ; then
-              
+
                   echo "GENERATE_OPENID_CERT set to 'true'.  Create a ConfigMap named openidcrt in the openshift-config project."
 
                   # Get name of certs secret.  It can be router-certs or router-certs-default.
@@ -49,11 +49,11 @@ spec:
 
                   tlscert=`oc get secrets/$CERT_SECRET -o jsonpath={.data.'tls\.crt'} -n openshift-ingress | base64 --decode`
                   oc create configmap openidcacrt --from-literal ca.crt="$tlscert" -n openshift-config
-                  
+
               else
-              
+
                   echo "GENERATE_OPENID_CERT set to 'false'.  Will not create an openidcrt ConfigMap in the openshift-config namespace."
-                  
+
               fi
 
           imagePullPolicy: Always

@@ -12,9 +12,9 @@ metadata:
   namespace: app-migration
 spec:
   ports:
-  - port: 61616
-    protocol: TCP
-    targetPort: 61616
+    - port: 61616
+      protocol: TCP
+      targetPort: 61616
   selector:
     deploymentConfig: mta-web-console
   sessionAffinity: None

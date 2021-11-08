@@ -1,4 +1,3 @@
-
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -11,11 +10,11 @@ spec:
       containers:
         - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
           env:
-          - name: PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: central-htpasswd
-                key: password
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: central-htpasswd
+                  key: password
           command:
             - /bin/bash
             - -c

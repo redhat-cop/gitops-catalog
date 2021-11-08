@@ -9,10 +9,10 @@ metadata:
   name: jenkins-jnlp
 spec:
   ports:
-  - name: agent
-    port: 50000
-    protocol: TCP
-    targetPort: 50000
+    - name: agent
+      port: 50000
+      protocol: TCP
+      targetPort: 50000
   selector:
     name: jenkins
   sessionAffinity: None

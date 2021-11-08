@@ -6,17 +6,17 @@ bases:
   - ../../base
 
 patches:
--  target:
-     kind: ClusterLogging
-     name: instance
-   patch: |-
-    - op: replace
-      path: /spec/logStore/elasticsearch/storage/storageClassName
-      value: 'gp2'
--  target:
-     kind: ConsoleLink
-     name: kibana-public-url
-   patch: |-
-    - op: replace
-      path: /spec/href
-      value: 'https://kibana-openshift-logging.apps.mgnt.adetalhouet.rhtelco.io'
+  - target:
+      kind: ClusterLogging
+      name: instance
+    patch: |-
+      - op: replace
+        path: /spec/logStore/elasticsearch/storage/storageClassName
+        value: 'gp2'
+  - target:
+      kind: ConsoleLink
+      name: kibana-public-url
+    patch: |-
+      - op: replace
+        path: /spec/href
+        value: 'https://kibana-openshift-logging.apps.mgnt.adetalhouet.rhtelco.io'

@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   annotations:
     openshift.io/description: Example grafana oauth deployment
-    openshift.io/display-name:  Grafana OAuth Example
+    openshift.io/display-name: Grafana OAuth Example
   name: grafana

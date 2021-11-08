@@ -4,5 +4,4 @@ metadata:
   name: sso
 spec:
   targetNamespaces:
-  - sso
-
+    - sso
