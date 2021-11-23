@@ -5,9 +5,8 @@ Installs the OpenShift GitOps (Argo CD) operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [preview-4.6](overlays/preview-4.6) - OpenShift 4.6
-* [preview-4.7](overlays/preview-4.7) - OpenShift 4.7 - **DEPRECATED** - Use "stable-4.7"
-* [stable-4.7](overlays/stable-4.7) - OpenShift 4.7
+* [preview](overlays/preview)
+* [stable](overlays/stable)
 
 ## Usage
 
