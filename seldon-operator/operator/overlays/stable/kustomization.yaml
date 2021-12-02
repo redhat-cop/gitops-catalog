@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openshift-operators
+
+bases:
+  - ../../base
+
+patches:
+  - target:
+      group: operators.coreos.com
+      version: v1alpha1
+      kind: Subscription
+      name: seldon-operator-certified
+    path: patch-channel.yaml
