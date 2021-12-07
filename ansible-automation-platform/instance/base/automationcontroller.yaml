@@ -1,7 +1,7 @@
 apiVersion: automationcontroller.ansible.com/v1beta1
 kind: AutomationController
 metadata:
-  name: tower
+  name: controller
   namespace: ansible-automation-platform
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
