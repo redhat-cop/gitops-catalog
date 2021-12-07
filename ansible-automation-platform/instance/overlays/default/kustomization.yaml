@@ -8,8 +8,8 @@ bases:
 patches:
   - target:
       kind: ConsoleLink
-      name: tower
+      name: Controller
     patch: |-
       - op: replace
         path: /spec/href
-        value: 'https://tower-ansible-automation-platform.apps.hub-adetalhouet.rhtelco.io'
+        value: 'https://controller.apps-crc.testing'
