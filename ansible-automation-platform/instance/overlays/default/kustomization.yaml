@@ -5,11 +5,3 @@ kind: Kustomization
 bases:
   - ../../base
 
-patches:
-  - target:
-      kind: ConsoleLink
-      name: Controller
-    patch: |-
-      - op: replace
-        path: /spec/href
-        value: 'https://controller.apps-crc.testing'
