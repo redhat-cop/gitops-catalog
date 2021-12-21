@@ -1,0 +1,14 @@
+apiVersion: operator.gatekeeper.sh/v1alpha1
+kind: Gatekeeper
+metadata:
+  name: gatekeeper
+spec:
+  audit:
+    logLevel: INFO
+    replicas: 1
+  validatingWebhook: Enabled
+  mutatingWebhook: Disabled
+  webhook:
+    emitAdmissionEvents: Enabled
+    logLevel: INFO
+    replicas: 2
