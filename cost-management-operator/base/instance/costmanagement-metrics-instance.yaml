@@ -2,6 +2,7 @@ apiVersion: costmanagement-metrics-cfg.openshift.io/v1beta1
 kind: CostManagementMetricsConfig
 metadata:
   name: config
+  namespace: costmanagement-metrics-operator
 spec:
   api_url: https://cloud.redhat.com
   authentication:

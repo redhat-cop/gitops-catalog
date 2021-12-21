@@ -4,6 +4,7 @@ metadata:
   labels:
     operators.coreos.com/costmanagement-metrics-operator.costmanagement-metrics-operator: ''
   name: costmanagement-metrics-operator
+  namespace: costmanagement-metrics-operator
 spec:
   channel: stable
   installPlanApproval: Automatic

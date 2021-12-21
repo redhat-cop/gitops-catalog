@@ -2,7 +2,7 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - ../default
+  - ../aggregate
 
 patchesJson6902:
   - path: patch-source-and-name.yaml

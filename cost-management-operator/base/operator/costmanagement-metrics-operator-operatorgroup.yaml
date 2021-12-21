@@ -1,9 +1,8 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  annotations:
-    olm.providedAPIs: CostManagementMetricsConfig.v1beta1.costmanagement-metrics-cfg.openshift.io
   name: costmanagement-metrics-operator
+  namespace: costmanagement-metrics-operator
 spec:
   targetNamespaces:
     - costmanagement-metrics-operator
