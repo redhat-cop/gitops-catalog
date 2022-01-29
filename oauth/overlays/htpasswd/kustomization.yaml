@@ -4,14 +4,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 bases:
   - ../../base
 
+generatorOptions:
+  disableNameSuffixHash: true
+
 secretGenerator:
 - name: htpass-secret
   namespace: openshift-config
   files:
     - htpasswd=files/users.htpasswd
   type: Opaque
-  options:
-    disableNameSuffixHash: true
 
 patchesJson6902:
   - target:
