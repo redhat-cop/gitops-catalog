@@ -5,6 +5,7 @@ Do not use the `base` directory directly, as you will need to patch the `oauth` 
 The current *overlays* available are for the following providers:
 * [htpass-idp](overlays/htpass-idp)
 * [htpass](overlays/htpass)
+* [ldap](overlays/ldap)
 
 ## Prerequisites
 
@@ -56,4 +57,41 @@ bases:
   - github.com/redhat-cop/gitops-catalog/oauth/overlays/<provider>?ref=main
 ```
 
+### LDAP Example
 
+It is assumed that the target Openshift environment already has the `secret/ldap-secret` and `configmap/ca-config-map` created.
+
+Example overlay from another repo:
+
+kustomization.yaml
+```
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - github.com/redhat-cop/gitops-catalog/oauth/overlays/ldap?ref=main
+
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
+patchesJson6902:
+  - target:
+      group: config.openshift.io
+      version: v1
+      kind: OAuth
+      name: cluster
+    path: oauth-ldap-patch.yaml
+```
+
+oauth-ldap-patch.yaml
+```
+- op: replace
+  path: /spec/identityProviders/0/ldap/url
+  value: "ldap://ldap.example.com/ou=users,dc=acme,dc=com?uid"
+- op: replace
+  path: /spec/identityProviders/0/ldap/bindDN
+  value: "ou=users,dc=examplecorp,dc=com"
+```
