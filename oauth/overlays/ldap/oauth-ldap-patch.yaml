@@ -1,0 +1,23 @@
+- op: add
+  path: /spec/identityProviders/-
+  value:
+    name: ldap 
+    mappingMethod: claim 
+    type: LDAP
+    ldap:
+      attributes:
+        id: 
+        - dn
+        email: 
+        - mail
+        name: 
+        - cn
+        preferredUsername: 
+        - uid
+      bindDN: "" 
+      bindPassword: 
+        name: ldap-secret
+      ca: 
+        name: ca-config-map
+      insecure: false 
+      url: "ldap://ldap.example.com/ou=users,dc=acme,dc=com?uid"
