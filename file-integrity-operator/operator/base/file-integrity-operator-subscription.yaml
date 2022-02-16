@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: file-integrity-operator
+spec:
+  channel: "patch-me-in-overlay"
+  installPlanApproval: Automatic
+  name: file-integrity-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace

@@ -1,0 +1,21 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: openshift-operators
+
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "0"
+
+resources:
+  - namespace.yaml
+  - file-integrity-operator-subscription.yaml
+  - file-integrity-operator-operatorgroup.yaml
+
+patches:
+  - target:
+      kind: Subscription
+      name: file-integrity-operator
+    patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'release-0.1'
