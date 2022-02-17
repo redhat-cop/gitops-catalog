@@ -1,0 +1,8 @@
+apiVersion: fileintegrity.openshift.io/v1alpha1
+kind: FileIntegrity
+metadata:
+  name: worker-fileintegrity
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  config: {}

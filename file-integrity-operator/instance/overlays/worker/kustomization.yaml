@@ -1,0 +1,11 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: openshift-file-integrity
+
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "1"
+  argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
+resources:
+  - worker-fileintegrity.yaml
