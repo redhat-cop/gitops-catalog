@@ -4,6 +4,4 @@ kind: Kustomization
 resources:
   - rhsso-operatorgroup.yaml
   - rhsso-subscription.yaml
-  - approval-and-cert-job.yaml
-  - serviceaccount.yaml
-  - rbac.yaml
+  - namespace.yaml

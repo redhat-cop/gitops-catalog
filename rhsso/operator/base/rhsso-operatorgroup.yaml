@@ -1,7 +1,9 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
+  annotations:
   name: sso
+  namespace: sso
 spec:
   targetNamespaces:
     - sso
