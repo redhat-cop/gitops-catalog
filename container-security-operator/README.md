@@ -5,7 +5,8 @@ Installs the Container Security operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` and `version` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [v3.5](overlays/v3.5)
+* [quay-v3.5](overlays/quay-v3.5)
+* [stable-3.6](overlays/stable-3.6)
 
 ## Usage
 
