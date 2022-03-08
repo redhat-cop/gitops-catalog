@@ -1,0 +1,40 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: secured-cluster-resources
+  namespace: stackrox
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  pathname: stackrox
+  type: Namespace
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: secured-cluster-sub
+  namespace: stackrox
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  channel: stackrox/secured-cluster-resources
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: secured-cluster-placement
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: secured-cluster-placement
+  namespace: stackrox
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchLabels:
+      acs-enabled: "True"

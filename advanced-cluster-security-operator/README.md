@@ -41,3 +41,31 @@ platform.stackrox.io/Central:
 ```
 
 A minimal overlay suitable for demos is also available at `advanced-cluster-security-operator/aggregate/minimal`, note this should never be used in production.
+
+### ACS Everywhere
+
+With ACM, you can automatically onboard clusters in ACS using cluster labels.
+
+In this case, the label use is the following: `acs-enabled: "True"`
+
+In order for the secrets to be shared, we can use ACM deployable functionality.
+What is required is:
+1. to annotated the secrets to share with `apps.open-cluster-management.io/deployables`
+2. create an ACM `Channel`, `Subscription` and `PlacementRule` to deploy the secrets when mathching the `PlacementRule`.
+
+Finally, there is a need for an ACM policy that will create the `SecuredCluster` for the labelled clusters.
+
+To use this functionality, using the following
+
+```
+oc apply -k advanced-cluster-security-operator/instance/overlays/acs-everywhere
+```
+
+Or as part of a different overlay in your own GitOps repo:
+
+```
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+  - github.com/redhat-cop/gitops-catalog/advanced-cluster-security-operator/instance/overlays/acs-everywhere?ref=main
+```
