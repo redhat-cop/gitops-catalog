@@ -43,5 +43,3 @@ spec:
           kind: ImageStreamTag
           name: selenium-node-base:3.141.59
       type: ImageChange
-status:
-  lastVersion: 0
