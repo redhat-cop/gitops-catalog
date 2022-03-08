@@ -4,3 +4,4 @@ kind: Kustomization
 
 resources:
   - multiclusterhub.yaml
+  - subscription-admin.yaml
