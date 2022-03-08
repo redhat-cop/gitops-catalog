@@ -6,7 +6,7 @@ namespace: sso
 bases:
   - ../../base
 
-  patches:
+patches:
   - target:
       kind: Subscription
       name: rhsso-operator
