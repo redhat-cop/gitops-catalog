@@ -43,5 +43,3 @@ spec:
           kind: ImageStreamTag
           name: centos:centos7
       type: ImageChange
-status:
-  lastVersion: 0
