@@ -6,8 +6,6 @@ metadata:
     app.kubernetes.io/component: sonarqube-data-pvc
     app.kubernetes.io/instance: sonarqube
     app.kubernetes.io/part-of: sonarqube
-  finalizers:
-    - kubernetes.io/pvc-protection
   name: sonarqube-data
 spec:
   accessModes:
