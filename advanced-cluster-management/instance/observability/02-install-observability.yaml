@@ -1,0 +1,112 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  name: acm-cli-job-sa-role
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - create
+      - patch
+  - apiGroups:
+      - objectbucket.io
+    resources:
+      - objectbucketclaims
+    verbs:
+      - get
+      - list
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: acm-gitops-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: acm-cli-job-sa-role
+subjects:
+  - kind: ServiceAccount
+    name: cli-job-sa
+    namespace: open-cluster-management-observability
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cli-job-sa
+  namespace: open-cluster-management-observability
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: observability-setup
+  namespace: open-cluster-management-observability
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:latest
+          command:
+            - /bin/bash
+            - -c
+            - |
+
+              echo "Define pull-secret for MultiClusterHub Operator"
+              DOCKER_CONFIG_JSON=`oc extract secret/pull-secret -n openshift-config --to=-`
+              oc create secret generic multiclusterhub-operator-pull-secret \
+                  -n open-cluster-management-observability \
+                  --from-literal=.dockerconfigjson="$DOCKER_CONFIG_JSON" \
+                  --type=kubernetes.io/dockerconfigjson
+
+              echo "Retreive acm-observability bucket ACCESS_KEY and SECRET_KEY"
+              ACCESS_KEY=""
+              SECRET_KEY=""
+              while [[ z$ACCESS_KEY == z ]]; do
+                 echo "Wait for acm-observability bucket to be created, sleep 3 seconds"
+                 sleep 3
+                 ACCESS_KEY=$(oc get secret acm-observability -n open-cluster-management-observability --template={{.data.AWS_ACCESS_KEY_ID}} | base64 -d)
+                 SECRET_KEY=$(oc get secret acm-observability -n open-cluster-management-observability --template={{.data.AWS_SECRET_ACCESS_KEY}} | base64 -d)
+              done;
+
+              echo "Retreive bucket NAME"
+              BUCKET_NAME=$(oc get ObjectBucketClaim acm-observability -n  open-cluster-management-observability --template={{.spec.bucketName}})
+
+              oc get secret thanos-object-storage -n open-cluster-management-observability
+              if [[ $? == 1 ]]
+              then
+                echo "Create thanos object storage configuration"
+
+                echo "---
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: thanos-object-storage
+                  namespace: open-cluster-management-observability
+                type: Opaque
+                stringData:
+                  thanos.yaml: |
+                    type: s3
+                    config:
+                      bucket: $BUCKET_NAME
+                      endpoint: s3.openshift-storage.svc
+                      insecure: true
+                      access_key: $ACCESS_KEY
+                      secret_key: $SECRET_KEY" | oc create -f -
+              fi
+              echo -n "thanos object storage configuration already exists"
+
+          imagePullPolicy: IfNotPresent
+          name: observability-setup
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30
