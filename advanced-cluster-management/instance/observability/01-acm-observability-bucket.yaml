@@ -1,0 +1,11 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: acm-observability
+  namespace: open-cluster-management-observability
+spec:
+  additionalConfig:
+    bucketclass: noobaa-default-bucket-class
+  generateBucketName: acm-observability
+  objectBucketName: obc-openshift-storage-acm-observability
+  storageClassName: openshift-storage.noobaa.io
