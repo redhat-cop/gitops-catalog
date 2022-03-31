@@ -25,7 +25,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 
 # Remote base.  Use the configuration from the Red Hat GitOps Catalog repo (unofficial).
 bases:
-  - https://github.com/redhat-cop/gitops-catalog/catalog/sealed-secrets-operator/overlays/default
+  - https://github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default
 
 resources:
   - namespace.yaml
