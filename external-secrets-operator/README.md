@@ -31,7 +31,7 @@ Once the operator is installed, you need to create an `OperatorConfig` CRD to co
 Reference on of the `instance/overlay` directories.  For example:
 
 ```
-oc apply -k external-secrets-operator/instance/overlays/default?ref=main
+oc apply -k external-secrets-operator/instance/overlays/default
 ```
 
 Or as part of your own `kustomization.yaml` file:
