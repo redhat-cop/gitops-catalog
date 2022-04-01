@@ -11,7 +11,7 @@ After installing the operator and instance, you will need to create a `SecretSto
 Reference one of the `operator/overlay` directories.  For example:
 
 ```
-oc apply -k external-secrets-operator/operator/overlays/alpha?ref=main
+oc apply -k external-secrets-operator/operator/overlays/alpha
 ```
 
 Or as part of your own `kustomization.yaml` file:

@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: external-secrets
 
 bases:
-  - ../base
+  - ../../base
