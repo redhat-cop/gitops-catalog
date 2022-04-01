@@ -8,7 +8,7 @@ After installing the operator and instance, you will need to create a `SecretSto
 
 ## Install Operator
 
-Reference on of the `operator/overlay` directories.  For example:
+Reference one of the `operator/overlay` directories.  For example:
 
 ```
 oc apply -k external-secrets-operator/operator/overlays/alpha?ref=main
