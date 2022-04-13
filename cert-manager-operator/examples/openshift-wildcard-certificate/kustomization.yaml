@@ -1,0 +1,8 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: openshift-ingress
+
+resources:
+- openshift-wildcard-certificate.yaml
+- patch-cluster-wildcard-cert-job.yaml

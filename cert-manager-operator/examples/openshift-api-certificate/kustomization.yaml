@@ -1,0 +1,8 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: openshift-config
+
+resources:
+- openshift-api-certificate.yaml
+- patch-cluster-api-cert-job.yaml

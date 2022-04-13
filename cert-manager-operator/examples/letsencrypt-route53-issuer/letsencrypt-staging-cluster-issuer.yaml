@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: someone@example.com
+    # This key doesn't exist, cert-manager creates it
+    privateKeySecretRef:
+      name: example-issuer-account-key
+    solvers:
+    - selector:
+        dnsZones:
+          - "example.com"
+      dns01:
+        route53:
+          region: ca-central-1
+          accessKeyID: XXXXXXXX
+          secretAccessKeySecretRef:
+            name: letsencrypt-aws
+            key: secret-access-key
