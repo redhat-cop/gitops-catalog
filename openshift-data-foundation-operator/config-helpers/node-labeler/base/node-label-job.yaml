@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: storage-cluster-label-worker-nodes
+  generateName: storage-cluster-label-worker-nodes-
+spec:
+  template:
+    spec:
+      containers:
+      - name: labeler
+        image: image-registry.openshift-image-registry.svc:5000/openshift/cli
+        env:
+          - name: selector
+            value: 'node-role.kubernetes.io/worker'
+        command:
+          - /bin/bash
+          - -c
+          - |
+            node_count=$(oc get nodes --selector=${selector} --output name | wc -l)
+            if [ ${node_count} -lt 3 ]; then
+              echo "Not enough selected nodes present in cluster"
+              oc get nodes --selector=${selector}
+              exit 1
+            fi
+            echo "Labling the following nodes"
+            oc get nodes --selector=${selector}
+            oc label nodes --selector=${selector} cluster.ocs.openshift.io/openshift-storage="" --overwrite=true
+      restartPolicy: Never
+      serviceAccount: ocs-node-labeler
+      serviceAccountName: ocs-node-labeler
+  backoffLimit: 4
