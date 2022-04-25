@@ -6,6 +6,15 @@ namespace: ansible-automation-platform
 bases:
   - ../../base
 
+patches:
+-  target:
+     kind: OperatorGroup
+     name: ansible-automation-platform-operator
+   patch: |-
+    - op: replace
+      path: /spec/targetNamespaces
+      value: []
+
 patchesJson6902:
   - target:
       group: operators.coreos.com
