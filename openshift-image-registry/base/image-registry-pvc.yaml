@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: image-registry-storage
+  namespace: openshift-image-registry
+spec:
+  accessModes:
+  - FROM_OVERLAY
+  resources:
+    requests:
+      storage: FROM_OVERLAY
+

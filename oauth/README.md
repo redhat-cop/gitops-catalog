@@ -11,7 +11,7 @@ The current *overlays* available are for the following providers:
 
 ### For HTPasswd
 
-> There is an existent file `users.htpasswd` with a single user `admin:redhat` in case you want to use it for testing purposes.
+> There is an existent file `users.htpasswd` with a single user `admin:admin` in case you want to use it for testing purposes.
 
 Have access to the `htpasswd` utility. On Red Hat Enterprise Linux this is available by installing the `httpd-tools` package.
 

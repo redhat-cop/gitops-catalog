@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: central-acs-certificate
+  namespace: stackrox
+spec:
+  # Replace default secret since ACS doesn't support referencing a different secret
+  secretName: central-default-tls-cert
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+  - central-stackrox.apps.cluster.example.com
