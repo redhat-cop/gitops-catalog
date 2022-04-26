@@ -10,7 +10,7 @@ The current *overlays* available are for the following channels:
 * [latest](overlays/latest)
 * [gitops-1.5](overlays/gitops-1.5)
 
-The `stable` channel is deprecated and will either be removed, or say associated with version 1.5 once OpenShift GitOps 1.6 is released.
+If you want to use the latest stable version of OpenShift GitOps, it is recommended that you use the `latest` channel.  If you want to stay on a particular release, please use the associated `gitops-1.x` channel.
 
 
 ## Usage
