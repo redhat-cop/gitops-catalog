@@ -7,6 +7,11 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 The current *overlays* available are for the following channels:
 * [preview](overlays/preview)
 * [stable](overlays/stable)
+* [latest](overlays/latest)
+* [gitops-1.5](overlays/gitops-1.5)
+
+If you want to use the latest stable version of OpenShift GitOps, it is recommended that you use the `latest` channel.  If you want to stay on a particular release, please use the associated `gitops-1.x` channel.
+
 
 ## Usage
 
