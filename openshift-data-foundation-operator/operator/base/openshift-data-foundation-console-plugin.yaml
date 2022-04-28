@@ -1,0 +1,11 @@
+apiVersion: console.openshift.io/v1alpha1
+kind: ConsolePlugin
+metadata:
+  name: odf-console
+spec:
+  displayName: ODF Plugin
+  service:
+    basePath: /
+    name: odf-console-service
+    namespace: openshift-storage
+    port: 9001
