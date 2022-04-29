@@ -1,0 +1,26 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: enable-odf-console-plugin
+rules:
+  - apiGroups: ["operator.openshift.io"]
+    resources:
+      - consoles
+    verbs:
+      - get
+      - list
+      - patch
+      - label
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: enable-odf-console-plugin
+subjects:
+  - kind: ServiceAccount
+    name: enable-odf-console-plugin
+    namespace: openshift-storage
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: enable-odf-console-plugin
