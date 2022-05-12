@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- https://raw.githubusercontent.com/kyverno/kyverno/release-1.6/config/release/install.yaml
+
+patches:
+- patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/resources/limits/memory
+      value: 768Mi
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: '--clientRateLimitQPS=350'
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: '--clientRateLimitBurst=350'
+  target:
+    kind: Deployment
+    name: kyverno
+- patch: |-
+    - op: replace
+      path: /data/resourceFilters
+      value: '[Event,*,*][*,kube-system,*][*,kube-public,*][*,kube-node-lease,*][Node,*,*][APIService,*,*][TokenReview,*,*][SubjectAccessReview,*,*][SelfSubjectAccessReview,*,*][*,kyverno,kyverno*][*,openshift,*][*,openshift-*,*][*,open-cluster-*,*][Binding,*,*][ReplicaSet,*,*][ReportChangeRequest,*,*][ClusterReportChangeRequest,*,*][PolicyReport,*,*][ClusterPolicyReport,*,*]'
+  target:
+    kind: ConfigMap
+    name: kyverno

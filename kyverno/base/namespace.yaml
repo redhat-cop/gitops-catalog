@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: Kyverno Policy Engine
+    openshift.io/display-name:  Kyverno
+  name: kyverno
