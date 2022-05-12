@@ -32,5 +32,5 @@ If you would also like to run scans, you can try one of the sample scans availab
 If you would like to deploy the operator *and* run a scan all in one line, use on of the `aggregate` directories, for example:
 
 ```
-oc apply -k https://github.com/redhat-cop/compliance-operator/aggregate/demo?ref=main
+oc apply -k https://github.com/redhat-cop/gitops-catalog/compliance-operator/aggregate/demo?ref=main
 ```
