@@ -20,7 +20,7 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 bases:
-- github.com/redhat-cop/gitops-catalog/jcompliance-operator/operator/overlays/release-0.1?ref=main
+- github.com/redhat-cop/gitops-catalog/compliance-operator/operator/overlays/release-0.1?ref=main
 ```
 
 ## Running Scans
