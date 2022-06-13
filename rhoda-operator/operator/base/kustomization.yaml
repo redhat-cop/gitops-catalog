@@ -3,4 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - install.yaml
+  - catalogsource.yaml
+  - namespace.yaml
+  - operatorgroup.yaml
+  - subscription.yaml
