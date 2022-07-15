@@ -10,9 +10,8 @@ bases:
 
 resources:
   - grafana-ds.yaml
-  # - patch-grafana-ds-sa.yaml
-  # - patch-grafana-ds-job.yaml
   - cluster-monitor-view-rb.yaml
+  - grafana-auth-secret.yaml
 
 patches:
   - target:
@@ -20,10 +19,11 @@ patches:
       name: grafana
     patch: |-
       - op: add
-        path: /spec/containers/0/env/-
+        path: /spec/deployment
         value:
-          name: GRAFANA_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: grafana-auth-secret
-              key: token
+          env:
+          - name: GRAFANA_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: grafana-auth-secret
+                key: token
