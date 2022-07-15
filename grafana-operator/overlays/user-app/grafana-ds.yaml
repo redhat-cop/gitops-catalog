@@ -13,7 +13,7 @@ spec:
         tlsSkipVerify: true
       name: Prometheus
       secureJsonData:
-        httpHeaderValue1: 'Bearer ${BEARER_TOKEN}'
+        httpHeaderValue1: 'Bearer ${GRAFANA_TOKEN}'
       type: prometheus
       url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
   name: prometheus.yaml
