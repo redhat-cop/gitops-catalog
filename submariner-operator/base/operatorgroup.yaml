@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: submariner-operator-og
+  namespace: submariner-operator
+spec:
+  targetNamespaces:
+    - submariner-operator
