@@ -4,7 +4,7 @@ Contributions are welcome from all, here are quick notes on the structure and th
 
 ## Folder and File Structure
 
-In general the root folder should represent the functionality being provided with additional folders splitting the functionality as necessary. For example, many operators require that an operator subscription be created followed by an instance. In this case the following structure woule be used:
+In general, the root folder should represent the functionality being provided with additional folders splitting the functionality as necessary. For example, many operators require that an operator subscription be created followed by an instance. In this case, the following structure would be used:
 
 ```
 <name>-operator/
@@ -21,7 +21,7 @@ In general the root folder should represent the functionality being provided wit
 
 Overlays for operators should generally use the `channel` name as the name of the overlay if multiple channels are available. For example, if the channel names are `tech-preview` and `stable` then name the overlays the same corresponding to the channels.
 
-When adding new objects into an example, avoid combining objects into a single yaml file.  Each object should have its own yaml file that is referenced as a resource in the `kustomization.yaml` file.  Some exceptions may exist, such as combining `role` and `roleBinding` into a sinlge RBAC file.  
+When adding new objects into an example, avoid combining objects into a single yaml file.  Each object should have its own yaml file that is referenced as a resource in the `kustomization.yaml` file.  Some exceptions may exist, such as combining `role` and `roleBinding` into a single RBAC file.  
 
 Files in this repository should use the `.yaml` extension and not `.yml`.  Kustomize files should utilize `kustomization.yaml` over alternative naming options.
 
