@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: submariner
+  namespace: submariner-operator
+spec:
+  channel: stable-0.12
+  installPlanApproval: Automatic
+  name: submariner
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
