@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: Red Hat Advanced Cluster Security Operator
+  name: rhacs-operator
+
