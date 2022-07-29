@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: openshift-adp
+  name: openshift-adp
+spec:
+  finalizers:
+    - kubernetes
