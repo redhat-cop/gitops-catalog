@@ -2,7 +2,7 @@ apiVersion: org.eclipse.che/v1
 kind: CheCluster
 metadata:
   name: devspaces
-  namespace: openshift-operators
+  namespace: devspaces
 spec:
   auth:
     externalIdentityProvider: false
