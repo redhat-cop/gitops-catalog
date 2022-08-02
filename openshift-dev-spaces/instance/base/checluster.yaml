@@ -1,0 +1,49 @@
+apiVersion: org.eclipse.che/v1
+kind: CheCluster
+metadata:
+  name: devspaces
+  namespace: openshift-devspaces
+spec:
+  auth:
+    externalIdentityProvider: false
+    identityProviderContainerResources:
+      limits: {}
+      request: {}
+    identityProviderIngress: {}
+    identityProviderRoute: {}
+    updateAdminPassword: false
+  dashboard: {}
+  database:
+    chePostgresContainerResources:
+      limits: {}
+      request: {}
+    externalDb: false
+  devWorkspace:
+    enable: true
+  imagePuller:
+    enable: false
+    spec: {}
+  k8s: {}
+  metrics:
+    enable: true
+  server:
+    allowUserDefinedWorkspaceNamespaces: false
+    cheServerIngress: {}
+    cheServerRoute: {}
+    dashboardIngress: {}
+    dashboardRoute: {}
+    devfileRegistryIngress: {}
+    devfileRegistryRoute: {}
+    externalDevfileRegistry: false
+    externalPluginRegistry: false
+    gitSelfSignedCert: false
+    pluginRegistryIngress: {}
+    pluginRegistryRoute: {}
+    selfSignedCert: false
+    tlsSupport: false
+    useInternalClusterSVCNames: false
+    workspaceNamespaceDefault: <username>-devspaces
+  storage:
+    preCreateSubPaths: true
+    pvcClaimSize: 10Gi
+    pvcStrategy: common
