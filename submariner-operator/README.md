@@ -11,7 +11,7 @@ The current *overlays* available are for the following channels:
 
 ## Usage
 
-If you have cloned the `gitops-catalog` repository, you can install the OpenShift Logging operator based on the overlay of your choice by running from the root `gitops-catalog` directory
+If you have cloned the `gitops-catalog` repository, you can install the operator based on the overlay of your choice by running from the root `gitops-catalog` directory
 
 ```bash
 oc apply -k submariner-operator/overlays/<channel>
