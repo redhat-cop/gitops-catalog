@@ -2,3 +2,4 @@
 
 Channels:
 * [alpha](alpha)
+* [stable](stable)
