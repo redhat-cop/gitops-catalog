@@ -21,7 +21,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/redhat-cop/gitops-catalog/jenkins2/bases/?ref=v0.3
+- github.com/redhat-cop/gitops-catalog/jenkins2/base/?ref=v0.3
 ```
 
 
