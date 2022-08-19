@@ -8,6 +8,11 @@ The current *overlays* available are for the following channels:
 * [4.6](overlays/4.6)
 * [5.0](overlays/5.0)
 * [stable](overlays/stable)
+* [stable-5.1](overlays/stable-5.1)
+* [stable-5.2](overlays/stable-5.2)
+* [stable-5.3](overlays/stable-5.3)
+* [stable-5.4](overlays/stable-5.4)
+* [stable-5.5](overlays/stable-5.5)
 
 ## Usage
 
