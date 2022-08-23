@@ -14,12 +14,9 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The instaconfnce options for this operator currently offeres the following *overlays*:
 * [aws](overlays/aws)
+* [vsphere](overlays/vsphere)
 
-### AWS
-
-[aws](overlays/aws) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitilization object to configure the storage cluster.  The StorageCluster is configured to work with gp2 storage on an AWS cluster.
-
-In order for ODF/OCS to configure storage using this overlay it expects nodes with the following label to be present on the nodes ODF/OCS will install the cluster:
+In order for ODF/OCS to configure storage using the overlays, they expect nodes with the following label to be present on the nodes ODF/OCS will install the cluster:
 
 ```
 cluster.ocs.openshift.io/openshift-storage=""
@@ -32,6 +29,14 @@ oc label nodes <node-name> cluster.ocs.openshift.io/openshift-storage="" --overw
 ```
 
 For additional automation for labeling nodes see [node-labeler](../config-helpers/node-labeler/)
+
+### AWS
+
+[aws](overlays/aws) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitilization object to configure the storage cluster.  The StorageCluster is configured to work with gp2 storage on an AWS cluster.
+
+### vSphere
+
+[vsphere](overlays/vsphere) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitilization object to configure the storage cluster.  The StorageCluster is configured to work with thin storage on a vSphere cluster and enables flexible scaling to distribute devices evenly across all nodes, regardless of distribution in zones or racks.   
 
 ## Usage
 
