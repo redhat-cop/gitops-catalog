@@ -13,7 +13,7 @@ The current *overlays* available are for the following channels:
 If you have cloned the `gitops-catalog` repository, you can install the OpenShift Data Foundation operator based on the overlay of your choice by running from the root `gitops-catalog` directory
 
 ```
-oc apply -k openshift-data-foundation-operator/overlays/<channel>
+oc apply -k openshift-data-foundation-operator/operator/overlays/<channel>
 ```
 
 Or, without cloning:
