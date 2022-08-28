@@ -29,4 +29,3 @@ patches:
       - op: replace
         path: /spec/rolloutStrategy
         value: 'Recreate'
-

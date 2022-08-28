@@ -18,4 +18,3 @@ spec:
   defaultRoute: true
   storage:
     emptyDir: {}
-
