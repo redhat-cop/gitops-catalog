@@ -3,7 +3,7 @@ kind: Subscription
 metadata:
   name: prometheus
 spec:
-  channel: beta
+  channel: patch-me-see-overlays
   installPlanApproval: Automatic
   name: prometheus
   source: community-operators
