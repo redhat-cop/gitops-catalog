@@ -12,11 +12,11 @@ generatorOptions:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 
 secretGenerator:
-- name: htpass-secret
-  namespace: openshift-config
-  files:
-    - htpasswd=files/users.htpasswd
-  type: Opaque
+  - name: htpass-secret
+    namespace: openshift-config
+    files:
+      - htpasswd=files/users.htpasswd
+    type: Opaque
 
 patchesJson6902:
   - target:

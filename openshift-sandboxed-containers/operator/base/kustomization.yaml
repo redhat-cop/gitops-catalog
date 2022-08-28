@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: openshift-sandboxed-containers-operator
 
 resources:
-- openshift-sandboxed-containers-operator-ns.yaml
-- openshift-sandboxed-containers-operator-og.yaml
-- openshift-sandboxed-containers-operator-sub.yaml
+  - openshift-sandboxed-containers-operator-ns.yaml
+  - openshift-sandboxed-containers-operator-og.yaml
+  - openshift-sandboxed-containers-operator-sub.yaml

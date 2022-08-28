@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-image-registry
 spec:
   accessModes:
-  - FROM_OVERLAY
+    - FROM_OVERLAY
   resources:
     requests:
       storage: FROM_OVERLAY

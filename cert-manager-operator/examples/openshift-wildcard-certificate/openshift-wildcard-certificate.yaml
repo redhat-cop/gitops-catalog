@@ -10,4 +10,4 @@ spec:
     kind: ClusterIssuer
   commonName: '*.apps.cluster.example.com'
   dnsNames:
-  - '*.apps.cluster.example.com'
+    - '*.apps.cluster.example.com'

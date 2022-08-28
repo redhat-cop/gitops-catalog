@@ -17,40 +17,40 @@ spec:
   failurePolicy: Ignore
   background: true
   rules:
-  - name: check-security-context-constraint
-    match:
-      any:
-      - resources:
-          kinds:
-          - ClusterRole
-          - Role
-    validate:
-      message: >-
-                Use of the SecurityContextConstraint (SCC) anyuid is not allowed
-      foreach:
-      - list: request.object.rules[]
+    - name: check-security-context-constraint
+      match:
+        any:
+          - resources:
+              kinds:
+                - ClusterRole
+                - Role
+      validate:
+        message: >-
+                  Use of the SecurityContextConstraint (SCC) anyuid is not allowed
+        foreach:
+          - list: request.object.rules[]
+            deny:
+              conditions:
+                all:
+                  - key: anyuid
+                    operator: AnyIn
+                    value: "{{element.resourceNames[]}}"
+                  - key: "{{ element.verbs[]  | contains(@, 'use') || contains(@, '*') }}"
+                    operator: Equals
+                    value: true
+    - name: check-security-context-roleref
+      match:
+        any:
+          - resources:
+              kinds:
+                - ClusterRoleBinding
+                - RoleBinding
+      validate:
+        message: >-
+                  Use of the SecurityContextConstraint (SCC) anyuid is not allowed
         deny:
           conditions:
             all:
-            - key: anyuid
-              operator: AnyIn
-              value: "{{element.resourceNames[]}}"
-            - key: "{{ element.verbs[]  | contains(@, 'use') || contains(@, '*') }}"
-              operator: Equals
-              value: true
-  - name: check-security-context-roleref
-    match:
-      any:
-      - resources:
-          kinds:
-          - ClusterRoleBinding
-          - RoleBinding
-    validate:
-      message: >-
-                Use of the SecurityContextConstraint (SCC) anyuid is not allowed
-      deny:
-        conditions:
-          all:
-          - key: system:openshift:scc:anyuid
-            operator: Equals
-            value: "{{request.object.roleRef.name}}"
+              - key: system:openshift:scc:anyuid
+                operator: Equals
+                value: "{{request.object.roleRef.name}}"

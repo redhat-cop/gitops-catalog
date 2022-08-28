@@ -10,4 +10,4 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-  - central-stackrox.apps.cluster.example.com
+    - central-stackrox.apps.cluster.example.com

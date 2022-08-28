@@ -14,7 +14,7 @@ spec:
     spec:
       runtimeClassName: kata
       containers:
-      - name: httpd
-        image: image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest
-        ports:
-        - containerPort: 8080
+        - name: httpd
+          image: image-registry.openshift-image-registry.svc:5000/openshift/httpd:latest
+          ports:
+            - containerPort: 8080
