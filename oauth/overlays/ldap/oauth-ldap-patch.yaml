@@ -6,16 +6,16 @@
     type: LDAP
     ldap:
       attributes:
-        id: 
+        id:
           - dn
-        email: 
+        email:
           - mail
-        name: 
+        name:
           - cn
-        preferredUsername: 
+        preferredUsername:
           - uid
-      bindDN: "" 
-      bindPassword: 
+      bindDN: ""
+      bindPassword:
         name: ldap-secret
       ca:
         name: ca-config-map
