@@ -7,9 +7,9 @@ roleRef:
   kind: ClusterRole
   name: open-cluster-management:subscription-admin
 subjects:
-- apiGroup: rbac.authorization.k8s.io
-  kind: User
-  name: kube:admin
-- apiGroup: rbac.authorization.k8s.io
-  kind: User
-  name: system:admin
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: kube:admin
+  - apiGroup: rbac.authorization.k8s.io
+    kind: User
+    name: system:admin

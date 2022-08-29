@@ -5,4 +5,4 @@ metadata:
   namespace: openshift-adp
 spec:
   targetNamespaces:
-  - openshift-adp
+    - openshift-adp

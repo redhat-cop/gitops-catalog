@@ -5,5 +5,5 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-- letsencrypt-prod-cluster-issuer.yaml
-- letsencrypt-staging-cluster-issuer.yaml
+  - letsencrypt-prod-cluster-issuer.yaml
+  - letsencrypt-staging-cluster-issuer.yaml

@@ -21,17 +21,17 @@ spec:
   failurePolicy: Ignore
   background: true
   rules:
-  - name: validate-livenessProbe-readinessProbe
-    match:
-      resources:
-        kinds:
-        - Pod
-    validate:
-      message: "Liveness and readiness probes are required."
-      pattern:
-        spec:
-          containers:
-          - livenessProbe:
-              periodSeconds: ">0"
-            readinessProbe:
-              periodSeconds: ">0"
+    - name: validate-livenessProbe-readinessProbe
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "Liveness and readiness probes are required."
+        pattern:
+          spec:
+            containers:
+              - livenessProbe:
+                  periodSeconds: ">0"
+                readinessProbe:
+                  periodSeconds: ">0"

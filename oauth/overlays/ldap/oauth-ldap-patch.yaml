@@ -7,13 +7,13 @@
     ldap:
       attributes:
         id:
-        - dn
+          - dn
         email:
-        - mail
+          - mail
         name:
-        - cn
+          - cn
         preferredUsername:
-        - uid
+          - uid
       bindDN: ""
       bindPassword:
         name: ldap-secret

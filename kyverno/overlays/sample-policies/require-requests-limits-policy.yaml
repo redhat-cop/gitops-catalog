@@ -19,19 +19,19 @@ spec:
   failurePolicy: Ignore
   background: true
   rules:
-  - name: validate-resources
-    match:
-      resources:
-        kinds:
-        - Pod
-    validate:
-      message: "CPU and memory resource requests and limits are required."
-      pattern:
-        spec:
-          containers:
-          - resources:
-              requests:
-                memory: "?*"
-                cpu: "?*"
-              limits:
-                memory: "?*"
+    - name: validate-resources
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "CPU and memory resource requests and limits are required."
+        pattern:
+          spec:
+            containers:
+              - resources:
+                  requests:
+                    memory: "?*"
+                    cpu: "?*"
+                  limits:
+                    memory: "?*"

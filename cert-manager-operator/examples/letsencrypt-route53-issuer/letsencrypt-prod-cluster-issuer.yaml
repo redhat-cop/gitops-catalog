@@ -10,13 +10,13 @@ spec:
     privateKeySecretRef:
       name: example-issuer-account-key
     solvers:
-    - selector:
-        dnsZones:
-          - "example.com"
-      dns01:
-        route53:
-          region: ca-central-1
-          accessKeyID: XXXXXXXXXX
-          secretAccessKeySecretRef:
-            name: letsencrypt-aws
-            key: secret-access-key
+      - selector:
+          dnsZones:
+            - "example.com"
+        dns01:
+          route53:
+            region: ca-central-1
+            accessKeyID: XXXXXXXXXX
+            secretAccessKeySecretRef:
+              name: letsencrypt-aws
+              key: secret-access-key

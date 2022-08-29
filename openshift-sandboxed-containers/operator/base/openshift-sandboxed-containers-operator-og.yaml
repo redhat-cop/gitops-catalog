@@ -4,4 +4,4 @@ metadata:
   name: openshift-sandboxed-containers-operator
 spec:
   targetNamespaces:
-  - openshift-sandboxed-containers-operator
+    - openshift-sandboxed-containers-operator

@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: openshift-sandboxed-containers-operator
 
 bases:
-- ../../base
+  - ../../base
 
 patchesStrategicMerge:
-- openshift-sandboxed-containers-operator-sub.yaml
+  - openshift-sandboxed-containers-operator-sub.yaml
