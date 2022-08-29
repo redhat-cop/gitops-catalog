@@ -4,4 +4,3 @@ metadata:
   annotations:
     openshift.io/display-name: Red Hat Advanced Cluster Security Operator
   name: rhacs-operator
-

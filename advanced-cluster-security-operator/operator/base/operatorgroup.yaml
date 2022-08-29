@@ -3,4 +3,3 @@ kind: OperatorGroup
 metadata:
   name: rhacs-operator
 spec: {}
-
