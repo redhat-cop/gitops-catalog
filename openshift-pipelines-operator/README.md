@@ -8,6 +8,7 @@ The current *overlays* available are for the following channels:
 * [latest](overlays/latest)
 * [stable](overlays/stable)
 * [pipelines-1.7](overlays/pipelines-1.7)
+* [pipelines-1.8](overlays/pipelines-1.8)
 * [preview](overlays/preview)
 
 ## Usage
