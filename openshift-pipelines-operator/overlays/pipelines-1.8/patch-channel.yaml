@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/channel
+  value: pipelines-1.8
