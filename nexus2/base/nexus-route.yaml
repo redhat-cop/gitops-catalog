@@ -15,5 +15,3 @@ spec:
     name: nexus
     weight: 100
   wildcardPolicy: None
-status:
-  ingress: []
