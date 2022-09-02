@@ -16,5 +16,3 @@ spec:
     name: sonarqube
     weight: 100
   wildcardPolicy: None
-status:
-  ingress: []
