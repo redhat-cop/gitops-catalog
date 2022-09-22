@@ -131,7 +131,6 @@ Tekton
 templating
 Thanos
 truely
-vSphere
 
 OADP
 opendatahub
@@ -168,3 +167,12 @@ nodeFeatureDiscovery
 noobaa
 oauth
 checluster
+approver
+kiali
+init
+nfd
+newman
+Gi
+KieApp
+vSphere
+idp
