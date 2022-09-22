@@ -27,7 +27,7 @@ resources:
 
 ## Usage
 
-Each catalog item has (or will have) its own README in its directory root with instructions.  Generally speaking, you can usually just apply a "base" or "overlay" directly in your cluster by cloning this repostitory and using the `-k` flag (for Kustomize) built into `oc` and `kubectl`:
+Each catalog item has (or will have) its own README in its directory root with instructions.  Generally speaking, you can usually just apply a "base" or "overlay" directly in your cluster by cloning this repository and using the `-k` flag (for Kustomize) built into `oc` and `kubectl`:
 
 ```
 git clone https://github.com/redhat-cop/gitops-catalog

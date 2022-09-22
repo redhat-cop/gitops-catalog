@@ -10,7 +10,7 @@ node-labeler creates a job that is responsible for applying the `cluster.ocs.ope
 
 ### Overlays
 
-The node-labeler config helper for this operator currently offeres the following *overlays*:
+The node-labeler config helper for this operator currently offers the following *overlays*:
 * [default](overlays/default)
 
 ## Usage
