@@ -1,4 +1,4 @@
-name: Validate Manifests
+name: Check Spelling
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
