@@ -3,3 +3,5 @@ venv/
 .DS_Store
 temp
 /.idea/
+
+dictionary.dic
