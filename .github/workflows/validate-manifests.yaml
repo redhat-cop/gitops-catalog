@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Validate Manifests
         run: |
-          touch bootstrap/base/sealed-secrets-secret.yaml
+          [ -d ./bootstrap/base ] && touch bootstrap/base/sealed-secrets-secret.yaml
           ./scripts/validate_manifests.sh
 
   lint-yaml:
