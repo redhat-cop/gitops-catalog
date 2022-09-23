@@ -7,6 +7,9 @@ namespace: sealed-secrets
 bases:
   - ../../base
 
+resources:
+  - sealed-secrets-namespace.yaml
+
 # Remove the SCC requiring anyuid
 patches:
   - target:
