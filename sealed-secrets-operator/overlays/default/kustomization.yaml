@@ -8,7 +8,7 @@ bases:
   - ../../base
 
 # Remove the SCC requiring anyuid
-patchesJson6902:
+patches:
   - target:
       version: v1
       group: apps
