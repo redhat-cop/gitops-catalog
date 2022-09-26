@@ -2,15 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.17.3/controller.yaml
-
-# Note this can be removed in 0.17.5, patch needed because upstream nuked images in quay.io when transitioning to docker hub
-# https://github.com/bitnami-labs/sealed-secrets/issues/822
-patches:
-  - patch: |-
-      - op: replace
-        path: "/spec/template/spec/containers/0/image"
-        value: docker.io/bitnami/sealed-secrets-controller:v0.17.3
-    target:
-      kind: Deployment
-      name: sealed-secrets-controller
+  - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.5/controller.yaml

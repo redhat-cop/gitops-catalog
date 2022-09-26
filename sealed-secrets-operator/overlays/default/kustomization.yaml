@@ -7,8 +7,11 @@ namespace: sealed-secrets
 bases:
   - ../../base
 
+resources:
+  - sealed-secrets-namespace.yaml
+
 # Remove the SCC requiring anyuid
-patchesJson6902:
+patches:
   - target:
       version: v1
       group: apps
