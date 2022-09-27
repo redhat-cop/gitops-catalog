@@ -38,4 +38,5 @@ spec:
       preparePlacement: {}
       replica: 3
       resources: {}
-  version: 4.9.0
+  # Allow ODF to set version dynamically when applied
+  # version: 4.9.0
