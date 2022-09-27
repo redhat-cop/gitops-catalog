@@ -1,0 +1,48 @@
+name: Validate Manifests
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  lint-kustomize:
+    runs-on: ubuntu-latest
+    env:
+      KUSTOMIZE_VERSION: 3.9.4
+      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
+      BIN_PATH: /usr/bin
+    steps:
+      - name: Install Kustomize
+        run: |
+          sudo curl "${KUSTOMIZE_URL}" -L -o ${BIN_PATH}/kustomize
+          sudo chmod +x ${BIN_PATH}/kustomize
+      - name: Code Checkout
+        uses: actions/checkout@v2
+      - name: Validate Manifests
+        run: |
+          [ -d ./bootstrap/base ] && touch bootstrap/base/sealed-secrets-secret.yaml
+          ./scripts/validate_manifests.sh
+
+  lint-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v2
+      - name: Validate YAML
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          format: github
+
+  lint-bash:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v2
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          version: v0.8.0
+          severity: warning

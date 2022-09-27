@@ -12,7 +12,7 @@ kubectl apply -f https://raw.githubusercontent.com/tektoncd/catalog/master/newma
 
 ## Requirements
 
-Newman (and Postman) use the concept of environments to enable the same tests to be executed against different environments (Dev, QA, Production, etc). The way this works is that developers typically specify variables in the collection that are then defined in an environment file. These variables are delineated with ``{{ }}``` in the collection and replaced at runtime with the key-value pairs defined in the envrionment file.
+Newman (and Postman) use the concept of environments to enable the same tests to be executed against different environments (Dev, QA, Production, etc). The way this works is that developers typically specify variables in the collection that are then defined in an environment file. These variables are delineated with ``{{ }}``` in the collection and replaced at runtime with the key-value pairs defined in the environment file.
 
 Since this is an important feature of an API testing tool, the tekton task supports this by defining a configmap called ```newman-env```. Within this configmap you can define multiple environment files enabling the pipeline to re-use the same test against multiple environments.
 

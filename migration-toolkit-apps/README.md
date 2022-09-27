@@ -1,4 +1,4 @@
-# Red Hat Migration Toolkit for Applictions
+# Red Hat Migration Toolkit for Applications
 
 **DEPRECATED:** This needs to be updated to use the MTA Operator instead.
 

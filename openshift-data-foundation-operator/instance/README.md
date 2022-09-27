@@ -12,7 +12,7 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 ## Overlays
 
-The instaconfnce options for this operator currently offeres the following *overlays*:
+The options for this operator are the following *overlays*:
 * [aws](overlays/aws)
 * [vsphere](overlays/vsphere)
 
