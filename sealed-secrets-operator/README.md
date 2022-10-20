@@ -8,15 +8,7 @@ GitHub: [Bitnami Labs - Sealed Secrets](https://github.com/bitnami-labs/sealed-s
 
 ## Usage
 
-No `namespace` is provided in this repository, so you are free to choose whatever namespace you like.  For example, in your own repository, you might have the following `namespace.yaml` and `kustomization.yaml` to deploy the Sealed Secrets operator into a `sealed-secrets` namespace.
-
-**namespace.yaml**
-```
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: sealed-secrets
-```
+The default `namespace` provided in this repository is `sealed-secrets`. If you would like to use a different namespace you'll have to patch the name value for the `Namespace` kind in your `kustomization.yaml`.
 
 **kustomization.yaml**
 ```
@@ -26,9 +18,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 # Remote base.  Use the configuration from the Red Hat GitOps Catalog repo (unofficial).
 bases:
   - https://github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default
-
-resources:
-  - namespace.yaml
 ```
 
 > :rotating_light: **NOTE**: If you create a namespace other than `sealed-secrets`, you'll have to add that namespace to the `kustomization.yaml` file. For example: if you created a namespace called `foobar`. Then you need to add `namespace: foobar` to the `kustomization.yaml` file.
