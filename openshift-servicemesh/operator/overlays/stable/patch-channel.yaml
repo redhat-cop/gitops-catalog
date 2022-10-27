@@ -3,4 +3,4 @@
   value: 'stable'
 - op: replace
   path: /spec/startingCSV
-  value: servicemeshoperator.v2.1.1
+  value: servicemeshoperator.v2.2.3
