@@ -1,0 +1,11 @@
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: sriov-network-operator-subscription
+  namespace: openshift-sriov-network-operator
+spec:
+  channel: patch-me
+  name: sriov-network-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
