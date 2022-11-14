@@ -5,3 +5,4 @@ metadata:
   name: openshift-distributed-tracing
   namespace: openshift-distributed-tracing
 spec: {}
+
