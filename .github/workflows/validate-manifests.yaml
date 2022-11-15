@@ -20,7 +20,7 @@ jobs:
           sudo curl "${KUSTOMIZE_URL}" -L -o ${BIN_PATH}/kustomize
           sudo chmod +x ${BIN_PATH}/kustomize
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Validate Manifests
         run: |
           [ -d ./bootstrap/base ] && touch bootstrap/base/sealed-secrets-secret.yaml
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Validate YAML
         uses: ibiqlik/action-yamllint@v3
         with:
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
