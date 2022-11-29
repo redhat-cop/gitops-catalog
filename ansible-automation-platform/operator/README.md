@@ -10,6 +10,8 @@ The current *overlays* available are for the following channels:
 * [stable-2.1-cluster-scoped](overlays/stable-2.1-cluster-scoped)
 * [stable-2.2](overlays/stable-2.2)
 * [stable-2.2-cluster-scoped](overlays/stable-2.2-cluster-scoped)
+* [stable-2.3](overlays/stable-2.3)
+* [stable-2.3-cluster-scoped](overlays/stable-2.3-cluster-scoped)
 
 ## Usage
 
