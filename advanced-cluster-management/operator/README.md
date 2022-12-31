@@ -8,6 +8,7 @@ The current *overlays* available are for the following channels:
 * [release-2.3](overlays/release-2.3)
 * [release-2.4](overlays/release-2.4)
 * [release-2.5](overlays/release-2.5)
+* [release-2.6](overlays/release-2.6)
 
 ## Usage
 
