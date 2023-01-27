@@ -5,8 +5,8 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 bases:
-  - github.com/redhat-cop/gitops-catalog//grafana-operator/base/operator?ref=main
-  - github.com/redhat-cop/gitops-catalog//grafana-operator/base/instance?ref=main
+  - ../../base/operator
+  - ../../base/instance
 
 resources:
   - grafana-ds.yaml
