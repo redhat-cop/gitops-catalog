@@ -1,6 +1,3 @@
 - op: replace
   path: /spec/channel
   value: 'stable'
-- op: replace
-  path: /spec/startingCSV
-  value: volsync-product.v0.5.1-0-1666718165.p

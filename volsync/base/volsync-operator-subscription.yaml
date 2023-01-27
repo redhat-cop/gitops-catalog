@@ -11,5 +11,5 @@ spec:
   name: volsync-product
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: patch-me-see-overlays-dir
+  startingCSV: volsync-product.v0.5.1-0.1666718165.p
   
