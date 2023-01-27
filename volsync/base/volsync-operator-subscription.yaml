@@ -12,4 +12,3 @@ spec:
   source: redhat-operators
   sourceNamespace: openshift-marketplace
   startingCSV: volsync-product.v0.5.1-0.1666718165.p
-  
