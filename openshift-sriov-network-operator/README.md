@@ -8,6 +8,7 @@ The current *overlays* available are for the following channels:
 * [4.9](overlays/4.9)
 * [4.10](overlays/4.10)
 * [4.11](overlays/4.11)
+* [4.12](overlays/4.12)
 
 ## Usage
 
