@@ -1,0 +1,14 @@
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/ack-s3-controller.ack-system: ""
+  name: ack-s3-controller
+  namespace: ack-system
+spec:
+  channel: patch-me
+  installPlanApproval: Automatic
+  name: ack-s3-controller
+  source: community-operators
+  sourceNamespace: openshift-marketplace
