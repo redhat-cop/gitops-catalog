@@ -11,7 +11,7 @@ spec:
             values:
               - worker-0
               - worker-1
-  storageClassName: local-disks
+  storageClassName: local-fs
   volumeMode: Filesystem
   fsType: xfs
   deviceInclusionSpec:
