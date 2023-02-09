@@ -1,9 +1,13 @@
 extends: default
 
 rules:
-  document-start: disable
-  line-length: disable
   braces:
     ignore: /grafana-operator/base/instance/grafana.yaml
+  document-start: disable
+  indentation:
+    indent-sequences: whatever
+    ignore: |
+      operators/ack-controllers/base/adoptedresources-crd.yaml
+  line-length: disable
   truthy:
     ignore: .github/workflows/
