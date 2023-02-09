@@ -6,13 +6,13 @@ metadata:
 spec:
   nodeSelector:
     nodeSelectorTerms:
-    - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - ip-10-0-140-183
-          - ip-10-0-158-139
-          - ip-10-0-164-33
+      - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - ip-10-0-140-183
+              - ip-10-0-158-139
+              - ip-10-0-164-33
   storageClassDevices:
     - storageClassName: "local-sc"
       volumeMode: Filesystem
