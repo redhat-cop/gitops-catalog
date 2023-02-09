@@ -22,7 +22,7 @@ oc apply -k ack-controllers/operator/overlays/<channel>
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/ack-controllers/operator/overlays/<channel>
+oc apply -k https://github.com/redhat-cop/gitops-catalog/ack-controllers/overlays/aws-ops
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -31,5 +31,5 @@ As part of a different overlay in your own GitOps repo:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 bases:
-  - github.com/redhat-cop/gitops-catalog/ack-controllers/operator/overlays/<channel>?ref=main
+  - github.com/redhat-cop/gitops-catalog/ack-controllers/overlays/aws-ops?ref=main
 ```
