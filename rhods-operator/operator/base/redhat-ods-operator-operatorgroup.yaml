@@ -2,6 +2,4 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: redhat-ods-operator
-spec:
-  targetNamespaces:
-    - redhat-ods-operator
+spec: {}
