@@ -5,7 +5,7 @@ metadata:
   annotations:
     openshift.io/description: |
       Create your ACK Operator CRs Here
-      !!! ACKS Controllers are ALPHA !!!
+      !!! ACK Controllers are ALPHA !!!
     openshift.io/display-name: AWS Ops via ACK Controllers
   labels:
     argocd.argoproj.io/managed-by: cluster-config
