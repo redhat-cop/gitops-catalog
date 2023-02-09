@@ -6,4 +6,4 @@ namespace: ack-system
 resources:
   - adoptedresources-crd.yaml
   - namespace.yaml
-  - operatorgroup.yaml
+  - operator-group.yaml
