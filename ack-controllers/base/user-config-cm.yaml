@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ack-controller-user-config
+data:
+  ACK_ENABLE_DEVELOPMENT_LOGGING: "true"
+  ACK_LOG_LEVEL: debug
+  ACK_WATCH_NAMESPACE: ""
+  AWS_REGION: us-east-2
+  ACK_RESOURCE_TAGS: acktagged
+  AWS_ENDPOINT_URL: ""
