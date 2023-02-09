@@ -2,7 +2,6 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   name: local-storage-operator
-  namespace: openshift-local-storage
 spec:
   channel: patch-me-see-overlays-dir
   installPlanApproval: Automatic
