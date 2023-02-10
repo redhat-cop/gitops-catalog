@@ -1,6 +1,6 @@
 # Bitnami Sealed Secrets
 
-**Version: 0.17.3**
+**Version: 0.19.4**
 
 ## Project Reference
 
