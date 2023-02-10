@@ -1,0 +1,21 @@
+apiVersion: local.storage.openshift.io/v1alpha1
+kind: LocalVolumeSet
+metadata:
+  name: autodetect-local
+spec:
+  nodeSelector:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - worker-0
+              - worker-1
+  storageClassName: local-fs
+  volumeMode: Filesystem
+  fsType: xfs
+  deviceInclusionSpec:
+    deviceTypes:
+      - disk
+      - part
+    minSize: 10G
