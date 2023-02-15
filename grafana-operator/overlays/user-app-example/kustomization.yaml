@@ -8,9 +8,9 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
+  - ../user-app
   - namespace.yaml
   - operator-group.yaml
-  - ../user-app
 
 patches:
   - path: patch-grafana-sar.yaml
