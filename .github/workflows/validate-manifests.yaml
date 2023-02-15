@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Install Kustomize
         run: |
-          echo "Downloading Kustomize from: ${KUSTOMIZE_URL}"
+          echo "Downloading Kustomize from URL: ${KUSTOMIZE_URL}"
           sudo curl --location --no-buffer "${KUSTOMIZE_URL}" | tar -xvf - -C ${BIN_PATH}/
           sudo chmod +x ${BIN_PATH}/kustomize
       - name: Code Checkout
