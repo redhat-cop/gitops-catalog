@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KUSTOMIZE_VERSION: 5.0.0
-      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
+      KUSTOMIZE_URL: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz"
       BIN_PATH: /usr/bin
     steps:
       - name: Install Kustomize
