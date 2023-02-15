@@ -5,13 +5,12 @@ kind: Kustomization
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-
 resources:
+  - ../../base/operator
+  - ../../base/instance
   - grafana-ds.yaml
   - cluster-monitor-view-rb.yaml
   - grafana-auth-secret.yaml
-  - ../../base/operator
-  - ../../base/instance
 
 patches:
   - patch: |-
