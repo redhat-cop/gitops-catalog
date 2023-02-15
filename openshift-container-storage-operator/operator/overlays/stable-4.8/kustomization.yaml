@@ -1,3 +1,4 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -5,12 +6,12 @@ namespace: openshift-storage
 
 
 resources:
-- ../../base
+  - ../../base
 patches:
-- path: patch-channel.yaml
-  target:
-    group: operators.coreos.com
-    kind: Subscription
-    name: ocs-operator
-    namespace: openshift-storage
-    version: v1alpha1
+  - path: patch-channel.yaml
+    target:
+      group: operators.coreos.com
+      kind: Subscription
+      name: ocs-operator
+      namespace: openshift-storage
+      version: v1alpha1

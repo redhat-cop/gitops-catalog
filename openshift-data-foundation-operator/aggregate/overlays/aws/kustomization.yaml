@@ -1,3 +1,4 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -5,5 +6,5 @@ commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-- ../../../operator/overlays/stable-4.9
-- ../../../instance/overlays/aws
+  - ../../../operator/overlays/stable-4.9
+  - ../../../instance/overlays/aws

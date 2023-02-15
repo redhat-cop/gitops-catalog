@@ -1,17 +1,18 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 
 patches:
-- patch: |-
-    - op: replace
-      path: /spec/channel
-      value: 'stable-0.12'
-  target:
-    group: operators.coreos.com
-    kind: Subscription
-    name: submariner
-    namespace: submariner-operator
-    version: v1alpha1
+  - patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'stable-0.12'
+    target:
+      group: operators.coreos.com
+      kind: Subscription
+      name: submariner
+      namespace: submariner-operator
+      version: v1alpha1
 resources:
-- ../../base
+  - ../../base

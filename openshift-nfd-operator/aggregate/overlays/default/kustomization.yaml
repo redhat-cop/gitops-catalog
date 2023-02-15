@@ -1,3 +1,4 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -7,5 +8,5 @@ commonAnnotations:
 namespace: openshift-nfd
 
 resources:
-- ../../../operator/overlays/stable
-- ../../../instance/overlays/default
+  - ../../../operator/overlays/stable
+  - ../../../instance/overlays/default

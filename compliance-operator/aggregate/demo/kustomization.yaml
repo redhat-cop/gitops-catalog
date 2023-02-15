@@ -1,3 +1,4 @@
+---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
@@ -8,6 +9,6 @@ commonAnnotations:
   argocd.argoproj.io/sync-wave: "1"
 
 resources:
-- ../../operator/overlays/release-0.1
-- demo-scan-setting.yaml
-- demo-scan-setting-binding.yaml
+  - ../../operator/overlays/release-0.1
+  - demo-scan-setting.yaml
+  - demo-scan-setting-binding.yaml
