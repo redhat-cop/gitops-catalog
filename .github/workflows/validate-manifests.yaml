@@ -17,7 +17,7 @@ jobs:
       - name: Install Kustomize
         run: |
           echo "Downloading Kustomize from URL: ${KUSTOMIZE_URL} and saving into ${BIN_PATH}/"
-          sudo curl --location --no-buffer "${KUSTOMIZE_URL}" | tar -xvf - -C "${BIN_PATH}/"
+          sudo curl --location --no-buffer "${KUSTOMIZE_URL}" | tar -xvz - -C "${BIN_PATH}/"
           sudo chmod +x ${BIN_PATH}/kustomize
       - name: Code Checkout
         uses: actions/checkout@v3
