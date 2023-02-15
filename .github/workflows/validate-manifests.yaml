@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KUSTOMIZE_VERSION: 5.0.0
-      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
+      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
       BIN_PATH: /usr/bin
     steps:
       - name: Install Kustomize
         run: |
-          sudo curl "${KUSTOMIZE_URL}" -L | tar -zx -C ${BIN_PATH}/
+          sudo curl --location --no-buffer "${KUSTOMIZE_URL}" | tar -xvf - -C ${BIN_PATH}/
           sudo chmod +x ${BIN_PATH}/kustomize
       - name: Code Checkout
         uses: actions/checkout@v3
