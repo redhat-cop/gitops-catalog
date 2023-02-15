@@ -4,7 +4,6 @@ kind: Kustomization
 
 namespace: sso
 
-
 resources:
-  - namespace.yaml
   - ../../base
+  - namespace.yaml
