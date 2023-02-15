@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: openshift-local-storage
 
 resources:
-  - namespace.yaml
-  - operator-group.yaml
-  - subscription.yaml
+- namespace.yaml
+- operator-group.yaml
+- subscription.yaml

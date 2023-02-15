@@ -3,9 +3,8 @@ kind: Kustomization
 
 namespace: prom-test
 
-bases:
-  - ../../base
 
 resources:
-  - namespace.yaml
-  - operator-group.yaml
+- namespace.yaml
+- operator-group.yaml
+- ../../base

@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - kiali-operator-subscription.yaml
+- kiali-operator-subscription.yaml

@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - crunchy-operator-subscription.yaml
+- crunchy-operator-subscription.yaml

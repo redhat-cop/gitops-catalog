@@ -4,10 +4,10 @@ kind: Kustomization
 namespace: openshift-storage
 
 resources:
-  - enable-console-plugin-job.yaml
-  - enable-console-plugin-rbac.yaml
-  - enable-console-plugin-sa.yaml
-  - openshift-data-foundation-console-plugin.yaml
-  - openshift-data-foundation-operator-subscription.yaml
-  - openshift-data-foundation-operator-operatorgroup.yaml
-  - openshift-storage-namespace.yaml
+- enable-console-plugin-job.yaml
+- enable-console-plugin-rbac.yaml
+- enable-console-plugin-sa.yaml
+- openshift-data-foundation-console-plugin.yaml
+- openshift-data-foundation-operator-subscription.yaml
+- openshift-data-foundation-operator-operatorgroup.yaml
+- openshift-storage-namespace.yaml

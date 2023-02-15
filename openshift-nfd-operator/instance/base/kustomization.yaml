@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-nfd
 
 resources:
-  - node-feature-discovery.yaml
+- node-feature-discovery.yaml

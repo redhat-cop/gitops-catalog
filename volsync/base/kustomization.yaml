@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - volsync-operator-subscription.yaml
+- volsync-operator-subscription.yaml

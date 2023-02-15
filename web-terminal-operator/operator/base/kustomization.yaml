@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - web-terminal-subscription.yaml
+- web-terminal-subscription.yaml

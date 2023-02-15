@@ -7,15 +7,15 @@ commonAnnotations:
   argocd.argoproj.io/sync-wave: "0"
 
 resources:
-  - namespace.yaml
-  - compliance-operator-subscription.yaml
-  - compliance-operator-operatorgroup.yaml
+- namespace.yaml
+- compliance-operator-subscription.yaml
+- compliance-operator-operatorgroup.yaml
 
 patches:
-  - target:
-      kind: Subscription
-      name: compliance-operator
-    patch: |-
-      - op: replace
-        path: /spec/channel
-        value: 'release-0.1'
+- patch: |-
+    - op: replace
+      path: /spec/channel
+      value: 'release-0.1'
+  target:
+    kind: Subscription
+    name: compliance-operator

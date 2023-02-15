@@ -3,14 +3,14 @@ kind: Kustomization
 
 namespace: openshift-operators
 
-bases:
-  - ../../base
 
-patchesJson6902:
-  - target:
-      group: operators.coreos.com
-      version: v1alpha1
-      kind: Subscription
-      name: quay-operator
-      namespace: openshift-operators
-    path: patch-channel.yaml
+resources:
+- ../../base
+patches:
+- path: patch-channel.yaml
+  target:
+    group: operators.coreos.com
+    kind: Subscription
+    name: quay-operator
+    namespace: openshift-operators
+    version: v1alpha1

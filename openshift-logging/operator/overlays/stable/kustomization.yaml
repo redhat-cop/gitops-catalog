@@ -1,18 +1,17 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
-  - ../../base
 
 patches:
-  - target:
-      group: operators.coreos.com
-      version: v1alpha1
-      kind: Subscription
-      name: cluster-logging
-      namespace: openshift-logging
-    patch: |-
-      - op: replace
-        path: /spec/channel
-        value: 'stable'
+- patch: |-
+    - op: replace
+      path: /spec/channel
+      value: 'stable'
+  target:
+    group: operators.coreos.com
+    kind: Subscription
+    name: cluster-logging
+    namespace: openshift-logging
+    version: v1alpha1
+resources:
+- ../../base

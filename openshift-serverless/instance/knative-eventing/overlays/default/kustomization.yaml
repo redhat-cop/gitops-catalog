@@ -3,5 +3,5 @@ kind: Kustomization
 
 namespace: knative-eventing
 
-bases:
-  - ../../base
+resources:
+- ../../base

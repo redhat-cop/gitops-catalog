@@ -3,8 +3,7 @@ kind: Kustomization
 
 namespace: sso
 
-bases:
-  - ../../base
 
 resources:
-  - namespace.yaml
+- namespace.yaml
+- ../../base

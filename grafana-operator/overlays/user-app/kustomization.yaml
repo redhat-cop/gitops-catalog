@@ -4,26 +4,25 @@ kind: Kustomization
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-bases:
-  - ../../base/operator
-  - ../../base/instance
 
 resources:
-  - grafana-ds.yaml
-  - cluster-monitor-view-rb.yaml
-  - grafana-auth-secret.yaml
+- grafana-ds.yaml
+- cluster-monitor-view-rb.yaml
+- grafana-auth-secret.yaml
+- ../../base/operator
+- ../../base/instance
 
 patches:
-  - target:
-      kind: Grafana
-      name: grafana
-    patch: |-
-      - op: add
-        path: /spec/deployment
-        value:
-          env:
-          - name: GRAFANA_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: grafana-auth-secret
-                key: token
+- patch: |-
+    - op: add
+      path: /spec/deployment
+      value:
+        env:
+        - name: GRAFANA_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: grafana-auth-secret
+              key: token
+  target:
+    kind: Grafana
+    name: grafana

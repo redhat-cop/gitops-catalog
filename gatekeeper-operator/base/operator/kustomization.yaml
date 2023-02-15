@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: openshift-gatekeeper-operator
 
 resources:
-  - namespace.yaml
-  - gatekeeper-subscription.yaml
-  - gatekeeper-operatorgroup.yaml
-  - gatekeeper-catalogsource.yaml
+- namespace.yaml
+- gatekeeper-subscription.yaml
+- gatekeeper-operatorgroup.yaml
+- gatekeeper-catalogsource.yaml
