@@ -3,23 +3,22 @@ kind: Kustomization
 
 namespace: ansible-automation-platform
 
-bases:
-  - ../../base
 
 patches:
-  - target:
-      kind: OperatorGroup
-      name: ansible-automation-platform-operator
-    patch: |-
-      - op: replace
-        path: /spec/targetNamespaces
-        value: []
+- patch: |-
+    - op: replace
+      path: /spec/targetNamespaces
+      value: []
+  target:
+    kind: OperatorGroup
+    name: ansible-automation-platform-operator
+- path: patch-channel.yaml
+  target:
+    group: operators.coreos.com
+    kind: Subscription
+    name: ansible-automation-platform
+    namespace: ansible-automation-platform
+    version: v1alpha1
 
-patchesJson6902:
-  - target:
-      group: operators.coreos.com
-      version: v1alpha1
-      kind: Subscription
-      name: ansible-automation-platform
-      namespace: ansible-automation-platform
-    path: patch-channel.yaml
+resources:
+- ../../base

@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
-  - ../../../elasticsearch-operator/base
-  - ../../base
+resources:
+- ../../../elasticsearch-operator/base
+- ../../base

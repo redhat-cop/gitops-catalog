@@ -2,12 +2,12 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - ../aggregate
+- ../aggregate
 
-patchesJson6902:
-  - path: patch-source-and-name.yaml
-    target:
-      group: costmanagement-metrics-cfg.openshift.io
-      kind: CostManagementMetricsConfig
-      name: instance
-      version: v1beta1
+patches:
+- path: patch-source-and-name.yaml
+  target:
+    group: costmanagement-metrics-cfg.openshift.io
+    kind: CostManagementMetricsConfig
+    name: instance
+    version: v1beta1

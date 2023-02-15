@@ -3,5 +3,5 @@ kind: Kustomization
 
 namespace: knative-serving
 
-bases:
-  - ../../base
+resources:
+- ../../base

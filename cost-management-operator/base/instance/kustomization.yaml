@@ -2,4 +2,4 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - costmanagement-metrics-instance.yaml
+- costmanagement-metrics-instance.yaml

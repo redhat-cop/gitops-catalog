@@ -3,9 +3,8 @@ kind: Kustomization
 
 namespace: grafana
 
-bases:
-  - ../aggregate
 
 resources:
-  - namespace.yaml
-  - operator-group.yaml
+- namespace.yaml
+- operator-group.yaml
+- ../aggregate

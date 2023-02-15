@@ -3,14 +3,14 @@ kind: Kustomization
 
 namespace: openshift-storage
 
-bases:
-  - ../../base
 
-patchesJson6902:
-  - target:
-      group: operators.coreos.com
-      version: v1alpha1
-      kind: Subscription
-      name: odf-operator
-      namespace: openshift-storage
-    path: patch-channel.yaml
+resources:
+- ../../base
+patches:
+- path: patch-channel.yaml
+  target:
+    group: operators.coreos.com
+    kind: Subscription
+    name: odf-operator
+    namespace: openshift-storage
+    version: v1alpha1

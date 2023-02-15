@@ -6,7 +6,7 @@ namespace: letsencrypt-job
 
 # Job resources.
 resources:
-  - namespace.yaml
-  - job-serviceaccount.yaml
-  - rbac.yaml
-  - job.yaml
+- namespace.yaml
+- job-serviceaccount.yaml
+- rbac.yaml
+- job.yaml

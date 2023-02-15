@@ -3,10 +3,9 @@ kind: Kustomization
 
 namespace: namespace-configuration-operator
 
-bases:
-  - ../../base
-  - ../../../installplan-approver/base
 
 resources:
-  - namespace.yaml
-  - operator-group.yaml
+- namespace.yaml
+- operator-group.yaml
+- ../../base
+- ../../../installplan-approver/base

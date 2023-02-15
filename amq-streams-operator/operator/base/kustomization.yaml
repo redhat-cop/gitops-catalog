@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - amq-streams-operator-subscription.yaml
+- amq-streams-operator-subscription.yaml

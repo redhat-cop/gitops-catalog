@@ -3,5 +3,5 @@ kind: Kustomization
 
 namespace: openshift-storage
 
-bases:
-  - ../../base
+resources:
+- ../../base

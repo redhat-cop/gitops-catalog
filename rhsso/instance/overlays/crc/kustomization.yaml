@@ -1,28 +1,27 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
-  - ../../base
 #  - ../../base/openshift-authentication
 
 resources:
-  - oauth-rhsso-openid.yaml
-  - openshift-user.yaml
-  - rhsso-default-cluster-admin-user.yaml
-  - client-secret.yaml
-  - openshift-realm.yaml
-  - openshift-client.yaml
+- oauth-rhsso-openid.yaml
+- openshift-user.yaml
+- rhsso-default-cluster-admin-user.yaml
+- client-secret.yaml
+- openshift-realm.yaml
+- openshift-client.yaml
+- ../../base
 
-patchesJson6902:
-  - target:
-      group: keycloak.org
-      version: v1alpha1
-      kind: KeycloakClient
-      name: openshift-client
-    path: patch-redirect-uri.yaml
-  - target:
-      group: config.openshift.io
-      version: v1
-      kind: OAuth
-      name: cluster
-    path: patch-issuer.yaml
+patches:
+- path: patch-redirect-uri.yaml
+  target:
+    group: keycloak.org
+    kind: KeycloakClient
+    name: openshift-client
+    version: v1alpha1
+- path: patch-issuer.yaml
+  target:
+    group: config.openshift.io
+    kind: OAuth
+    name: cluster
+    version: v1

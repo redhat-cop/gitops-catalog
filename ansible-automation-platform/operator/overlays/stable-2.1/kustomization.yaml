@@ -3,14 +3,14 @@ kind: Kustomization
 
 namespace: ansible-automation-platform
 
-bases:
-  - ../../base
 
-patchesJson6902:
-  - target:
-      group: operators.coreos.com
-      version: v1alpha1
-      kind: Subscription
-      name: ansible-automation-platform
-      namespace: ansible-automation-platform
-    path: patch-channel.yaml
+resources:
+- ../../base
+patches:
+- path: patch-channel.yaml
+  target:
+    group: operators.coreos.com
+    kind: Subscription
+    name: ansible-automation-platform
+    namespace: ansible-automation-platform
+    version: v1alpha1

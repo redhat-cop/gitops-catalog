@@ -3,14 +3,14 @@ kind: Kustomization
 
 namespace: sso
 
-bases:
-  - ../../base
 
 patches:
-  - target:
-      kind: Subscription
-      name: rhsso-operator
-    patch: |-
-      - op: replace
-        path: /spec/channel
-        value: 'stable'
+- patch: |-
+    - op: replace
+      path: /spec/channel
+      value: 'stable'
+  target:
+    kind: Subscription
+    name: rhsso-operator
+resources:
+- ../../base
