@@ -4,8 +4,7 @@ kind: Kustomization
 
 namespace: grafana
 
-
 resources:
+  - ../aggregate
   - namespace.yaml
   - operator-group.yaml
-  - ../aggregate

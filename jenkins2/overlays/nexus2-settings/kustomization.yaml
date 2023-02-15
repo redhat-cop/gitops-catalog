@@ -2,11 +2,14 @@
 # Create your own kustomization.yaml file with that includes the "namespace" field.
 # Point to this directory in the "bases" field.
 apiVersion: kustomize.config.k8s.io/v1beta1
+
 kind: Kustomization
+
 resources:
+  - ../../base
   - jenkins-cm.yaml
   - nexus-secret.yaml
-  - ../../base
+  
 generatorOptions:
   disableNameSuffixHash: true
   labels:
@@ -14,6 +17,7 @@ generatorOptions:
     app.kubernetes.io/component: maven-settings-cm
     app.kubernetes.io/instance: jenkins
     app.kubernetes.io/part-of: jenkins
+    
 configMapGenerator:
   - files:
       - settings.xml

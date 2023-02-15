@@ -4,6 +4,8 @@ kind: Kustomization
 
 namespace: ansible-automation-platform
 
+resources:
+  - ../../base
 
 patches:
   - patch: |-
@@ -20,6 +22,3 @@ patches:
       name: ansible-automation-platform
       namespace: ansible-automation-platform
       version: v1alpha1
-
-resources:
-  - ../../base
