@@ -6,7 +6,7 @@ namespace: rhacs-operator
 
 resources:
   - ../../base
-  
+
 patches:
   - patch: |-
       - op: replace
