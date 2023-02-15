@@ -6,7 +6,7 @@ namespace: ansible-automation-platform
 
 resources:
   - ../../base
-  
+
 patches:
   - patch: |-
       - op: replace

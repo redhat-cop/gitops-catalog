@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - ../../base
-#  - ../../base/openshift-authentication
+  #  - ../../base/openshift-authentication
   - oauth-rhsso-openid.yaml
   - openshift-user.yaml
   - rhsso-default-cluster-admin-user.yaml
