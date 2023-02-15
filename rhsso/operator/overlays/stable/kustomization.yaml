@@ -4,6 +4,8 @@ kind: Kustomization
 
 namespace: sso
 
+resources:
+  - ../../base
 
 patches:
   - patch: |-
@@ -13,5 +15,3 @@ patches:
     target:
       kind: Subscription
       name: rhsso-operator
-resources:
-  - ../../base
