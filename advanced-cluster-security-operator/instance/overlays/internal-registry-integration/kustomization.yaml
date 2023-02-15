@@ -4,9 +4,8 @@ kind: Kustomization
 
 namespace: stackrox
 
-
 resources:
+  - ../../base
   - stackrox-image-puller-sa.yaml
   - stackrox-image-integration-update-job-sa.yaml
   - stackrox-image-integration-update-job.yaml
-  - ../../base
