@@ -4,13 +4,12 @@ kind: Kustomization
 
 nameSuffix: -stage
 
-
-
-
 transformers:
   - update-k8s-labels.yaml
+
 resources:
   - ../../base
+
 patches:
   - path: patch-stage-dc.yaml
     target:

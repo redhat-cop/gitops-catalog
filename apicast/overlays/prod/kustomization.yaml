@@ -4,13 +4,12 @@ kind: Kustomization
 
 nameSuffix: -prod
 
-
-
-
 transformers:
   - update-k8s-labels.yaml
+
 resources:
   - ../../base
+
 patches:
   - path: patch-prod-dc.yaml
     target:
