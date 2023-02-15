@@ -4,10 +4,10 @@ kind: Kustomization
 
 namespace: openshift-operators
 
+resources:
+  - ../../base
 
 patches:
   - path: patch-channel.yaml
     target:
       kind: Subscription
-resources:
-  - ../../base
