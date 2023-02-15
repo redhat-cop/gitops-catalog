@@ -1,23 +1,27 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-generatorOptions:
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
-    argocd.argoproj.io/sync-options: Prune=false
-  disableNameSuffixHash: true
-secretGenerator:
-  - files:
-      - htpasswd=files/users.htpasswd
-    name: htpass-secret
-    namespace: openshift-config
-    type: Opaque
-resources:
+
+bases:
   - ../../base
   - cluster-admin-role.yaml
-patches:
-  - path: oauth-htpass-patch.yaml
-    target:
+
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
+secretGenerator:
+  - name: htpass-secret
+    namespace: openshift-config
+    files:
+      - htpasswd=files/users.htpasswd
+    type: Opaque
+
+patchesJson6902:
+  - target:
       group: config.openshift.io
+      version: v1
       kind: OAuth
       name: cluster
-      version: v1
+    path: oauth-htpass-patch.yaml

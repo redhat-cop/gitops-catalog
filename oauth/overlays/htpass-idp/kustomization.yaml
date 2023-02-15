@@ -1,11 +1,13 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-resources:
+
+bases:
   - ../htpass
-patches:
-  - path: oauth-idp-patch.yaml
-    target:
+
+patchesJson6902:
+  - target:
       group: config.openshift.io
+      version: v1
       kind: OAuth
       name: cluster
-      version: v1
+    path: oauth-idp-patch.yaml

@@ -1,22 +1,26 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 namespace: user-grafana
+
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
 resources:
   - namespace.yaml
   - operator-group.yaml
   - ../user-app
-patches:
-  - path: patch-grafana-sar.yaml
-    target:
+
+patchesJson6902:
+  - target:
+      version: v1alpha1
       group: integreatly.org
       kind: Grafana
       name: grafana
-      version: v1alpha1
-  - path: patch-cluster-monitoring-view.yaml
-    target:
+    path: patch-grafana-sar.yaml
+  - target:
+      version: v1
       group: rbac.authorization.k8s.io
       kind: ClusterRoleBinding
       name: cluster-monitoring-view
-      version: v1
+    path: patch-cluster-monitoring-view.yaml

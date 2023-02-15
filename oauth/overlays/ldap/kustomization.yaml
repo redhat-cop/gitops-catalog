@@ -1,16 +1,19 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
-generatorOptions:
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
-    argocd.argoproj.io/sync-options: Prune=false
-  disableNameSuffixHash: true
-resources:
+
+bases:
   - ../../base
-patches:
-  - path: oauth-ldap-patch.yaml
-    target:
+
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
+patchesJson6902:
+  - target:
       group: config.openshift.io
+      version: v1
       kind: OAuth
       name: cluster
-      version: v1
+    path: oauth-ldap-patch.yaml

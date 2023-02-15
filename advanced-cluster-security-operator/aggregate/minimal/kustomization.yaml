@@ -1,8 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
+
+bases:
   - ../default
-patches:
+
+patchesJson6902:
   - path: patch-resources.yaml
     target:
       group: platform.stackrox.io
