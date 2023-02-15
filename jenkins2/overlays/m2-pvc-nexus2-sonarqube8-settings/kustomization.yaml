@@ -3,10 +3,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- jenkins-cm.yaml
-- maven-m2-pvc.yaml
-- nexus-secret.yaml
-- ../../base
+  - jenkins-cm.yaml
+  - maven-m2-pvc.yaml
+  - nexus-secret.yaml
+  - ../../base
 generatorOptions:
   disableNameSuffixHash: true
   labels:
@@ -15,6 +15,6 @@ generatorOptions:
     app.kubernetes.io/instance: jenkins
     app.kubernetes.io/part-of: jenkins
 configMapGenerator:
-- files:
-  - settings.xml
-  name: maven-settings-cm
+  - files:
+      - settings.xml
+    name: maven-settings-cm

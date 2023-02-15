@@ -1,10 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 namespace: prom-test
-
-
 resources:
-- namespace.yaml
-- operator-group.yaml
-- ../../base
+  - namespace.yaml
+  - operator-group.yaml
+  - ../../base
