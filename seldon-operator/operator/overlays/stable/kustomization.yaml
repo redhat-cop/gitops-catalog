@@ -4,6 +4,8 @@ kind: Kustomization
 
 namespace: openshift-operators
 
+resources:
+  - ../../base
 
 patches:
   - path: patch-channel.yaml
@@ -12,5 +14,3 @@ patches:
       kind: Subscription
       name: seldon-operator-certified
       version: v1alpha1
-resources:
-  - ../../base
