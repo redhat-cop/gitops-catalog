@@ -11,13 +11,13 @@ jobs:
   lint-kustomize:
     runs-on: ubuntu-latest
     env:
-      KUSTOMIZE_VERSION: 3.9.4
-      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
+      KUSTOMIZE_VERSION: 5.0.0
+      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
       BIN_PATH: /usr/bin
     steps:
       - name: Install Kustomize
         run: |
-          sudo curl "${KUSTOMIZE_URL}" -L -o ${BIN_PATH}/kustomize
+          sudo curl "${KUSTOMIZE_URL}" -L | tar -zx -C ${BIN_PATH}/
           sudo chmod +x ${BIN_PATH}/kustomize
       - name: Code Checkout
         uses: actions/checkout@v3
