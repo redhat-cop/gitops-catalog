@@ -5,7 +5,7 @@ metadata:
   annotations:
     recommendedInstanceType: ml.p3.8xlarge, ml.p3.16xlarge, ml.g4dn.12xlarge, ml.p4d.24xlarge
 spec:
-  # NOTICE: There is no CRD for CodeRepository (manual creation) 
+  # NOTICE: There is no CRD for CodeRepository (manual creation)
   defaultCodeRepository: 'https://github.com/redhat-na-ssa/demo-rosa-sagemaker.git'
   instanceType: ml.p3.8xlarge
   lifecycleConfigName: lifecycle-from-github

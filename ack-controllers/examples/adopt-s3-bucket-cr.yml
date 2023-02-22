@@ -2,7 +2,7 @@ apiVersion: services.k8s.aws/v1alpha1
 kind: AdoptedResource
 metadata:
   name: sagemaker-fingerprint-data
-spec:  
+spec:
   aws:
     # resource to adopt, not created by ACK
     nameOrID: sagemaker-fingerprint-data
