@@ -33,3 +33,7 @@ kind: Kustomization
 bases:
   - github.com/redhat-cop/gitops-catalog/ack-controllers/overlays/aws-ops?ref=main
 ```
+
+## Setup
+
+See [Setup](SETUP.md)
