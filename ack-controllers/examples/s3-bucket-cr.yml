@@ -1,0 +1,11 @@
+apiVersion: s3.services.k8s.aws/v1alpha1
+kind: Bucket
+metadata:
+  name: sagemaker-fingerprint-data
+  annotations:
+    gitUrl: https://github.com/redhat-na-ssa/demo-rosa-sagemaker.git
+    fix: |
+      oc delete bucket sagemaker-fingerprint-data
+      oc apply -f openshift/ack-examples/adopted/adopt-sagemaker-fingerprint-data-cr.yml
+spec:
+  name: sagemaker-fingerprint-data

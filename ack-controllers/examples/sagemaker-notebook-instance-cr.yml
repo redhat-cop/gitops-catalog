@@ -1,0 +1,15 @@
+apiVersion: sagemaker.services.k8s.aws/v1alpha1
+kind: NotebookInstance
+metadata:
+  name: fingerprint-id
+  annotations:
+    recommendedInstanceType: ml.p3.8xlarge, ml.p3.16xlarge, ml.g4dn.12xlarge, ml.p4d.24xlarge
+spec:
+  # NOTICE: There is no CRD for CodeRepository (manual creation)
+  defaultCodeRepository: 'https://github.com/redhat-na-ssa/demo-rosa-sagemaker.git'
+  instanceType: ml.p3.8xlarge
+  lifecycleConfigName: lifecycle-from-github
+  notebookInstanceName: fingerprint-id
+  roleARN: 'arn:aws:iam::000000000000:role/AmazonSageMaker-ExecutionRole'
+  # BUG: volumeSizeInGB is a required field if you want the operator to not lose its mind
+  volumeSizeInGB: 5

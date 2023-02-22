@@ -1,7 +1,10 @@
-ACK
 ack
+ACK
 ACM
 ACS
+AdoptedResource
+AmazonS
+AmazonSageMakerFullAccess
 amq
 Ansible
 api
@@ -12,6 +15,8 @@ approver
 argocd
 ArgoCD
 argoproj
+arn
+ARN
 aws
 Bitnami
 canada
@@ -42,11 +47,14 @@ dns
 DNS
 dotnet
 DotNET
+ec
 elasticsearch
 env
 eus
 eventing
 Eventing
+finalizer
+FullAccess
 generatorOptions
 Gi
 github
@@ -61,6 +69,7 @@ homelab
 htpass
 HTPasswd
 https
+iam
 IAM
 idp
 IgnoreExtraneous
@@ -140,6 +149,7 @@ RHACM
 rhpds
 Rollout
 runtime
+sagemaker
 Sagemaker
 sandboxed
 SAR

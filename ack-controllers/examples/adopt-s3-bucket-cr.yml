@@ -1,0 +1,15 @@
+apiVersion: services.k8s.aws/v1alpha1
+kind: AdoptedResource
+metadata:
+  name: sagemaker-fingerprint-data
+spec:
+  aws:
+    # resource to adopt, not created by ACK
+    nameOrID: sagemaker-fingerprint-data
+  kubernetes:
+    group: s3.services.k8s.aws
+    kind: Bucket
+    metadata:
+      # target K8s CR name
+      name: sagemaker-fingerprint-data
+      namespace: fingerprint-id

@@ -1,0 +1,15 @@
+apiVersion: services.k8s.aws/v1alpha1
+kind: AdoptedResource
+metadata:
+  name: sagemaker-notebook
+spec:
+  aws:
+    # resource to adopt, not created by ACK
+    nameOrID: sagemaker-notebook
+  kubernetes:
+    group: sagemaker.services.k8s.aws
+    kind: NotebookInstance
+    metadata:
+      # target K8s CR name
+      name: sagemaker-notebook
+      namespace: fingerprint-id
