@@ -2,6 +2,7 @@ ack
 ACK
 ACM
 ACS
+AdoptedResource
 AmazonS
 AmazonSageMakerFullAccess
 amq
@@ -52,6 +53,7 @@ env
 eus
 eventing
 Eventing
+finalizer
 FullAccess
 generatorOptions
 Gi
