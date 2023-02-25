@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - openshift-gitops-operator-subscription.yaml
+  - subscription.yaml
