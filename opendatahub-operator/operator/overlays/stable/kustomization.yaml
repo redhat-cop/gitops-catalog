@@ -4,11 +4,8 @@ kind: Kustomization
 bases:
   - ../../base
 
-patchesJson6902:
+patches:
   - target:
-      group: operators.coreos.com
-      version: v1alpha1
       kind: Subscription
       name: opendatahub-operator
-      namespace: openshift-operators
     path: patch-channel.yaml
