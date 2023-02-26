@@ -289,7 +289,7 @@ The current *overlays* available are for the following channels:
 
 $(for channel in $(get_pkg_manifest_channels ${NAME})
   do
-    echo "* [${channel}](overlays/${channel})"
+    echo "* [${channel}](operator/overlays/${channel})"
   done
 )
 
