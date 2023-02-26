@@ -1,5 +1,4 @@
-#!bin/bash
-# shellcheck disable=all
+#!/bin/bash
 # set -x
 
 usage(){
@@ -24,10 +23,8 @@ check_oc(){
   echo "Are you on the right OCP cluster?"
 
   oc whoami || exit 0
-  export UUID=$(oc whoami --show-server | sed 's@https://@@; s@:.*@@; s@api.*-@@; s@[.].*$@@')
   oc status
 
-  echo "UUID: ${UUID}"
   sleep 4
 }
 
@@ -102,7 +99,7 @@ create_operator_base(){
   SOURCE_NAMESPACE="${5}"
   NS_OWN="${6}"
 
-  echo "create_operator_base: ${@}"
+  echo "create_operator_base:" "${@}"
 
   if [ "${NS_OWN}" == "<none>" ]; then
     BASE_DIR="${NAME}"
@@ -138,28 +135,28 @@ create_operator_base_files_wo_ns(){
   create_operator_dir "${BASE_DIR}"
   BASE_PATH="${BASE_DIR}/operator/base"
 
-printf "apiVersion: kustomize.config.k8s.io/v1beta1
+echo -n "apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-" > ${BASE_PATH}/kustomization.yaml
+" > "${BASE_PATH}/kustomization.yaml"
 
 if [ "${NAMESPACE}" == "ack-system" ]; then
-printf "
+echo -n "
 bases:
   - ../../../${NAMESPACE}/base
-" >> ${BASE_PATH}/kustomization.yaml
+" >> "${BASE_PATH}/kustomization.yaml"
 # else
-# printf "
+# echo -n "
 # namespace: ${NAMESPACE}
-# " >> ${BASE_PATH}/kustomization.yaml
+# " >> "${BASE_PATH}/kustomization.yaml"
 fi
 
-printf "
+echo -n "
 resources:
   - subscription.yaml
-" >> ${BASE_PATH}/kustomization.yaml
+" >> "${BASE_PATH}/kustomization.yaml"
 
 
-cat <<YAML > ${BASE_PATH}/subscription.yaml
+cat <<YAML > "${BASE_PATH}/subscription.yaml"
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -180,7 +177,7 @@ create_operator_base_files_w_ns(){
   create_operator_dir "${BASE_DIR}"
   BASE_PATH="${BASE_DIR}/operator/base"
 
-cat <<YAML > ${BASE_PATH}/kustomization.yaml
+cat <<YAML > "${BASE_PATH}/kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -190,7 +187,7 @@ resources:
   - subscription.yaml
 YAML
 
-cat <<YAML > ${BASE_PATH}/subscription.yaml
+cat <<YAML > "${BASE_PATH}/subscription.yaml"
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
@@ -204,7 +201,7 @@ spec:
   sourceNamespace: ${SOURCE_NAMESPACE}
 YAML
 
-cat <<YAML > ${BASE_PATH}/namespace.yaml
+cat <<YAML > "${BASE_PATH}/namespace.yaml"
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -215,7 +212,7 @@ metadata:
   name: ${NAMESPACE}
 YAML
 
-cat <<YAML > ${BASE_PATH}/operator-group.yaml
+cat <<YAML > "${BASE_PATH}/operator-group.yaml"
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
@@ -224,10 +221,10 @@ metadata:
 YAML
 
 if [ "${NS_OWN}" == "true" ]; then
-printf "spec:
+echo -n "spec:
   targetNamespaces:
     - ${NAMESPACE}
-" >> ${BASE_PATH}/operator-group.yaml
+" >> "${BASE_PATH}/operator-group.yaml"
 
 fi
 }
@@ -239,7 +236,7 @@ BASE_PATH="${BASE_DIR}/operator/overlays/${CHANNEL}"
 
 mkdir -p "${BASE_PATH}"
 
-cat <<YAML > ${BASE_PATH}/kustomization.yaml
+cat <<YAML > "${BASE_PATH}/kustomization.yaml"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -253,7 +250,7 @@ patches:
     path: patch-channel.yaml
 YAML
 
-cat <<YAML > ${BASE_PATH}/patch-channel.yaml
+cat <<YAML > "${BASE_PATH}/patch-channel.yaml"
 - op: replace
   path: /spec/channel
   value: ${channel}
@@ -287,7 +284,7 @@ Do not use the \`base\` directory directly, as you will need to patch the \`chan
 
 The current *overlays* available are for the following channels:
 
-$(for channel in $(get_pkg_manifest_channels ${NAME})
+$(for channel in $(get_pkg_manifest_channels "${NAME}")
   do
     echo "* [${channel}](operator/overlays/${channel})"
   done
@@ -320,12 +317,24 @@ YAML
 }
 
 create_operator(){
-  # <none> ns: openshift-operators
-  # <none> ns: no operatorgroup
   [ "${1}x" == "x" ] && return
   NAME="${1}"
 
-  read -r NAME NAMESPACE CATALOG_SOURCE SOURCE_NAMESPACE DEFAULT_CHANNEL CHANNELS NS_OWN NS_SINGLE NS_MULTI NS_ALL DISPLAY_NAME <<<"$(get_pkg_manifest_info ${NAME})"
+  read -r NAME NAMESPACE CATALOG_SOURCE SOURCE_NAMESPACE DEFAULT_CHANNEL CHANNELS NS_OWN NS_SINGLE NS_MULTI NS_ALL DISPLAY_NAME <<<"$(get_pkg_manifest_info "${NAME}")"
+
+  if [ -z "$DEBUG" ]; then
+    echo "NAME: ${NAME}"
+    echo "NAMESPACE: ${NAMESPACE}"
+    echo "CATALOG_SOURCE: ${CATALOG_SOURCE}"
+    echo "SOURCE_NAMESPACE: ${SOURCE_NAMESPACE}"
+    echo "DEFAULT_CHANNEL: ${DEFAULT_CHANNEL}"
+    echo "CHANNELS: ${CHANNELS}"
+    echo "NS_OWN: ${NS_OWN}"
+    echo "NS_SINGLE: ${NS_SINGLE}"
+    echo "NS_MULTI: ${NS_MULTI}"
+    echo "NS_ALL: ${NS_ALL}"
+    echo "DISPLAY_NAME: ${DISPLAY_NAME}"
+  fi
 
   create_operator_base "${NAME}" "${NAMESPACE}" "${DISPLAY_NAME}" "${CATALOG_SOURCE}" "${SOURCE_NAMESPACE}" "${NS_OWN}"
   create_operator_overlays "${NAME}"
@@ -349,4 +358,4 @@ debug(){
       -o jsonpath='{.status.channels[0].currentCSVDesc.installModes}{"\n"}'
 }
 
-is_sourced && usage || get_all_pkg_manifests_info
+is_sourced && (usage || get_all_pkg_manifests_info)
