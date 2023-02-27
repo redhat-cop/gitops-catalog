@@ -1,20 +1,18 @@
+---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 namespace: sealed-secrets
 
-# Include the base Sealed Secrets manifests.
-bases:
-  - ../../base
-
 resources:
+  - ../../base
   - sealed-secrets-namespace.yaml
 
 # Remove the SCC requiring anyuid
 patches:
-  - target:
-      version: v1
+  - path: patch-sealed-secrets.yaml
+    target:
       group: apps
       kind: Deployment
       name: sealed-secrets-controller
-    path: patch-sealed-secrets.yaml
+      version: v1

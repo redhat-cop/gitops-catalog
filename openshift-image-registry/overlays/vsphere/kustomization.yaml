@@ -2,14 +2,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - ../../base
 
 patches:
-  - target:
-      kind: PersistentVolumeClaim
-      name: image-registry-storage
-    patch: |-
+  - patch: |-
       - op: replace
         path: /spec/resources/requests/storage
         value: '5Gi'
@@ -17,10 +14,10 @@ patches:
         path: /spec/accessModes
         value:
           - ReadWriteOnce
-  - target:
-      kind: Config
-      name: cluster
-    patch: |-
+    target:
+      kind: PersistentVolumeClaim
+      name: image-registry-storage
+  - patch: |-
       - op: add
         path: /spec/storage
         value:
@@ -29,3 +26,6 @@ patches:
       - op: replace
         path: /spec/rolloutStrategy
         value: 'Recreate'
+    target:
+      kind: Config
+      name: cluster

@@ -10,17 +10,26 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   lint-kustomize:
     runs-on: ubuntu-latest
-    env:
-      KUSTOMIZE_VERSION: 3.9.4
-      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
-      BIN_PATH: /usr/bin
+    # env:
+    # KUSTOMIZE_URL: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v5.0.0/kustomize_v5.0.0_linux_amd64.tar.gz"
+    # BIN_PATH: /usr/local/bin
     steps:
-      - name: Install Kustomize
-        run: |
-          sudo curl "${KUSTOMIZE_URL}" -L -o ${BIN_PATH}/kustomize
-          sudo chmod +x ${BIN_PATH}/kustomize
+      # Kustomize now comes pre-installed on the "ubuntu-latest" image, no need for manual installation
+      #
+      # - name: Install Kustomize
+      #   run: |
+      #     echo "Downloading Kustomize from URL: ${KUSTOMIZE_URL} and saving into ${BIN_PATH}/"
+      #     sudo curl --location --no-buffer "${KUSTOMIZE_URL}" | tar -xvz -C "${BIN_PATH}/"
+      #     sudo chmod +x ${BIN_PATH}/kustomize
+      #
       - name: Code Checkout
         uses: actions/checkout@v3
+
+      - name: Verify Kustomize CLI Installation
+        run: |
+          which kustomize
+          kustomize version
+
       - name: Validate Manifests
         run: |
           [ -d ./bootstrap/base ] && touch bootstrap/base/sealed-secrets-secret.yaml

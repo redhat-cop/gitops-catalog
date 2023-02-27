@@ -6,10 +6,10 @@ resources:
   - ../../base
 
 patches:
-  - target:
-      kind: Subscription
-      name: sriov-network-operator-subscription
-    patch: |-
+  - patch: |-
       - op: replace
         path: /spec/channel
         value: '4.10'
+    target:
+      kind: Subscription
+      name: sriov-network-operator-subscription

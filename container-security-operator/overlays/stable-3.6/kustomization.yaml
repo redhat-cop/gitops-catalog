@@ -1,16 +1,17 @@
+---
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 namespace: openshift-operators
 
-bases:
+resources:
   - ../../base
 
 patches:
-  - target:
-      kind: Subscription
-      name: container-security-operator
-    patch: |-
+  - patch: |-
       - op: replace
         path: /spec/channel
         value: 'stable-3.6'
+    target:
+      kind: Subscription
+      name: container-security-operator
