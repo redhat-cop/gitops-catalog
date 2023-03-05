@@ -12,11 +12,11 @@ Red Hat OpenShift GitOps is a declarative continuous delivery platform based on 
 * Automated GitOps bootstrapping using Tekton and Argo CD with [GitOps Application Manager CLI](https://github.com/redhat-developer/kam)
 
 ## Components
-* Argo CD v2.2.14
+* Argo CD v2.1.16
 * GitOps Application Manager CLI ([download](https://github.com/redhat-developer/kam/releases))
 
 ## How to Install 
-After installing the OpenShift GitOps operator, an instance  of Argo CD is installed in the `openshift-gitops` namespace which has sufficent privileges for managing cluster configurations. You can create additional Argo CD instances using the `ArgoCD` custom resource within the desired namespaces. 
+After installing the OpenShift GitOps operator, an instance  of Argo CD is installed in the `openshift-gitops` namespace which has sufficent privileges for managing cluster configurations. You can create additional Argo CD instances using the `ArgoCD` custom resource within the desired namespaces.
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ArgoCD
