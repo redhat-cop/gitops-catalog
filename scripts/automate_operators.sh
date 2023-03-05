@@ -344,7 +344,7 @@ create_operator(){
 
 create_all_operators(){
   # for package in $(get_all_pkg_manifests_names_only)
-  for package in nfd opendatahub-operator serverless-operator openshift-gitops-operator
+  for package in nfd opendatahub-operator serverless-operator openshift-gitops-operator rhods-operator
   do
     create_operator "${package}"
   done
