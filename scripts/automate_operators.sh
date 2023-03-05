@@ -299,19 +299,19 @@ $(for channel in $(get_pkg_manifest_channels "${NAME}")
 
 If you have cloned the \`gitops-catalog\` repository, you can install ${DISPLAY_NAME} based on the overlay of your choice by running from the root (\`gitops-catalog\`) directory.
 
-\`\`\`
+\`\`\`sh
 oc apply -k ${BASE_DIR}/operator/overlays/<channel>
 \`\`\`
 
 Or, without cloning:
 
-\`\`\`
+\`\`\`sh
 oc apply -k ${GIT_REPO}/${BASE_DIR}/operator/overlays/<channel>
 \`\`\`
 
 As part of a different overlay in your own GitOps repo:
 
-\`\`\`
+\`\`\`sh
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
@@ -348,8 +348,8 @@ create_operator(){
 }
 
 create_all_operators(){
-  # for package in $(get_all_pkg_manifests_names_only)
   for package in nfd opendatahub-operator serverless-operator openshift-gitops-operator rhods-operator
+  # for package in $(get_all_pkg_manifests_names_only)
   do
     create_operator "${package}"
   done
