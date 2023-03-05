@@ -106,20 +106,20 @@ create_operator_base(){
 
   echo "create_operator_base:" "${@}"
 
-  if [ "${NS_OWN}" == "<none>" ]; then
+  if [ ! "${NAMESPACE}" == "<none>" && ! "${NS_OWN}" == "<none>" ]; then
     BASE_DIR="${NAME}"
-    create_operator_base_files_wo_ns
-  elif [ "${NAMESPACE}" == "<none>" ]; then
-    BASE_DIR="${NAME}"
-    NAMESPACE=openshift-operators
-    create_operator_base_files_wo_ns
-  elif [ "${NS_OWN}" == "true" && "${NAMESPACE}" == "<none>" ]; then
+    create_operator_base_files_w_ns
+  elif [ "${NAMESPACE}" == "<none>" && "${NS_OWN}" == "true" ]; then
     BASE_DIR="${NAME}"
     NAMESPACE="${NAME}"
     create_operator_base_files_w_ns
+  elif [ "${NS_OWN}" == "false" ]; then
+    BASE_DIR="${NAME}"
+    NAMESPACE=openshift-operators
+    create_operator_base_files_wo_ns
   else
-    BASE_DIR="${NAMESPACE}"
-    create_operator_base_files_w_ns
+    BASE_DIR="${NAME}"
+    create_operator_base_files_wo_ns
   fi
 
   get_operator_description "${NAME}" > "${BASE_DIR}/INFO.md"
