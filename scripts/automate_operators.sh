@@ -61,6 +61,11 @@ get_all_pkg_manifests_info(){
     -o custom-columns="${MANIFEST_INFO}"
 }
 
+dump_operator_info(){
+  echo -e "# created: $(date -u)\n# script: dump_operator_info" > operator_info.txt
+  get_all_pkg_manifests_info >> operator_info.txt
+}
+
 get_pkg_manifest_info(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
@@ -108,10 +113,10 @@ create_operator_base(){
     BASE_DIR="${NAME}"
     NAMESPACE=openshift-operators
     create_operator_base_files_wo_ns
-  elif [ "${NS_OWN}" == "false" ]; then
-    BASE_DIR="${NAMESPACE}"
-    NAMESPACE=openshift-operators
-    create_operator_base_files_wo_ns
+  elif [ "${NS_OWN}" == "true" && "${NAMESPACE}" == "<none>" ]; then
+    BASE_DIR="${NAME}"
+    NAMESPACE="${NAME}"
+    create_operator_base_files_w_ns
   else
     BASE_DIR="${NAMESPACE}"
     create_operator_base_files_w_ns
@@ -348,14 +353,6 @@ create_all_operators(){
   do
     create_operator "${package}"
   done
-}
-
-debug(){
-    NAME="${1}"
-    oc get \
-      packagemanifest \
-      "${NAME}" \
-      -o jsonpath='{.status.channels[0].currentCSVDesc.installModes}{"\n"}'
 }
 
 is_sourced && (usage || get_all_pkg_manifests_info)
