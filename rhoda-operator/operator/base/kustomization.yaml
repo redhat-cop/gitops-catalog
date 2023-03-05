@@ -5,5 +5,5 @@ kind: Kustomization
 resources:
   - catalogsource.yaml
   - namespace.yaml
-  - operatorgroup.yaml
+  - operator-group.yaml
   - subscription.yaml

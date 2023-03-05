@@ -10,5 +10,5 @@ resources:
   - enable-console-plugin-sa.yaml
   - openshift-data-foundation-console-plugin.yaml
   - openshift-data-foundation-operator-subscription.yaml
-  - openshift-data-foundation-operator-operatorgroup.yaml
+  - operator-group.yaml
   - openshift-storage-namespace.yaml

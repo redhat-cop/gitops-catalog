@@ -4,5 +4,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
   - costmanagement-metrics-operator-namespace.yaml
-  - costmanagement-metrics-operator-operatorgroup.yaml
+  - operator-group.yaml
   - costmanagement-metrics-operator-subscription.yaml

@@ -6,5 +6,5 @@ namespace: openshift-logging
 
 resources:
   - openshift-logging-namespace.yaml
-  - openshift-logging-operatorgroup.yaml
+  - operator-group.yaml
   - openshift-logging-subscription.yaml

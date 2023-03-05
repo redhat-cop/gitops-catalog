@@ -7,5 +7,5 @@ namespace: openshift-gatekeeper-operator
 resources:
   - namespace.yaml
   - gatekeeper-subscription.yaml
-  - gatekeeper-operatorgroup.yaml
+  - operator-group.yaml
   - gatekeeper-catalogsource.yaml

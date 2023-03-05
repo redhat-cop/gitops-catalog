@@ -10,7 +10,7 @@ commonAnnotations:
 resources:
   - namespace.yaml
   - compliance-operator-subscription.yaml
-  - compliance-operator-operatorgroup.yaml
+  - operator-group.yaml
 
 patches:
   - patch: |-
