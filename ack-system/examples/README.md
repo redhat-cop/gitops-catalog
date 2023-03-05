@@ -25,7 +25,7 @@ Steps to resolve:
 
 **!!! WARNING !!!**
 
-*2023-01-11*
+## *2023-01-11*
 
 Once a resource in AWS has been `adopted` into a CR, deleting the
 `AdoptedResource` triggers no action from the ACK operator.
@@ -55,4 +55,5 @@ metadata:
 ```
 
 ## Links
-- https://aws-controllers-k8s.github.io/community/docs/user-docs/adopted-resource
+
+- <https://aws-controllers-k8s.github.io/community/docs/user-docs/adopted-resource>

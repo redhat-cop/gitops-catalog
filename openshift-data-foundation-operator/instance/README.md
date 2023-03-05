@@ -13,6 +13,7 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 ## Overlays
 
 The options for this operator are the following *overlays*:
+
 * [aws](overlays/aws)
 * [vsphere](overlays/vsphere)
 
@@ -32,11 +33,11 @@ For additional automation for labeling nodes see [node-labeler](../config-helper
 
 ### AWS
 
-[aws](overlays/aws) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitilization object to configure the storage cluster.  The StorageCluster is configured to work with gp2 storage on an AWS cluster.
+[aws](overlays/aws) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitialization object to configure the storage cluster.  The StorageCluster is configured to work with gp2 storage on an AWS cluster.
 
 ### vSphere
 
-[vsphere](overlays/vsphere) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitilization object to configure the storage cluster.  The StorageCluster is configured to work with thin storage on a vSphere cluster and enables flexible scaling to distribute devices evenly across all nodes, regardless of distribution in zones or racks.
+[vsphere](overlays/vsphere) installs a basic StorageSystem.  The StorageSystem will configure the OpenShift Container Storage Operator and also install a StorageCluster and OCSInitialization object to configure the storage cluster.  The StorageCluster is configured to work with thin storage on a vSphere cluster and enables flexible scaling to distribute devices evenly across all nodes, regardless of distribution in zones or racks.
 
 ## Usage
 
