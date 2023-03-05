@@ -3,7 +3,7 @@ kind: Kustomization
 
 namespace: ack-system
 
-bases:
+resources:
   - ../../instance
   - ../../../ack-ec2-controller/operator/overlays/alpha
   - ../../../ack-ecr-controller/operator/overlays/alpha

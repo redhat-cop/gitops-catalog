@@ -3,7 +3,7 @@ kind: Kustomization
 
 namespace: openshift-sandboxed-containers-operator
 
-bases:
+resources:
   - ../../base
 
 patchesStrategicMerge:
