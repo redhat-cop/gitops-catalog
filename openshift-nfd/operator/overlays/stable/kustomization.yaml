@@ -1,11 +1,12 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - ../../base
 
 patches:
-  - target:
+  - path: patch-channel.yaml
+    target:
       kind: Subscription
       name: nfd
-    path: patch-channel.yaml

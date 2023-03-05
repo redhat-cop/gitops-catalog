@@ -1,23 +1,19 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-bases:
+resources:
   - ../../base/operator
   - ../../base/instance
-
-resources:
   - grafana-ds.yaml
   - cluster-monitor-view-rb.yaml
   - grafana-auth-secret.yaml
 
 patches:
-  - target:
-      kind: Grafana
-      name: grafana
-    patch: |-
+  - patch: |-
       - op: add
         path: /spec/deployment
         value:
@@ -27,3 +23,6 @@ patches:
               secretKeyRef:
                 name: grafana-auth-secret
                 key: token
+    target:
+      kind: Grafana
+      name: grafana

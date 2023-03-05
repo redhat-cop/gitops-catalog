@@ -1,31 +1,30 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 nameSuffix: -prod
 
-bases:
+transformers:
+  - update-k8s-labels.yaml
+
+resources:
   - ../../base
 
-patchesJson6902:
-  - target:
-      version: v1
+patches:
+  - path: patch-prod-dc.yaml
+    target:
       group: apps.openshift.io
       kind: DeploymentConfig
       name: apicast-prod
-    path: patch-prod-dc.yaml
-  - target:
       version: v1
+  - path: patch-prod-route.yaml
+    target:
       group: route.openshift.io
       kind: Route
       name: apicast-prod
-    path: patch-prod-route.yaml
-  - target:
       version: v1
-      group: ""
+  - path: patch-prod-svc.yaml
+    target:
       kind: Service
       name: apicast-prod
-    path: patch-prod-svc.yaml
-
-
-transformers:
-  - update-k8s-labels.yaml
+      version: v1

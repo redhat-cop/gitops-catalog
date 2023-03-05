@@ -1,14 +1,15 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: openshift-operators
 
-bases:
+resources:
   - ../../base
 
 patches:
-  - target:
+  - path: patch-channel.yaml
+    target:
       group: operators.coreos.com
-      version: v1alpha1
       kind: Subscription
-    path: patch-channel.yaml
+      version: v1alpha1
