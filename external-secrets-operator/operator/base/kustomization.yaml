@@ -3,4 +3,4 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - external-secrets-subscription.yaml
+  - subscription.yaml

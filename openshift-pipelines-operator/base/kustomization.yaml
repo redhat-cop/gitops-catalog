@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - openshift-pipelines-operator-subscription.yaml
+  - subscription.yaml
