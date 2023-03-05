@@ -6,5 +6,5 @@ namespace: openshift-sandboxed-containers-operator
 resources:
   - ../../base
 
-patchesStrategicMerge:
-  - openshift-sandboxed-containers-operator-sub.yaml
+patches:
+  - path: openshift-sandboxed-containers-operator-sub.yaml
