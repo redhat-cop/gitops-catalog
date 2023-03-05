@@ -19,7 +19,7 @@ Or as part of your own `kustomization.yaml` file:
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-bases:
+resources:
 - github.com/redhat-cop/gitops-catalog/compliance-operator/operator/overlays/release-0.1?ref=main
 ```
 

@@ -27,6 +27,6 @@ As part of a different overlay in your own GitOps repo:
 ```
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-bases:
+resources:
   - https://github.com/redhat-cop/gitops-catalog/openshift-nfd/operator/overlays/<channel>?ref=main
 ```

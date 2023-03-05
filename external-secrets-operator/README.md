@@ -20,7 +20,7 @@ Or as part of your own `kustomization.yaml` file:
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-bases:
+resources:
 - github.com/redhat-cop/gitops-catalog/external-secrets-operator/operator/overlays/alpha?ref=main
 ```
 
@@ -40,6 +40,6 @@ Or as part of your own `kustomization.yaml` file:
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-bases:
+resources:
 - github.com/redhat-cop/gitops-catalog/external-secrets-operator/instance/overlays/default?ref=main
 ```
