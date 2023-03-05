@@ -8,7 +8,7 @@ First, install the following operators in your cluster:
 
 - [Openshift Elasticsearch Operator](../../elasticsearch-operator)
 
-Do not use the `base` directory directly, as you will need to patch 
+Do not use the `base` directory directly, as you will need to patch
 * the `ClusterLogging` instance `storageClassName`
 * the `ConsoleLink`
 

@@ -11,7 +11,7 @@ example:
 }
 
 is_sourced() {
-  if [ -n "$ZSH_VERSION" ]; then 
+  if [ -n "$ZSH_VERSION" ]; then
       case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
   else  # Add additional POSIX-compatible shell names here, if needed.
       case ${0##*/} in dash|-dash|bash|-bash|ksh|-ksh|sh|-sh) return 0;; esac
@@ -113,7 +113,7 @@ create_operator_base(){
     NAMESPACE=openshift-operators
     create_operator_base_files_wo_ns
   else
-    BASE_DIR="${NAMESPACE}"    
+    BASE_DIR="${NAMESPACE}"
     create_operator_base_files_w_ns
   fi
 
@@ -345,9 +345,9 @@ create_operator(){
 create_all_operators(){
   # for package in $(get_all_pkg_manifests_names_only)
   for package in nfd opendatahub-operator serverless-operator openshift-gitops-operator
-  do 
+  do
     create_operator "${package}"
-  done   
+  done
 }
 
 debug(){

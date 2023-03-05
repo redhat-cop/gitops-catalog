@@ -2,7 +2,7 @@
 
 Configures the integrated Image Registry
 
-Do not use the `base` directory directly, as you will need to patch the following based on the Storage you are using: 
+Do not use the `base` directory directly, as you will need to patch the following based on the Storage you are using:
 * the `rolloutStrategy`
 * the `storage`
 

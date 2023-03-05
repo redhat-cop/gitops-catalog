@@ -9,7 +9,7 @@ A preexisting S3 bucket called `sagemaker-fingerprint-data` exists in AWS.
 When trying to create a `Bucket` CR in k8s / OpenShift the following error appears:
 
 ```
-Status: 
+Status:
 ACK.Terminal
 
 This resource already exists but is not managed by ACK. To bring the resource under ACK management, you should explicitly adopt the resource by creating a services.k8s.aws/AdoptedResource
@@ -35,11 +35,11 @@ RESOURCE* is to remove the finalizer
 from the CR, and hope deleting the CR doesn't cause the operator
 to delete your AWS resource.
 
-The assumption appears to be... 
+The assumption appears to be...
 
 Once a resource is `adopted` it will only
 be managed in k8s / OpenShift via the CR. No manual changes outside of
-k8s / OpenShift appear to sync to the CR (ex: tags) via the operator. 
+k8s / OpenShift appear to sync to the CR (ex: tags) via the operator.
 
 Any changes outside of k8s / OpenShift will be overwritten by the CR.
 

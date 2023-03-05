@@ -4,7 +4,7 @@ Installs the Automation Controller
 
 ## Prerequisites
 
-Do not use the `base` directory directly, as you will need to patch 
+Do not use the `base` directory directly, as you will need to patch
 
 * the `ConsoleLink`
 

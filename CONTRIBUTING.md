@@ -21,7 +21,7 @@ In general, the root folder should represent the functionality being provided wi
 
 Overlays for operators should generally use the `channel` name as the name of the overlay if multiple channels are available. For example, if the channel names are `tech-preview` and `stable` then name the overlays the same corresponding to the channels.
 
-When adding new objects into an example, avoid combining objects into a single yaml file.  Each object should have its own yaml file that is referenced as a resource in the `kustomization.yaml` file.  Some exceptions may exist, such as combining `role` and `roleBinding` into a single RBAC file.  
+When adding new objects into an example, avoid combining objects into a single yaml file.  Each object should have its own yaml file that is referenced as a resource in the `kustomization.yaml` file.  Some exceptions may exist, such as combining `role` and `roleBinding` into a single RBAC file.
 
 Files in this repository should use the `.yaml` extension and not `.yml`.  Kustomize files should utilize `kustomization.yaml` over alternative naming options.
 
