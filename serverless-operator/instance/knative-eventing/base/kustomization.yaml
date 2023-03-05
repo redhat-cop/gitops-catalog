@@ -6,4 +6,4 @@ namespace: knative-eventing
 
 resources:
   - knative-eventing-instance.yaml
-  - knative-eventing-namespace.yaml
+  - namespace.yaml

@@ -6,4 +6,4 @@ namespace: knative-serving
 
 resources:
   - knative-serving-instance.yaml
-  - knative-serving-namespace.yaml
+  - namespace.yaml

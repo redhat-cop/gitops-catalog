@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../aggregate/popular
-  - aws-ops-namespace.yaml
+  - namespace.yaml
 
 patches:
   - patch: |-

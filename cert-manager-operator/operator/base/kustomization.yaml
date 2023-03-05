@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: openshift-cert-manager-operator
 
 resources:
-  - operator-namespace.yaml
+  - namespace.yaml
   - operator-group.yaml
   - subscription.yaml
