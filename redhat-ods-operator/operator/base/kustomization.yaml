@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: redhat-ods-operator
 
 resources:
-  - redhat-ods-operator-namespace.yaml
-  - redhat-ods-operator-operatorgroup.yaml
-  - rhods-operator-subscription.yaml
+  - namespace.yaml
+  - operatorgroup.yaml
+  - subscription.yaml
