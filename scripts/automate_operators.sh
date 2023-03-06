@@ -3,10 +3,21 @@
 
 usage(){
 echo "
-You can run individual functions!
 
-example:
-  get_all_pkg_manifests_info
+This script is ALPHA and there is probably a better way to do this, but it should help you create
+the basic file structure you need to setup an operator.
+
+examples:
+  get_all_pkg_manifests
+  get_all_pkg_manifests_details
+  save_all_pkg_manifests_details
+
+  get_pkg_manifest_info rhods-operator
+  get_pkg_manifest_channels rhods-operator
+  get_pkg_manifest_description rhods-operator
+
+  create_operator
+  create_all_operators
 "
 }
 
@@ -40,14 +51,19 @@ MANIFEST_INFO="${MANIFEST_INFO},"'NS_MULTI:.status.channels[0].currentCSVDesc.in
 MANIFEST_INFO="${MANIFEST_INFO},"'NS_ALL:.status.channels[0].currentCSVDesc.installModes[?(@.type=="AllNamespaces")].supported'
 MANIFEST_INFO="${MANIFEST_INFO},DISPLAY_NAME:.status.channels[0].currentCSVDesc.displayName"
 
+BASIC_INFO="NAME:.status.packageName"
+BASIC_INFO="${BASIC_INFO},DISPLAY_NAME:.status.channels[0].currentCSVDesc.displayName"
+BASIC_INFO="${BASIC_INFO},DEFAULT_CHANNEL:.status.defaultChannel"
+BASIC_INFO="${BASIC_INFO},CATALOG_SOURCE:.status.catalogSource"
+
 get_all_pkg_manifests(){
   oc get packagemanifest \
+    -o custom-columns="${BASIC_INFO}" \
     --sort-by='.status.catalogSource'
 }
 
 get_all_pkg_manifests_by_group(){
   PKG_GROUP=${1:-Red Hat Operators}
-  
   get_all_pkg_manifests | grep "${PKG_GROUP}"
 }
 
@@ -55,15 +71,15 @@ get_all_pkg_manifests_names_only(){
   get_all_pkg_manifests | grep -v NAME | awk '{print $1}'
 }
 
-get_all_pkg_manifests_info(){
+get_all_pkg_manifests_details(){
   oc get packagemanifest \
-    --sort-by='.status.catalogSource' \
+    --sort-by='.status.packageName' \
     -o custom-columns="${MANIFEST_INFO}"
 }
 
-dump_operator_info(){
+save_all_pkg_manifests_details(){
   echo -e "# created: $(date -u)\n# script: dump_operator_info" > operator_info.txt
-  get_all_pkg_manifests_info >> operator_info.txt
+  get_all_pkg_manifests_details >> operator_info.txt
 }
 
 get_pkg_manifest_info(){
@@ -72,7 +88,6 @@ get_pkg_manifest_info(){
   
   oc get packagemanifest \
     "${NAME}" \
-    --no-headers \
     -o=custom-columns="${MANIFEST_INFO}"
 }
 
@@ -80,19 +95,20 @@ get_pkg_manifest_channels(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
   
+  echo "NAME: ${NAME}"
   oc get packagemanifest \
     "${NAME}" \
     -o=jsonpath='{range .status.channels[*]}{.name}{"\n"}{end}' | sort
 }
 
-get_operator_description(){
+get_pkg_manifest_description(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
-  
+
   echo -e "# ${NAME}\n"
   oc get packagemanifest \
     "${NAME}" \
-    -o=jsonpath="{.status.channels[0].currentCSVDesc.description}" | sed 's/^\(#+\)[^ ]/\1 /'
+    -o=jsonpath="{.status.channels[0].currentCSVDesc.description}"
 }
 
 create_operator_base(){
@@ -122,7 +138,7 @@ create_operator_base(){
     create_operator_base_files_wo_ns
   fi
 
-  get_operator_description "${NAME}" > "${BASE_DIR}/INFO.md"
+  get_pkg_manifest_description "${NAME}" > "${BASE_DIR}/INFO.md"
 
 }
 
@@ -142,22 +158,20 @@ create_operator_base_files_wo_ns(){
 
 echo -n "apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+resources:
 " > "${BASE_PATH}/kustomization.yaml"
 
 if [ "${NAMESPACE}" == "ack-system" ]; then
-echo -n "
-resources:
-  - ../../../${NAMESPACE}/base
+  echo -n "  - ../../../${NAMESPACE}/base
 " >> "${BASE_PATH}/kustomization.yaml"
 # else
-# echo -n "
+#   echo -n "
 # namespace: ${NAMESPACE}
 # " >> "${BASE_PATH}/kustomization.yaml"
 fi
 
-echo -n "
-resources:
-  - subscription.yaml
+echo -n "  - subscription.yaml
 " >> "${BASE_PATH}/kustomization.yaml"
 
 
@@ -268,7 +282,7 @@ create_operator_overlays(){
   NAME="${1}"
   BASE_PATH="${BASE_DIR}/operator/overlays"
 
-  for channel in $(get_pkg_manifest_channels "${NAME}")
+  for channel in $(get_pkg_manifest_channels "${NAME}" | grep -v NAME)
   do
     echo "overlay: ${channel}"
     create_operator_overlay_files "${channel}"
@@ -289,7 +303,7 @@ Do not use the \`base\` directory directly, as you will need to patch the \`chan
 
 The current *overlays* available are for the following channels:
 
-$(for channel in $(get_pkg_manifest_channels "${NAME}")
+$(for channel in $(get_pkg_manifest_channels "${NAME}" | grep -v NAME)
   do
     echo "* [${channel}](operator/overlays/${channel})"
   done
@@ -325,7 +339,7 @@ create_operator(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
 
-  read -r NAME NAMESPACE CATALOG_SOURCE SOURCE_NAMESPACE DEFAULT_CHANNEL CHANNELS NS_OWN NS_SINGLE NS_MULTI NS_ALL DISPLAY_NAME <<<"$(get_pkg_manifest_info "${NAME}")"
+  read -r NAME NAMESPACE CATALOG_SOURCE SOURCE_NAMESPACE DEFAULT_CHANNEL CHANNELS NS_OWN NS_SINGLE NS_MULTI NS_ALL DISPLAY_NAME <<<"$(get_pkg_manifest_info "${NAME}" | grep -v NAME)"
 
   if [ -z "$DEBUG" ]; then
     echo "NAME: ${NAME}"
@@ -355,4 +369,5 @@ create_all_operators(){
   done
 }
 
-is_sourced && (usage || get_all_pkg_manifests_info)
+# shellcheck disable=SC2015
+is_sourced && usage || get_all_pkg_manifests
