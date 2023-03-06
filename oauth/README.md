@@ -77,7 +77,7 @@ generatorOptions:
     argocd.argoproj.io/sync-options: Prune=false
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 
-patchesJson6902:
+patches:
   - target:
       group: config.openshift.io
       version: v1
