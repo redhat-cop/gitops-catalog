@@ -122,17 +122,16 @@ create_operator_base(){
 
   echo "create_operator_base:" "${@}"
 
-  if [ ! "${NAMESPACE}" == "<none>" ] && [ ! "${NS_OWN}" == "<none>" ]; then
+  if [ "${NS_OWN}" == "false" ] && [ "${NAMESPACE}" == "openshift-operators" ]; then
     BASE_DIR="${NAME}"
-    create_operator_base_files_w_ns
-  elif [ "${NAMESPACE}" == "<none>" ] && [ "${NS_OWN}" == "true" ]; then
+    create_operator_base_files_wo_ns
+  elif [ ! "${NAMESPACE}" == "<none>" ] && [ ! "${NS_OWN}" == "<none>" ]; then
     BASE_DIR="${NAME}"
     NAMESPACE="${NAME}"
     create_operator_base_files_w_ns
-  elif [ "${NS_OWN}" == "false" ]; then
+  elif [ "${NAMESPACE}" == "<none>" ] && [ "${NS_OWN}" == "true" ]; then
     BASE_DIR="${NAME}"
-    NAMESPACE=openshift-operators
-    create_operator_base_files_wo_ns
+    create_operator_base_files_w_ns
   else
     BASE_DIR="${NAME}"
     create_operator_base_files_wo_ns
@@ -152,6 +151,7 @@ create_operator_dir(){
 }
 
 create_operator_base_files_wo_ns(){
+  echo "create operator w/o ns"
 
   create_operator_dir "${BASE_DIR}"
   BASE_PATH="${BASE_DIR}/operator/base"
@@ -192,6 +192,7 @@ YAML
 }
 
 create_operator_base_files_w_ns(){
+    echo "create operator w/ ns"
 
   create_operator_dir "${BASE_DIR}"
   BASE_PATH="${BASE_DIR}/operator/base"
