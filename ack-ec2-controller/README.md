@@ -26,6 +26,6 @@ As part of a different overlay in your own GitOps repo:
 ```
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-bases:
+resources:
   - github.com/redhat-cop/gitops-catalog/ack-ec2-controller/operator/overlays/<channel>?ref=main
 ```

@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/channel
+  value: acm-2.7

@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: openshift-distributed-tracing
 
 resources:
-  - jaeger-subscription.yaml
-  - operatorgroup.yaml
+  - operator-group.yaml
+  - subscription.yaml

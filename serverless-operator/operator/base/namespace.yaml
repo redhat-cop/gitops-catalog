@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: "Red Hat OpenShift Serverless"
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+  name: openshift-serverless

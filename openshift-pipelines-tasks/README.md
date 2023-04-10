@@ -2,7 +2,7 @@
 
 The purpose of this repository is to create tasks that are re-usable, at least within the Red Hat Canada community :)
 
-Many `ClusterTask`s that are provided out of the box are too rigid in their definition to be truely useful outside of basic pipeline configuration.  Generally, it seems to be difficult to create generic `Task`s that are reusable.
+Many `ClusterTask`s that are provided out of the box are too rigid in their definition to be truly useful outside of basic pipeline configuration.  Generally, it seems to be difficult to create generic `Task`s that are reusable.
 
 Based on work that intersects between the demos that we work on individually, we have started to catalog some `Task`s that seem to have a higher degree of reuse.
 

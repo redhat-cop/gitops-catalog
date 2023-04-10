@@ -4,5 +4,5 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - openshift-container-storage-operator-subscription.yaml
-  - openshift-container-storage-operator-operatorgroup.yaml
+  - operator-group.yaml
+  - subscription.yaml

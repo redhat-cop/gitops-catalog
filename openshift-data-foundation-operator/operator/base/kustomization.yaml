@@ -9,6 +9,6 @@ resources:
   - enable-console-plugin-rbac.yaml
   - enable-console-plugin-sa.yaml
   - openshift-data-foundation-console-plugin.yaml
-  - openshift-data-foundation-operator-subscription.yaml
-  - openshift-data-foundation-operator-operatorgroup.yaml
-  - openshift-storage-namespace.yaml
+  - namespace.yaml
+  - operator-group.yaml
+  - subscription.yaml

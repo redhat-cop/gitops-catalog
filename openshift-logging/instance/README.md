@@ -8,7 +8,7 @@ First, install the following operators in your cluster:
 
 - [Openshift Elasticsearch Operator](../../elasticsearch-operator)
 
-Do not use the `base` directory directly, as you will need to patch 
+Do not use the `base` directory directly, as you will need to patch
 * the `ClusterLogging` instance `storageClassName`
 * the `ConsoleLink`
 
@@ -35,6 +35,6 @@ As part of a different overlay in your own GitOps repo:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - github.com/redhat-cop/gitops-catalog/openshift-logging/instance/overlays/default?ref=main
 ```

@@ -4,6 +4,6 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - operatorgroup.yaml
+  - operator-group.yaml
   - subscription.yaml
   - defaultoperatorconfig.yaml

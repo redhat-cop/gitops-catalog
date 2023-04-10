@@ -9,8 +9,8 @@ commonAnnotations:
 
 resources:
   - namespace.yaml
-  - file-integrity-operator-subscription.yaml
-  - file-integrity-operator-operatorgroup.yaml
+  - operator-group.yaml
+  - subscription.yaml
 
 patches:
   - patch: |-

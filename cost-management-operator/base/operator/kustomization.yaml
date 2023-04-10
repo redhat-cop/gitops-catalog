@@ -3,6 +3,6 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-  - costmanagement-metrics-operator-namespace.yaml
-  - costmanagement-metrics-operator-operatorgroup.yaml
-  - costmanagement-metrics-operator-subscription.yaml
+  - namespace.yaml
+  - operator-group.yaml
+  - subscription.yaml

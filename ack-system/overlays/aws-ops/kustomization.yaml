@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../aggregate/popular
+  - namespace.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /data/ACK_WATCH_NAMESPACE
+        value: aws-ops
+    target:
+      kind: ConfigMap
+      name: ack-controller-user-config
+# SingleNamespace InstallModeType not supported
+#   - patch: |-
+#       - op: add
+#         path: /spec/targetNamespaces
+#         value:
+#           - aws-ops
+#     target:
+#       kind: OperatorGroup
+#       name: ack-operatorgroup

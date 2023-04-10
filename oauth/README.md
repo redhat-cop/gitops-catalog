@@ -53,7 +53,7 @@ As part of a different overlay in your own GitOps repo:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - github.com/redhat-cop/gitops-catalog/oauth/overlays/<provider>?ref=main
 ```
 
@@ -68,7 +68,7 @@ kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - github.com/redhat-cop/gitops-catalog/oauth/overlays/ldap?ref=main
 
 generatorOptions:
@@ -77,7 +77,7 @@ generatorOptions:
     argocd.argoproj.io/sync-options: Prune=false
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 
-patchesJson6902:
+patches:
   - target:
       group: config.openshift.io
       version: v1

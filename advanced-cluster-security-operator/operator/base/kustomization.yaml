@@ -9,5 +9,5 @@ commonAnnotations:
 
 resources:
   - namespace.yaml
-  - operatorgroup.yaml
+  - operator-group.yaml
   - subscription.yaml

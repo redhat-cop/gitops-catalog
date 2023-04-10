@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-  - servicemesh-operator-subscription.yaml
+  - subscription.yaml

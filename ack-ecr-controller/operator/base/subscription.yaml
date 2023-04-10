@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ack-ecr-controller
+  namespace: ack-system
+spec:
+  channel: patch-me-see-overlays-dir
+  installPlanApproval: Automatic
+  name: ack-ecr-controller
+  source: community-operators
+  sourceNamespace: openshift-marketplace
