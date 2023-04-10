@@ -3,8 +3,6 @@ ACM
 ACS
 APIs
 ARN
-APIs
-ARN
 AdoptedResource
 AmazonS
 AmazonSageMakerFullAccess
@@ -52,7 +50,7 @@ Noobaa
 NuGet
 OADP
 OAuth
-OCSInitilization
+OCSInitialization
 OLM
 Observability
 OpenDataHub
@@ -88,10 +86,10 @@ UI
 VolSync
 Workspaces
 ack
+acm
 amq
 api
 apiVersion
-apicast
 apicast
 approver
 argocd
@@ -189,7 +187,7 @@ sublicense
 tekton
 templating
 thanos
-truely
+truly
 vSphere
 vsphere
 workspaces
