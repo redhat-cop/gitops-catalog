@@ -127,10 +127,10 @@ create_operator_base(){
     create_operator_base_files_wo_ns
   elif [ ! "${NAMESPACE}" == "<none>" ] && [ ! "${NS_OWN}" == "<none>" ]; then
     BASE_DIR="${NAME}"
-    NAMESPACE="${NAME}"
     create_operator_base_files_w_ns
   elif [ "${NAMESPACE}" == "<none>" ] && [ "${NS_OWN}" == "true" ]; then
     BASE_DIR="${NAME}"
+    NAMESPACE="${NAME}"
     create_operator_base_files_w_ns
   else
     BASE_DIR="${NAME}"
