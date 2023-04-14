@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: quay-operator-group
+  namespace: quay-operator
+spec:
+  targetNamespaces:
+    - quay-operator
