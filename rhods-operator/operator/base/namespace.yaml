@@ -5,4 +5,4 @@ metadata:
     openshift.io/display-name: "Red Hat OpenShift Data Science"
   labels:
     openshift.io/cluster-monitoring: 'true'
-  name: rhods-operator
+  name: redhat-ods-operator
