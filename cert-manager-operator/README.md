@@ -1,6 +1,6 @@
 ### Introduction
 
-This deploys the cert-manager operator which is currently Tech Preview in 4.10. If you are not familiar with cert-manager, it provisions and manages TLS certificates for you automatically using one or more configured Issuers. It's great for providing a self-service capability around TLS certificates out of the OpenShift platform.
+This deploys the cert-manager operator. If you are not familiar with cert-manager, it provisions and manages TLS certificates for you automatically using one or more configured Issuers. It's great for providing a self-service capability around TLS certificates out of the OpenShift platform.
 
 Documentation on OpenShift cert-manager is available [here](https://docs.openshift.com/container-platform/4.10/security/cert_manager_operator/index.html).
 
