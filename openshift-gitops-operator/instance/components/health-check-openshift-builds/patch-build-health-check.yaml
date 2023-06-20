@@ -1,0 +1,19 @@
+- op: add
+  path: /spec/resourceHealthChecks/-
+  value:
+    group: build.openshift.io
+    kind: Build
+    check: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.phase ~= nil then
+          if obj.status.phase == "Complete" then
+            hs.status = "Healthy"
+            hs.message = obj.status.phase
+            return hs
+          end
+        end
+      end
+      hs.status = "Progressing"
+      hs.message = "Waiting for Build to complete"
+      return hs

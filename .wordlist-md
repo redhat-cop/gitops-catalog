@@ -8,6 +8,7 @@ AmazonS
 AmazonSageMakerFullAccess
 Ansible
 ArgoCD
+ArgoCD's
 Bitnami
 CICD
 CRD
@@ -103,6 +104,7 @@ cicd
 cli
 clusterissuer
 clusterrolebinding
+composable
 config
 configmap
 datasource
@@ -161,6 +163,7 @@ oc
 ocp
 ocs
 odf
+olm
 opendatahub
 openshift
 operatorGroup

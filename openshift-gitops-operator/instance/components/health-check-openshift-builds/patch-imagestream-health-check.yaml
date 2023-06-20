@@ -1,0 +1,32 @@
+- op: add
+  path: /spec/resourceHealthChecks/-
+  value:
+    group: image.openshift.io
+    kind: ImageStream
+    check: |
+      hs = {}
+      hs.status = "Progressing"
+      hs.message = ""
+      if obj.status ~= nil then
+        if obj.status.tags ~= nil then
+          numTags = 0
+          for _ , item in pairs(obj.status.tags) do
+            numTags = numTags + 1
+            numItems = 0
+            if item.tags ~= nil then
+              for _ , item in pairs(item.tags) do
+                numItems = numItems + 1
+              end
+              if numItems == 0 then
+                return hs
+              end
+            end
+          end
+          if numTags > 0 then
+            hs.status = "Healthy"
+            hs.message = "ImageStream has tags resolved"
+            return hs
+          end
+        end
+      end
+      return hs

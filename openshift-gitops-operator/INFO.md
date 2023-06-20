@@ -19,7 +19,7 @@ Red Hat OpenShift GitOps is a declarative continuous delivery platform based on 
 
 ## How to Install
 
-After installing the OpenShift GitOps operator, an instance  of Argo CD is installed in the `openshift-gitops` namespace which has sufficent privileges for managing cluster configurations. You can create additional Argo CD instances using the `ArgoCD` custom resource within the desired namespaces.
+After installing the OpenShift GitOps operator, an instance  of Argo CD is installed in the `openshift-gitops` namespace which has sufficient privileges for managing cluster configurations. You can create additional Argo CD instances using the `ArgoCD` custom resource within the desired namespaces.
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
