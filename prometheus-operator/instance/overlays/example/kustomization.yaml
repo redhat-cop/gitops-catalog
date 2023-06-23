@@ -4,9 +4,3 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - prometheus-sa.yaml
-  - prometheus-rbac.yaml
-  - prometheus-proxy-rbac.yaml
-  - prometheus.yaml
-  - prometheus-service.yaml
-  - prometheus-route.yaml
