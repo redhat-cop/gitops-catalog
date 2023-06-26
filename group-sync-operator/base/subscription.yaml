@@ -4,7 +4,7 @@ metadata:
   name: group-sync-operator
   namespace: group-sync-operator
 spec:
-  channel: alpha
+  channel: "patch-me-in-overlay"
   installPlanApproval: Automatic
   name: group-sync-operator
   source: community-operators
