@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: group-sync-operator
+  annotations:
+    openshift.io/display-name: "Group Sync Operator"
+    openshift.io/description: "Operator that synchronizes groups from external providers"
+  labels:
+    openshift.io/cluster-monitoring: 'true'
