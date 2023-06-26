@@ -1,3 +1,11 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+resources:
+  - prometheus-sa.yaml
+  - prometheus-rbac.yaml
+  - prometheus-proxy-rbac.yaml
+  - prometheus.yaml
+  - prometheus-service.yaml
+  - prometheus-route.yaml
