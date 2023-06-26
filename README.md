@@ -68,3 +68,4 @@ You can use the following to help you create the basic structure for an operator
 # load functions
 source scripts/automate_operators.sh
 ```
+blah-please-ignore
