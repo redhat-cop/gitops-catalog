@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: labeler
-          image: image-registry.openshift-image-registry.svc:5000/openshift/cli
+          image: registry.redhat.io/openshift4/ose-cli
           env:
             - name: PLUGIN_NAME
               value: 'odf-console'
