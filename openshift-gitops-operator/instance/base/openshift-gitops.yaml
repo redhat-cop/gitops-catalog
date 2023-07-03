@@ -46,7 +46,6 @@ spec:
       enabled: false
     route:
       enabled: false
-  initialSSHKnownHosts: {}
   sso:
     dex:
       openShiftOAuth: true
@@ -101,8 +100,6 @@ spec:
       requests:
         cpu: 250m
         memory: 128Mi
-  tls:
-    ca: {}
   redis:
     resources:
       limits:
@@ -112,7 +109,6 @@ spec:
         cpu: 250m
         memory: 128Mi
   controller:
-    processors: {}
     resources:
       limits:
         cpu: '2'
@@ -120,4 +116,3 @@ spec:
       requests:
         cpu: 250m
         memory: 1Gi
-    sharding: {}
