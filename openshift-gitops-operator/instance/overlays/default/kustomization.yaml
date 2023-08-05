@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openshift-gitops
+
+resources:
+  - ../../base
+
+components:
+  - ../../components/annotation-resource-tracking
+  - ../../components/edge-termination
+  - ../../components/enable-notifications
+  - ../../components/gitops-admins
+  - ../../components/health-check-olm
+  - ../../components/health-check-openshift-builds

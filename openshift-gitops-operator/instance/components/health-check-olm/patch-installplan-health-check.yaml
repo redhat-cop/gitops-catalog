@@ -1,0 +1,19 @@
+- op: add
+  path: /spec/resourceHealthChecks/-
+  value:
+    group: operators.coreos.com
+    kind: InstallPlan
+    check: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.phase ~= nil then
+          if obj.status.phase == "Complete" then
+            hs.status = "Healthy"
+            hs.message = obj.status.phase
+            return hs
+          end
+        end
+      end
+      hs.status = "Progressing"
+      hs.message = "Waiting for InstallPlan to complete"
+      return hs

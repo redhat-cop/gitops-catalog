@@ -1,0 +1,7 @@
+kind: Group
+apiVersion: user.openshift.io/v1
+metadata:
+  name: gitops-admins
+users:
+  - admin
+  - opentlc-mgr
