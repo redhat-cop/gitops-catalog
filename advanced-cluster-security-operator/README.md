@@ -7,7 +7,7 @@ This folder installs the Red Hat Advanced Cluster Security operator into a clust
 To install the operator and instance using kustomize, first install the operator as follows:
 
 ```
-oc apply -k advanced-cluster-security-operator/operator/overlays/latest
+oc apply -k advanced-cluster-security-operator/operator/overlays/stable 
 ```
 
 Once the operator is running in `openshift-operators` you can then install an instance with the following command:
