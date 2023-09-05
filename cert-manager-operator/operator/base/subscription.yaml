@@ -11,4 +11,3 @@ spec:
   name: openshift-cert-manager-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: cert-manager-operator.v1.10.2
