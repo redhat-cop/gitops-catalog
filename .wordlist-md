@@ -130,6 +130,7 @@ gitops
 gitopsadmins
 gmail
 gp
+gpu
 grafana
 homelab
 htpass
@@ -160,6 +161,7 @@ newman
 nfd
 nodeFeatureDiscovery
 noobaa
+nvidia
 oauth
 oc
 ocp
