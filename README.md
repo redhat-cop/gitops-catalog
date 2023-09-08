@@ -1,6 +1,6 @@
 # GitOps Catalog
 
-[![Build Status](https://github.com/redhat-cop/gitops-catalog/workflows/Lint/badge.svg?branch=main)](https://github.com/redhat-cop/gitops-catalog/actions?workflow=Lint)
+[![Validate Manifests](https://github.com/redhat-cop/gitops-catalog/actions/workflows/validate-manifests.yaml/badge.svg)](https://github.com/redhat-cop/gitops-catalog/actions/workflows/validate-manifests.yaml)
 
 The GitOps Catalog includes kustomize bases and overlays for a number of OpenShift operators and applications.
 
