@@ -18,7 +18,7 @@ Gather Information
 3) Identify the install version, and desired update version if different from install version  
 	a) this can be done by installing the operator in the test environment and viewing the ClusterSubscriptionVersion (CSV) file associated with the deployment  
 4) Identify the target namespace for the operator. The template is built around using operatorname-operator as its basis so this is the easiest format to use. i.e. amqstreams-operator  
-5) Identify any cusomizations you need to apply to the operator deployment. This are not usually required, but sometimes are in special cases. i.e. FIPS configuration for AMQ-Streams  
+5) Identify any customizations you need to apply to the operator deployment. This are not usually required, but sometimes are in special cases. i.e. FIPS configuration for AMQ-Streams  
 
 Update Template
 1) Update the filename of all included yaml files to be named appropriately for the desired operator. i.e. operatorname-operator-subscription.yaml -> amqstreams-operator-subscription.yaml 
@@ -62,7 +62,7 @@ Here is a sed command that can help you quickly rename these. Please verify corr
 where newname is the name you would be inserting such as amqstreams  
 
 3) Update the subscription.yaml  
-	a) Identify the appropriate name for the subscription from the "Gather Information" stage. It is important to get this correct or the install will not complete succesfully. The subscription object spec/name field must match the name part of the version string  
+	a) Identify the appropriate name for the subscription from the "Gather Information" stage. It is important to get this correct or the install will not complete successfully. The subscription object spec/name field must match the name part of the version string  
 	b) Identify the appropriate channel from the "Gather Information" stage. Often is "stable" which is the default in the template  
 	c) Identify the version for the "Gather Information" stage and add it to the startingCSV section replacing "operator-install-version".  
 
@@ -93,7 +93,7 @@ where newname is the name you would be inserting such as amqstreams
 	b) These can be added to the kustomize.yaml in each of the overlay sections, or the base kustomize.yaml  
 	c) These allow you to edit/change/configure sections of each yaml and handle that differently for each overlay  
 
-7) Update the README here with the templated default content below to match information related to the specifics of the operator you have configured with this template
+7) Update the README here with the templates default content below to match information related to the specifics of the operator you have configured with this template
 
 8) Push code changes to Git and configure your ArgoCD Application to use the newly created and configured content
 
@@ -103,15 +103,15 @@ where newname is the name you would be inserting such as amqstreams
 
 This code base provides a template, that when completed, can be ingested by ArgoCD/Red Hat Git Ops to deploy and manage the configured Operator into an OpenShift cluster using GitOps.
 
-The code is structured using kustomize to template the included yaml and allow customized deployment to multiple environemnts including Staging, Development, and Production
+The code is structured using kustomize to template the included yaml and allow customized deployment to multiple environments including Staging, Development, and Production
 
-This code can also be used to manage the version or upgarde of the operator installed and ensure consistancy across all clusters in a particular environment category.
+This code can also be used to manage the version or upgrade of the operator installed and ensure consistency across all clusters in a particular environment category.
 
 ## Installation
 
-To utilize this project first ensure you have created a credential robot account for the repository and can provide those credentials in a ArgoCD Credentials object. Next, setup a new "Application" within your ArgoCD Instance that has access to the repository you cloned this template into. Target the appropriate overlay by providing the path. This should match the environment you are deploying the operator too. Use overlay/Stagining for Staging overlay/Development for Development and overlay/Production for production.
+To utilize this project first ensure you have created a credential robot account for the repository and can provide those credentials in a ArgoCD Credentials object. Next, setup a new "Application" within your ArgoCD Instance that has access to the repository you cloned this template into. Target the appropriate overlay by providing the path. This should match the environment you are deploying the operator too. Use overlay/Staging for Staging overlay/Development for Development and overlay/Production for production.
 
-You can verify what versions will be targetted for initial installation and the final upgraded version by checking the operator.versions file within each of the overlay folders
+You can verify what versions will be targeted for initial installation and the final upgraded version by checking the operator.versions file within each of the overlay folders
 
 Once the application is created within ArgoCD use the Sync actions to advance the configuration.
 
@@ -132,4 +132,4 @@ Changing the Upgrade Version: in the appropriate overlay (staging, development, 
 
 ## Features
 
-This code works by leveraging 2 OpenShift Jobs to approve InstallPlans for when Operators are set to "Manual" Approval mode. These Jobs leverage a serviceaccount within the cluster to check for install plans that match the versions in the operator.version file and appove them as needed. Once approved OpenShift handles migrating the Opeartor to the version approved in the InstallPlan  
+This code works by leveraging 2 OpenShift Jobs to approve InstallPlans for when Operators are set to "Manual" Approval mode. These Jobs leverage a serviceaccount within the cluster to check for install plans that match the versions in the operator.version file and approve them as needed. Once approved OpenShift handles migrating the Operator to the version approved in the InstallPlan  
