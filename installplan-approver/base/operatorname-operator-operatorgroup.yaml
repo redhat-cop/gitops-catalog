@@ -5,6 +5,6 @@ metadata:
   namespace: operatorname-operator
   annotations:
     argocd.argoproj.io/sync-wave: "2"
-spec: 
+spec:
   targetNamespaces:
     - operatorname-operator
