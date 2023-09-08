@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: operatorname-og
+  namespace: operatorname-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec: 
+  targetNamespaces:
+    - operatorname-operator
