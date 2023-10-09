@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: labeler
-          image: image-registry.openshift-image-registry.svc:5000/openshift/cli
+          image: registry.redhat.io/openshift4/ose-cli
           env:
             - name: selector
               value: 'node-role.kubernetes.io/worker'
