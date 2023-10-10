@@ -41,8 +41,8 @@ KokuMetricsConfig
 Kubernetes
 Kyverno
 LDAP
-Lifecycle
 LVM
+Lifecycle
 MTA
 MachineConfig
 MultiClusterHub
