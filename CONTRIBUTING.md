@@ -40,3 +40,15 @@ metadata:
 ```
 
 The `olm.providedAPIs` annotation is automatically added by OLM once a subscription has been installed.  Including this annotation may cause reconciliation loops when utilizing these examples with GitOps tools such as ArgoCD.
+
+## Spell Checking
+
+This repo is configured to run a Spell Check on the repo as part of a Pull Request to help keep documentation correct.
+
+Unfortunately there are many technical words that often get flagged by the spell checker that are acceptable.  When submitting a PR if there are words that the spell checker flags that should be allowed, those words can be added to the [.wordlist](.wordlist) file.
+
+Simply add any missing words to the file and run the following to sort the file before committing:
+
+```sh
+./scripts/sort-wordlist.sh
+```
