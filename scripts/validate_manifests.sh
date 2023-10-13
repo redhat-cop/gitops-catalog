@@ -14,7 +14,7 @@ Where:
   -sl | --schema-location      Location containing schemas"
 }
 
-which kustomize && KUSTOMIZE="kustomize build"
+which kustomize && KUSTOMIZE_CMD="kustomize build"
 
 KUSTOMIZE_CMD="${KUSTOMIZE_CMD:-oc kustomize}"
 IGNORE_MISSING_SCHEMAS="--ignore-missing-schemas"
@@ -60,7 +60,6 @@ process_kustomization(){
 
     # echo "$KUSTOMIZE_BUILD_OUTPUT" | kubeval ${IGNORE_MISSING_SCHEMAS} --schema-location="file://${SCHEMA_LOCATION}" --force-color
     KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE_CMD} "${BUILD}")
-
     build_response=$?
 
     if [ $build_response -ne 0 ]; then
