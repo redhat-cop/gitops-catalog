@@ -8,7 +8,7 @@ WORDLIST=.wordlist-md
 if [ -e ${TEMP_WORDLIST} ] ; then
     rm ${TEMP_WORDLIST}
 fi
-cat .wordlist-md | LC_COLLATE=C sort -u > ${TEMP_WORDLIST}
+LC_COLLATE=C sort -u < .wordlist-md > ${TEMP_WORDLIST}
 
 if [ -e ${WORDLIST} ] ; then
     rm ${WORDLIST}
