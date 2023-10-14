@@ -2,4 +2,4 @@ kind: Group
 apiVersion: user.openshift.io/v1
 metadata:
   name: gitops-admins
-users: [] # add users here
+users: []  # add users here
