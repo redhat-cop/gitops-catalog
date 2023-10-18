@@ -12,7 +12,7 @@ patches:
       - op: add
         path: /data
         value:
-          Tesla-T4-time-sliced: |-
+          Tesla-T4: |-
             version: v1
             sharing:
               timeSlicing:
