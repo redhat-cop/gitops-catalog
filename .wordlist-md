@@ -101,6 +101,7 @@ arn
 aws
 canada
 ceph
+che
 checluster
 cicd
 cli
@@ -112,6 +113,7 @@ configmap
 datasource
 deployable
 dev
+devfile
 devspaces
 devworkspace
 devworkspaces
@@ -180,6 +182,7 @@ prometheus
 redhat
 redistributions
 repo
+rhel
 rhpds
 runtime
 sagemaker
@@ -194,8 +197,10 @@ sublicense
 tekton
 templating
 thanos
+traefik
 truly
 vSphere
+vscode
 vsphere
 wordlist
 workspaces
