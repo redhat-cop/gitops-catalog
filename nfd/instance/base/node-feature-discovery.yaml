@@ -13,8 +13,9 @@ spec:
       #      matchOn:
       #      - nodename: ["special-.*-node-.*"]
   operand:
-    image: >-
-      registry.redhat.io/openshift4/ose-node-feature-discovery@sha256:9c080fc2cd9d9cbca9ec360674e32fe54b3724ec87bedaa513ac3ee71cb14269
+    # bug: an image has to be defined otherwise the deployment fails
+    # bug: this behavior recently changed
+    image: registry.redhat.io/openshift4/ose-node-feature-discovery:latest
     servicePort: 12000
   workerConfig:
     configData: |

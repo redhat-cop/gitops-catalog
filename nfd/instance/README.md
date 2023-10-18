@@ -22,13 +22,13 @@ The options for this operator are the following *overlays*:
 If you have cloned the `gitops-catalog` repository, you can install the Storage System by running from the root `gitops-catalog` directory
 
 ```
-oc apply -k nfd/instance/overlays/default
+oc apply -k openshift-nfd-operator/instance/overlays/default
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/nfd/instance/overlays/default
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-nfd-operator/instance/overlays/default
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -38,5 +38,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/redhat-cop/gitops-catalog/nfd/instance/overlays/default?ref=main
+  - github.com/redhat-cop/gitops-catalog/openshift-nfd-operator/instance/overlays/default?ref=main
 ```
