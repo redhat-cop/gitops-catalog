@@ -19,12 +19,14 @@ ClusterTask
 CodeReady
 DNS
 Dev
+DevSpaces
 DevWorkspace
 DevWorkspaces
 Devfile
 DotNET
 Eventing
 FullAccess
+GPUs
 Gi
 GitOps
 HTPasswd
@@ -118,6 +120,7 @@ devspaces
 devworkspace
 devworkspaces
 disableNameSuffixHash
+dn
 dns
 dotnet
 ec
