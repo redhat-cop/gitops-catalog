@@ -1,4 +1,4 @@
-# Notes
+# General Notes
 
 ## Key images
 
