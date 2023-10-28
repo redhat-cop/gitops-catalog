@@ -1,5 +1,9 @@
 # GPU Notes
 
+For more info please review the following:
+
+- [Demo GPUs on OpenShift](https://github.com/redhat-na-ssa/demo-ocp-gpu)
+
 ## Instance Types
 
 AWS GPU Types:
@@ -35,7 +39,6 @@ Time-slicing GPU can be any Nvidia type (as documented by Nvidia):
   - `g3.4xlarge`  - 1 x M60
   - `g3.8xlarge`  - 2 x M60
   - `g3.16xlarge` - 4 x M60
-
 
 ## Links
 
