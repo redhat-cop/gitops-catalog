@@ -19,12 +19,14 @@ ClusterTask
 CodeReady
 DNS
 Dev
+DevSpaces
 DevWorkspace
 DevWorkspaces
 Devfile
 DotNET
 Eventing
 FullAccess
+GPUs
 Gi
 GitOps
 HTPasswd
@@ -101,6 +103,7 @@ arn
 aws
 canada
 ceph
+che
 checluster
 cicd
 cli
@@ -112,10 +115,12 @@ configmap
 datasource
 deployable
 dev
+devfile
 devspaces
 devworkspace
 devworkspaces
 disableNameSuffixHash
+dn
 dns
 dotnet
 ec
@@ -180,6 +185,7 @@ prometheus
 redhat
 redistributions
 repo
+rhel
 rhpds
 runtime
 sagemaker
@@ -194,8 +200,10 @@ sublicense
 tekton
 templating
 thanos
+traefik
 truly
 vSphere
+vscode
 vsphere
 wordlist
 workspaces

@@ -6,6 +6,6 @@ resources:
 
 patches:
   - target:
-      kind: Subscription
-      name: gpu-operator-certified
-    path: patch-channel.yaml
+      group: nfd.openshift.io
+      kind: NodeFeatureDiscovery
+    path: patch-node-feature-discovery.yaml

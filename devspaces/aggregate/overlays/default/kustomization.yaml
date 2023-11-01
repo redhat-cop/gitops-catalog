@@ -4,8 +4,6 @@ kind: Kustomization
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
-namespace: openshift-nfd
-
 resources:
-  - ../../../operator/overlays/stable
   - ../../../instance/overlays/default
+  - ../../../operator/overlays/stable

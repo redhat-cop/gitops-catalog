@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../time-slicing-2
+
+patches:
+  - target:
+      kind: ConfigMap
+      name: device-plugin-config
+    patch: |-
+      - op: add
+        path: /data
+        value:
+          Tesla-T4: |-
+            version: v1
+            sharing:
+              timeSlicing:
+                resources:
+                  - name: nvidia.com/gpu
+                    replicas: 4

@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: ClusterPolicy
+      name: gpu-cluster-policy
+    patch: |-
+      - op: add
+        path: /spec/mig/strategy
+        value: single

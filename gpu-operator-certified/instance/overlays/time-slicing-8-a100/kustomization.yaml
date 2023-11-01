@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: ClusterPolicy
+      name: gpu-cluster-policy
+    patch: |-
+      - op: add
+        path: /spec/devicePlugin/config/name
+        value: device-plugin-config
+      - op: add
+        path: /spec/devicePlugin/config/default
+        value: A100-SXM4-40GB
+      - op: replace
+        path: /spec/gfd/enabled
+        value: true
+  - target:
+      kind: ConfigMap
+      name: device-plugin-config
+    patch: |-
+      - op: add
+        path: /data
+        value:
+          A100-SXM4-40GB: |-
+            version: v1
+            sharing:
+              timeSlicing:
+                resources:
+                  - name: nvidia.com/gpu
+                    replicas: 8
+                  - name: nvidia.com/mig-1g.5gb
+                    replicas: 1
+                  - name: nvidia.com/mig-2g.10gb
+                    replicas: 2
+                  - name: nvidia.com/mig-3g.20gb
+                    replicas: 3
+                  - name: nvidia.com/mig-7g.40gb
+                    replicas: 7

@@ -5,3 +5,4 @@ namespace: nvidia-gpu-operator
 
 resources:
   - cluster-policy.yaml
+  - device-plugin-config.yaml

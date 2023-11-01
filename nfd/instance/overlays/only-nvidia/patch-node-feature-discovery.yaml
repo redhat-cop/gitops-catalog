@@ -1,0 +1,22 @@
+kind: NodeFeatureDiscovery
+apiVersion: nfd.openshift.io/v1
+metadata:
+  name: nfd-instance
+spec:
+  instance: ''
+  operand:
+    image: registry.redhat.io/openshift4/ose-node-feature-discovery:latest
+    servicePort: 12000
+  topologyUpdater: false
+  workerConfig:
+    configData: |
+      core:
+        sleepInterval: 60s
+      sources:
+        pci:
+          deviceClassWhitelist:
+            - "0200"
+            - "03"
+            - "12"
+          deviceLabelFields:
+            - "vendor"

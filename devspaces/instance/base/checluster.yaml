@@ -1,0 +1,63 @@
+apiVersion: org.eclipse.che/v2
+kind: CheCluster
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+  name: devspaces
+spec:
+  components:
+    cheServer:
+      debug: false
+      logLevel: INFO
+      extraProperties:
+        CHE_SYSTEM_ADMIN__NAME: 'opentlc-mgr'
+    dashboard:
+      headerMessage:
+        show: false
+        text: >-
+          It's time to get your Dev on!
+    # database:
+    #   credentialsSecretName: postgres-credentials
+    #   externalDb: false
+    #   postgresDb: devspaces
+    #   # BUG: can not change postgresHostNamae
+    #   postgresHostName: postgres
+    #   postgresPort: '5432'
+    #   pvc:
+    #     claimSize: 1Gi
+    devfileRegistry:
+      # deployment:
+      #   containers:
+      #     - name: devfile-registry
+      #       # image: quay.io/eclipse/che-devfile-registry:next
+      #       image: registry.redhat.io/devspaces/devfileregistry-rhel8:latest
+      externalDevfileRegistries:
+      - url: https://eclipse-che.github.io/che-devfile-registry/main
+    metrics:
+      enable: true
+    # pluginRegistry:
+    #   openVSXURL: "https://open-vsx.org"
+    #   openVSXURL: "https://marketplace.visualstudio.com"
+  containerRegistry: {}
+  devEnvironments:
+    startTimeoutSeconds: 180
+    secondsOfRunBeforeIdling: -1
+    maxNumberOfRunningWorkspacesPerUser: 2
+    maxNumberOfWorkspacesPerUser: -1
+    containerBuildConfiguration:
+      openShiftSecurityContextConstraint: container-build
+    disableContainerBuildCapabilities: true
+    defaultEditor: che-incubator/che-code/latest
+    # defaultComponents:
+    #   - container:
+    #       sourceMapping: /projects
+    #       image: registry.redhat.io/devspaces/udi-rhel8:latest
+    #     name: universal-developer-image
+    defaultNamespace:
+      autoProvision: true
+      template: workspace-<username>
+    secondsOfInactivityBeforeIdling: 1800
+    storage:
+      pvcStrategy: per-user
+  gitServices: {}
+  networking: {}
