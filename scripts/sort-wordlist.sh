@@ -2,16 +2,9 @@
 
 set -e
 
-TEMP_WORDLIST=.temp-wordlist-md
-WORDLIST=.wordlist-md
+lint_sort_wordlist(){
+  LC_COLLATE=C sort -u < .wordlist-md > tmp
+  mv tmp .wordlist-md
+}
 
-if [ -e ${TEMP_WORDLIST} ] ; then
-    rm ${TEMP_WORDLIST}
-fi
-LC_COLLATE=C sort -u < .wordlist-md > ${TEMP_WORDLIST}
-
-if [ -e ${WORDLIST} ] ; then
-    rm ${WORDLIST}
-fi
-
-mv ${TEMP_WORDLIST} ${WORDLIST}
+lint_sort_wordlist
