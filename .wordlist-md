@@ -2,6 +2,7 @@ ACK
 ACM
 ACS
 APIs
+APM
 ARN
 AdoptedResource
 AmazonS
@@ -24,6 +25,7 @@ DevWorkspace
 DevWorkspaces
 Devfile
 DotNET
+ECK
 Eventing
 FullAccess
 GPUs
@@ -37,6 +39,7 @@ IgnoreExtraneous
 Jaeger
 Jenkins
 Kafka
+Kibana
 KieApp
 Koku
 KokuMetricsConfig
@@ -45,6 +48,7 @@ Kyverno
 LDAP
 LVM
 Lifecycle
+Logstash
 MTA
 MachineConfig
 MultiClusterHub
