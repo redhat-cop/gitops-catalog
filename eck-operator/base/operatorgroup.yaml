@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: elastic-system
+  namespace: elastic-system
+spec:
+  targetNamespaces:
+  - elastic-system
