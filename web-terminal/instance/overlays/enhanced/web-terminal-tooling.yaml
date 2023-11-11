@@ -1,0 +1,65 @@
+apiVersion: workspace.devfile.io/v1alpha2
+kind: DevWorkspaceTemplate
+metadata:
+  annotations:
+    controller.devfile.io/allow-import-from: '*'
+    web-terminal.redhat.com/unmanaged-state: 'true'
+  name: web-terminal-tooling
+  namespace: openshift-operators
+  labels:
+    console.openshift.io/terminal: 'true'
+spec:
+  components:
+    - container:
+        args:
+          - "/bin/bash"
+          - "-c"
+          - |
+            #!/bin/bash
+            GIT_REPO=https://github.com/codekow/demo-ai-gitops-catalog.git
+
+            echo "
+              echo
+              GIT_REPO=${GIT_REPO}
+              printf 'This terminal has been \e[0;32m~Enhanced~\e[0m\n'
+              printf 'See \033[34;1;1m'${GIT_REPO}'\e[0m\n\n'
+            " >> ~/.bashrc
+
+            git clone "${GIT_REPO}" gitops
+
+            echo "
+              cd gitops; . scripts/functions.sh; cd ..
+
+            __git_branch(){
+              git name-rev --name-only @ 2>/dev/null
+            }
+
+            PS1='\e]\s\a\n\e[33m\w \e[36m\$(__git_branch)\e[m$ '
+
+            [ -e ~/.venv/bin/activate ] && . ~/.venv/bin/activate
+            [ -e ~/gitops/scratch/bin/restic.bash ] && . ~/gitops/scratch/bin/restic.bash
+
+            cd ~/gitops
+            " >> ~/.bashrc
+
+            cd gitops
+            . scripts/functions.sh
+
+            [ -d ~/.venv ] || pyvenv-3.6 ~/.venv
+
+            bin_check busybox
+
+            bin_check oc-mirror
+            bin_check rclone
+            bin_check restic
+
+            sleep infinity
+
+        cpuLimit: 400m
+        cpuRequest: 100m
+        image: registry.redhat.io/web-terminal/web-terminal-tooling-rhel8@sha256:657874adad93a9e6c2b746b836015de410d2e280f85c079c81e24ae81343fa6c
+        memoryLimit: 256Mi
+        memoryRequest: 128Mi
+        mountSources: false
+        sourceMapping: /projects
+      name: web-terminal-tooling

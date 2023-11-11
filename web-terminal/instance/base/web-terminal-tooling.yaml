@@ -1,0 +1,24 @@
+apiVersion: workspace.devfile.io/v1alpha2
+kind: DevWorkspaceTemplate
+metadata:
+  annotations:
+    controller.devfile.io/allow-import-from: '*'
+  name: web-terminal-tooling
+  namespace: openshift-operators
+  labels:
+    console.openshift.io/terminal: 'true'
+spec:
+  components:
+    - container:
+        args:
+          - tail
+          - '-f'
+          - /dev/null
+        cpuLimit: 400m
+        cpuRequest: 100m
+        image: registry.redhat.io/web-terminal/web-terminal-tooling-rhel8@sha256:657874adad93a9e6c2b746b836015de410d2e280f85c079c81e24ae81343fa6c
+        memoryLimit: 512Mi
+        memoryRequest: 128Mi
+        mountSources: false
+        sourceMapping: /projects
+      name: web-terminal-tooling
