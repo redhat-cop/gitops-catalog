@@ -2,31 +2,49 @@
 # shellcheck disable=SC2015,SC1091
 set -e
 
-setup_venv(){
+usage(){
+  echo "
+  usage: scripts/lint.sh
+  "
+}
+
+py_setup_venv(){
   python3 -m venv venv
   source venv/bin/activate
   pip install -q -U pip
 
-  check_venv || return
+  py_check_venv || usage
 }
 
-check_venv(){
+py_check_venv(){
   # activate python venv
-  [ -d venv ] && . venv/bin/activate || setup_venv
+  [ -d venv ] && . venv/bin/activate || py_setup_venv
   [ -e requirements.txt ] && pip install -q -r requirements.txt
 }
 
-# activate python venv
-check_venv
+py_bin_checks(){
+  which python || exit 0
+  which pip || exit 0
+}
+
+py_check_venv
+py_bin_checks
 
 # chcek scripts
-which shellcheck && shellcheck scripts/*
+which shellcheck && \
+  find . -name '*.sh' -print0 | xargs shellcheck
 
 # check spelling
-pyspelling -c .spellcheck.yaml
+which aspell && \
+  [ -e .pyspelling.yml ] && \
+  pyspelling -c .pyspelling.yml
+
+# check Dockerfiles
+which hadolint && \
+  find . -not -path "./scratch/*" \( -name Dockerfile -o -name Containerfile \) -exec hadolint {} \;
 
 # check yaml
 yamllint . && echo "YAML check passed :)"
 
 # validate manifests
-scripts/validate_manifests.sh
+[ -e scripts/validate_manifests.sh ] && scripts/validate_manifests.sh

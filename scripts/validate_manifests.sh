@@ -60,6 +60,7 @@ process_kustomization(){
 
     # echo "$KUSTOMIZE_BUILD_OUTPUT" | kubeval ${IGNORE_MISSING_SCHEMAS} --schema-location="file://${SCHEMA_LOCATION}" --force-color
     KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE_CMD} "${BUILD}")
+
     build_response=$?
 
     if [ $build_response -ne 0 ]; then
