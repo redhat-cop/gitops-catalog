@@ -11,16 +11,19 @@ metadata:
 spec:
   components:
     - container:
+        env:
+          - name: YOLO_URL
+            value: https://raw.githubusercontent.com/codekow/demo-ai-gitops-catalog/main/scripts/library/term.sh
         args:
           - "/bin/bash"
           - "-c"
           - |
             #!/bin/bash
-            YOLO_URL=https://raw.githubusercontent.com/codekow/demo-ai-gitops-catalog/main/scripts/library/term.sh
+            # set -x
 
-            curl "${YOLO_URL}" | bash
-
+            . <(curl -s "${YOLO_URL}" | tee /tmp/yolo.sh)
             term_init
+
             sleep infinity  # just in case
 
         cpuLimit: 400m
