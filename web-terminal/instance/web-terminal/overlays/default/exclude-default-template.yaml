@@ -1,5 +1,0 @@
-$patch: delete
-apiVersion: workspace.devfile.io/v1alpha2
-kind: DevWorkspaceTemplate
-metadata:
-  name: web-terminal-tooling
