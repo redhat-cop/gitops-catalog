@@ -20,7 +20,8 @@ spec:
 
             curl "${YOLO_URL}" | bash
 
-            sleep infinity
+            term_init
+            sleep infinity  # just in case
 
         cpuLimit: 400m
         cpuRequest: 100m
