@@ -8,5 +8,7 @@ resources:
   - ../../../ack-ec2-controller/operator/overlays/alpha
   - ../../../ack-ecr-controller/operator/overlays/alpha
   - ../../../ack-iam-controller/operator/overlays/alpha
+  - ../../../ack-lambda-controller/operator/overlays/alpha
+  - ../../../ack-route53-controller/operator/overlays/alpha
   - ../../../ack-s3-controller/operator/overlays/alpha
   - ../../../ack-sagemaker-controller/operator/overlays/alpha
