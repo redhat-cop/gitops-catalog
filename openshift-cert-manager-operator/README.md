@@ -1,15 +1,35 @@
-### Introduction
+# cert-manager Operator for Red Hat OpenShift
 
-This deploys the cert-manager operator. If you are not familiar with cert-manager, it provisions and manages TLS certificates for you automatically using one or more configured Issuers. It's great for providing a self-service capability around TLS certificates out of the OpenShift platform.
+Install cert-manager Operator for Red Hat OpenShift.
 
-Documentation on OpenShift cert-manager is available [here](https://docs.openshift.com/container-platform/4.10/security/cert_manager_operator/index.html).
+Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
-Community documentation for cert-manager is located [here](https://cert-manager.io/docs/).
+The current *overlays* available are for the following channels:
 
-### Examples
+* [stable-v1](operator/overlays/stable-v1)
+* [stable-v1.10](operator/overlays/stable-v1.10)
+* [stable-v1.11](operator/overlays/stable-v1.11)
+* [tech-preview](operator/overlays/tech-preview)
 
-The examples folder contains some examples of how to use cert-manager including how to use it to provision OpenShift API and Wildcard certificates. There is a README associated with each example when you navigate to each folder.
+## Usage
 
-### TODO
+If you have cloned the `gitops-catalog` repository, you can install cert-manager Operator for Red Hat OpenShift based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
 
-At some point I would like to make the examples directly deployable via a Helm chart. The examples are a case which would benefit from Helm templating versus patching in kustomize since many of the values can be derived from two parameters: cluster name and domain.
+```
+oc apply -k openshift-cert-manager-operator/operator/overlays/<channel>
+```
+
+Or, without cloning:
+
+```
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-cert-manager-operator/operator/overlays/<channel>
+```
+
+As part of a different overlay in your own GitOps repo:
+
+```
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - https://github.com/redhat-cop/gitops-catalog/openshift-cert-manager-operator/operator/overlays/<channel>?ref=main
+```

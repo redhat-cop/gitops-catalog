@@ -1,3 +1,4 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -57,6 +58,8 @@ spec:
             - -c
             - |
               #!/usr/bin/env bash
+              # lets try to dynamically get this value ??
+              # API_HOST_NAME=$(oc get secret openshift-api-certificate -n openshift-config -o jsonpath='{.metadata.annotations.cert-manager\.io/common-name}')
               if oc get secret openshift-api-certificate -n openshift-config; then
                 oc patch apiserver cluster --type=merge -p '{"spec":{"servingCerts": {"namedCertificates": [{"names": ["'$API_HOST_NAME'"], "servingCertificate": {"name": "openshift-api-certificate"}}]}}}'
               else
