@@ -200,6 +200,7 @@ serverless
 serviceaccount
 servicemesh
 sfdc
+strimzi
 sublicense
 tekton
 templating
