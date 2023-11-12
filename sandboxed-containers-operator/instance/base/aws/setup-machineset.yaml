@@ -1,0 +1,144 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: aws-metal-machineset-setup
+rules:
+- apiGroups:
+  - machine.openshift.io
+  resources:
+  - machinesets
+  verbs:
+  - '*'
+- apiGroups:
+  - autoscaling.openshift.io
+  resources:
+  - machineautoscalers
+  verbs:
+  - '*'
+- apiGroups:
+  - ''
+  resources:
+  - secrets
+  resourceNames:
+  - aws-creds
+  verbs:
+  - get
+  - list
+# - nonResourceURLs:
+#   - '*'
+#   verbs:
+#   - '*'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: aws-metal-machineset-setup
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: aws-metal-machineset-setup
+subjects:
+  - kind: ServiceAccount
+    name: aws-metal-machineset-setup
+    namespace: openshift-sandboxed-containers-operator
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: aws-metal-machineset-setup
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: aws-metal-machineset-setup-
+  name: aws-metal-machineset-setup
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    # argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: aws-metal-machineset-setup
+          image: image-registry.openshift-image-registry.svc:5000/openshift/tools:latest
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+
+              ocp_aws_cluster(){
+                oc -n kube-system get secret/aws-creds -o name > /dev/null 2>&1 || return 1
+              }
+
+              ocp_aws_create_metal_machineset(){
+                # https://aws.amazon.com/ec2/instance-types/m5zn
+                # m5.metal
+                # m5n.metal
+                INSTANCE_TYPE=${1:-m5zn.metal}
+                MACHINE_SET=$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep worker | head -n1)
+
+                # check for an existing metal machine set
+                if oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep metal; then
+                  echo "Exists: METAL machineset"
+                else
+                  echo "Creating: METAL machineset"
+                  oc -n openshift-machine-api get "${MACHINE_SET}" -o yaml | \
+                    sed '/machine/ s/-worker/-metal/g
+                      /name/ s/-worker/-metal/g
+                      s/instanceType.*/instanceType: '"${INSTANCE_TYPE}"'/
+                      s/replicas.*/replicas: 0/' | \
+                    oc apply -f -
+                fi
+
+                MACHINE_SET_METAL=$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep metal | head -n1)
+
+                echo "Patching: Metal machineset"
+
+                # cosmetic
+                oc -n openshift-machine-api \
+                  patch "${MACHINE_SET_METAL}" \
+                  --type=merge --patch '{"spec":{"template":{"spec":{"metadata":{"labels":{"node-role.kubernetes.io/metal":""}}}}}}'
+
+                oc -n openshift-machine-api \
+                  patch "${MACHINE_SET_METAL}" \
+                  --type=merge --patch '{"spec":{"template":{"spec":{"providerSpec":{"value":{"instanceType":"'"${INSTANCE_TYPE}"'"}}}}}}'
+              }
+
+              ocp_create_machineset_autoscale(){
+                MACHINE_MIN=${1:-0}
+                MACHINE_MAX=${2:-4}
+                MACHINE_SETS=${3:-$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | sed 's@.*/@@' )}
+
+                for set in ${MACHINE_SETS}
+                do
+              cat << YAML | oc apply -f -
+              apiVersion: "autoscaling.openshift.io/v1beta1"
+              kind: "MachineAutoscaler"
+              metadata:
+                name: "${set}"
+                namespace: "openshift-machine-api"
+              spec:
+                minReplicas: ${MACHINE_MIN}
+                maxReplicas: ${MACHINE_MAX}
+                scaleTargetRef:
+                  apiVersion: machine.openshift.io/v1beta1
+                  kind: MachineSet
+                  name: "${set}"
+              YAML
+                done
+              }
+
+              ocp_aws_cluster || exit 0
+              ocp_aws_create_metal_machineset
+
+      restartPolicy: Never
+      terminationGracePeriodSeconds: 30
+      serviceAccount: aws-metal-machineset-setup
+      serviceAccountName: aws-metal-machineset-setup

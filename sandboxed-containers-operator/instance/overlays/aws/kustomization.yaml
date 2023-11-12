@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - ../../base/aws
+
+patches:
+  - target:
+      group: kataconfiguration.openshift.io
+      kind: KataConfig
+    patch: |-
+      - op: add
+        path: /spec/kataConfigPoolSelector
+        value:
+          matchExpressions:
+            - operator: Exists
+              key: node-role.kubernetes.io/metal
