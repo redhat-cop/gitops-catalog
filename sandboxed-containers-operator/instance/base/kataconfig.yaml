@@ -6,4 +6,4 @@ spec:
   checkNodeEligibility: true
   enablePeerPods: false
   kataConfigPoolSelector: null
-  logLevel: debug
+  logLevel: info
