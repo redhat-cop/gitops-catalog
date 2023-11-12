@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: http-normal
+spec:
+  containers:
+    - name: http
+      image: registry.fedoraproject.org/fedora
+      ports:
+        - containerPort: 8080
+      command:
+        - "python3"
+      args:
+        - "-m"
+        - "http.server"
+        - "8080"
+      resources: {}
