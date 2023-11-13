@@ -4,31 +4,55 @@
 # kludges
 # TODO: ArgoCD Hooks
 
-# get aws creds
-get_aws_key(){
+setup_namespace(){
+  NAMESPACE=${1}
+
+  oc new-project "${NAMESPACE}" 2>/dev/null || \
+    oc project "${NAMESPACE}"
+}
+
+ocp_aws_cluster(){
+  oc -n kube-system get secret/aws-creds -o name > /dev/null 2>&1 || return 1
+}
+
+ocp_aws_get_key(){
   # get aws creds
-  export AWS_ACCESS_KEY_ID=$(oc -n kube-system extract secret/aws-creds --keys=aws_access_key_id --to=-)
-  export AWS_SECRET_ACCESS_KEY=$(oc -n kube-system extract secret/aws-creds --keys=aws_secret_access_key --to=-)
-  export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-west-2}
+  ocp_aws_cluster || return 1
+  
+  AWS_ACCESS_KEY_ID=$(oc -n kube-system extract secret/aws-creds --keys=aws_access_key_id --to=-)
+  AWS_SECRET_ACCESS_KEY=$(oc -n kube-system extract secret/aws-creds --keys=aws_secret_access_key --to=-)
+  AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-2}
+
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION
 
   echo "AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}"
-  sleep 4
 }
 
 # create secrets for ack controllers
-setup_ack_system(){
+aws_setup_ack_system(){
   NAMESPACE=ack-system
 
-  # manually create ack-system
   setup_namespace "${NAMESPACE}"
 
-  for type in ec2 ecr iam s3 sagemaker
-  do
-    # oc apply -k ../../ack-${type}-controller/operator/overlays/alpha
+  oc apply -k ../"${NAMESPACE}"/aggregate/popular
 
-    # create ack operator secrets with main creds
-    < ../../ack-${type}-controller/overlays/alpha/user-secrets-secret.yaml \
+  for type in ec2 ecr iam lambda route53 s3 sagemaker
+  do
+
+    oc apply -k ../ack-${type}-controller/operator/overlays/alpha
+
+    if oc -n "${NAMESPACE}" get secret "${type}-user-secrets" -o name; then
+      echo "Found: ${type}-user-secrets - not replacing"
+      continue
+    fi
+
+    < ../ack-${type}-controller/operator/overlays/alpha/user-secrets-secret.yaml \
       sed "s@UPDATE_AWS_ACCESS_KEY_ID@${AWS_ACCESS_KEY_ID}@; s@UPDATE_AWS_SECRET_ACCESS_KEY@${AWS_SECRET_ACCESS_KEY}@" | \
       oc -n "${NAMESPACE}" apply -f -
   done
 }
+
+ocp_aws_get_key
+aws_setup_ack_system
