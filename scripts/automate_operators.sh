@@ -18,21 +18,21 @@ There is probably a better way to do this, but it should help create
 the basic file structure needed for an operator.
 
 functions:
-  get_all_pkg_manifests
-  get_all_pkg_manifests_details
-  save_all_pkg_manifests_details
+  pkg_manifests_get_all
+  pkg_manifests_get_all_details
+  pkg_manifests_save_all_details
 
   # ex: rhods-operator
-  get_pkg_manifest_info rhods-operator
-  get_pkg_manifest_channels rhods-operator
-  get_pkg_manifest_description rhods-operator
+  pkg_manifest_get_info rhods-operator
+  pkg_manifest_get_channels rhods-operator
+  pkg_manifest_get_description rhods-operator
 
   create_operator
   create_all_operators
 "
 }
 
-is_sourced() {
+is_sourced(){
   if [ -n "$ZSH_VERSION" ]; then
       case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
   else  # Add additional POSIX-compatible shell names here, if needed.
@@ -41,17 +41,21 @@ is_sourced() {
   return 1  # NOT sourced.
 }
 
-check_oc(){
-  echo "Are you on the right OCP cluster?"
-
-  oc whoami || exit 0
-  oc status
-
-  sleep 4
+ocp_check_login(){
+  oc whoami || return 1
+  oc cluster-info | head -n1
+  echo
 }
 
-# main script functions
+ocp_check_info(){
+  ocp_check_login || return 1
 
+  echo "NAMESPACE: $(oc project -q)"
+  sleep "${SLEEP_SECONDS:-8}"
+}
+
+# pkg.sh
+# setup manifest info
 MANIFEST_INFO="NAME:.status.packageName"
 MANIFEST_INFO="${MANIFEST_INFO},NAMESPACE:.status.channels[0].currentCSVDesc.annotations.operatorframework\.io/suggested-namespace"
 MANIFEST_INFO="${MANIFEST_INFO},CATALOG_SOURCE:.status.catalogSource"
@@ -69,33 +73,28 @@ BASIC_INFO="${BASIC_INFO},DISPLAY_NAME:.status.channels[0].currentCSVDesc.displa
 BASIC_INFO="${BASIC_INFO},DEFAULT_CHANNEL:.status.defaultChannel"
 BASIC_INFO="${BASIC_INFO},CATALOG_SOURCE:.status.catalogSource"
 
-get_all_pkg_manifests(){
+pkg_manifests_get_all(){
   oc get packagemanifest \
     -o custom-columns="${BASIC_INFO}" \
     --sort-by='.status.catalogSource'
 }
 
-get_all_pkg_manifests_by_group(){
+pkg_manifests_get_all_by_group(){
   PKG_GROUP=${1:-Red Hat Operators}
-  get_all_pkg_manifests | grep "${PKG_GROUP}"
+  pkg_manifests_get_all | grep "${PKG_GROUP}"
 }
 
-get_all_pkg_manifests_names_only(){
-  get_all_pkg_manifests | grep -v NAME | awk '{print $1}'
+pkg_manifests_get_all_names_only(){
+  pkg_manifests_get_all | grep -v NAME | awk '{print $1}'
 }
 
-get_all_pkg_manifests_details(){
+pkg_manifests_get_all_details(){
   oc get packagemanifest \
     --sort-by='.status.packageName' \
     -o custom-columns="${MANIFEST_INFO}"
 }
 
-save_all_pkg_manifests_details(){
-  echo -e "# created: $(date -u)\n# script: dump_operator_info" > operator_info.txt
-  get_all_pkg_manifests_details >> operator_info.txt
-}
-
-get_pkg_manifest_info(){
+pkg_manifest_get_info(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
   
@@ -104,7 +103,7 @@ get_pkg_manifest_info(){
     -o=custom-columns="${MANIFEST_INFO}"
 }
 
-get_pkg_manifest_channels(){
+pkg_manifest_get_channels(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
   
@@ -114,7 +113,7 @@ get_pkg_manifest_channels(){
     -o=jsonpath='{range .status.channels[*]}{.name}{"\n"}{end}' | sort
 }
 
-get_pkg_manifest_description(){
+pkg_manifest_get_description(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
 
@@ -122,6 +121,11 @@ get_pkg_manifest_description(){
   oc get packagemanifest \
     "${NAME}" \
     -o=jsonpath="{.status.channels[0].currentCSVDesc.description}"
+}
+
+pkg_manifests_save_all_details(){
+  echo -e "# created: $(date -u)\n# script: dump_operator_info" > operator_info.txt
+  pkg_manifests_get_all_details >> operator_info.txt
 }
 
 create_operator_base(){
@@ -135,22 +139,22 @@ create_operator_base(){
 
   echo "create_operator_base:" "${@}"
 
-  if [ "${NS_OWN}" == "false" ] && [ "${NAMESPACE}" == "openshift-operators" ]; then
+  if [ "${NS_OWN}" == "false" ]  && [ "${NAMESPACE}" == "<none>" ]; then
     BASE_DIR="${NAME}"
     create_operator_base_files_wo_ns
-  elif [ ! "${NAMESPACE}" == "<none>" ] && [ ! "${NS_OWN}" == "<none>" ]; then
-    BASE_DIR="${NAME}"
-    create_operator_base_files_w_ns
-  elif [ "${NAMESPACE}" == "<none>" ] && [ "${NS_OWN}" == "true" ]; then
+  elif [ "${NS_OWN}" == "true" ] && [ "${NAMESPACE}" == "<none>" ]; then
     BASE_DIR="${NAME}"
     NAMESPACE="${NAME}"
+    create_operator_base_files_w_ns
+  elif [ ! "${NS_OWN}" == "<none>" ] && [ ! "${NAMESPACE}" == "<none>" ]; then
+    BASE_DIR="${NAME}"
     create_operator_base_files_w_ns
   else
     BASE_DIR="${NAME}"
     create_operator_base_files_wo_ns
   fi
 
-  get_pkg_manifest_description "${NAME}" > "${BASE_DIR}/INFO.md"
+  pkg_manifest_get_description "${NAME}" > "${BASE_DIR}/INFO.md"
 
 }
 
@@ -164,6 +168,7 @@ create_operator_dir(){
 }
 
 create_operator_base_files_wo_ns(){
+  [ "${NAMESPACE}" == "<none>" ] && NAMESPACE=openshift-operators
   echo "create operator w/o ns"
 
   create_operator_dir "${BASE_DIR}"
@@ -253,7 +258,7 @@ metadata:
   namespace: ${NAMESPACE}
 YAML
 
-if [ "${NS_OWN}" == "true" ]; then
+if [ "${NS_SINGLE}" == "true" ] && [ "${NS_ALL}" != "true" ] || [ "${NS_MULTI}" != "false" ]; then
 echo -n "spec:
   targetNamespaces:
     - ${NAMESPACE}
@@ -296,7 +301,7 @@ create_operator_overlays(){
   NAME="${1}"
   BASE_PATH="${BASE_DIR}/operator/overlays"
 
-  for channel in $(get_pkg_manifest_channels "${NAME}" | grep -v NAME)
+  for channel in $(pkg_manifest_get_channels "${NAME}" | grep -v NAME)
   do
     echo "overlay: ${channel}"
     create_operator_overlay_files "${channel}"
@@ -317,7 +322,7 @@ Do not use the \`base\` directory directly, as you will need to patch the \`chan
 
 The current *overlays* available are for the following channels:
 
-$(for channel in $(get_pkg_manifest_channels "${NAME}" | grep -v NAME)
+$(for channel in $(pkg_manifest_get_channels "${NAME}" | grep -v NAME)
   do
     echo "* [${channel}](operator/overlays/${channel})"
   done
@@ -353,7 +358,7 @@ create_operator(){
   [ "${1}x" == "x" ] && return
   NAME="${1}"
 
-  read -r NAME NAMESPACE CATALOG_SOURCE SOURCE_NAMESPACE DEFAULT_CHANNEL CHANNELS NS_OWN NS_SINGLE NS_MULTI NS_ALL DISPLAY_NAME <<<"$(get_pkg_manifest_info "${NAME}" | grep -v NAME)"
+  read -r NAME NAMESPACE CATALOG_SOURCE SOURCE_NAMESPACE DEFAULT_CHANNEL CHANNELS NS_OWN NS_SINGLE NS_MULTI NS_ALL DISPLAY_NAME <<<"$(pkg_manifest_get_info "${NAME}" | grep -v NAME)"
 
   if [ -z "$DEBUG" ]; then
     echo "NAME: ${NAME}"
@@ -377,11 +382,11 @@ create_operator(){
 
 create_all_operators(){
   for package in nfd opendatahub-operator serverless-operator openshift-gitops-operator rhods-operator
-  # for package in $(get_all_pkg_manifests_names_only)
+  # for package in $(pkg_manifests_get_all_names_only)
   do
     create_operator "${package}"
   done
 }
 
 # shellcheck disable=SC2015
-is_sourced && usage || get_all_pkg_manifests
+is_sourced && usage || pkg_manifests_get_all

@@ -7,8 +7,8 @@
 setup_namespace(){
   NAMESPACE=${1}
 
-  oc new-project ${NAMESPACE} 2>/dev/null || \
-    oc project ${NAMESPACE}
+  oc new-project "${NAMESPACE}" 2>/dev/null || \
+    oc project "${NAMESPACE}"
 }
 
 ocp_aws_cluster(){
@@ -34,9 +34,9 @@ ocp_aws_get_key(){
 aws_setup_ack_system(){
   NAMESPACE=ack-system
 
-  setup_namespace ${NAMESPACE}
+  setup_namespace "${NAMESPACE}"
 
-  oc apply -k ../${NAMESPACE}/aggregate/popular
+  oc apply -k ../"${NAMESPACE}"/aggregate/popular
 
   for type in ec2 ecr iam lambda route53 s3 sagemaker
   do
