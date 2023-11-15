@@ -50,7 +50,7 @@ aws_setup_ack_system(){
 
     < ../ack-${type}-controller/operator/overlays/alpha/user-secrets-secret.yaml \
       sed "s@UPDATE_AWS_ACCESS_KEY_ID@${AWS_ACCESS_KEY_ID}@; s@UPDATE_AWS_SECRET_ACCESS_KEY@${AWS_SECRET_ACCESS_KEY}@" | \
-      oc -n "${NAMESPACE}" apply -f -
+      oc -n ${NAMESPACE} apply -f -
   done
 }
 
