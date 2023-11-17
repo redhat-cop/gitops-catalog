@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: "Red Hat Keycloak project"
+    openshift.io/display-name: "Red Hat Keycloak"
+  name: keycloak

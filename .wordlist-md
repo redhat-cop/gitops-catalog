@@ -39,6 +39,7 @@ IgnoreExtraneous
 Jaeger
 Jenkins
 Kafka
+Keycloak
 Kibana
 KieApp
 Koku
