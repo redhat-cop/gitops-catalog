@@ -5,15 +5,15 @@ metadata:
     controller.devfile.io/allow-import-from: '*'
     web-terminal.redhat.com/unmanaged-state: 'true'
   name: web-terminal-tooling
-  namespace: openshift-operators
   labels:
     console.openshift.io/terminal: 'true'
 spec:
   components:
-    - container:
+    - name: web-terminal-tooling
+      container:
         env:
           - name: YOLO_URL
-            value: https://raw.githubusercontent.com/codekow/demo-ai-gitops-catalog/main/scripts/library/term.sh
+            value: https://raw.githubusercontent.com/redhat-cop/gitops-catalog/main/web-terminal/instance/overlays/enhanced/term.sh
         args:
           - "/bin/bash"
           - "-c"
@@ -33,4 +33,3 @@ spec:
         memoryRequest: 128Mi
         mountSources: false
         sourceMapping: /projects
-      name: web-terminal-tooling
