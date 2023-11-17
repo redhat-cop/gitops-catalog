@@ -4,7 +4,6 @@ metadata:
   annotations:
     controller.devfile.io/allow-import-from: '*'
   name: web-terminal-tooling
-  namespace: openshift-operators
   labels:
     console.openshift.io/terminal: 'true'
 spec:
