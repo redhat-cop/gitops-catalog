@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/channel
+  value: latest
+- op: replace
+  path: /metadata/namespace
+  value: openshift-gitops-operator
