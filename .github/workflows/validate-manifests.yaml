@@ -23,7 +23,7 @@ jobs:
       #     sudo chmod +x ${BIN_PATH}/kustomize
       #
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4
 
       - name: Verify Kustomize CLI Installation
         run: |
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4
       - name: Validate YAML
         uses: ibiqlik/action-yamllint@v3
         with:
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
