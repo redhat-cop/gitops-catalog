@@ -1,0 +1,20 @@
+apiVersion: nfd.openshift.io/v1
+kind: NodeFeatureDiscovery
+metadata:
+  name: nfd-kata
+  namespace: openshift-nfd
+spec:
+  operand:
+    image: quay.io/openshift/origin-node-feature-discovery:4.12
+    imagePullPolicy: Always
+    servicePort: 12000
+  workerConfig:
+    configData: |
+      sources:
+         custom:
+           - name: "feature.node.kubernetes.io/runtime.kata"
+             matchOn:
+               - cpuId: ["SSE4", "VMX"]
+                 loadedKMod: ["kvm", "kvm_intel"]
+               - cpuId: ["SSE4", "SVM"]
+                 loadedKMod: ["kvm", "kvm_amd"]

@@ -1,0 +1,9 @@
+apiVersion: kataconfiguration.openshift.io/v1
+kind: KataConfig
+metadata:
+  name: kataconfig
+spec:
+  checkNodeEligibility: true
+  enablePeerPods: false
+  kataConfigPoolSelector: null
+  logLevel: info
