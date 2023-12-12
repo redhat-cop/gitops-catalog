@@ -1,9 +1,8 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: cert-manager-operator
+  name: openshift-cert-manager-operator
   namespace: cert-manager-operator
 spec:
   targetNamespaces:
     - cert-manager-operator
-  upgradeStrategy: Default

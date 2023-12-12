@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: "cert-manager Operator for Red Hat OpenShift"
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+  name: cert-manager-operator
