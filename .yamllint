@@ -9,3 +9,4 @@ rules:
   line-length: disable
   truthy:
     ignore: .github/workflows/
+  comments-indentation: disable
