@@ -1,0 +1,35 @@
+apiVersion: workspace.devfile.io/v1alpha2
+kind: DevWorkspaceTemplate
+metadata:
+  annotations:
+    controller.devfile.io/allow-import-from: '*'
+    web-terminal.redhat.com/unmanaged-state: 'true'
+  name: web-terminal-tooling
+  labels:
+    console.openshift.io/terminal: 'true'
+spec:
+  components:
+    - name: web-terminal-tooling
+      container:
+        env:
+          - name: YOLO_URL
+            value: https://raw.githubusercontent.com/codekow/demo-ai-gitops-catalog/main/scripts/library/term.sh
+        args:
+          - "/bin/bash"
+          - "-c"
+          - |
+            #!/bin/bash
+            # set -x
+
+            . <(curl -s "${YOLO_URL}" | tee /tmp/yolo.sh)
+            term_init
+
+            sleep infinity  # just in case
+
+        cpuLimit: 400m
+        cpuRequest: 100m
+        image: registry.redhat.io/web-terminal/web-terminal-tooling-rhel8@sha256:657874adad93a9e6c2b746b836015de410d2e280f85c079c81e24ae81343fa6c
+        memoryLimit: 256Mi
+        memoryRequest: 128Mi
+        mountSources: false
+        sourceMapping: /projects
