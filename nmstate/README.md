@@ -10,7 +10,7 @@ The current *overlays* available are for the following channels:
 
 ## Usage
 
-If you have cloned the `gitops-catalog` repository, you can install NVIDIA GPU Operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
+If you have cloned the `gitops-catalog` repository, you can install operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
 
 ```
 oc apply -k nmstate/operator/overlays/<channel>
