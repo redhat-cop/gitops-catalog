@@ -1,6 +1,6 @@
 # NMState
 
-This is to deploy [NMState operator](https://docs.openshift.com/container-platform/4.9/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html) to OpenShift. The NMState Operator provides users with functionality to configure various network interface types, DNS, and routing on cluster nodes
+This is to deploy [NMState operator](https://docs.openshift.com/container-platform/latest/networking/k8s_nmstate/k8s-nmstate-about-the-k8s-nmstate-operator.html) to OpenShift. The NMState Operator provides users with functionality to configure various network interface types, DNS, and routing on cluster nodes
 
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
