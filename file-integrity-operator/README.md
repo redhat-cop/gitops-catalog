@@ -6,10 +6,10 @@ This is to deploy the [File Integrity Operator](https://docs.openshift.com/conta
 
 ## Install Operator Only
 
-Reference on of the `operator/overlay` directories.  For example:
+Reference on of the `operator/overlays` directories.  For example:
 
 ```
-oc apply -k file-integrity-operator/operator/overlays/release-0.1
+oc apply -k file-integrity-operator/operator/overlays/stable
 ```
 
 Or as part of your own `kustomization.yaml` file:
@@ -19,7 +19,7 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-- github.com/redhat-cop/gitops-catalog/file-integrity-operator/operator/overlays/release-0.1?ref=main
+- github.com/redhat-cop/gitops-catalog/file-integrity-operator/operator/overlays/stable?ref=main
 ```
 
 ## Configure File Integrity Scans
