@@ -1,0 +1,17 @@
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: openshift-file-integrity
+
+resources:
+  - ../../base
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/channel
+        value: 'v1'
+    target:
+      kind: Subscription
+      name: file-integrity-operator
