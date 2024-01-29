@@ -1,0 +1,5 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: red-hat-camel-k-group
+  namespace: red-hat-camel-k
