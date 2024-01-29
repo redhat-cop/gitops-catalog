@@ -1,9 +1,0 @@
-apiVersion: controller.devfile.io/v1alpha1
-kind: DevWorkspaceOperatorConfig
-metadata:
-  name: devworkspace-config
-config:
-  workspace:
-    # kludge: allow cluster autoscaling
-    ignoredUnrecoverableEvents:
-      - FailedScheduling
