@@ -4,7 +4,7 @@ Installs 1Password [Connect](https://developer.1password.com/docs/connect/) and 
 
 Do not use the `base` directory directly, as you will need to create the appropiate Secrets. The current *overlays* available are:
 
-* [default](overlays/default)
+* [default](aggregate/overlays/default)
 
 ## Usage
 
