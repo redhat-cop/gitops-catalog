@@ -1,3 +1,3 @@
-Installs the *OpenShift 4.7* channel version of the OpenShift Serverless Operator
+Installs the *OpenShift 4.15* channel version of the Red Hat Developer Hub Operator
 
 **Version: 1.1.0**
