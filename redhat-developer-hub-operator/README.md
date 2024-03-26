@@ -17,13 +17,13 @@ The current *overlays* available are for the following channels:
 If you have cloned the `gitops-catalog` repository, you can install Red Hat Developer Hub Operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
 
 ```
-oc apply -k rhdh-operator/operator/overlays/<channel>
+oc apply -k redhat-developer-hub-operator/operator/overlays/<channel>
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/rhdh-operator/operator/overlays/<channel>
+oc apply -k https://github.com/redhat-cop/gitops-catalog/redhat-developer-hub-operator/operator/overlays/<channel>
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -32,5 +32,5 @@ As part of a different overlay in your own GitOps repo:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/redhat-cop/gitops-catalog/rhdh-operator/operator/overlays/<channel>?ref=main
+  - https://github.com/redhat-cop/gitops-catalog/redhat-developer-hub-operator/operator/overlays/<channel>?ref=main
 ```
