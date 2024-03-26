@@ -10,9 +10,7 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
-* [stable](operator/overlays/stable)
-* [stable-1.29](operator/overlays/stable-1.29)
-* [stable-1.30](operator/overlays/stable-1.30)
+* [fast](operator/overlays/fast)
 
 ## Usage
 
