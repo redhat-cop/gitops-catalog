@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   annotations:
-    openshift.io/display-name: "Red Hat OpenShift Data Science"
+    openshift.io/display-name: "Red Hat OpenShift AI"
   labels:
     openshift.io/cluster-monitoring: 'true'
   name: redhat-ods-operator

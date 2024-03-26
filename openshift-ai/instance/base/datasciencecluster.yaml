@@ -1,5 +1,5 @@
-apiVersion: datasciencecluster.opendatahub.io/v1
 kind: DataScienceCluster
+apiVersion: datasciencecluster.opendatahub.io/v1
 metadata:
   name: default
 spec:
@@ -11,7 +11,13 @@ spec:
     datasciencepipelines:
       managementState: Managed
     kserve:
-      managementState: Removed
+      managementState: Managed
+      serving:
+        ingressGateway:
+          certificate:
+            type: SelfSigned
+        managementState: Managed
+        name: knative-serving
     modelmeshserving:
       managementState: Managed
     ray:
