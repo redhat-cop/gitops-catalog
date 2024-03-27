@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onepassword-connect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onepassword-connect
+  template:
+    metadata:
+      labels:
+        app: onepassword-connect
+    spec:
+      serviceAccountName: onepassword-connect
+      volumes:
+        - name: shared-data
+          emptyDir: {}
+      containers:
+        - name: connect-api
+          image: 1password/connect-api:1.7.2
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            ports:
+              - containerPort: 8080
+          env:
+            - name: OP_SESSION
+              valueFrom:
+                secretKeyRef:
+                  name: onepassword-credentials
+                  key: 1password-credentials.json
+            - name: OP_BUS_PORT
+              value: "11220"
+            - name: OP_BUS_PEERS
+              value: localhost:11221
+            - name: OP_HTTP_PORT
+              value: "8080"
+            - name: OP_LOG_LEVEL
+              value: info
+          readinessProbe:
+            httpGet:
+              path: /health
+              scheme: HTTP
+              port: 8080
+            initialDelaySeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /heartbeat
+              scheme: HTTP
+              port: 8080
+            failureThreshold: 3
+            periodSeconds: 30
+            initialDelaySeconds: 15
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /home/opuser/.op/data
+              name: shared-data
+        - name: connect-sync
+          image: 1password/connect-sync:1.7.2
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+          env:
+            - name: OP_HTTP_PORT
+              value: "8081"
+            - name: OP_SESSION
+              valueFrom:
+                secretKeyRef:
+                  name: onepassword-credentials
+                  key: 1password-credentials.json
+            - name: OP_BUS_PORT
+              value: "11221"
+            - name: OP_BUS_PEERS
+              value: localhost:11220
+            - name: OP_LOG_LEVEL
+              value: info
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8081
+            initialDelaySeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /heartbeat
+              port: 8081
+              scheme: HTTP
+            failureThreshold: 3
+            periodSeconds: 30
+            initialDelaySeconds: 15
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "0.2"
+          volumeMounts:
+            - mountPath: /home/opuser/.op/data
+              name: shared-data

@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: onepassword-connect-operator
+subjects:
+  - kind: ServiceAccount
+    name: onepassword-connect-operator
+roleRef:
+  kind: ClusterRole
+  name: onepassword-connect-operator
+  apiGroup: rbac.authorization.k8s.io

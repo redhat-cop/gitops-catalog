@@ -1,0 +1,20 @@
+namespace: onepassword
+
+commonLabels:
+  app.kubernetes.io/name: onepassword-connect
+  app.kubernetes.io/component: connect
+
+resources:
+  - namespace.yaml
+  - serviceaccount.yaml
+  - scc.yaml
+  - deployment.yaml
+  - service.yaml
+
+secretGenerator:
+  - name: onepassword-credentials
+    literals:
+      - 1password-credentials.json=Y2hhbmdlbWU=
+
+generatorOptions:
+  disableNameSuffixHash: true
