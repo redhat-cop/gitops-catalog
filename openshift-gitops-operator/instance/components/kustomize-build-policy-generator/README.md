@@ -1,4 +1,4 @@
-# kustomize-build-enable-helm
+# kustomize-build-policy-generator
 
 ## Purpose
 This component is designed to turn on the `--enable-helm` feature of `kustomize build` in ArgoCD to support helm charts inside of a kustomization.yaml file.
@@ -17,13 +17,13 @@ resources:
   - ../../base
 
 components:
-  - ../../components/kustomize-build-enable-helm
+  - ../../components/kustomize-build-policy-generator
 ```
 
 ## Known Incompatibilities
 
-### kustomize-build-policy-generator
+### kustomize-build-enable-helm
 
-This component is not compatible with the [kustomize-build-policy-generator](openshift-gitops-operator/instance/components/kustomize-build-policy-generator) component.
+This component is not compatible with the [kustomize-build-enable-helm](openshift-gitops-operator/instance/components/kustomize-build-enable-helm) component.
 
 Both components are attempting to patch the `spec.kustomizeBuildOptions` field.
