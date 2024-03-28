@@ -1,0 +1,2 @@
+### Before you start
+TempoStack requires object storage to store its traces. TempoMonolithic can store traces in-memory, in a Persistent Volume and in object storage. Please ensure that your system has a compatible object storage solution that is supported, such as OpenShift Data Foundation, Minio, AWS S3, Azure Storage, or Google Cloud Storage.
