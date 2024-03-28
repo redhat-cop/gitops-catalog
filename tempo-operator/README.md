@@ -14,7 +14,7 @@ The current *overlays* available are for the following channels:
 
 ## Usage
 
-If you have cloned the `gitops-catalog` repository, you can install Red Hat Developer Hub Operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
+If you have cloned the `gitops-catalog` repository, you can install Tempo Operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
 
 ```
 oc apply -k tempo-operator/operator/overlays/<channel>

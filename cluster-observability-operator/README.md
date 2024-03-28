@@ -10,11 +10,11 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
-* [stable](operator/overlays/stable)
+* [development](operator/overlays/development)
 
 ## Usage
 
-If you have cloned the `gitops-catalog` repository, you can install Red Hat Developer Hub Operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
+If you have cloned the `gitops-catalog` repository, you can install Cluster Observability Operator based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
 
 ```
 oc apply -k cluster-observability-operator/operator/overlays/<channel>
