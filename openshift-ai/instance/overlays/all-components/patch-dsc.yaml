@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/components/codeflare/managementState
+  value: Managed
+- op: replace
+  path: /spec/components/ray/managementState
+  value: Managed
