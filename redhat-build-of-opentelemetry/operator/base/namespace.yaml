@@ -5,4 +5,4 @@ metadata:
     openshift.io/display-name: "Red Hat build of OpenTelemetry"
   labels:
     openshift.io/cluster-monitoring: 'true'
-  name: openshift-telemetry-operator
+  name: openshift-opentelemetry-operator
