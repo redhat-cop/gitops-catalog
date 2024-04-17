@@ -12,6 +12,7 @@ components:
   - ../../components/gitops-admins
   - ../../components/edge-termination
   - ../../components/enable-notifications
+  - ../../components/enable-status-badge
   - ../../components/health-check-odf
   - ../../components/health-check-olm
   - ../../components/health-check-openshift-builds
