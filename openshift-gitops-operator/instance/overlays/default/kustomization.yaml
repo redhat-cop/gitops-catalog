@@ -10,6 +10,7 @@ components:
   - ../../components/annotation-resource-tracking
   - ../../components/edge-termination
   - ../../components/enable-notifications
+  - ../../components/enable-status-badge
   - ../../components/gitops-admins
   - ../../components/health-check-olm
   - ../../components/health-check-openshift-builds
