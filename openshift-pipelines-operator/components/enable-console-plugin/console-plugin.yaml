@@ -1,0 +1,17 @@
+apiVersion: console.openshift.io/v1
+kind: ConsolePlugin
+metadata:
+  name: pipelines-console-plugin
+  labels:
+    app.kubernetes.io/part-of: tekton-config
+spec:
+  backend:
+    service:
+      basePath: /
+      name: pipelines-console-plugin
+      namespace: openshift-pipelines
+      port: 8443
+    type: Service
+  displayName: Pipelines Console Plugin
+  i18n:
+    loadType: Preload
