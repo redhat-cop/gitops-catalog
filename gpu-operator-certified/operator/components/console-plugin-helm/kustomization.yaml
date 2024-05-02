@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+helmCharts:
+  - name: console-plugin-nvidia-gpu
+    releaseName: console-plugin-nvidia-gpu
+    namespace: nvidia-gpu-operator
+    repo: https://rh-ecosystem-edge.github.io/console-plugin-nvidia-gpu
+
+resources:
+  - console-plugin-job.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: job-gpu-console-plugin
+    namespace: nvidia-gpu-operator
+    files:
+      - console-plugin-job.sh

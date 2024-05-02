@@ -5,4 +5,4 @@ resources:
   - ../../base
 
 components:
-  - ../../components/mig-mixed
+  - ../../components/time-sliced-4
