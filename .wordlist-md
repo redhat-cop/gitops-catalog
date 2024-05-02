@@ -55,6 +55,7 @@ Lifecycle
 Logstash
 MTA
 MachineConfig
+MachineSet
 Minio
 MultiClusterHub
 NFD
@@ -177,6 +178,8 @@ letsencrypt
 libvirt
 lifecycle
 linux
+machineset
+mig
 microservices
 namespace
 namespaces

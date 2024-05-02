@@ -5,4 +5,5 @@ resources:
   - ../../base
 
 components:
-  - ../../components/mig-mixed
+  - ../../components/aws-gpu-machineset
+  - ../../components/time-sliced-4

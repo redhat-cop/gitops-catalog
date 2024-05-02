@@ -1,4 +1,5 @@
 venv/
+**/charts/
 
 .DS_Store
 temp

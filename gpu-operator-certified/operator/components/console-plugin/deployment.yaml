@@ -1,0 +1,58 @@
+---
+# Source: console-plugin-nvidia-gpu/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: console-plugin-nvidia-gpu
+  namespace: nvidia-gpu-operator
+  labels:
+    helm.sh/chart: console-plugin-nvidia-gpu-0.2.4
+    app.kubernetes.io/name: console-plugin-nvidia-gpu
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: console-plugin-nvidia-gpu
+    app.kubernetes.io/instance: console-plugin-nvidia-gpu
+    app.kubernetes.io/part-of: console-plugin-nvidia-gpu
+    app.openshift.io/runtime-namespace: console-plugin-nvidia-gpu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: console-plugin-nvidia-gpu
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: console-plugin-nvidia-gpu
+    spec:
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: console-plugin-nvidia-gpu
+          image: "quay.io/edge-infrastructure/console-plugin-nvidia-gpu:latest"
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 9443
+              protocol: TCP
+          volumeMounts:
+            - name: plugin-serving-cert
+              readOnly: true
+              mountPath: /var/serving-cert
+          resources: {}
+      volumes:
+        - name: plugin-serving-cert
+          secret:
+            secretName: plugin-serving-cert
+            defaultMode: 420
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            defaultMode: 420
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

@@ -1,7 +1,7 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: gpu-operator-certified-group
+  name: gpu-operator-certified
   namespace: nvidia-gpu-operator
 spec:
   targetNamespaces:

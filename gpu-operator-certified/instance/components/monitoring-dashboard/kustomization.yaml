@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+generatorOptions:
+  labels:
+    console.openshift.io/dashboard: "true"
+    # optional label to enable visibilty in developer perspective
+    console.openshift.io/odc-dashboard: "true"
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: nvidia-dcgm-exporter-dashboard
+    namespace: openshift-config-managed
+    files:
+      - https://github.com/NVIDIA/dcgm-exporter/raw/main/grafana/dcgm-exporter-dashboard.json

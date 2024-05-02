@@ -1,0 +1,27 @@
+---
+# Source: console-plugin-nvidia-gpu/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: console-plugin-nvidia-gpu
+  namespace: nvidia-gpu-operator
+  labels:
+    helm.sh/chart: console-plugin-nvidia-gpu-0.2.4
+    app.kubernetes.io/name: console-plugin-nvidia-gpu
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: console-plugin-nvidia-gpu
+    app.kubernetes.io/instance: console-plugin-nvidia-gpu
+    app.kubernetes.io/part-of: console-plugin-nvidia-gpu
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: plugin-serving-cert
+spec:
+  ports:
+  - name: 9443-tcp
+    protocol: TCP
+    port: 9443
+    targetPort: 9443
+  selector:
+    app.kubernetes.io/name: console-plugin-nvidia-gpu
+  type: ClusterIP
+  sessionAffinity: None

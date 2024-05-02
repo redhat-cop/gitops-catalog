@@ -1,0 +1,32 @@
+---
+# Source: console-plugin-nvidia-gpu/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: console-plugin-nvidia-gpu
+  namespace: nvidia-gpu-operator
+  labels:
+    helm.sh/chart: console-plugin-nvidia-gpu-0.2.4
+    app.kubernetes.io/name: console-plugin-nvidia-gpu
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: console-plugin-nvidia-gpu
+    app.kubernetes.io/instance: console-plugin-nvidia-gpu
+    app.kubernetes.io/part-of: console-plugin-nvidia-gpu
+data:
+  dcgm-metrics.csv: |
+    # see https://github.com/NVIDIA/dcgm-exporter/blob/main/etc/dcp-metrics-included.csv
+    DCGM_FI_PROF_GR_ENGINE_ACTIVE, gauge, gpu utilization.
+    DCGM_FI_DEV_MEM_COPY_UTIL, gauge, mem utilization.
+    DCGM_FI_DEV_ENC_UTIL, gauge, enc utilization.
+    DCGM_FI_DEV_DEC_UTIL, gauge, dec utilization.
+    DCGM_FI_DEV_FB_FREE, gauge, mem free.
+    DCGM_FI_DEV_FB_USED, gauge, mem used.
+    DCGM_FI_DEV_GPU_UTIL, gauge, gpu utilization.
+    DCGM_FI_DEV_POWER_USAGE, gauge, power usage.
+    DCGM_FI_DEV_POWER_MGMT_LIMIT_MAX, gauge, power mgmt limit.
+    DCGM_FI_DEV_GPU_TEMP, gauge, gpu temp.
+    DCGM_FI_DEV_SM_CLOCK, gauge, sm clock.
+    DCGM_FI_DEV_MAX_SM_CLOCK, gauge, max sm clock.
+    DCGM_FI_DEV_MEM_CLOCK, gauge, mem clock.
+    DCGM_FI_DEV_MAX_MEM_CLOCK, gauge, max mem clock.
