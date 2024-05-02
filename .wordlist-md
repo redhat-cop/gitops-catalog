@@ -5,6 +5,7 @@ APIs
 APM
 ARN
 AdoptedResource
+Alertmanager
 AmazonS
 AmazonSageMakerFullAccess
 Ansible
@@ -18,7 +19,9 @@ CheCluster
 ClusterRoleBindings
 ClusterTask
 CodeReady
+Codeflare
 DNS
+DataScienceCluster
 Dev
 DevSpaces
 DevWorkspace
@@ -52,6 +55,7 @@ Lifecycle
 Logstash
 MTA
 MachineConfig
+Minio
 MultiClusterHub
 NFD
 NMState
@@ -64,15 +68,18 @@ OLM
 Observability
 OpenDataHub
 OpenShift
+OpenTelemetry
 OperatorGroup
 PV
 PolicyReport
 Prometheus
+Querier
 RBAC
 README
 RHACM
 Rollout
 SAR
+SDKs
 SNO
 SSO
 Sagemaker
@@ -91,10 +98,13 @@ TLS
 TODO
 TaskRun
 Tekton
+TempoMonolithic
+TempoStack
 Thanos
 UI
 VolSync
 Workspaces
+Zipkin
 ack
 acm
 amq
@@ -107,6 +117,7 @@ argoproj
 arn
 autoscaling
 aws
+backend
 canada
 ceph
 che
@@ -166,6 +177,7 @@ letsencrypt
 libvirt
 lifecycle
 linux
+microservices
 namespace
 namespaces
 newman
@@ -174,6 +186,7 @@ nodeFeatureDiscovery
 noobaa
 nvidia
 oauth
+observability
 oc
 ocp
 ocs
@@ -184,6 +197,7 @@ openshift
 operatorGroup
 operatorGroups
 patchesJson
+performant
 postgres
 pre
 prem
@@ -196,6 +210,7 @@ rhpds
 runtime
 sagemaker
 sandboxed
+scalable
 seldon
 selectable
 serverless
