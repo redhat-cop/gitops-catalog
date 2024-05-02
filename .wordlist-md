@@ -52,6 +52,7 @@ Lifecycle
 Logstash
 MTA
 MachineConfig
+MachineSet
 MultiClusterHub
 NFD
 NMState
@@ -165,6 +166,8 @@ letsencrypt
 libvirt
 lifecycle
 linux
+machineset
+mig
 namespace
 namespaces
 newman
