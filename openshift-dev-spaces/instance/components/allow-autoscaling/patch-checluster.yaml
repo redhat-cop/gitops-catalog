@@ -1,0 +1,12 @@
+apiVersion: org.eclipse.che/v2
+kind: CheCluster
+metadata:
+  name: devspaces
+spec:
+  components:
+    dashboard:
+      headerMessage:
+        show: true
+        text: "Please be patient... GPUs may take up to 12 min to be available!"
+  devEnvironments:
+    StartTimeoutSeconds: 720
