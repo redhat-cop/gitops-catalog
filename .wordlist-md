@@ -11,6 +11,7 @@ AmazonSageMakerFullAccess
 Ansible
 ArgoCD
 ArgoCD's
+Authorino
 Bitnami
 CICD
 CRD
@@ -116,6 +117,7 @@ approver
 argocd
 argoproj
 arn
+authorino
 autoscaling
 aws
 backend
@@ -179,8 +181,8 @@ libvirt
 lifecycle
 linux
 machineset
-mig
 microservices
+mig
 namespace
 namespaces
 newman
