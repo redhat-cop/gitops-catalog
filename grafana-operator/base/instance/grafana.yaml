@@ -12,17 +12,17 @@ spec:
     metadata:
       annotations:
         serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana-instance-route"}}'
-  route:
-    spec:
-      port:
-        targetPort: https
-      tls:
-        termination: reencrypt
-      to:
-        kind: Service
-        name: grafana-service
-        weight: 100
-      wildcardPolicy: None
+  route: {}
+    # spec:
+    #   port:
+    #     targetPort: https
+    #   tls:
+    #     termination: reencrypt
+    #   to:
+    #     kind: Service
+    #     name: grafana-service
+    #     weight: 100
+    #   wildcardPolicy: None
   deployment:
     spec:
       template:
@@ -82,8 +82,8 @@ spec:
           port: 9091
           protocol: TCP
           targetPort: https
-  client:
-    preferIngress: false
+  # client:
+  #   preferIngress: false
   config:
     log:
       mode: "console"
