@@ -19,4 +19,3 @@ spec:
   instanceSelector:
     matchLabels:
       instance: "grafana"
-  name: prometheus.yaml
