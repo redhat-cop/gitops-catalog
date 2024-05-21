@@ -1,5 +1,5 @@
 apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDataSource
+kind: GrafanaDatasource
 metadata:
   name: prometheus
 spec:
