@@ -11,9 +11,9 @@ spec:
       disable_login_form: "false"
       disable_signout_menu: "true"
     auth.basic:
-      enabled: true
+      enabled: "true"
     auth.anonymous:
-      enabled: true
+      enabled: "true"
   containers:
     - env:
         - name: SAR
