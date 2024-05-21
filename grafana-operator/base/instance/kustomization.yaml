@@ -4,5 +4,6 @@ kind: Kustomization
 
 resources:
   - session-secret.yaml
+  - injected-certs-cm.yaml
   - grafana-proxy-rbac.yaml
   - grafana.yaml
