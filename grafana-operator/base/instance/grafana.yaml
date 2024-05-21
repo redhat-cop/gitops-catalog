@@ -20,7 +20,7 @@ spec:
         termination: reencrypt
       to:
         kind: Service
-        name: grafana-instance-service
+        name: grafana-service
         weight: 100
       wildcardPolicy: None
   deployment:
