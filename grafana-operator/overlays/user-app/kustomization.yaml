@@ -15,9 +15,8 @@ resources:
 patches:
   - patch: |-
       - op: add
-        path: /spec/deployment
+        path: /spec/deployment/spec/template/spec/containers/0/env
         value:
-          env:
           - name: GRAFANA_TOKEN
             valueFrom:
               secretKeyRef:
