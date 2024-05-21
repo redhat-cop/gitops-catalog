@@ -1,4 +1,4 @@
-apiVersion: integreatly.org/v1alpha1
+apiVersion: integreatly.org/v1beta1
 kind: Grafana
 metadata:
   name: grafana
@@ -8,8 +8,8 @@ spec:
       mode: "console"
       level: "warn"
     auth:
-      disable_login_form: false
-      disable_signout_menu: true
+      disable_login_form: "false"
+      disable_signout_menu: "true"
     auth.basic:
       enabled: true
     auth.anonymous:
