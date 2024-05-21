@@ -2,6 +2,8 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: Grafana
 metadata:
   name: grafana
+  labels:
+    instance: grafana
 spec:
   config:
     log:
@@ -69,6 +71,3 @@ spec:
   serviceAccount:
     annotations:
       serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana-route"}}'
-  dashboardLabelSelector:
-    - matchExpressions:
-        - { key: "app", operator: In, values: ['grafana'] }
