@@ -27,4 +27,4 @@ roleRef:
   name: grafana-proxy
 subjects:
   - kind: ServiceAccount
-    name: grafana-instance-sa
+    name: grafana-sa
