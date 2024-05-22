@@ -2,7 +2,7 @@
 
 Installs 1Password [Connect](https://developer.1password.com/docs/connect/) and [Operator](https://developer.1password.com/docs/k8s/k8s-operator/).
 
-Do not use the `base` directory directly, as you will need to create the appropiate Secrets. The current *overlays* available are:
+Do not use the `base` directory directly, as you will need to create the appropriate Secrets. The current *overlays* available are:
 
 * [default](aggregate/overlays/default)
 

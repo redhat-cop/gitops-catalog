@@ -40,6 +40,7 @@ Hashicorp
 IAM
 IOV
 IgnoreExtraneous
+JSON
 Jaeger
 Jenkins
 Kafka
@@ -146,6 +147,7 @@ dotnet
 ec
 elasticsearch
 env
+envs
 eus
 eventing
 finalizer
@@ -168,6 +170,7 @@ installplans
 io
 jaeger
 jenkins
+json
 kafka
 kataconfig
 kiali
@@ -197,6 +200,7 @@ ocp
 ocs
 odf
 olm
+onepassword
 opendatahub
 openshift
 operatorGroup
@@ -216,6 +220,7 @@ runtime
 sagemaker
 sandboxed
 scalable
+secretGenerator
 seldon
 selectable
 serverless
