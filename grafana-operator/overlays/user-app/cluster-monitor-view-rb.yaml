@@ -8,5 +8,5 @@ roleRef:
   name: cluster-monitoring-view
 subjects:
   - kind: ServiceAccount
-    name: grafana-serviceaccount
+    name: grafana-sa
     namespace: patch-me

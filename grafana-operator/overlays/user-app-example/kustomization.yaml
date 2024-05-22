@@ -4,24 +4,28 @@ kind: Kustomization
 
 namespace: user-grafana
 
-commonAnnotations:
-  argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-
 resources:
   - ../user-app
   - namespace.yaml
   - operator-group.yaml
 
 patches:
-  - path: patch-grafana-sar.yaml
-    target:
-      group: integreatly.org
-      kind: Grafana
-      name: grafana
-      version: v1alpha1
-  - path: patch-cluster-monitoring-view.yaml
-    target:
-      group: rbac.authorization.k8s.io
-      kind: ClusterRoleBinding
-      name: cluster-monitoring-view
-      version: v1
+- patch: |-
+    - op: add
+      path: /subjects/0/namespace
+      value: user-grafana
+    - op: replace
+      path: /metadata/name
+      value: cluster-monitoring-view-user-grafana
+  target:
+    group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: cluster-monitoring-view
+- patch: |-
+    - op: add
+      path: /subjects/0/namespace
+      value: user-grafana
+  target:
+    group: rbac.authorization.k8s.io
+    kind: RoleBinding
+    name: grafana-proxy

@@ -1,3 +1,0 @@
-- op: replace
-  path: /spec/containers/0/env/0/value
-  value: '-openshift-sar={"namespace":"user-grafana","resource":"routes","name":"grafana-route","verb":"get"}'
