@@ -8,6 +8,7 @@ The current *overlays* available are for the following channels:
 * [quay-v3.5](overlays/quay-v3.5)
 * [stable-3.6](overlays/stable-3.6)
 * [stable-3.7](overlays/stable-3.7)
+* [stable-3.11](overlays/stable-3.11)
 
 ## Usage
 
