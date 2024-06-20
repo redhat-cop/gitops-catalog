@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+- wait-for-servicemesh-job.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+
+configMapGenerator:
+  - name: wait-for-servicemesh
+    namespace: redhat-ods-operator
+    files:
+      - wait-for-servicemesh.sh
