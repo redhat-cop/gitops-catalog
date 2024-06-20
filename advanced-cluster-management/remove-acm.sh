@@ -33,6 +33,12 @@ component_vwc=(
   multicluster-observability-operator
 )
 
+for vwc in "${component_vwc[@]}"
+do
+  echo "delete validatingwebhookconfigurations ${vwc} resources..."
+  "${KUBECTL}" delete validatingwebhookconfigurations "${vwc}"
+done
+
 # Force delete all component CRDs if they still exist
 # oc get crd -o name | grep cluster-management.io
 component_crds=(
@@ -65,12 +71,6 @@ component_crds=(
   subscriptions.apps.open-cluster-management.io
   userpreferences.console.open-cluster-management.io
 )
-
-for vwc in "${component_vwc[@]}"
-do
-  echo "delete validatingwebhookconfigurations ${vwc} resources..."
-  "${KUBECTL}" delete validatingwebhookconfigurations "${vwc}"
-done
 
 for crd in "${component_crds[@]}"; do
 	echo "force delete all CustomResourceDefinition ${crd} resources..."
