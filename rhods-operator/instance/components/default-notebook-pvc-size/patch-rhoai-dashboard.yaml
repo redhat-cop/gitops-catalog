@@ -1,0 +1,7 @@
+apiVersion: opendatahub.io/v1alpha
+kind: OdhDashboardConfig
+metadata:
+  name: odh-dashboard-config
+spec:
+  notebookController:
+    pvcSize: 20Gi

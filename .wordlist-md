@@ -21,12 +21,14 @@ CheCluster
 ClusterPolicy
 ClusterRoleBindings
 ClusterTask
+CodeFlare
 CodeReady
 Codeflare
 ConfigMap
 DCGM
 DNS
 DataScienceCluster
+DataSciencePipelines
 Dev
 DevSpaces
 DevWorkspace
@@ -47,6 +49,7 @@ IgnoreExtraneous
 JSON
 Jaeger
 Jenkins
+KServe
 Kafka
 Keycloak
 Kibana
@@ -63,6 +66,7 @@ MTA
 MachineConfig
 MachineSet
 Minio
+ModelMesh
 MultiClusterHub
 NFD
 NMState
@@ -84,6 +88,7 @@ Querier
 RBAC
 README
 RHACM
+RHOAI
 Rollout
 SAR
 SDKs
@@ -122,6 +127,7 @@ approver
 argocd
 argoproj
 arn
+auth
 authorino
 autoscaling
 aws
@@ -138,6 +144,7 @@ clusterrolebinding
 composable
 config
 configmap
+culler
 datasource
 dcgmExporter
 deployable
@@ -220,11 +227,13 @@ postgres
 pre
 prem
 prometheus
+pvc
 redhat
 redistributions
 repo
 rh
 rhel
+rhoai
 rhpds
 runtime
 sagemaker
@@ -243,6 +252,7 @@ tekton
 templating
 thanos
 traefik
+triton
 truly
 vSphere
 vscode
