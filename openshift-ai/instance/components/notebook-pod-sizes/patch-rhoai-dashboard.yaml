@@ -1,0 +1,38 @@
+apiVersion: opendatahub.io/v1alpha
+kind: OdhDashboardConfig
+metadata:
+  name: odh-dashboard-config
+spec:
+  notebookSizes:
+    - name: Small
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: '1'
+          memory: 8Gi
+    - name: Medium
+      resources:
+        limits:
+          cpu: '6'
+          memory: 24Gi
+        requests:
+          cpu: '3'
+          memory: 24Gi
+    - name: Large
+      resources:
+        limits:
+          cpu: '14'
+          memory: 56Gi
+        requests:
+          cpu: '7'
+          memory: 56Gi
+    - name: X Large
+      resources:
+        limits:
+          cpu: '30'
+          memory: 120Gi
+        requests:
+          cpu: '15'
+          memory: 120Gi

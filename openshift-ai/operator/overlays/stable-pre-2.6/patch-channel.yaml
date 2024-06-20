@@ -1,6 +1,0 @@
-- op: replace
-  path: /spec/channel
-  value: stable
-- op: replace
-  path: /spec/startingCSV
-  value: rhods-operator.1.30.0

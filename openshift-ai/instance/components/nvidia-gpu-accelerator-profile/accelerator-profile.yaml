@@ -1,0 +1,18 @@
+apiVersion: dashboard.opendatahub.io/v1
+kind: AcceleratorProfile
+metadata:
+  name: nvidia-gpu
+  namespace: redhat-ods-applications
+spec:
+  displayName: nvidia-gpu
+  enabled: true
+  identifier: nvidia.com/gpu
+  tolerations:
+    - effect: NoSchedule
+      key: nvidia-gpu-only
+      operator: Exists
+      value: ''
+    - effect: NoSchedule
+      key: nvidia.com/gpu
+      operator: Exists
+      value: ''
