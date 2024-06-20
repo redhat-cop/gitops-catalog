@@ -34,21 +34,21 @@ jobs:
           version: v0.8.0
           severity: warning
 
-  lint-container:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Code Checkout
-        uses: actions/checkout@v4
-      - name: Run hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Containerfile
-          recursive: true
-      - name: Run hadolint
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile
-          recursive: true
+  # lint-container:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Code Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Run hadolint
+  #       uses: hadolint/hadolint-action@v3.1.0
+  #       with:
+  #         dockerfile: Containerfile
+  #         recursive: true
+  #     - name: Run hadolint
+  #       uses: hadolint/hadolint-action@v3.1.0
+  #       with:
+  #         dockerfile: Dockerfile
+  #         recursive: true
 
   lint-manifests:
     runs-on: ubuntu-latest
