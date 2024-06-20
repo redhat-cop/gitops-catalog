@@ -1,4 +1,3 @@
-
 ACK
 ACM
 ACS
@@ -189,6 +188,7 @@ kafka
 kataconfig
 kiali
 knative
+kubeadmin
 kubectl
 kubernetes
 kustomization
