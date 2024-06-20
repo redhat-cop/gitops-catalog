@@ -1,5 +1,8 @@
 extends: default
 
+ignore:
+  - "**/charts/*" # ignore locally rendered helm charts
+
 rules:
   braces:
     ignore: /grafana-operator/base/instance/grafana.yaml
@@ -10,3 +13,5 @@ rules:
   truthy:
     ignore: .github/workflows/
   comments-indentation: disable
+  comments:
+    min-spaces-from-content: 1
