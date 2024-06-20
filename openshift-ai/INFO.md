@@ -10,15 +10,13 @@ But beyond the individual features, one of the key aspects of this platform is i
 
 Finally, thanks to the operator-driven deployment and updates, the administrative load of the platform is very light, leaving everyone more time to focus on the work that makes a difference.
 
-
 ### Components
 * Dashboard
 * Curated Workbench Images (incl CUDA, PyTorch, Tensorflow, code-server)
 * Ability to add Custom Images
 * Ability to leverage accelerators (such as NVIDIA GPU)
-* Data Science Pipelines. (including Elyra notebook interface, and based on standard OpenShift Pipelines)
+* Data Science Pipelines (including Elyra notebook interface)
 * Model Serving using ModelMesh and Kserve.
 * Ability to use other runtimes for serving
 * Model Monitoring
-* Distributed workloads (KubeRay, CodeFlare)
-* XAI explanations of predictive models (TrustyAI)
+* Distributed workloads (KubeRay, CodeFlare, Kueue)
