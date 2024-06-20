@@ -6,6 +6,6 @@ resources:
 
 patches:
   - target:
-      kind: DataScienceCluster
-      name: default
-    path: patch-dsc.yaml
+      kind: Subscription
+      name: rhods-operator
+    path: patch-channel.yaml

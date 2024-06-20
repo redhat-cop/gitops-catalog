@@ -6,23 +6,24 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
+* [alpha](operator/overlays/alpha)
 * [beta](operator/overlays/beta)
-* [fast](operator/overlays/beta)
+* [embedded](operator/overlays/embedded)
+* [fast](operator/overlays/fast)
 * [stable](operator/overlays/stable)
-
 
 ## Usage
 
 If you have cloned the `gitops-catalog` repository, you can install Red Hat OpenShift AI based on the overlay of your choice by running from the root (`gitops-catalog`) directory.
 
 ```
-oc apply -k openshift-ai/operator/overlays/<channel>
+oc apply -k rhods-operator/operator/overlays/<channel>
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-ai/operator/overlays/<channel>
+oc apply -k https://github.com/redhat-cop/gitops-catalog/rhods-operator/operator/overlays/<channel>
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -31,5 +32,5 @@ As part of a different overlay in your own GitOps repo:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/redhat-cop/gitops-catalog/openshift-ai/operator/overlays/<channel>?ref=main
+  - https://github.com/redhat-cop/gitops-catalog/rhods-operator/operator/overlays/<channel>?ref=main
 ```

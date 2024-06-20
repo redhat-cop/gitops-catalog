@@ -1,11 +1,17 @@
-kind: DataScienceCluster
 apiVersion: datasciencecluster.opendatahub.io/v1
+kind: DataScienceCluster
 metadata:
-  name: default
+  name: default-dsc
+  labels:
+    app.kubernetes.io/name: datasciencecluster
+    app.kubernetes.io/instance: default-dsc
+    app.kubernetes.io/part-of: rhods-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: rhods-operator
 spec:
   components:
     codeflare:
-      managementState: Removed
+      managementState: Managed
     dashboard:
       managementState: Managed
     datasciencepipelines:
@@ -18,9 +24,13 @@ spec:
             type: SelfSigned
         managementState: Managed
         name: knative-serving
+    kueue:
+      managementState: Managed
     modelmeshserving:
       managementState: Managed
     ray:
-      managementState: Removed
+      managementState: Managed
+    trustyai:
+      managementState: Managed
     workbenches:
       managementState: Managed
