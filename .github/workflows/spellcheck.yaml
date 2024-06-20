@@ -2,16 +2,16 @@ name: Check Spelling
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
-      - "*"
+      - "main"
   pull_request:
     branches:
-      - "*"
+      - "main"
 
 jobs:
   lint-spelling:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+        uses: actions/checkout@v4
       - name: Spellcheck
-        uses: rojopolis/spellcheck-github-actions@e36f662b21ead3f6f29794ac5c35069bf236463c # 0.37.0
+        uses: rojopolis/spellcheck-github-actions@0.38.0

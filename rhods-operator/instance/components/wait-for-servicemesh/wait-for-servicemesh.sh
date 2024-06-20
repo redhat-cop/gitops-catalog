@@ -13,13 +13,13 @@ wait_for_service_mesh(){
     crd/servicemeshcontrolplanes.maistra.io:condition=established \
   )
 
-  for n in "${SERVICEMESH_RESOURCES[@]}"
+  for field in "${SERVICEMESH_RESOURCES[@]}"
   do
-    RESOURCE=$(echo $n | cut -d ":" -f 1)
-    CONDITION=$(echo $n | cut -d ":" -f 2)
+    RESOURCE=$(echo "$field" | cut -d ":" -f 1)
+    CONDITION=$(echo "$field" | cut -d ":" -f 2)
 
     echo "Waiting for ${RESOURCE} state to be ${CONDITION}..."
-    oc wait --for=${CONDITION} ${RESOURCE} --timeout=${TIMEOUT_SECONDS}s
+    oc wait --for="${CONDITION}" "${RESOURCE}" --timeout="${TIMEOUT_SECONDS}s"
 
   done
 }
