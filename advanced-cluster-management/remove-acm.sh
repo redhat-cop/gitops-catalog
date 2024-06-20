@@ -8,8 +8,7 @@ if [ -z "${KLUSTERLET_NAMESPACE}" ]; then
 	KLUSTERLET_NAMESPACE="open-cluster-management-hub"
 fi
 
-KUBECTL=kubectl
-which oc && KUBECTL=oc
+KUBECTL=oc
 
 # Force delete klusterlet
 echo "attempt to delete klusterlet"
