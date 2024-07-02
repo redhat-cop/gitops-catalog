@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/channel
+  value: 4.16-stable
+
+- op: add
+  path: /spec/startingCSV
+  value: lvms-operator.v4.16.0
