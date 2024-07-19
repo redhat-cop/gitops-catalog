@@ -20,4 +20,3 @@ rules:
 ignore:
   - "scratch/*"
   - "gpu-operator-certified/operator/components/console-plugin-helm/charts/*"
-
