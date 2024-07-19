@@ -1,17 +1,23 @@
 extends: default
 
+ignore:
+  - "**/charts/*" # ignore locally rendered helm charts
+
 rules:
   braces:
     min-spaces-inside: 0
     max-spaces-inside: 1
-  comments-indentation: disable
   document-start: disable
   indentation:
     indent-sequences: whatever
   line-length: disable
   new-line-at-end-of-file: enable
-  # truthy:
-  #   ignore: .github/workflows/
+  truthy:
+    ignore: .github/workflows/
+  comments-indentation: disable
+  comments:
+    min-spaces-from-content: 1
 ignore:
   - "scratch/*"
   - "gpu-operator-certified/operator/components/console-plugin-helm/charts/*"
+
