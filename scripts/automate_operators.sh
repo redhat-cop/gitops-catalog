@@ -1,9 +1,18 @@
 #!/bin/bash
 # set -x
 
+# shellcheck disable=SC2034
+
+RED='\033[1;31m'
+BLUE='\033[1;36m'
+PURPLE='\033[1;35m'
+ORANGE='\033[0;33m'
+NC='\033[0m' # No Color
+
 check_shell(){
-  [[ "${0}" =~ "bash" ]] && return
-  echo "Please verify you are running in bash shell"
+  [ -n "$BASH_VERSION" ] && return
+  echo -e "${ORANGE}WARNING: These scripts are ONLY tested in a bash shell${NC}"
+  sleep "${SLEEP_SECONDS:-8}"
 }
 
 check_shell
@@ -124,7 +133,7 @@ pkg_manifest_get_description(){
 }
 
 pkg_manifests_save_all_details(){
-  echo -e "# created: $(date -u)\n# script: dump_operator_info" > operator_info.txt
+  echo -e "# created: $(date -u)\n# script: pkg_manifests_save_all_details" > operator_info.txt
   pkg_manifests_get_all_details >> operator_info.txt
 }
 
@@ -254,7 +263,7 @@ cat <<YAML > "${BASE_PATH}/operator-group.yaml"
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: ${NAME}-group
+  name: ${NAME}
   namespace: ${NAMESPACE}
 YAML
 

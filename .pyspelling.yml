@@ -1,0 +1,49 @@
+matrix:
+  - name: Markdown
+    aspell:
+      lang: en
+      # ignore-case: true
+    dictionary:
+      encoding: utf-8
+      wordlists:
+        - .wordlist-md
+      output: scratch/dictionary.dic
+    pipeline:
+      - pyspelling.filters.markdown:
+      - pyspelling.filters.html:
+          comments: false
+          ignores:
+            - code
+            - pre
+    sources:
+      - '!**/INFO.md|!**/TODO.md|!venv/**|!scratch/**|!*/charts/**|**/*.md'
+    default_encoding: utf-8
+  # - name: Scripts
+  #   aspell:
+  #     lang: en
+  #   dictionary:
+  #     encoding: utf-8
+  #     wordlists:
+  #       - .wordlist-md
+  #       - .wordlist-sh
+  #     output: scratch/dictionary.dic
+  #   pipeline:
+  #     - pyspelling.filters.text:
+  #   sources:
+  #     - '!venv/**|!scratch/**|!*/wip/**|**/*.sh'
+  #   default_encoding: utf-8
+  # - name: Python
+  #   aspell:
+  #     lang: en
+  #     # ignore-case: true
+  #   dictionary:
+  #     encoding: utf-8
+  #     wordlists:
+  #       - .wordlist-md
+  #       - .wordlist-sh
+  #     output: scratch/dictionary.dic
+  #   pipeline:
+  #     - pyspelling.filters.python:
+  #   sources:
+  #     - '!venv/**|!scratch/**|**/*.py'
+  #   default_encoding: utf-8

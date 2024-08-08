@@ -2,14 +2,18 @@ extends: default
 
 ignore:
   - "**/charts/*" # ignore locally rendered helm charts
+  - "scratch/*"
+  - "gpu-operator-certified/operator/components/console-plugin-helm/charts/*"
 
 rules:
   braces:
-    ignore: /grafana-operator/base/instance/grafana.yaml
+    min-spaces-inside: 0
+    max-spaces-inside: 1
   document-start: disable
   indentation:
     indent-sequences: whatever
   line-length: disable
+  new-line-at-end-of-file: enable
   truthy:
     ignore: .github/workflows/
   comments-indentation: disable
