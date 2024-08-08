@@ -1,0 +1,12 @@
+kind: DataScienceCluster
+apiVersion: datasciencecluster.opendatahub.io/v1
+metadata:
+  name: default
+spec:
+  components:
+    codeflare:
+      managementState: Managed
+    kueue:
+      managementState: Managed
+    ray:
+      managementState: Managed

@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: notebook-controller-culler-config
+  namespace: redhat-ods-applications
+  labels:
+    opendatahub.io/dashboard: 'true'
+data:
+  CULL_IDLE_TIME: '240'
+  ENABLE_CULLING: 'true'
+  IDLENESS_CHECK_PERIOD: '1'

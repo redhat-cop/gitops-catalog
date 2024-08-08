@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+commonAnnotations:
+  argocd.argoproj.io/sync-options: ServerSideApply=true
+
+patches:
+  - path: patch-rhoai-dashboard.yaml
+    target:
+      kind: OdhDashboardConfig
