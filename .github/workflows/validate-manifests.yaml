@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
@@ -58,7 +58,7 @@ jobs:
           curl "${DOWNLOAD_URL}" -sL | sudo tar zx -C "${BIN_PATH}/" kustomize
           sudo chmod +x "${BIN_PATH}"/kustomize
       - name: Code Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Validate Manifests
         run: |
           # [ -d ./bootstrap/base ] && touch bootstrap/base/sealed-secrets-secret.yaml
