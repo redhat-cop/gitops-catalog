@@ -17,6 +17,7 @@ CICD
 CRD
 CRDs
 CheCluster
+ClusterIssuer
 ClusterPolicy
 ClusterRoleBindings
 ClusterTask
@@ -203,6 +204,7 @@ machineset
 microservices
 mig
 namespace
+namespaced
 namespaces
 newman
 nfd
