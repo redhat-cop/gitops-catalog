@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+components:
+  - ../_base
+
+patches:
+  - target:
+      group: ''
+      version: v1
+      kind: Secret
+      name: broker-ha-configs-bp
+    patch: |-
+      - op: replace
+        path: /stringData/base-ha-configs.broker.properties
+        value: HAPolicyConfiguration=SHARED_STORE_BACKUP

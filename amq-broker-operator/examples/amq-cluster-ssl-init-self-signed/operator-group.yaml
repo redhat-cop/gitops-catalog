@@ -1,0 +1,8 @@
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: default
+  namespace: amq-cluster-ssl
+spec:
+  targetNamespaces:
+    - amq-cluster-ssl

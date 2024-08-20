@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-ha-configs-bp
+type: Opaque
+stringData:
+  base-ha-configs.broker.properties: |
+    HAPolicyConfiguration=SHARED_STORE_PRIMARY
+  failover-on-shutdown.broker.properties: |
+    HAPolicyConfiguration.failoverOnServerShutdown=true

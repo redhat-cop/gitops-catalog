@@ -1,0 +1,39 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cluster-ssl-certificate
+spec:
+  issuerRef:
+    group: cert-manager.io
+    kind: Issuer
+    name: namespaced-issuer
+  secretName: cluster-ssl-certificate
+  dnsNames:
+    # These should be replaced in a kustomize overlay, according to intended hostnames
+
+    # Route hostname
+    - default-cluster-ssl-0-svc-rte-target-namespace.apps.cluster.example.com
+
+    # Service hostnames
+    - default-cluster-ssl-0-svc.target-namespace.svc.cluster.local
+    - default-cluster-ssl-0-svc.target-namespace.svc.cluster
+    - default-cluster-ssl-0-svc.target-namespace.svc
+    - default-cluster-ssl-0-svc.target-namespace
+    - default-cluster-ssl-0-svc
+
+    # Pod hostname
+    - default-ss-0
+  usages:
+    - digital signature
+    - key encipherment
+  secretTemplate:
+    annotations:
+      kubernetes.io/description: >-
+        Secret issued via cert-manager which will be referenced by an ActiveMQArtemis CR for securing AMQ cluster
+        communications
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef:
+        name: cluster-ssl-keystore
+        key: keyStorePassword

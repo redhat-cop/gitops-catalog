@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - broker-jdbc-driver.yaml
+
+components:
+  - ../_base
+  - ../_copy-driver
+
+patches:
+  - target:
+      group: ''
+      version: v1
+      kind: Secret
+      name: broker-jdbc-configs-bp
+    patch: |-
+      - op: replace
+        path: /stringData/jdbc-driver.broker.properties
+        value: storeConfiguration.jdbcDriverClassName=oracle.jdbc.driver.OracleDriver

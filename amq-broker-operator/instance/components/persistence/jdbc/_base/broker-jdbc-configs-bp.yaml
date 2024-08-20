@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-jdbc-configs-bp
+type: Opaque
+stringData:
+  base-jdbc.broker.properties: |
+    storeConfiguration=DATABASE
+  jdbc-connection-url.broker.properties: |
+    # This property should be replaced in a kustomize overlay to point to real database
+    storeConfiguration.jdbcConnectionUrl=jdbc:postgresql://postgresql.broker-database-dev.svc.cluster.local:5432/sampledb
+    storeConfiguration.jdbcUser=__REPLACE_ME__
+    storeConfiguration.jdbcPassword=__REPLACE_ME__
+  jdbc-driver.broker.properties: |
+    # This property will be replaced in a kustomize component, depending upon driver used
+    storeConfiguration.jdbcDriverClassName=__COMPONENT_SPECIFIC__
+  jdbc-lock-timing.broker.properties: |
+    storeConfiguration.jdbcLockAcquisitionTimeoutMillis=-1
+    storeConfiguration.jdbcLockExpirationMillis=20000
+    storeConfiguration.jdbcLockRenewPeriodMillis=4000
+  jdbc-other.broker.properties: |
+    # This property may be replaced in a kustomize overlay with any other JDBC-specific configurations
+    storeConfiguration.maxPageSizeBytes=102400
+
+    storeConfiguration.jdbcNetworkTimeout=20000
+  jdbc-sync-timing.broker.properties: |
+    storeConfiguration.jdbcJournalSyncPeriodMillis=5
+    storeConfiguration.jdbcAllowedTimeDiff=250
+  jdbc-tables.broker.properties: |
+    # This property may be replaced in a kustomize overlay with tables
+    storeConfiguration.messageTableName=MESSAGES
+    storeConfiguration.bindingsTableName=BINDINGS
+    storeConfiguration.largeMessageTableName=LARGE_MESSAGES
+    storeConfiguration.pageStoreTableName=PAGE_STORE
+    storeConfiguration.nodeManagerTableName=NODE_MANAGER_STORE

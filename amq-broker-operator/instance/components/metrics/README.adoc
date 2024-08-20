@@ -1,0 +1,71 @@
+= ActiveMQ Artemis Metrics Options
+
+For metrics the following configs are available:
+
+== Web Console
+Configure the Web Console:
+
+Requirements :
+
+* Artemis Console must be exposed
+* managementRBACEnabled = true
+** jolokia commands are secured
+
+* jolokiaAgentEnabled = true
+
+== JMX - Jolokia External Monitoring
+Configure the JMX - Jolokia External:
+
+Requirements :
+
+* managementRBACEnabled = true
+** jolokia commands are secured
+
+== JMX - External HawtIO Console
+Configure the JMX - External HawtIO:
+
+JMX via separately deployed HawtIO console
+
+* managementRBACEnabled = false
+** jolokia commands are not secured
+** console should not be exposed
+* console expose = false
+
+== Broker Plugin - External Prometheus
+
+Configure the built in Broker Prometheus Plugin :
+
+Creates a Service Montior object for wconsj endpoint
+
+Metrics can be scraped via two different methods:
+
+* Directly from the configured ports
+* From the endpoint URL
+
+Requirements:
+
+* Update the spec/matchLabel/application: <application name>
+* Prometheus
+** External Prometheus or
+** Openshift Prometheus Plugin
+
+== Broker JVM
+
+Configure the jvm settings for:
+
+* memory metrics
+* garbage collection metrics
+* thread metrics
+
+Patches the ActiveMQArtemis object to inject secret
+
+Requirements :
+
+* Created as a secret
+* File name must be suffixed with -bp
+
+== Address Metrics
+
+Configure address specific metrics :
+
+Patches the ActiveMQArtemis object to activate address metrics on catch-all address settings.

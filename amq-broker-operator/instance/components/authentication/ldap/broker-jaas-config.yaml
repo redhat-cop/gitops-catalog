@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-jaas-config
+type: Opaque
+stringData:
+  login.config: |
+    /*
+     * Note: This value should be replaced in an overlay with proper LDAP settings. The secret provided is for
+     *       reference. For additional information, see the following documentation:
+     * https://docs.redhat.com/en/documentation/red_hat_amq_broker/7.12/html/configuring_amq_broker/assembly-br-securing-brokers_configuring#assembly-br-using-ldap-for-authentication-and-authorization_configuring
+     */
+
+    activemq {
+      /*
+       * Use LDAP for authentication
+       */
+      org.apache.activemq.artemis.spi.core.security.jaas.LDAPLoginModule sufficient
+        debug=true
+        initialContextFactory=com.sun.jndi.ldap.LdapCtxFactory
+        connectionURL="ldap://ldap.example.com:10389"
+        connectionUsername="uid=admin,ou=system"
+        connectionPassword=secret
+        connectionProtocol=s
+        connectionTimeout=5000
+        authentication=simple
+        userBase="dc=example,dc=com"
+        userSearchMatching="(uid={0})"
+        userSearchSubtree=true
+        userRoleName=
+        readTimeout=5000
+        roleBase="dc=example,dc=com"
+        roleName=cn
+        roleSearchMatching="(member={0})"
+        roleSearchSubtree=true
+      ;
+
+      /*
+       * Include operator-defined users and roles so that the operator may manage the broker and drain messages
+       */
+      org.apache.activemq.artemis.spi.core.security.jaas.PropertiesLoginModule sufficient
+        reload=false
+        org.apache.activemq.jaas.properties.user="artemis-users.properties"
+        org.apache.activemq.jaas.properties.role="artemis-roles.properties"
+        baseDir="/home/jboss/amq-broker/etc"
+      ;
+    };

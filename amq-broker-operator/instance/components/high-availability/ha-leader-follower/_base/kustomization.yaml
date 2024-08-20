@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - broker-ha-configs-bp.yaml
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: replace
+        path: /spec/deploymentPlan/livenessProbe
+        value:
+          livenessProbe:
+            exec:
+              command:
+                - test
+                - -f
+                - /home/jboss/amq-broker/lock/cli.lock

@@ -1,0 +1,73 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - broker-cluster-configs-bp.yaml
+  - broker-connector-configs-bp.yaml
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      # Add brokerPropeties in correct order to build clustering before cluster settings
+      - op: add
+        path: /spec/deploymentPlan/extraMounts/secrets/-
+        value: broker-cluster-configs-bp
+      - op: add
+        path: /spec/deploymentPlan/extraMounts/secrets/-
+        value: broker-connector-configs-bp
+
+      # Add acceptor dedicated to clustering
+      - op: add
+        path: /spec/acceptors/-
+        value:
+          expose: true
+          name: cluster-ssl
+          port: 61611
+          protocols: all
+          sslEnabled: true
+          needClientAuth: true
+          verifyHost: true
+          sslSecret: cluster-ssl-keystore
+          trustSecret: cluster-ssl-truststore
+
+      # Add required connectors for clustering:
+      #  - cluster-self-ssl: for using as self-reference to advertise for other brokers to connect
+      #  - cluster-local-0-ssl: for reference to local OCP cluster's broker on pod #0
+      #  - cluster-other-ssl: for reference to remote OCP cluster's broker
+      - op: add
+        path: /spec/connectors/-
+        value:
+          name: cluster-self-ssl
+          host: __SET_IN_BROKER_PROPERTIES__
+          port: 443
+          sslEnabled: true
+          needClientAuth: true
+          verifyHost: true
+          sslSecret: cluster-ssl-keystore
+          trustSecret: cluster-ssl-truststore
+      - op: add
+        path: /spec/connectors/-
+        value:
+          name: cluster-local-0-ssl
+          host: __SET_IN_BROKER_PROPERTIES__
+          port: 443
+          sslEnabled: true
+          needClientAuth: true
+          verifyHost: true
+          sslSecret: cluster-ssl-keystore
+          trustSecret: cluster-ssl-truststore
+      - op: add
+        path: /spec/connectors/-
+        value:
+          name: cluster-other-ssl
+          host: __SET_IN_BROKER_PROPERTIES__
+          port: 443
+          sslEnabled: true
+          needClientAuth: true
+          verifyHost: true
+          sslSecret: cluster-ssl-keystore
+          trustSecret: cluster-ssl-truststore

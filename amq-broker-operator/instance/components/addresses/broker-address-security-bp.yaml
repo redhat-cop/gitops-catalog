@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-address-security-bp
+type: Opaque
+stringData:
+  brokerProperties: |
+    securityRoles.#.group2.send=true
+    securityRoles.#.group1.consume=true
+    securityRoles.#.group1.createAddress=true
+    securityRoles.#.group1.createNonDurableQueue=true
+    securityRoles.#.group1.browse=true
+
+    # FQQN example. Colon (:) is a reserved character and must be escaped
+    'securityRoles."my-address\:\:my-queue".group2.send=true'

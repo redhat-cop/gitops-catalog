@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-jaas-config
+type: Opaque
+stringData:
+  login.config: |
+    /*
+    * Licensed to the Apache Software Foundation (ASF) under one or more
+    * contributor license agreements.  See the NOTICE file distributed with
+    * this work for additional information regarding copyright ownership.
+    * The ASF licenses this file to You under the Apache License, Version 2.0
+    * (the "License"); you may not use this file except in compliance with
+    * the License.  You may obtain a copy of the License at
+    *
+    * http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Unless required by applicable law or agreed to in writing, software
+    * distributed under the License is distributed on an "AS IS" BASIS,
+    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    * See the License for the specific language governing permissions and
+    * limitations under the License.
+    */
+
+    activemq {
+      /*
+       * Allow users without credentials to be "authenticated" as guest
+       */
+      org.apache.activemq.artemis.spi.core.security.jaas.GuestLoginModule sufficient
+        debug=true
+        credentialsInvalidate=true
+        org.apache.activemq.jaas.guest.user="guest"
+        org.apache.activemq.jaas.guest.role="guests"
+      ;
+
+      /*
+       * Include operator-defined users and roles so that the operator may manage the broker and drain messages
+       */
+      org.apache.activemq.artemis.spi.core.security.jaas.PropertiesLoginModule requisite
+        reload=false
+        org.apache.activemq.jaas.properties.user="artemis-users.properties"
+        org.apache.activemq.jaas.properties.role="artemis-roles.properties"
+        baseDir="/home/jboss/amq-broker/etc"
+      ;
+    };

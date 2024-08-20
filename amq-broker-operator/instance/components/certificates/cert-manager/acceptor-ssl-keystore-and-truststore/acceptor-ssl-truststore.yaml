@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: acceptor-ssl-truststore
+type: Opaque
+stringData:
+  trustStorePath: '/amq/extra/secrets/acceptor-ssl-certificate/truststore.jks'
+  trustStorePassword: '__REPLACE_ME__'

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: broker-jdbc-driver
+data:
+  driver-jar-source-path: "/opt/oracle-driver"
+  driver-jar-filename: "ojdbc8.jar"

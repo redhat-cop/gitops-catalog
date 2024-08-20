@@ -1,0 +1,77 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: default
+spec:
+  console:
+    expose: false
+    sslEnabled: false
+  deploymentPlan:
+    size: 1
+    resources:
+      requests: {}
+      limits: {}
+    clustered: false
+    persistenceEnabled: false
+    journalType: nio
+    requireLogin: false
+    managementRBACEnabled: true
+    enableMetricsPlugin: false
+    jolokiaAgentEnabled: false
+    messageMigration: false
+    extraMounts:
+      configMaps: []
+      secrets: []
+    extraVolumeClaimTemplates: []
+    extraVolumes: []
+    extraVolumeMounts: []
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    livenessProbe:
+      failureThreshold: 30
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    startupProbe:
+      exec:
+        command:
+          - /bin/bash
+          - '-c'
+          - >-
+            /opt/amq/bin/artemis check node
+            --up
+            --url=tcp://"$HOSTNAME":61610
+      failureThreshold: 30
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 10
+  acceptors:
+    - # Acceptor for use with startup probe, possibly liveness probe, etc
+      name: probes
+      expose: false
+      port: 61610
+      protocols: all
+      sslEnabled: false
+  connectors: []
+  addressSettings:
+    applyRule: replace_all
+    addressSetting:
+      # Default catch-all, to be replaced or modified by overlays
+      - match: '#'
+
+        enableMetrics: false
+
+        addressFullPolicy: BLOCK
+
+        autoCreateAddresses: true
+        autoCreateQueues: true
+        autoCreateDeadLetterResources: true
+
+  env: []
+  brokerProperties:
+    # Set value that can be used to remove values from arrays in broker.properties files
+    - remove.value=-
+
+    # Even with persistenceEnabled set to false above, the broker.xml shows peristence-enabled true... override that
+    - persistenceEnabled=false
+  resourceTemplates: []

@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+components:
+  - ../_base
+  - ../_download-driver
+
+resources:
+  # ConfigMap for DB driver JAR download info
+  - broker-jdbc-driver.yaml
+
+patches:
+  - target:
+      group: ''
+      version: v1
+      kind: Secret
+      name: broker-jdbc-configs-bp
+    patch: |-
+      - op: replace
+        path: /stringData/jdbc-driver.broker.properties
+        value: storeConfiguration.jdbcDriverClassName=org.postgresql.Driver
