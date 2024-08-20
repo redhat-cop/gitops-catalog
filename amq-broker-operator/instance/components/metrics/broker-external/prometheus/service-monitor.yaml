@@ -7,6 +7,6 @@ metadata:
 spec:
   selector:
     matchLabels:
-      application: default
+      application: default-app
   endpoints:
     - port: wconsj

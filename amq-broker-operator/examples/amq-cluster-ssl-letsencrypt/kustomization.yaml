@@ -73,4 +73,4 @@ patches:
         value: amq-cluster-ssl-prometheus-sm
       - op: replace
         path: /spec/selector/matchLabels/application
-        value: amq-cluster-ssl
+        value: amq-cluster-ssl-app
