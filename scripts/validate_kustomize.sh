@@ -11,8 +11,8 @@ Where:
   -sl | --schema-location      Location containing schemas"
 }
 
-which kustomize && KUSTOMIZE_CMD="kustomize build"
-which helm && GOT_HELM="--enable-helm"
+which kustomize && KUSTOMIZE_CMD="kustomize build" || echo "Kustomize not in path; using 'oc kustomize' instead"
+which helm && GOT_HELM="--enable-helm" || echo "Helm not in path; skipping kustomizations that use helm"
 
 # DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 KUSTOMIZE_CMD="${KUSTOMIZE_CMD:-oc kustomize}"
@@ -62,12 +62,32 @@ kustomization_auto_fix(){
 
 kustomization_build(){
   BUILD=${1}
-  KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE_CMD} "${BUILD}" "${GOT_HELM}")
+
+  local KUSTOMIZE_BUILD_OUTPUT
+  if [ -n "${GOT_HELM}" ]; then
+    KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE_CMD} "${BUILD}" "${GOT_HELM}")
+  else
+    if grep -qe '^helmCharts:$' "${BUILD}/kustomization.yaml" ; then
+      echo "[SKIP]"
+      return 0
+    fi
+
+    # Don't include "${GOT_HELM}" otherwise kustomize thinks that "" (empty string) is another input directory and
+    # kustomize immediately exits with message: "Error: specify one path to kustomization.yaml"
+    KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE_CMD} "${BUILD}")
+  fi
   # echo "$KUSTOMIZE_BUILD_OUTPUT" | kubeval ${IGNORE_MISSING_SCHEMAS} --schema-location="file://${SCHEMA_LOCATION}" --force-color
 
   cmd_response=$?
 
   if [ $cmd_response -ne 0 ]; then
+    # It is valid for components to reference resources not directly included into the component definition, so don't
+    # error out on components that fail a `kustomize build`
+    if grep -qe '^kind: Component$' "${BUILD}/kustomization.yaml"; then
+      echo "[SKIP]"
+      return 0
+    fi
+
     echo "[ERROR]"
     exit 1
   fi
