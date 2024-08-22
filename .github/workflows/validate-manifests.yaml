@@ -26,26 +26,19 @@ jobs:
           version: v0.8.0
           severity: warning
 
-  # lint-container:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Code Checkout
-  #       uses: actions/checkout@v4
-  #     - name: Run hadolint
-  #       uses: hadolint/hadolint-action@v3.1.0
-  #       with:
-  #         dockerfile: Containerfile
-  #         recursive: true
-  #     - name: Run hadolint
-  #       uses: hadolint/hadolint-action@v3.1.0
-  #       with:
-  #         dockerfile: Dockerfile
-  #         recursive: true
+  lint-yaml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - name: Validate YAML
+        uses: ibiqlik/action-yamllint@2576378a8e339169678f9939646ee3ee325e845c  # v3
+        with:
+          format: github
 
   lint-manifests:
     runs-on: ubuntu-latest
     env:
-      # KUSTOMIZE_VERSION: v5.0.1
       BIN_PATH: /usr/bin
     steps:
       - name: Install Kustomize
