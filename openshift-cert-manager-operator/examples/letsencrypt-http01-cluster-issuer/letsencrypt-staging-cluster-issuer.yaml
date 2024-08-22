@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    # This key doesn't exist, cert-manager creates it
+    privateKeySecretRef:
+      name: letsencrypt-staging-account-key
+    server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+    preferredChain: ''
+    solvers:
+      - http01:
+          ingress:
+            class: openshift-default
