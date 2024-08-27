@@ -16,6 +16,7 @@ The current *overlays* available are for the following channels:
 * [gitops-1.10](operator/overlays/gitops-1.10)
 * [gitops-1.11](operator/overlays/gitops-1.11)
 * [gitops-1.12](operator/overlays/gitops-1.12)
+* [gitops-1.13](operator/overlays/gitops-1.13)
 * [latest](operator/overlays/latest)
 * [preview](operator/overlays/preview)
 
