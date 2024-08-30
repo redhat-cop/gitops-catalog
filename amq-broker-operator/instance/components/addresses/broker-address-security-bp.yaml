@@ -4,7 +4,21 @@ metadata:
   name: broker-address-security-bp
 type: Opaque
 stringData:
-  brokerProperties: |
+  admin-permissions.broker.properties: |
+    securityRoles.#.admin.createAddress=true
+    securityRoles.#.admin.deleteAddress=true
+    securityRoles.#.admin.createDurableQueue=true
+    securityRoles.#.admin.deleteDurableQueue=true
+    securityRoles.#.admin.createNonDurableQueue=true
+    securityRoles.#.admin.deleteNonDurableQueue=true
+    securityRoles.#.admin.send=true
+    securityRoles.#.admin.consume=true
+    securityRoles.#.admin.manage=true
+    securityRoles.#.admin.browse=true
+    securityRoles.#.admin.view=true
+    securityRoles.#.admin.edit=true
+  other-permissions.broker.properties: |
+    # Example to be replaced in an overlay
     securityRoles.#.group2.send=true
     securityRoles.#.group1.consume=true
     securityRoles.#.group1.createAddress=true
@@ -12,4 +26,4 @@ stringData:
     securityRoles.#.group1.browse=true
 
     # FQQN example. Colon (:) is a reserved character and must be escaped
-    'securityRoles."my-address\:\:my-queue".group2.send=true'
+    securityRoles."my-address\:\:my-queue".group2.send=true

@@ -1,9 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 
-resources:
-  - address-metrics-bp.yaml
-
 patches:
   - target:
       group: broker.amq.io
@@ -18,3 +15,7 @@ patches:
       - op: replace
         path: /spec/addressSettings/addressSetting/0/enableMetrics
         value: true
+
+      - op: replace
+        path: /spec/addressSettings/addressSetting/0/messageCounterHistoryDayLimit
+        value: 7

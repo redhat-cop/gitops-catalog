@@ -16,10 +16,13 @@ patches:
           port: 61617
           protocols: all
 
-          multicastPrefix: jms.topic.
-          anycastPrefix: jms.queue.
-
           sslEnabled: true
           needClientAuth: true
+          verifyHost: true
           sslSecret: acceptor-ssl-keystore
           trustSecret: acceptor-ssl-truststore
+
+          multicastPrefix: jms.topic.
+          anycastPrefix: jms.queue.
+          supportAdvisory: true
+          suppressInternalManagementObjects: false

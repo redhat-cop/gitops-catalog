@@ -32,28 +32,18 @@ patches:
 
       # Add initContainer to automatically download JDBC driver if necessary
       - op: add
-        path: /spec/resourceTemplates/-
+        path: /spec/resourceTemplates/0/patch/spec/template/spec/initContainers/-
         value:
-          selector:
-            apiGroup: apps/v1
-            kind: StatefulSet
-          patch:
-            apiVersion: apps/v1
-            kind: StatefulSet
-            spec:
-              template:
-                spec:
-                  initContainers:
-                    - name: jdbc-driver-init
-                      image: 'curlimages/curl:8.6.0'
-                      volumeMounts:
-                        - name: jdbc-jars
-                          mountPath: /opt/jdbc-jars
-                      command:
-                        - /bin/sh
-                      args:
-                        - '-c'
-                        - |
-                          if ! [ -f /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME" ]; then
-                            curl "$DB_DRIVER_URL" --output /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME"
-                          fi
+          name: jdbc-driver-init
+          image: 'curlimages/curl:8.6.0'
+          volumeMounts:
+            - name: jdbc-jars
+              mountPath: /opt/jdbc-jars
+          command:
+            - /bin/sh
+          args:
+            - '-c'
+            - |-
+              if ! [ -f /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME" ]; then
+                curl "$DB_DRIVER_URL" --output /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME"
+              fi
