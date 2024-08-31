@@ -6,4 +6,4 @@ spec:
   config:
     env:
       - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
-        value: true
+        value: "true"
