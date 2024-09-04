@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: broker-jdbc-driver
+data:
+  driver-url: "https://jdbc.postgresql.org/download/postgresql-42.7.3.jar"
+  driver-jar-filename: "postgres-connector.jar"

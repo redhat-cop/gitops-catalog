@@ -1,0 +1,147 @@
+= ActiveMQ Artemis Cluster Components
+
+For clustered AMQ brokers, the following options are available:
+
+== No Clustering
+
+== Intra-Namespace Clustering
+
+To use Operator-default clustering, in which brokers are clustered from the same *ActiveMQArtemis* resource, use the `clustering/intra-namespace` component. No additional kustomize patches are required for this style of clustering. The default component behavior sets a a cluster deployment size of 3 brokers. This may be adjusted by patching the deployment size:
+
+.Example of /spec/deploymentPlan/size of 5
+[source,yaml]
+----
+- target:
+    group: broker.amq.io
+    version: v1beta1
+    kind: ActiveMQArtemis
+    name: default
+  patch: |-
+    - op: replace
+      patch: /spec/deploymentPlan/size
+      value: 5
+----
+
+== Cross-OpenShift Clustering
+
+For AMQ Artemis Broker clustering that spans across OpenShift clusters, use the `clustering/cross-ocp-cluster` component. The following additional kustomize patches will be required:
+
+=== Hostnames
+
+Due to the requirement to use OpenShift Routes for connections from outside an OpenShift
+cluster, hostnames will need to be specified.
+
+[NOTE]
+====
+The clustering acceptor is named `cluster-ssl`, so route hostnames will take the form of:
+
+----
+BROKER-NAME-cluster-ssl-0-svc-rte-NAMESPACE.apps.OPENSHIFT-BASE
+----
+
+For example:
+----
+default-cluster-ssl-0-svc-rte-demo-amq.apps.cluster.example.com
+----
+====
+
+Every broker cluster will need to have at least the following for the first broker pod:
+
+.Broker #0 connector hostname patch
+[source,yaml]
+----
+- target:
+    group: ''
+    version: v1
+    kind: Secret
+    name: broker-connector-configs-bp
+  patch: |-
+    - op: replace
+      path: /stringData/broker-0~1broker.properties
+      value: |
+        connectorConfigurations.cluster-self-ssl.host=ex-aao-cluster-ssl-0-svc-rte-demo-amq.apps.left-cluster.example.com
+        connectorConfigurations.cluster-other-ssl.host=ex-aao-cluster-ssl-0-svc-rte-demo-amq.apps.right-cluster.example.com
+----
+
+For broker clusters that have a deployment size of at least 2, additional broker pod properties will need to be added:
+
+.Broker #1 and Broker #2 connector hostname patches
+[source,yaml]
+----
+- target:
+    group: ''
+    version: v1
+    kind: Secret
+    name: broker-connector-configs-bp
+  patch: |-
+    - op: add
+      path: /stringData/broker-1~1broker.properties
+      value: |
+        connectorConfigurations.cluster-self-ssl.host=ex-aao-cluster-ssl-1-svc-rte-demo-amq.apps.left-cluster.example.com
+        connectorConfigurations.cluster-local-0-ssl.host=ex-aao-cluster-ssl-0-svc-rte-demo-amq.apps.left-cluster.example.com
+        connectorConfigurations.cluster-other-ssl.host=ex-aao-cluster-ssl-0-svc-rte-demo-amq.apps.right-cluster.example.com
+    - op: add
+      path: /stringData/broker-2~1broker.properties
+      value: |
+        connectorConfigurations.cluster-self-ssl.host=ex-aao-cluster-ssl-2-svc-rte-demo-amq.apps.left-cluster.example.com
+        connectorConfigurations.cluster-local-0-ssl.host=ex-aao-cluster-ssl-0-svc-rte-demo-amq.apps.left-cluster.example.com
+        connectorConfigurations.cluster-other-ssl.host=ex-aao-cluster-ssl-0-svc-rte-demo-amq.apps.right-cluster.example.com
+----
+
+=== TLS Keystore and Truststore
+
+TLS certificates will need to be provided in keystore and truststore secrets. Other components are provided to set up secrets to use cert-manager generated Certificates or certificates generated in an init container. In order to manually provide certificates, the acceptors and connectors may be patched in an overlay to reference other secrets:
+
+[source,yaml]
+----
+- target:
+    group: broker.amq.io
+    version: v1beta1
+    kind: ActiveMQArtemis
+    name: default
+  patch: |-
+    # Test that acceptors are in expected array index and then set SSL secrets
+    - op: test
+      path: /spec/acceptors/1/name
+      value: cluster-ssl
+
+    - op: replace
+      path: /spec/acceptors/1/sslSecret
+      value: example-ssl-keystore
+    - op: replace
+      path: /spec/acceptors/0/trustSecret
+      value: example-ssl-truststore
+
+    # Test that connectors are in expected array index and then set SSL secrets
+    - op: test
+      path: /spec/connectors/1/name
+      value: cluster-self-ssl
+    - op: test
+      path: /spec/connectors/2/name
+      value: cluster-local-0-ssl
+    - op: test
+      path: /spec/connectors/3/name
+      value: cluster-other-ssl
+
+    - op: replace
+      path: /spec/connectors/1/sslSecret
+      value: example-ssl-keystore
+    - op: replace
+      path: /spec/connectors/1/trustSecret
+      value: example-ssl-truststore
+
+    - op: replace
+      path: /spec/connectors/2/sslSecret
+      value: example-ssl-keystore
+    - op: replace
+      path: /spec/connectors/2/trustSecret
+      value: example-ssl-truststore
+
+    - op: replace
+      path: /spec/connectors/3/sslSecret
+      value: example-ssl-keystore
+    - op: replace
+      path: /spec/connectors/3/trustSecret
+      value: example-ssl-truststore
+----
+

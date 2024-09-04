@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: add
+        path: /spec/acceptors/-
+        value:
+          name: ssl
+          expose: true
+          port: 61617
+          protocols: all
+
+          sslEnabled: true
+          needClientAuth: true
+          verifyHost: true
+          sslSecret: acceptor-ssl-keystore
+          trustSecret: acceptor-ssl-truststore
+
+          multicastPrefix: jms.topic.
+          anycastPrefix: jms.queue.
+          supportAdvisory: true
+          suppressInternalManagementObjects: false

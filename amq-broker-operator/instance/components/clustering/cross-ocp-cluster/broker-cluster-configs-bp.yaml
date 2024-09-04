@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-cluster-configs-bp
+type: Opaque
+stringData:
+  base-cluster-config.broker.properties: |
+    # Add new cluster configuration with name "custom-cluster"
+    clusterConfigurations.custom-cluster.name=custom-cluster
+  base-cluster-connectors.broker.properties: |
+    # Add broker to broker connector references for the cluster
+    clusterConfigurations.custom-cluster.connectorName=cluster-self-ssl
+    clusterConfigurations.custom-cluster.staticConnectors=cluster-local-0-ssl,cluster-other-ssl
+  cluster-configuration.broker.properties: |
+    # Cluster bridging configuration; this may be patched to use different configs as desired
+    clusterConfigurations.custom-cluster.retryInterval=1000
+    clusterConfigurations.custom-cluster.retryIntervalMultiplier=2
+    clusterConfigurations.custom-cluster.maxRetryInterval=32000
+    clusterConfigurations.custom-cluster.initialConnectAttempts=20
+    clusterConfigurations.custom-cluster.reconnectAttempts=10
+    clusterConfigurations.custom-cluster.useDuplicateDetection=true
+    clusterConfigurations.custom-cluster.messageLoadBalancing=ON_DEMAND
+    clusterConfigurations.custom-cluster.maxHops=1
+  cluster-credentials.broker.properties: |
+    # These must be identical across all brokers participating in a cluster and should be set in an overlay
+    clusterUser=cluster-user
+    clusterPassword=kustomize-cross-ocp-cluster
+  broker-0/broker.properties: |
+    # Set broker pod #0 to only try connecting across to other OCP cluster brokers, not any other within same cluster
+    # (Others in same cluster will connect to broker #0 and announce with their "cluster-self" connector info to build
+    # the cluster-local network of brokers.)
+    clusterConfigurations.custom-cluster.staticConnectors=cluster-other-ssl

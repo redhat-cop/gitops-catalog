@@ -1,0 +1,131 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: default
+spec:
+  console:
+    expose: false
+    sslEnabled: false
+  deploymentPlan:
+    size: 1
+    resources:
+      requests: {}
+      limits: {}
+    clustered: false
+    persistenceEnabled: false
+    journalType: nio
+    requireLogin: false
+    managementRBACEnabled: true
+    enableMetricsPlugin: false
+    jolokiaAgentEnabled: false
+    messageMigration: false
+    extraMounts:
+      configMaps: []
+      secrets: []
+    extraVolumeClaimTemplates: []
+    extraVolumes: []
+    extraVolumeMounts: []
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    livenessProbe:
+      failureThreshold: 30
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    startupProbe:
+      exec:
+        command:
+          - /bin/bash
+          - '-c'
+          - >-
+            /opt/amq/bin/artemis check node
+            --up
+            --url=tcp://"$HOSTNAME":61610
+      failureThreshold: 30
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 10
+  acceptors:
+    - # Acceptor for use with startup probe, possibly liveness probe, etc
+      name: probes
+      expose: false
+      port: 61610
+      protocols: all
+      sslEnabled: false
+  connectors: []
+  addressSettings:
+    applyRule: replace_all
+    addressSetting:
+      # Default catch-all, to be replaced or modified by overlays
+      - match: '#'
+
+        enableMetrics: false
+        messageCounterHistoryDayLimit: 0
+        enableIngressTimestamp: false
+
+        addressFullPolicy: BLOCK
+
+        pageMaxCacheSize: 5
+        pageSizeBytes: 10Mb
+
+        retroactiveMessageCount: 0
+        maxSizeMessages: -1
+        maxSizeBytes: '-1'
+        maxSizeBytesRejectThreshold: -1
+
+        redistributionDelay: -1
+
+        slowConsumerPolicy: NOTIFY
+        slowConsumerCheckPeriod: 5
+        slowConsumerThreshold: -1
+
+        autoCreateAddresses: true
+        autoCreateQueues: true
+        autoCreateDeadLetterResources: true
+        autoCreateExpiryResources: true
+
+        autoDeleteAddresses: true
+        # delay is in milliseconds
+        autoDeleteAddressesDelay: 0
+
+        autoDeleteQueues: true
+        # delay is in milliseconds
+        autoDeleteQueuesDelay: 0
+
+        deadLetterAddress: DLQ
+        deadLetterQueuePrefix: DLQ.
+        # deadLetterQueueSuffix:
+
+        sendToDlaOnNoRoute: false
+        maxDeliveryAttempts: 10
+        # delay in milliseconds
+        redeliveryDelay: 0
+        maxRedeliveryDelay: 0
+
+        expiryAddress: ExpiryQueue
+        expiryQueuePrefix: EXP.
+        # expiryQueueSuffix:
+        expiryDelay: -1
+        minExpiryDelay: -1
+        maxExpiryDelay: -1
+
+  env: []
+  brokerProperties:
+    # Set value that can be used to remove values from arrays in broker.properties files
+    - remove.value=-
+
+    # Even with persistenceEnabled set to false above, the broker.xml shows peristence-enabled true... override that
+    - persistenceEnabled=false
+  resourceTemplates:
+    - # Empty template to facilitate patching init containers into broker pods if needed
+      selector:
+        apiGroup: apps/v1
+        kind: StatefulSet
+      patch:
+        apiVersion: apps/v1
+        kind: StatefulSet
+        spec:
+          template:
+            spec:
+              volumes: []
+              initContainers: []

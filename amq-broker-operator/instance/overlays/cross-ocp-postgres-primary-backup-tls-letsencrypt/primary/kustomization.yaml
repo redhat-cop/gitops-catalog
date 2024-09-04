@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../base
+
+components:
+  - ../../../components/persistence/jdbc/postgresql
+  - ../../../components/clustering/cross-ocp-cluster
+  - ../../../components/high-availability/ha-cluster/primary
+  - ../../../components/certificates/cert-manager/cluster-ssl-keystore
+  - ../../../components/certificates/public-ca-truststores/letsencrypt-prod
+  - ../../../components/certificates/public-ca-truststores/letsencrypt-prod/cluster-ssl-truststore
+
+patches:
+  - target:
+      group: cert-manager.io
+      version: v1
+      kind: Certificate
+    patch: |-
+      - op: replace
+        path: /spec/issuerRef
+        value:
+          group: cert-manager.io
+          kind: ClusterIssuer
+          name: letsencrypt-prod

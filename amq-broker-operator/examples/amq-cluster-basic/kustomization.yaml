@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: amq-cluster-basic
+
+resources:
+  - namespace.yaml
+  - operator-group.yaml
+  - ../../operator/overlays/v7.12
+  - ../../instance/overlays/clustered-ephemeral
+
+components:
+  - ../../instance/components/addresses
+  - ../../instance/components/authentication/guest
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: replace
+        path: /spec/console/expose
+        value: true
+
+      - op: add
+        path: /spec/adminUser
+        value: admin
+      - op: add
+        path: /spec/adminPassword
+        value: example

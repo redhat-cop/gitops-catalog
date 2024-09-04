@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      # Keep emptyDir across containers within the pod, for copying driver JAR out of an image
+      - op: add
+        path: /spec/deploymentPlan/extraVolumes/-
+        value:
+          name: jdbc-jars
+          emptyDir:
+            sizeLimit: 1Gi
+
+      # Add environment variable for where to find the driver JAR within the container image
+      - op: add
+        path: /spec/env/-
+        value:
+          name: DB_DRIVER_SOURCE_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: broker-jdbc-driver
+              key: driver-jar-source-path
+
+      # Add the script to copy JDBC driver JAR during pod init
+      - op: add
+        path: /spec/resourceTemplates/0/patch/spec/template/spec/initContainers/-
+        value:
+          name: jdbc-driver-init
+          image: __REPLACE_IMAGE_VALUE__
+          volumeMounts:
+            - name: jdbc-jars
+              mountPath: /opt/jdbc-jars
+          command:
+            - /bin/sh
+          args:
+            - '-c'
+            - |-
+              cp "$DB_DRIVER_SOURCE_PATH"/"$DB_DRIVER_JAR_FILENAME" /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME"

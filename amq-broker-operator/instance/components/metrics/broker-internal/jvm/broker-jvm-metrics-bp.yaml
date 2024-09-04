@@ -1,0 +1,10 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: broker-jvm-metrics-bp
+type: Opaque
+stringData:
+  broker-jvm.broker.properties: |
+    metricsConfiguration.jvmGc=true
+    metricsConfiguration.jvmMemory=true
+    metricsConfiguration.jvmThread=true

@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: replace
+        path: /spec/deploymentPlan/requireLogin
+        value: true
+      - op: add
+        path: /spec/deploymentPlan/extraMounts/secrets/-
+        value: broker-jaas-config
+
+      - op: test
+        path: /spec/deploymentPlan/startupProbe/exec/command/2
+        value: |-
+          /opt/amq/bin/artemis check node --up --url=tcp://"$HOSTNAME":61610
+      - op: replace
+        path: /spec/deploymentPlan/startupProbe/exec/command/2
+        value: >-
+          /opt/amq/bin/artemis check node
+          --up
+          --url=tcp://"$HOSTNAME":61610
+          --user="$AMQ_USER"
+          --password="$AMQ_PASSWORD"

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-address-settings-bp
+type: Opaque
+stringData:
+  address-settings.broker.properties: |
+    addressSettings."EXAMPLE.ADDRESS.#".name=EXAMPLE.ADDRESS.#
+    addressSettings."EXAMPLE.ADDRESS.#".autoCreateAddresses=false
+
+    addressSettings."EXAMPLE.ADDRESS.2".name=EXAMPLE.ADDRESS.2
+    addressSettings."EXAMPLE.ADDRESS.2".autoCreateQueues=false

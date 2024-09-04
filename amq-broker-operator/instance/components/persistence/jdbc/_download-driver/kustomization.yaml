@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  # Create PVC for holding downloaded JARs
+  - broker-jdbc-jars.yaml
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      # Add volume for PVC that holds downloaded JARs
+      - op: add
+        path: /spec/deploymentPlan/extraVolumes/-
+        value:
+          name: jdbc-jars
+          persistentVolumeClaim:
+            claimName: broker-jdbc-jars
+
+      # Add environment variable for driver URL
+      - op: add
+        path: /spec/env/-
+        value:
+          name: DB_DRIVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: broker-jdbc-driver
+              key: driver-url
+
+      # Add initContainer to automatically download JDBC driver if necessary
+      - op: add
+        path: /spec/resourceTemplates/0/patch/spec/template/spec/initContainers/-
+        value:
+          name: jdbc-driver-init
+          image: 'curlimages/curl:8.6.0'
+          volumeMounts:
+            - name: jdbc-jars
+              mountPath: /opt/jdbc-jars
+          command:
+            - /bin/sh
+          args:
+            - '-c'
+            - |-
+              if ! [ -f /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME" ]; then
+                curl "$DB_DRIVER_URL" --output /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME"
+              fi

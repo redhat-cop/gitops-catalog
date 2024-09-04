@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+configMapGenerator:
+  - name: letsencrypt-staging-truststore
+    options:
+      disableNameSuffixHash: true
+    files:
+      - truststore.jks
+    literals:
+      - trustStorePassword=changeit
+      - trustStorePath=/amq/extra/configmaps/letsencrypt-prod-truststore/truststore.jks
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: add
+        path: /spec/deploymentPlan/extraMounts/configMaps/-
+        value: letsencrypt-staging-truststore

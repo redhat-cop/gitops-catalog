@@ -1,0 +1,50 @@
+= ActiveMQ Artemis Persistence Components
+
+For persistence, the following options are available:
+
+== No persistence
+
+No components are necessary, because the base defaults to persistence disabled.
+For explicit disabling, the component `persistence/none` is available.
+
+== File-based persistence
+
+Use the `persistence/file` component to use filesystem based storage
+
+== JDBC-based persistence
+
+The following component options are available to select JDBC persistence
+
+=== Oracle database
+
+#TODO#
+
+=== PostgreSQL database
+
+Use the `persistence/jdbc/postgresql` component, along with customizations for driver JAR download location and database connection URL
+
+.Example Patches for PostgreSQL
+[source,yaml]
+----
+- target:
+    group: ''
+    version: v1
+    kind: ConfigMap
+    name: broker-jdbc-driver
+  patch: |-
+    - op: replace
+      path: /data/driver-url
+      value: 'https://jdbc.postgresql.org/download/postgresql-42.7.3.jar'
+- target:
+    group: ''
+    version: v1
+    kind: Secret
+    name: broker-jdbc-configs-bp
+  patch: |-
+    - op: replace
+      path: /stringData/jdbc-connection-url.broker.properties
+      value: storeConfiguration.jdbcConnectionUrl=jdbc:postgresql://postgresql.broker-database-dev.svc.cluster.local:5432/sampledb?user=user60C&password=test
+----
+
+=== #TODO: Add other database drivers#
+

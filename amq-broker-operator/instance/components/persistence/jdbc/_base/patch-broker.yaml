@@ -1,0 +1,50 @@
+# Ensure persistence is disabled for the operator so it doesn't create any PVCs
+- op: replace
+  path: /spec/deploymentPlan/persistenceEnabled
+  value: false
+
+# But enable persistence at the broker level
+- op: test
+  path: /spec/brokerProperties/1
+  value: |-
+    persistenceEnabled=false
+- op: replace
+  path: /spec/brokerProperties/1
+  value: |-
+    persistenceEnabled=true
+
+# Set default catch-all address setting to PAGE instead of BLOCK
+- op: test
+  path: /spec/addressSettings/addressSetting/0/match
+  value: '#'
+- op: replace
+  path: /spec/addressSettings/addressSetting/0/addressFullPolicy
+  value: PAGE
+
+# Add brokerProperties secrets
+- op: add
+  path: /spec/deploymentPlan/extraMounts/secrets/-
+  value: broker-jdbc-configs-bp
+
+# Add volume mount... volume to be created by other dependent components
+- op: add
+  path: /spec/deploymentPlan/extraVolumeMounts/-
+  value:
+    name: jdbc-jars
+    mountPath: /opt/jdbc-jars
+
+# Add environment variables to tell AMQ Artemis about the JDBC driver jar location
+- op: add
+  path: /spec/env/-
+  value:
+    name: ARTEMIS_EXTRA_LIBS
+    value: /opt/jdbc-jars
+
+- op: add
+  path: /spec/env/-
+  value:
+    name: DB_DRIVER_JAR_FILENAME
+    valueFrom:
+      configMapKeyRef:
+        name: broker-jdbc-driver
+        key: driver-jar-filename

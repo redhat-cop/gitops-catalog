@@ -1,0 +1,12 @@
+= ActiveMQ Artemis Cluster Components
+
+For clusters, the following options are available:
+
+== Leader / Follower
+
+Requires use of one of the JDBC persistence components.
+
+== Clustering-based High Availability
+
+Requires use of one of the clustering components
+

@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - broker-logging-config.yaml
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: add
+        path: /spec/deploymentPlan/extraMounts/secrets/-
+        value: broker-logging-config
+
+      # Without adding a specific /spec/deploymentPlan/extraVolumeMounts entry, the operator defaults to mounting
+      # these volumes at path /opt/<volume-name>/data -- in this case: /opt/broker-logs/data
+      - op: add
+        path: /spec/deploymentPlan/extraVolumeClaimTemplates/-
+        value:
+          metadata:
+            name: broker-logs
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi

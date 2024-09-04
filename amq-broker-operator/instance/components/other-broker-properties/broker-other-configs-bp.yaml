@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-other-configs-bp
+type: Opaque
+stringData:
+  broker.properties: |
+    # This may be replaced by any other broker properties in an overlay

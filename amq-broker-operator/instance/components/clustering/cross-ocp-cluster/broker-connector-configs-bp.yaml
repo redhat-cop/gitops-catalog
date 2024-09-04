@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-connector-configs-bp
+type: Opaque
+stringData:
+  broker-0/broker.properties: |
+    # Configuration specific to broker pod 0
+    connectorConfigurations.cluster-self-ssl.host=default-cluster-ssl-0-svc-rte-target-namespace.apps.left-cluster.example.com
+    connectorConfigurations.cluster-other-ssl.host=default-cluster-ssl-0-svc-rte-target-namespace.apps.right-cluster.example.com
+
+  # The following additional secret keys can be patched in when deploying with a deployment size of more than 1
+  # broker-1/broker.properties: |
+  #   # Configuration specific to broker pod 1
+  #   connectorConfigurations.cluster-self-ssl.host=default-cluster-ssl-1-svc-rte-target-namespace.apps.left-cluster.example.com
+  #   connectorConfigurations.cluster-local-0-ssl.host=default-cluster-ssl-1-svc-rte-target-namespace.apps.left-cluster.example.com
+  #   connectorConfigurations.cluster-other-ssl.host=default-cluster-ssl-0-svc-rte-target-namespace.apps.right-cluster.example.com
+  # broker-2/broker.properties: |
+  #   # Configuration specific to broker pod 2
+  #   connectorConfigurations.cluster-self-ssl.host=default-cluster-ssl-2-svc-rte-target-namespace.apps.left-cluster.example.com
+  #   connectorConfigurations.cluster-local-0-ssl.host=default-cluster-ssl-1-svc-rte-target-namespace.apps.left-cluster.example.com
+  #   connectorConfigurations.cluster-other-ssl.host=default-cluster-ssl-0-svc-rte-target-namespace.apps.right-cluster.example.com
+
+  cluster-connector-configurations.broker.properties: |
+    # Add broker to broker connector configurations
+    connectorConfigurations.cluster-self-ssl.params.verifyHost=true
+    connectorConfigurations.cluster-local-0-ssl.params.verifyHost=true
+    connectorConfigurations.cluster-other-ssl.params.verifyHost=true

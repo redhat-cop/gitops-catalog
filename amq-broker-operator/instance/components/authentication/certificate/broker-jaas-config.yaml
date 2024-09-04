@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-jaas-config
+type: Opaque
+stringData:
+  login.config: |
+    /*
+    * Licensed to the Apache Software Foundation (ASF) under one or more
+    * contributor license agreements.  See the NOTICE file distributed with
+    * this work for additional information regarding copyright ownership.
+    * The ASF licenses this file to You under the Apache License, Version 2.0
+    * (the "License"); you may not use this file except in compliance with
+    * the License.  You may obtain a copy of the License at
+    *
+    * http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Unless required by applicable law or agreed to in writing, software
+    * distributed under the License is distributed on an "AS IS" BASIS,
+    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    * See the License for the specific language governing permissions and
+    * limitations under the License.
+    */
+
+    activemq {
+      /*
+       * Allow users to authenticate using certificate that matches DN from secret key users-dn.properties
+       */
+      org.apache.activemq.artemis.spi.core.security.jaas.PropertiesLoginModule sufficient
+        debug=true
+        reload=true
+        org.apache.activemq.jaas.textfiledn.user="users-dn.properties"
+        org.apache.activemq.jaas.textfiledn.role="roles.properties"
+      ;
+
+      /*
+       * Include operator-defined users and roles so that the operator may manage the broker and drain messages
+       */
+      org.apache.activemq.artemis.spi.core.security.jaas.PropertiesLoginModule sufficient
+        reload=false
+        org.apache.activemq.jaas.properties.user="artemis-users.properties"
+        org.apache.activemq.jaas.properties.role="artemis-roles.properties"
+        baseDir="/home/jboss/amq-broker/etc"
+      ;
+    };
+  users-dn.properties: |
+    ## This should be replaced in a kustomize overlay with actual user DNs
+    ruben=CN=ruben,O=Example,C=US
+    anne=CN=anne,O=Example,C=US
+    rick=CN=rick,O=Example,C=US
+
+    ## User DNs can be made case insensitive using regexp, but there may be performance implications
+    bob=/(?i)CN=Bob,O=example,C=us/
+  roles.properties: |
+    ## This secret key should be replaced in a kustomize overlay with intended user groups
+    admin=ruben, rick
+    group1=bob
+    group2=anne

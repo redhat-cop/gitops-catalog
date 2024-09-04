@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: broker-addresses-bp
+type: Opaque
+stringData:
+  addresses.broker.properties: |
+    addressConfigurations."EXAMPLE.ADDRESS.1".name=EXAMPLE.ADDRESS.1
+    addressConfigurations."EXAMPLE.ADDRESS.1".routingTypes=MULTICAST
+    addressConfigurations."EXAMPLE.ADDRESS.1".queueConfigs."MULTICAST.QUEUE".name=MULTICAST.QUEUE
+    addressConfigurations."EXAMPLE.ADDRESS.1".queueConfigs."MULTICAST.QUEUE".address=EXAMPLE.ADDRESS.1
+    addressConfigurations."EXAMPLE.ADDRESS.1".queueConfigs."MULTICAST.QUEUE".routingType=MULTICAST
+
+    addressConfigurations."EXAMPLE.ADDRESS.2".name=EXAMPLE.ADDRESS.2
+    addressConfigurations."EXAMPLE.ADDRESS.2".routingTypes=ANYCAST
+    addressConfigurations."EXAMPLE.ADDRESS.2".queueConfigs."EXAMPLE.QUEUE".name=EXAMPLE.QUEUE
+    addressConfigurations."EXAMPLE.ADDRESS.2".queueConfigs."EXAMPLE.QUEUE".address=EXAMPLE.ADDRESS.2
+    addressConfigurations."EXAMPLE.ADDRESS.2".queueConfigs."EXAMPLE.QUEUE".routingType=ANYCAST

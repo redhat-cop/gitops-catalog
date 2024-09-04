@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+replacements:
+  - source:
+      group: ''
+      version: v1
+      kind: ConfigMap
+      name: letsencrypt-staging-truststore
+      fieldPath: data.trustStorePassword
+    targets:
+      - select:
+          group: ''
+          version: v1
+          kind: Secret
+          name: console-ssl-keystore
+        fieldPaths:
+          - stringData.trustStorePassword
+  - source:
+      group: ''
+      version: v1
+      kind: ConfigMap
+      name: letsencrypt-staging-truststore
+      fieldPath: data.trustStorePath
+    targets:
+      - select:
+          group: ''
+          version: v1
+          kind: Secret
+          name: console-ssl-keystore
+        fieldPaths:
+          - stringData.trustStorePath

@@ -1,0 +1,95 @@
+- op: add
+  path: /spec/deploymentPlan/extraVolumes/-
+  value:
+    name: built-keystore
+    emptyDir:
+      sizeLimit: 100Mi
+
+# The extraVolumeMounts here is optional, but is included to explicitly set readOnly to true
+- op: add
+  path: /spec/deploymentPlan/extraVolumeMounts/-
+  value:
+    name: built-keystore
+    mountPath: /amq/extra/volumes/built-keystore
+    readOnly: true
+
+- op: add
+  path: /spec/resourceTemplates/0/patch/spec/template/spec/volumes/-
+  value:
+    name: keystore-build-input
+    secret:
+      secretName: keystore-inputs
+      defaultMode: 0400
+
+- op: add
+  path: /spec/resourceTemplates/0/patch/spec/template/spec/initContainers/-
+  value:
+    name: build-keystore
+    image: 'image-registry.openshift-image-registry.svc:5000/openshift/java-runtime:latest'
+    imagePullPolicy: Always
+    resources:
+      requests:
+        cpu: 250m
+        memory: 250Mi
+      limits:
+        memory: 250Mi
+    volumeMounts:
+      - name: keystore-build-input
+        mountPath: /amq/extra/volumes/keystore-build-input
+        readOnly: true
+      - name: built-keystore
+        mountPath: /amq/extra/volumes/built-keystore
+    env:
+      - name: INGRESS_DOMAIN
+        value: apps.cluster.example.com
+
+      - name: SUBJECT_ALTERNATE_NAME
+        value: 'dns:${BROKER_NAME}-ssl-${POD_ORDINAL}-svc-rte-${NAMESPACE}.${INGRESS_DOMAIN},dns:${BROKER_NAME}-wconsj-${POD_ORDINAL}-svc-rte-${NAMESPACE}.${INGRESS_DOMAIN}'
+
+      - name: KEYSTORE_OUTPUT_FILE
+        value: /amq/extra/volumes/built-keystore/keystore.jks
+      - name: KEYSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: keystore-inputs
+            key: keyStorePassword
+
+      - name: TRUSTSTORE_OUTPUT_FILE
+        value: /amq/extra/volumes/built-keystore/truststore.jks
+      - name: TRUSTSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: keystore-inputs
+            key: trustStorePassword
+    command:
+      - /bin/bash
+      - '-e'
+      - '-c'
+    args:
+      - |-
+
+        NAMESPACE="$(< /var/run/secrets/kubernetes.io/serviceaccount/namespace)"
+        BROKER_NAME="${HOSTNAME%%-ss-*}"
+        POD_ORDINAL="${HOSTNAME##${BROKER_NAME}-ss-}"
+
+        SUBJECT_ALTERNATE_NAME="$(eval echo "$SUBJECT_ALTERNATE_NAME")"
+
+        echo Constructued SAN:
+        echo "  $SUBJECT_ALTERNATE_NAME"
+        echo ""
+
+        keytool -genkey -keyalg "RSA" -keysize 2048 \
+          -storetype jks -keystore "$KEYSTORE_OUTPUT_FILE" -storepass "$KEYSTORE_PASSWORD" \
+          -keypass "$KEYSTORE_PASSWORD" \
+          -alias server -dname "CN=AMQ Server #$POD_ORDINAL, OU=Artemis, O=ActiveMQ, L=AMQ, S=AMQ, C=AMQ" \
+          -validity 365 -ext bc=ca:false -ext eku=sA \
+          -ext san="$SUBJECT_ALTERNATE_NAME"
+
+        keytool -exportcert \
+          -storetype jks -keystore "$KEYSTORE_OUTPUT_FILE" -storepass "$KEYSTORE_PASSWORD" \
+          -keypass "$KEYSTORE_PASSWORD" \
+          -alias server -rfc > server.crt
+
+        keytool -importcert \
+          -storetype jks -keystore "$TRUSTSTORE_OUTPUT_FILE" -storepass "$TRUSTSTORE_PASSWORD" \
+          -alias server -file server.crt -noprompt

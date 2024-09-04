@@ -1,0 +1,52 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: amq-cluster-ssl
+
+resources:
+  - namespace.yaml
+  - operator-group.yaml
+  - ../../operator/overlays/v7.12
+  - ../../instance/overlays/clustered-ephemeral-tls-init-container
+
+components:
+  - ../../instance/components/addresses
+  - ../../instance/components/authentication/guest
+  - ../../instance/components/logging/claim-template
+  - ../../instance/components/metrics/address-metrics
+  - ../../instance/components/metrics/broker-internal/jvm
+  - ../../instance/components/metrics/broker-external/prometheus
+
+patches:
+  - target:
+      group: broker.amq.io
+      version: v1beta1
+      kind: ActiveMQArtemis
+      name: default
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: amq-cluster-ssl
+
+      - op: replace
+        path: /spec/console/expose
+        value: true
+
+      - op: add
+        path: /spec/adminUser
+        value: admin
+      - op: add
+        path: /spec/adminPassword
+        value: example
+  - target:
+      group: monitoring.coreos.com
+      version: v1
+      kind: ServiceMonitor
+      name: default
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: amq-cluster-ssl-prometheus-sm
+      - op: replace
+        path: /spec/selector/matchLabels/application
+        value: amq-cluster-ssl-app

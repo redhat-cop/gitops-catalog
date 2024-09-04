@@ -1,0 +1,10 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: activemq-artemis-controller-manager
+spec:
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+  podMetricsEndpoints:
+    - port: http-metrics
