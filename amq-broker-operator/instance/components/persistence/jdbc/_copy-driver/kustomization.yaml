@@ -41,4 +41,3 @@ patches:
             - '-c'
             - |-
               cp "$DB_DRIVER_SOURCE_PATH"/"$DB_DRIVER_JAR_FILENAME" /opt/jdbc-jars/"$DB_DRIVER_JAR_FILENAME"
-

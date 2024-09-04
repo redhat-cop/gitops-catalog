@@ -30,4 +30,3 @@ patches:
       - op: add
         path: /spec/adminPassword
         value: example
-

@@ -94,7 +94,7 @@ spec:
 
         deadLetterAddress: DLQ
         deadLetterQueuePrefix: DLQ.
-        #deadLetterQueueSuffix:
+        # deadLetterQueueSuffix:
 
         sendToDlaOnNoRoute: false
         maxDeliveryAttempts: 10
@@ -104,7 +104,7 @@ spec:
 
         expiryAddress: ExpiryQueue
         expiryQueuePrefix: EXP.
-        #expiryQueueSuffix:
+        # expiryQueueSuffix:
         expiryDelay: -1
         minExpiryDelay: -1
         maxExpiryDelay: -1

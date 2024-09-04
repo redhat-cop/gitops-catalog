@@ -20,4 +20,3 @@ patches:
       - op: replace
         path: /spec/console/expose
         value: false
-
