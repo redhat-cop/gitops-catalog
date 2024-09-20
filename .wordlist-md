@@ -9,9 +9,11 @@ Alertmanager
 AmazonS
 AmazonSageMakerFullAccess
 Ansible
+Apicurio
 ArgoCD
 ArgoCD's
 Authorino
+AutoCreateUserSchema
 Bitnami
 CICD
 CRD
@@ -95,6 +97,7 @@ SDKs
 SNO
 SSO
 Sagemaker
+Schemas
 SecretManager
 SecureCluster
 ServiceMesh
@@ -226,6 +229,7 @@ operatorGroups
 patchesJson
 performant
 postgres
+postgresql
 pre
 prem
 prometheus
@@ -241,6 +245,7 @@ runtime
 sagemaker
 sandboxed
 scalable
+schemas
 secretGenerator
 seldon
 selectable
