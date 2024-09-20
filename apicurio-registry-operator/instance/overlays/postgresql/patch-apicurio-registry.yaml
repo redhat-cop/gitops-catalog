@@ -1,0 +1,11 @@
+- op: replace
+  path: /spec/configuration/persistence
+  value: sql
+
+- op: add
+  path: /spec/configuration/sql
+  value:
+    dataSource:
+      url: jdbc:postgresql://apicurio-registry-db-primary:5432/registry
+      userName: registry-user
+      password: registry-password

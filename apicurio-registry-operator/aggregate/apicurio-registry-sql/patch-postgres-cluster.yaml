@@ -1,0 +1,21 @@
+# Validate expectations before making changes
+- op: test
+  path: /metadata/name
+  value: default
+- op: test
+  path: /spec/users/0/name
+  value: dbuser
+- op: test
+  path: /spec/users/0/databases/0
+  value: db
+
+# Update postgrescluster for use by Apicurio Registry
+- op: replace
+  path: /metadata/name
+  value: apicurio-registry-db
+- op: replace
+  path: /spec/users/0/name
+  value: apicurio
+- op: replace
+  path: /spec/users/0/databases/0
+  value: registry

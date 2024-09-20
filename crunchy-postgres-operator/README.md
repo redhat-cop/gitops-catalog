@@ -30,3 +30,7 @@ kind: Kustomization
 resources:
   - https://github.com/redhat-cop/gitops-catalog/crunchy-postgres-operator/operator/overlays/<channel>?ref=main
 ```
+
+## Deploying Databases
+
+If you would like to deploy a database, you can try one of the sample databases in the `instance/overlays` directory.

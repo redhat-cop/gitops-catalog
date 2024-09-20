@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  # Secret name takes the form of <PostgresCluster name>-pguser-<username>
+  name: default-pguser-dbuser
+  labels:
+    postgres-operator.crunchydata.com/cluster: default
+    postgres-operator.crunchydata.com/pguser: dbuser
+type: Opaque
+stringData:
+  password: "pre-set-password"
+  # Empty string verifier signals to Crunchy Postgres Operator that the password key is not pre-hashed
+  verifier: ""

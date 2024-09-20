@@ -1,0 +1,19 @@
+apiVersion: registry.apicur.io/v1
+kind: ApicurioRegistry
+metadata:
+  name: default
+spec:
+  deployment:
+    host: apicurio-registry
+    managedResources:
+      disableIngress: true
+  configuration:
+    persistence: sql
+    security: { }
+    # Too many bugs with Apicurio Registry handling SSL itself right now, so just disable Ingress and do it manually
+    # See https://issues.redhat.com/browse/IPT-1159
+    # Then the above issue is worked around, the pathing/redirects are then broken, so Apicurio Registry still isn't
+    # usable. When it's all fixed, maybe re-enable the following:
+    # https:
+    #   disableHttp: true
+    #   secretName: apicurio-registry-cert

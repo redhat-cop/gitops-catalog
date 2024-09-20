@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: crunchy-postgres-operator
+  annotations:
+    openshift.io/display-name: Crunchy Postgres Operator
+    openshift.io/description: >-
+      A project to host the Crunchy Postgres Operator so that it may be managed and upgraded separately from other
+      operators.
+  labels:
+    openshift.io/cluster-monitoring: 'true'
