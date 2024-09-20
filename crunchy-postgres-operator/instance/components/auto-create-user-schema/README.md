@@ -7,5 +7,5 @@ permissions to create tables, which is no longer the case with the new permissio
 is changed to "$user","public" -- this means that a schema with the username will be searched before the public schema.
 By asking the operator to auto-create user schemas, applications may again operate without explicitly changing schema.
 
-The "AutoCreateUserSchemas" feature flag must be enabled on the operator for this component to take effect on deployed
+The "AutoCreateUserSchema" feature flag must be enabled on the operator for this component to take effect on deployed
 databases.
