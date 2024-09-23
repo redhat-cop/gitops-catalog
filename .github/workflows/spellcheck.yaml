@@ -14,4 +14,4 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Spellcheck
-        uses: rojopolis/spellcheck-github-actions@a0fba0ca8b9e552d4241ea5ccfaa4ca4162622d0 # 0.41.0
+        uses: rojopolis/spellcheck-github-actions@b83ca7c1b5c285e4f2b43e209a455c74872ec341 # 0.42.0
