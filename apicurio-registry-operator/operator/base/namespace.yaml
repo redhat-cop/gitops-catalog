@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apicurio-registry-operator
+  annotations:
+    openshift.io/display-name: Red Hat build of Apicurio Registry Operator
+  labels:
+    openshift.io/cluster-monitoring: 'true'

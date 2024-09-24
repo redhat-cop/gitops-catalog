@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apicurio-registry
+  annotations:
+    route.openshift.io/termination: edge
+spec:
+  ingressClassName: openshift-default
+  tls:
+    - secretName: apicurio-registry-cert
+      hosts:
+        - apicurio-registry.apps.cluster.example.com
+  rules:
+    - host: apicurio-registry.apps.cluster.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: default-service
+                port:
+                  name: http

@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+patches:
+  - target:
+      group: postgres-operator.crunchydata.com
+      version: v1beta1
+      kind: PostgresCluster
+      name: default
+    path: patch-auto-create-user-schema-annotation.yaml

@@ -1,0 +1,57 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../crunchy-postgres-operator/operator/overlays/v5
+  - ../../../crunchy-postgres-operator/instance/overlays/predefined-user-pass-and-db
+  - ../../operator/overlays/2.x
+  - ../../instance/overlays/postgresql
+
+components:
+  - ../../../crunchy-postgres-operator/operator/components/separate-namespace
+  - ../../../crunchy-postgres-operator/operator/components/feature-gates
+  - ../../../crunchy-postgres-operator/instance/components/auto-create-user-schema
+
+patches:
+  - target:
+      group: postgres-operator.crunchydata.com
+      version: v1beta1
+      kind: PostgresCluster
+      name: default
+    path: patch-postgres-cluster.yaml
+  - target:
+      group: ''
+      version: v1
+      kind: Secret
+      name: default-pguser-dbuser
+    path: patch-dbuser-credentials.yaml
+
+replacements:
+  - source:
+      group: ''
+      version: v1
+      kind: Secret
+      name: apicurio-registry-db-pguser-apicurio
+      fieldPath: metadata.labels.postgres-operator\.crunchydata\.com/pguser
+    targets:
+      - select:
+          group: registry.apicur.io
+          version: v1
+          kind: ApicurioRegistry
+          name: default
+        fieldPaths:
+          - spec.configuration.sql.dataSource.userName
+  - source:
+      group: ''
+      version: v1
+      kind: Secret
+      name: apicurio-registry-db-pguser-apicurio
+      fieldPath: stringData.password
+    targets:
+      - select:
+          group: registry.apicur.io
+          version: v1
+          kind: ApicurioRegistry
+          name: default
+        fieldPaths:
+          - spec.configuration.sql.dataSource.password
