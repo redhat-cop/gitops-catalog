@@ -5,4 +5,4 @@ resources:
   - subscription.yaml
 
 components:
-  - ../components/enable-console-plugin
+
