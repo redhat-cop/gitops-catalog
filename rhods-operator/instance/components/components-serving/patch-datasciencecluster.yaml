@@ -1,11 +1,12 @@
 kind: DataScienceCluster
 apiVersion: datasciencecluster.opendatahub.io/v1
 metadata:
-  name: default
+  name: default-dsc
 spec:
   components:
     kserve:
       managementState: Managed
+      defaultDeploymentMode: Serverless
       serving:
         ingressGateway:
           certificate:

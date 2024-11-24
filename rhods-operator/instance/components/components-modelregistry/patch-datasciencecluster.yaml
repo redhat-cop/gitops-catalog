@@ -4,7 +4,6 @@ metadata:
   name: default-dsc
 spec:
   components:
-    datasciencepipelines:
+    modelregistry:
       managementState: Managed
-    workbenches:
-      managementState: Managed
+      registriesNamespace: rhoai-model-registries

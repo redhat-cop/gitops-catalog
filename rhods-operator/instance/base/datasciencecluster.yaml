@@ -1,7 +1,7 @@
 kind: DataScienceCluster
 apiVersion: datasciencecluster.opendatahub.io/v1
 metadata:
-  name: default
+  name: default-dsc
 spec:
   components:
     codeflare:

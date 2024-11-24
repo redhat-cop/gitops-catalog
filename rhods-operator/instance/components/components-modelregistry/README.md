@@ -1,13 +1,7 @@
 # components-distributed-compute
 
 ## Purpose
-This component is designed help configure the distributed compute specific components including the following items:
-
-CodeFlare
-Ray
-Kueue
-
-The Distributed Compute Components are Generally Available as of RHOAI 2.9.
+This component is designed help index and manage models, versions, and artifacts metadata
 
 ## Usage
 
@@ -21,5 +15,5 @@ resources:
   - ../../base
 
 components:
-  - ../../components/components-distributed-compute
+  - ../../components/components-modelregistry
 ```

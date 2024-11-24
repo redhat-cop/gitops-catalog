@@ -4,7 +4,5 @@ metadata:
   name: default-dsc
 spec:
   components:
-    datasciencepipelines:
-      managementState: Managed
-    workbenches:
+    trustyai:
       managementState: Managed

@@ -12,11 +12,13 @@ Finally, thanks to the operator-driven deployment and updates, the administrativ
 
 ### Components
 * Dashboard
-* Curated Workbench Images (incl CUDA, PyTorch, Tensorflow, code-server)
+* Curated Workbench Images (including CUDA, PyTorch, TensorFlow, code-server, TrustyAI)
 * Ability to add Custom Images
 * Ability to leverage accelerators (such as NVIDIA GPU)
 * Data Science Pipelines (including Elyra notebook interface)
 * Model Serving using ModelMesh and Kserve.
 * Ability to use other runtimes for serving
 * Model Monitoring
-* Distributed workloads (KubeRay, CodeFlare, Kueue)
+* Distributed workloads (KubeRay, CodeFlare, Kueue, Training Operator)
+* XAI explanations of predictive models (TrustyAI)
+* Index and manage models, versions, and artifacts metadata (Model Registry)
