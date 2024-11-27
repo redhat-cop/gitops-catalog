@@ -1,4 +1,4 @@
-# components-distributed-compute
+# components-modelregistry
 
 ## Purpose
 This component is designed help index and manage models, versions, and artifacts metadata

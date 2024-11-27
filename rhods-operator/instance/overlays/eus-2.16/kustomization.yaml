@@ -18,10 +18,8 @@ components:
   - ../../components/rhoai-dashboard-access
   - ../../components/auth-with-authorino
 
-
-
 patches:
   - target:
       kind: DataScienceCluster
-      name: default-dsc
+      name: default
     path: patch-cert.yaml

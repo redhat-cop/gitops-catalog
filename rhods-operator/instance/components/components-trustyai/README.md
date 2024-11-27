@@ -1,4 +1,4 @@
-# components-distributed-compute
+# components-trustyai
 
 ## Purpose
 This component is designed help XAI explanations of predictive models.
