@@ -1,10 +1,7 @@
-# components-training
+# components-modelregistry
 
 ## Purpose
-This component is designed help configure the training specific components including the following items:
-
-DataSciencePipelines
-Workbenches
+This component is designed help index and manage models, versions, and artifacts metadata
 
 ## Usage
 
@@ -18,5 +15,5 @@ resources:
   - ../../base
 
 components:
-  - ../../components/components-training
+  - ../../components/components-modelregistry
 ```

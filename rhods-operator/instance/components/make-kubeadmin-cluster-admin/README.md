@@ -17,7 +17,5 @@ resources:
   - ../../base
 
 components:
-  - ../../components/idle-notebook-culling
+  - ../../components/rolebinding.yaml
 ```
-
-You can customize the time notebooks can remain running while inactive by updating the [culler-config.yaml](./culler-config.yaml) file.

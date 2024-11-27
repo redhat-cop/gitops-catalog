@@ -1,4 +1,4 @@
-# components-distributed-compute
+# components-auth-with-authorino
 
 ## Purpose
 This component is designed help configure the the authentication endpoint for RHOAI with KServe using Authorino with ServiceMesh

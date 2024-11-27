@@ -5,6 +5,7 @@ This component is designed help configure the distributed compute specific compo
 
 CodeFlare
 Ray
+Kueue
 
 The Distributed Compute Components are Generally Available as of RHOAI 2.9.
 

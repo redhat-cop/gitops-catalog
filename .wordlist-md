@@ -59,6 +59,7 @@ KieApp
 Koku
 KokuMetricsConfig
 Kubernetes
+Kueue
 Kyverno
 LDAP
 LVM
@@ -116,9 +117,11 @@ Tekton
 TempoMonolithic
 TempoStack
 Thanos
+TrustyAI
 UI
 VolSync
 Workspaces
+XAI
 Zipkin
 ack
 acm
@@ -206,6 +209,7 @@ linux
 machineset
 microservices
 mig
+modelregistry
 namespace
 namespaced
 namespaces
@@ -241,6 +245,7 @@ rh
 rhel
 rhoai
 rhpds
+rolebinding
 runtime
 sagemaker
 sandboxed
@@ -261,6 +266,7 @@ thanos
 traefik
 triton
 truly
+trustyai
 vSphere
 vscode
 vsphere

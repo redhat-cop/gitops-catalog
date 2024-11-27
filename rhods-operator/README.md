@@ -10,9 +10,12 @@ The current *overlays* available are for the following channels:
 * [beta](operator/overlays/beta)
 * [embedded](operator/overlays/embedded)
 * [eus-2.8](operator/overlays/eus-2.8)
+* [eus-2.16](operator/overlays/eus-2.16)
 * [fast](operator/overlays/fast)
 * [stable](operator/overlays/stable)
 * [stable-2.8](operator/overlays/stable-2.8)
+* [stable-2.13](operator/overlays/stable-2.13)
+* [stable-2.16](operator/overlays/stable-2.16)
 
 ## Usage
 

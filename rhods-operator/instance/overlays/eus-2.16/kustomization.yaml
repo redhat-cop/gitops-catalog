@@ -1,19 +1,25 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: redhat-ods-applications
+
 resources:
   - ../../base
 
 components:
-  - ../../components/auth-with-authorino
-  - ../../components/components-distributed-compute
   - ../../components/components-serving
   - ../../components/components-training
   - ../../components/components-trustyai
   - ../../components/default-notebook-pvc-size
   - ../../components/idle-notebook-culling
   - ../../components/notebook-pod-sizes
-  - ../../components/nvidia-gpu-accelerator-profile
   - ../../components/make-kubeadmin-cluster-admin
   - ../../components/model-server-pod-sizes
   - ../../components/rhoai-dashboard-access
+  - ../../components/auth-with-authorino
+
+patches:
+  - target:
+      kind: DataScienceCluster
+      name: default
+    path: patch-cert.yaml

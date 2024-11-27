@@ -1,0 +1,8 @@
+kind: DataScienceCluster
+apiVersion: datasciencecluster.opendatahub.io/v1
+metadata:
+  name: default
+spec:
+  components:
+    trustyai:
+      managementState: Managed

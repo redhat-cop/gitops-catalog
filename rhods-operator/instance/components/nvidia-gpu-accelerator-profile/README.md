@@ -19,5 +19,3 @@ resources:
 components:
   - ../../components/nvidia-gpu-accelerator-profile
 ```
-
-You can customize the pod sizes by updating the [patch-rhoai-dashboard.yaml](./patch-rhoai-dashboard.yaml) file.
