@@ -6,11 +6,10 @@ spec:
   components:
     kserve:
       managementState: Managed
-      defaultDeploymentMode: Serverless
       serving:
         ingressGateway:
           certificate:
-            type: OpenShiftDefaultIngress
+            type: SelfSigned
         managementState: Managed
         name: knative-serving
     modelmeshserving:
