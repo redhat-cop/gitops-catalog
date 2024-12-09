@@ -5,6 +5,6 @@ resources:
   - ../../base
 
 components:
-  - ../../components/components-serving
+  - ../../components/components-serving-self-signed
   - ../../components/model-server-pod-sizes
   - ../../components/rhoai-dashboard-access

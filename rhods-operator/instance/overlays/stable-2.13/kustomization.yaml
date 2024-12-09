@@ -7,7 +7,7 @@ resources:
   - ../../base
 
 components:
-  - ../../components/components-serving-self-signed
+  - ../../components/components-serving
   - ../../components/components-training
   - ../../components/default-notebook-pvc-size
   - ../../components/idle-notebook-culling
