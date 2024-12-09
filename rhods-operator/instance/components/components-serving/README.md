@@ -20,3 +20,5 @@ resources:
 components:
   - ../../components/components-serving
 ```
+
+You can customize the PVC size by updating the [patch-rhoai-dashboard.yaml](./patch-rhoai-dashboard.yaml) file.

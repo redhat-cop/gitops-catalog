@@ -1,10 +1,8 @@
-# components-training
+# components-trustyai
 
 ## Purpose
-This component is designed help configure the training specific components including the following items:
-
-DataSciencePipelines
-Workbenches
+This component is designed help XAI explanations of predictive models.
+The TrustyAI Components are Generally Available as of RHOAI 2.15.
 
 ## Usage
 
@@ -18,5 +16,5 @@ resources:
   - ../../base
 
 components:
-  - ../../components/components-training
+  - ../../components/components-trustyai
 ```
