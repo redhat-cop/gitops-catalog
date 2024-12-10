@@ -1,4 +1,4 @@
-# rhods-operator
+# openshift-ai
 
 Red Hat OpenShift AI is a complete platform for the entire lifecycle of your AI/ML projects.
 
