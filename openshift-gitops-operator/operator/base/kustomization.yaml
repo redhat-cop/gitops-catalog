@@ -3,6 +3,3 @@ kind: Kustomization
 
 resources:
   - subscription.yaml
-
-components:
-
