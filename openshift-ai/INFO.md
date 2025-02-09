@@ -1,4 +1,4 @@
-# rhods-operator
+# openshift-ai
 
 Red Hat OpenShift AI is a complete platform for the entire lifecycle of your AI/ML projects.
 
@@ -16,7 +16,7 @@ Finally, thanks to the operator-driven deployment and updates, the administrativ
 * Ability to add Custom Images
 * Ability to leverage accelerators (such as NVIDIA GPU)
 * Data Science Pipelines (including Elyra notebook interface)
-* Model Serving using ModelMesh and Kserve.
+* Model Serving using ModelMesh and KServe.
 * Ability to use other runtimes for serving
 * Model Monitoring
 * Distributed workloads (KubeRay, CodeFlare, Kueue, Training Operator)
