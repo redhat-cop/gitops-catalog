@@ -17,5 +17,5 @@ resources:
   - ../../base
 
 components:
-  - ../../components/rolebinding.yaml
+  - ../../components/make-kubeadmin-cluster-admin
 ```
