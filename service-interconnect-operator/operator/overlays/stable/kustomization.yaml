@@ -10,7 +10,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/channel
-        value: 'alpha'
+        value: 'stable'
     target:
       kind: Subscription
       name: skupper-operator
