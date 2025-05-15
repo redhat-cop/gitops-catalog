@@ -4,9 +4,6 @@ kind: Kustomization
 resources:
   - ../../base
 
-components:
-  - ../../components/openshift-vertical-pod-autoscaler
-
 patches:
   - target:
       kind: Subscription
