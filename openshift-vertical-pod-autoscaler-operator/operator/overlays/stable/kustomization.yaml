@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+components:
+  - ../../components/openshift-vertical-pod-autoscaler
+
+patches:
+  - target:
+      kind: Subscription
+      name: vertical-pod-autoscaler
+    path: patch-subscription.yaml
