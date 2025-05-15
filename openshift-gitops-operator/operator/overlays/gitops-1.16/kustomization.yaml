@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+components:
+  - ../../components/openshift-gitops-operator
+
+patches:
+  - target:
+      kind: Subscription
+      name: openshift-gitops-operator
+    path: patch-subscription.yaml
