@@ -5,7 +5,8 @@ Installs the Authorino operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [managed-services](overlays/managed-services)
+* [stable](overlays/stable)
+* [tech-preview-v1](overlays/tech-preview-v1)
 
 ## Usage
 
