@@ -260,6 +260,7 @@ serverless
 serviceaccount
 servicemesh
 sfdc
+spiffe
 strimzi
 sublicense
 tekton

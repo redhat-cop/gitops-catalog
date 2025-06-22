@@ -1,0 +1,6 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: SpiffeCSIDriver
+metadata:
+  name: cluster
+spec:
+  agentSocketPath: /run/spire/agent-sockets/spire-agent.sock

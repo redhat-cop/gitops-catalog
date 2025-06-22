@@ -1,0 +1,21 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: SpireServer
+metadata:
+  name: cluster
+spec:
+  trustDomain: apps.example.openshift.io
+  clusterName: cluster
+  caSubject:
+    commonName: redhat.com
+    country: US
+    organization: Red Hat
+  persistence:
+    size: 5Gi
+    accessMode: ReadWriteOnce
+    type: pvc
+  datastore:
+    databaseType: sqlite3
+    connectionString: /run/spire/data/datastore.sqlite3
+    maxOpenConns: 100
+    maxIdleConns: 2
+    connMaxLifetime: 3600

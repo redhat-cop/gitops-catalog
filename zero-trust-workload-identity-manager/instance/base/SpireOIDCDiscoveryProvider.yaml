@@ -1,0 +1,7 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: SpireOIDCDiscoveryProvider
+metadata:
+  name: cluster
+spec:
+  trustDomain: apps.example.openshift.io
+  agentSocketName: spire-agent.sock

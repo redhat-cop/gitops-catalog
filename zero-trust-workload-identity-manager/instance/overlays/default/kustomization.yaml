@@ -1,0 +1,37 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: SpireOIDCDiscoveryProvider
+      group: operator.openshift.io
+      version: v1alpha1
+    patch: |-
+      - op: replace
+        path: /spec/trustDomain
+        value: 'apps.example.openshift.io'
+  - target:
+      kind: SpireAgent
+      group: operator.openshift.io
+      version: v1alpha1
+    patch: |-
+      - op: replace
+        path: /spec/trustDomain
+        value: 'apps.example.openshift.io'
+      - op: replace
+        path: /spec/clusterName
+        value: 'cluster'
+  - target:
+      kind: SpireServer
+      group: operator.openshift.io
+      version: v1alpha1
+    patch: |-
+      - op: replace
+        path: /spec/trustDomain
+        value: 'apps.example.openshift.io'
+      - op: replace
+        path: /spec/clusterName
+        value: 'cluster'
