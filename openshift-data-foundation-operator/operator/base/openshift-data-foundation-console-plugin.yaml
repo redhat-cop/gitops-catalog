@@ -10,3 +10,4 @@ spec:
       name: odf-console-service
       namespace: openshift-storage
       port: 9001
+    type: Service
