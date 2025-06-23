@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: "Zero Trust Workload Identity Manager"
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+  name: zero-trust-workload-identity-manager

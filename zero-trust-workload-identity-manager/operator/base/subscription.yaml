@@ -1,0 +1,11 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: openshift-zero-trust-workload-identity-manager
+  namespace: zero-trust-workload-identity-manager
+spec:
+  channel: patch-me-see-overlays-dir
+  installPlanApproval: Automatic
+  name: openshift-zero-trust-workload-identity-manager
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
