@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: "MetalLB Operator"
+  labels:
+    openshift.io/cluster-monitoring: 'true'
+  name: metallb-system

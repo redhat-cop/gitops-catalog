@@ -1,0 +1,5 @@
+kind: MetalLB
+apiVersion: metallb.io/v1beta1
+metadata:
+  name: metallb
+spec: {}
