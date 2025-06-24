@@ -69,6 +69,7 @@ Logstash
 MTA
 MachineConfig
 MachineSet
+MetalLB
 Minio
 ModelMesh
 MultiClusterHub
@@ -209,6 +210,7 @@ libvirt
 lifecycle
 linux
 machineset
+metallb
 microservices
 mig
 modelregistry
