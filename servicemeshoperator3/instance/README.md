@@ -6,7 +6,7 @@ A cluster wide control plane is deployed in the `istio-system` namespace and the
 
 Namespaces with the `istio-discovery: enabled` label will be part of the cluster wide mesh.
 
-This deployment will require modification if migrating from Service Mesh 2 to 3. For information on migrating from Service Mesh 2 to 3, see this [documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_service_mesh/3.0/html/migrating_from_service_mesh_2_to_service_mesh_3)
+This deployment will require modification if migrating from Service Mesh 2 to 3. For information on migrating from Service Mesh 2 to 3, see this [documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_service_mesh/3.0/html/migrating_from_service_mesh_2_to_service_mesh_3).
 
 The `InPlace` upgrade strategy is used for Istio in this deployment.
 
@@ -24,7 +24,7 @@ The current *overlays* available are:
 * [v1.24-latest](overlays/v1.24-latest)
 * [v1.24.5](overlays/v1.24.5)
 * [v1.24.4](overlays/v1.24.4)
-* [v1.24.4](overlays/v1.24.3)
+* [v1.24.3](overlays/v1.24.3)
 
 ## Usage
 
