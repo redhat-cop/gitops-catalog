@@ -19,20 +19,20 @@ spec:
     - action: replace
       regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
       replacement: '[$2]:$1'
-      sourceLabels: ["__meta_kubernetes_pod_annotation_prometheus_io_port","__meta_kubernetes_pod_ip"]
+      sourceLabels: ["__meta_kubernetes_pod_annotation_prometheus_io_port", "__meta_kubernetes_pod_ip"]
       targetLabel: "__address__"
     - action: replace
       regex: (\d+);((([0-9]+?)(\.|$)){4})
       replacement: '$2:$1'
-      sourceLabels: ["__meta_kubernetes_pod_annotation_prometheus_io_port","__meta_kubernetes_pod_ip"]
+      sourceLabels: ["__meta_kubernetes_pod_annotation_prometheus_io_port", "__meta_kubernetes_pod_ip"]
       targetLabel: "__address__"
-    - sourceLabels: ["__meta_kubernetes_pod_label_app_kubernetes_io_name","__meta_kubernetes_pod_label_app"]
+    - sourceLabels: ["__meta_kubernetes_pod_label_app_kubernetes_io_name", "__meta_kubernetes_pod_label_app"]
       separator: ";"
       targetLabel: "app"
       action: replace
       regex: "(.+);.*|.*;(.+)"
       replacement: "${1}${2}"
-    - sourceLabels: ["__meta_kubernetes_pod_label_app_kubernetes_io_version","__meta_kubernetes_pod_label_version"]
+    - sourceLabels: ["__meta_kubernetes_pod_label_app_kubernetes_io_version", "__meta_kubernetes_pod_label_version"]
       separator: ";"
       targetLabel: "version"
       action: replace
