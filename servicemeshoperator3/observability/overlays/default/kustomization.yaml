@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: istio-system
+
+components:
+  - ../../components/namespace-monitor
+  - ../../components/kiali
+  - ../../components/console-plugin
+
+resources:
+  - ../../base

@@ -1,0 +1,7 @@
+kind: IstioCNI
+apiVersion: sailoperator.io/v1
+metadata:
+  name: default
+spec:
+  namespace: istio-cni
+  version: patch-me-see-overlays-dir
