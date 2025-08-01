@@ -45,7 +45,7 @@ The `olm.providedAPIs` annotation is automatically added by OLM once a subscript
 
 This repo is configured to run a Spell Check on the repo as part of a Pull Request to help keep documentation correct.
 
-Unfortunately there are many technical words that often get flagged by the spell checker that are acceptable.  When submitting a PR if there are words that the spell checker flags that should be allowed, those words can be added to the [.wordlist](.wordlist) file.
+Unfortunately there are many technical words that often get flagged by the spell checker that are acceptable.  When submitting a PR if there are words that the spell checker flags that should be allowed, those words can be added to the [.wordlist-md](.wordlist-md) and [.wordlist-sh](.wordlist-sh) files.
 
 Simply add any missing words to the file and run the following to sort the file before committing:
 
