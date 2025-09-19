@@ -33,6 +33,7 @@ DNS
 DataScienceCluster
 DataSciencePipelines
 Descheduler
+Descheduling
 Dev
 DevSpaces
 DevWorkspace
@@ -62,6 +63,7 @@ KieApp
 Koku
 KokuMetricsConfig
 Kubernetes
+Kube
 Kueue
 Kyverno
 LDAP

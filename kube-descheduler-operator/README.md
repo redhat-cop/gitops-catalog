@@ -4,7 +4,7 @@ This is to deploy the [Kube Descheduler Operator](https://docs.redhat.com/en/doc
 
 There are several situations where descheduling can benefit your cluster:
 
-- Nodes are underutilized or overutilized.
+- Nodes are underutilized or over-utilized.
 - Pod and node affinity requirements, such as taints or labels, have changed and the original scheduling decisions are no longer appropriate for certain nodes.
 - Node failure requires pods to be moved.
 - New nodes are added to clusters.
