@@ -161,6 +161,8 @@ culler
 datasource
 dcgmExporter
 deployable
+descheduler
+descheduling
 dev
 devfile
 devspaces
