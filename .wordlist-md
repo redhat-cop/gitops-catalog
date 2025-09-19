@@ -17,6 +17,8 @@ AutoCreateUserSchema
 Autoscaler
 Bitnami
 CICD
+CR
+CRs
 CRD
 CRDs
 CheCluster
@@ -79,6 +81,7 @@ ModelMesh
 MultiClusterHub
 NFD
 NMState
+NodeMaintenance
 Noobaa
 NuGet
 OADP
@@ -132,6 +135,7 @@ XAI
 Zipkin
 ack
 acm
+adm
 amq
 api
 apiVersion
