@@ -1,12 +1,12 @@
 ---
 # Source: console-plugin-nvidia-gpu/templates/consoleplugin.yaml
-apiVersion: console.openshift.io/v1alpha1
+apiVersion: console.openshift.io/v1
 kind: ConsolePlugin
 metadata:
   name: console-plugin-nvidia-gpu
   namespace: nvidia-gpu-operator
   labels:
-    helm.sh/chart: console-plugin-nvidia-gpu-0.2.4
+    helm.sh/chart: console-plugin-nvidia-gpu-0.2.5
     app.kubernetes.io/name: console-plugin-nvidia-gpu
     app.kubernetes.io/version: "latest"
     app.kubernetes.io/managed-by: Helm
@@ -14,9 +14,11 @@ metadata:
     app.kubernetes.io/instance: console-plugin-nvidia-gpu
     app.kubernetes.io/part-of: console-plugin-nvidia-gpu
 spec:
-  displayName: 'Console Plugin NVIDIA GPU Template'
-  service:
-    name: console-plugin-nvidia-gpu
-    namespace: nvidia-gpu-operator
-    port: 9443
-    basePath: '/'
+  displayName: "Console Plugin NVIDIA GPU Template"
+  backend:
+    type: Service
+    service:
+      name: console-plugin-nvidia-gpu
+      namespace: nvidia-gpu-operator
+      port: 9443
+      basePath: /
