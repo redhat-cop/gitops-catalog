@@ -3,15 +3,6 @@ apiVersion: nfd.openshift.io/v1
 metadata:
   name: nfd-instance
 spec:
-  customConfig:
-    configData: |
-      #    - name: "more.kernel.features"
-      #      matchOn:
-      #      - loadedKMod: ["example_kmod3"]
-      #    - name: "more.features.by.nodename"
-      #      value: customValue
-      #      matchOn:
-      #      - nodename: ["special-.*-node-.*"]
   operand:
     # bug: an image has to be defined otherwise the deployment fails
     # bug: this behavior recently changed
