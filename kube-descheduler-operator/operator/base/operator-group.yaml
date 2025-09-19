@@ -4,3 +4,6 @@ kind: OperatorGroup
 metadata:
   name: cluster-kube-descheduler-operator
   namespace: openshift-kube-descheduler-operator
+spec:
+  targetNamespaces:
+    - openshift-kube-descheduler-operator
