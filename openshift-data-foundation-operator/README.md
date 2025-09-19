@@ -6,6 +6,7 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
+* [stable-4.19](operator/overlays/stable-4.19)
 * [stable-4.18](operator/overlays/stable-4.18)
 * [stable-4.17](operator/overlays/stable-4.17)
 * [stable-4.16](operator/overlays/stable-4.16)

@@ -11,6 +11,9 @@ The current *overlays* available are for the following channels:
 * [v1.11](operator/overlays/v1.11)
 * [v22.9](operator/overlays/v22.9)
 * [v23.3](operator/overlays/v23.3)
+* [v23.9](operator/overlays/v23.9)
+* [v24.9](operator/overlays/v24.9)
+* [v25.3](operator/overlays/v25.3)
 
 ## Usage
 
