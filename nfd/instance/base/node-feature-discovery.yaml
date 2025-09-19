@@ -4,9 +4,6 @@ metadata:
   name: nfd-instance
 spec:
   operand:
-    # bug: an image has to be defined otherwise the deployment fails
-    # bug: this behavior recently changed
-    image: registry.redhat.io/openshift4/ose-node-feature-discovery-rhel9:latest
     servicePort: 12000
   workerConfig:
     configData: |
