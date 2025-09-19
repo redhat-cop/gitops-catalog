@@ -2,7 +2,7 @@
 
 This is to deploy the [Kube Descheduler Operator](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/nodes/controlling-pod-placement-onto-nodes-scheduling#descheduler) to OpenShift. The Kube Descheduler Operator provides the ability to evict a running pod so that the pod can be rescheduled onto a more suitable node.
 
-There are several situations where descheduling can benefit your cluster:
+There are several situations where the descheduler can benefit your cluster:
 
 - Nodes are underutilized or over-utilized.
 - Pod and node affinity requirements, such as taints or labels, have changed and the original scheduling decisions are no longer appropriate for certain nodes.
