@@ -5,6 +5,7 @@ metadata:
 spec:
   trustDomain: apps.example.openshift.io
   clusterName: cluster
+  jwtIssuer: https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io
   caSubject:
     commonName: redhat.com
     country: US

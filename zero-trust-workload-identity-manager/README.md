@@ -41,7 +41,7 @@ Once the Operator has been installed, an instance of Zero Trust Workload Identit
 
 ### Usage
 
-The default instance enables the configuration of both the `trustDomain` and `clusterName` fields that are present across multiple Custom Resources associated with the Zero Trust Workload Identity Manager. Update either of these values as desired within the `patches` section of the [kustomization.yaml](instance/overlays/default/kustomization.yaml) file within the `instance/overlays/default` directory.
+The default instance enables the configuration of both the `trustDomain`, `jwtIssuer` and `clusterName` fields that are present across multiple Custom Resources associated with the Zero Trust Workload Identity Manager. Update either of these values as desired within the `patches` section of the [kustomization.yaml](instance/overlays/default/kustomization.yaml) file within the `instance/overlays/default` directory.
 
 The instance can be installed by running the following command from the root of the `gitops-catalog` directory.
 

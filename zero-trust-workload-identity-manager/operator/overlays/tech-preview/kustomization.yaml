@@ -11,4 +11,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/channel
-        value: 'tech-preview-v0.1'
+        value: 'tech-preview-v0.2'
