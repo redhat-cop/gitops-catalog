@@ -20,6 +20,7 @@ CICD
 CNI
 CRD
 CRDs
+CSI
 CheCluster
 ClusterIssuer
 ClusterPolicy
@@ -76,6 +77,7 @@ Minio
 ModelMesh
 MultiClusterHub
 NFD
+NFS
 NMState
 Noobaa
 NuGet
@@ -269,6 +271,7 @@ servicemeshoperator
 sfdc
 spiffe
 strimzi
+subdirectories
 sublicense
 tekton
 templating
