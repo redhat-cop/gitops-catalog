@@ -17,6 +17,7 @@ AutoCreateUserSchema
 Autoscaler
 Bitnami
 CICD
+CNI
 CR
 CRs
 CRD
@@ -54,6 +55,7 @@ Hashicorp
 IAM
 IOV
 IgnoreExtraneous
+Istio
 JSON
 Jaeger
 Jenkins
@@ -88,6 +90,7 @@ OADP
 OAuth
 OCSInitialization
 OLM
+OSSM
 Observability
 OpenDataHub
 OpenShift
@@ -272,6 +275,7 @@ selectable
 serverless
 serviceaccount
 servicemesh
+servicemeshoperator
 sfdc
 spiffe
 strimzi

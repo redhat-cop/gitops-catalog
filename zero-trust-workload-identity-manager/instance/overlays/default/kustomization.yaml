@@ -13,6 +13,12 @@ patches:
       - op: replace
         path: /spec/trustDomain
         value: 'apps.example.openshift.io'
+      - op: replace
+        path: /spec/clusterName
+        value: 'cluster'
+      - op: replace
+        path: /spec/jwtIssuer
+        value: 'https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io'
   - target:
       kind: SpireAgent
       group: operator.openshift.io
@@ -35,3 +41,6 @@ patches:
       - op: replace
         path: /spec/clusterName
         value: 'cluster'
+      - op: replace
+        path: /spec/jwtIssuer
+        value: 'https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io'
