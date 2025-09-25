@@ -18,6 +18,8 @@ Autoscaler
 Bitnami
 CICD
 CNI
+CR
+CRs
 CRD
 CRDs
 CheCluster
@@ -33,6 +35,8 @@ DCGM
 DNS
 DataScienceCluster
 DataSciencePipelines
+Descheduler
+Descheduling
 Dev
 DevSpaces
 DevWorkspace
@@ -45,6 +49,7 @@ FullAccess
 GPUs
 Gi
 GitOps
+Healthcheck
 HTPasswd
 Hashicorp
 IAM
@@ -62,6 +67,7 @@ KieApp
 Koku
 KokuMetricsConfig
 Kubernetes
+Kube
 Kueue
 Kyverno
 LDAP
@@ -77,6 +83,7 @@ ModelMesh
 MultiClusterHub
 NFD
 NMState
+NodeMaintenance
 Noobaa
 NuGet
 OADP
@@ -131,6 +138,7 @@ XAI
 Zipkin
 ack
 acm
+adm
 amq
 api
 apiVersion
@@ -160,6 +168,8 @@ culler
 datasource
 dcgmExporter
 deployable
+descheduler
+descheduling
 dev
 devfile
 devspaces
