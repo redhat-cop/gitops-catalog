@@ -75,6 +75,7 @@ LVM
 Lifecycle
 Logstash
 MTA
+MTC
 MachineConfig
 MachineSet
 MetalLB
@@ -278,6 +279,7 @@ servicemesh
 servicemeshoperator
 sfdc
 spiffe
+stateful
 strimzi
 sublicense
 tekton
