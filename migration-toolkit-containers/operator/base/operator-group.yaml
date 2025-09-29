@@ -1,0 +1,10 @@
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: mtc-operator
+  namespace: openshift-migration
+spec:
+  targetNamespaces:
+    - openshift-migration
+  upgradeStrategy: Default
