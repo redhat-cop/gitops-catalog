@@ -1,0 +1,10 @@
+apiVersion: kueue.openshift.io/v1
+kind: Kueue
+metadata:
+  name: cluster
+spec:
+  config:
+    integrations:
+      frameworks:
+        - BatchJob
+  managementState: Managed
