@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-keda
+  annotations:
+    openshift.io/display-name: "OpenShift Keda Operator"
+  labels:
+    openshift.io/cluster-monitoring: 'true'

@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
+resources:
+  - ../../base
+patches:
+  - path: patch-channel.yaml
+    target:
+      group: operators.coreos.com
+      kind: Subscription
+      version: v1alpha1
