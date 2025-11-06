@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nfs-pod
+spec:
+  containers:
+  - name: nfs-container
+    image: busybox
+    command: ["/bin/sh"]
+    args: ["-c", "while true; do echo $(date) >> /mnt/nfs/date.log; sleep 60; done"]
+    volumeMounts:
+    - name: nfs-volume
+      mountPath: /mnt/nfs
+  volumes:
+  - name: nfs-volume
+    persistentVolumeClaim:
+      claimName: nfs-pvc

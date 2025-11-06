@@ -22,6 +22,7 @@ CR
 CRs
 CRD
 CRDs
+CSI
 CheCluster
 ClusterIssuer
 ClusterPolicy
@@ -83,6 +84,7 @@ Minio
 ModelMesh
 MultiClusterHub
 NFD
+NFS
 NMState
 NodeMaintenance
 Noobaa
@@ -281,6 +283,7 @@ sfdc
 spiffe
 stateful
 strimzi
+subdirectories
 sublicense
 tekton
 templating
