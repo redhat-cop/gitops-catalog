@@ -7,9 +7,9 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 The current *overlays* available are for the following channels:
 * [latest](overlays/latest)
 * [stable](overlays/stable)
-* [pipelines-1.7](overlays/pipelines-1.7)
-* [pipelines-1.8](overlays/pipelines-1.8)
-* [pipelines-1.9](overlays/pipelines-1.9)
+* [pipelines-1.18](overlays/pipelines-1.18)
+* [pipelines-1.19](overlays/pipelines-1.19)
+* [pipelines-1.20](overlays/pipelines-1.20)
 * [preview](overlays/preview)
 
 ## Usage
