@@ -4,6 +4,5 @@ kind: Kustomization
 namespace: ack-system
 
 resources:
-  - https://raw.githubusercontent.com/aws-controllers-k8s/s3-controller/main/config/crd/common/bases/services.k8s.aws_adoptedresources.yaml
   - namespace.yaml
   - operator-group.yaml
