@@ -24,13 +24,13 @@ The current *overlays* available are:
 If you have cloned the `gitops-catalog` repository, you can install observability components by running from the root `gitops-catalog` directory
 
 ```
-oc apply -k servicemeshoperator3/observability/overlays/default
+oc apply -k redhat-openshift-servicemesh-3/observability/overlays/default
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/servicemeshoperator3/observability/overlays/default
+oc apply -k https://github.com/redhat-cop/gitops-catalog/redhat-openshift-servicemesh-3/observability/overlays/default
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -40,7 +40,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/redhat-cop/gitops-catalog/servicemeshoperator3/observability/overlays/default?ref=main
+  - github.com/redhat-cop/gitops-catalog/redhat-openshift-servicemesh-3/observability/overlays/default?ref=main
 ```
 
 ## Monitoring Additional Namespaces
@@ -56,5 +56,5 @@ kind: Kustomization
 namespace: my-app-namespace
 
 components:
-  - github.com/redhat-cop/gitops-catalog/servicemeshoperator3/observability/components/namespace-monitor?ref=main
+  - github.com/redhat-cop/gitops-catalog/redhat-openshift-servicemesh-3/observability/components/namespace-monitor?ref=main
 ```

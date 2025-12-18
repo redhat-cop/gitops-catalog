@@ -31,13 +31,13 @@ The current *overlays* available are:
 If you have cloned the `gitops-catalog` repository, you can install Istio by running from the root `gitops-catalog` directory
 
 ```
-oc apply -k servicemeshoperator3/instance/overlays/<version>
+oc apply -k redhat-openshift-servicemesh-3/instance/overlays/<version>
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/servicemeshoperator3/instance/overlays/<version>
+oc apply -k https://github.com/redhat-cop/gitops-catalog/redhat-openshift-servicemesh-3/instance/overlays/<version>
 ```
 
 As part of a different overlay in your own GitOps repo:
@@ -47,5 +47,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - github.com/redhat-cop/gitops-catalog/servicemeshoperator3/instance/overlays/<version>?ref=main
+  - github.com/redhat-cop/gitops-catalog/redhat-openshift-servicemesh-3/instance/overlays/<version>?ref=main
 ```
