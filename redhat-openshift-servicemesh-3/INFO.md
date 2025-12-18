@@ -1,4 +1,4 @@
-# servicemeshoperator3
+# redhat-openshift-servicemesh-3
 
 Red Hat OpenShift Service Mesh is a platform that provides behavioral insight and operational control over a service mesh, providing a uniform way to connect, secure, and monitor microservice applications.
 

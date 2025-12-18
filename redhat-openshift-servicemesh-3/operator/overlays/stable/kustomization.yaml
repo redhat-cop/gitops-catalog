@@ -7,5 +7,5 @@ resources:
 patches:
   - target:
       kind: Subscription
-      name: servicemeshoperator3
+      name: redhat-openshift-servicemesh-3
     path: patch-channel.yaml
