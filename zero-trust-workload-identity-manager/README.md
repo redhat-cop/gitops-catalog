@@ -46,13 +46,13 @@ The default instance enables the configuration of both the `trustDomain`, `jwtIs
 The instance can be installed by running the following command from the root of the `gitops-catalog` directory.
 
 ```
-oc apply -k zero-trust-workload-identity-manager/instance/overlays/default
+oc apply -k zero-trust-workload-identity-manager/instance/overlays/stable-v1
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/zero-trust-workload-identity-manager/instance/overlays/default
+oc apply -k https://github.com/redhat-cop/gitops-catalog/zero-trust-workload-identity-manager/instance/overlays/stable-v1
 ```
 
 
@@ -62,7 +62,7 @@ As part of a different overlay in your own GitOps repo:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/redhat-cop/gitops-catalog/zero-trust-workload-identity-manager/instance/overlays/default?ref=main
+  - https://github.com/redhat-cop/gitops-catalog/zero-trust-workload-identity-manager/instance/overlays/stable-v1?ref=main
 ```
 
 ## Aggregation of Operator and Instance

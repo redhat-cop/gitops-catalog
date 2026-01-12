@@ -3,4 +3,4 @@ kind: SpiffeCSIDriver
 metadata:
   name: cluster
 spec:
-  agentSocketPath: /run/spire/agent-sockets/spire-agent.sock
+  agentSocketPath: /run/spire/agent-sockets
