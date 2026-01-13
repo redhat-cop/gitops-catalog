@@ -3,8 +3,6 @@ kind: SpireServer
 metadata:
   name: cluster
 spec:
-  trustDomain: apps.example.openshift.io
-  clusterName: cluster
   jwtIssuer: https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io
   caSubject:
     commonName: redhat.com
@@ -13,7 +11,6 @@ spec:
   persistence:
     size: 5Gi
     accessMode: ReadWriteOnce
-    type: pvc
   datastore:
     databaseType: sqlite3
     connectionString: /run/spire/data/datastore.sqlite3

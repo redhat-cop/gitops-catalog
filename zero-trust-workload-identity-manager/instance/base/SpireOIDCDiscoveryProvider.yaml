@@ -3,6 +3,4 @@ kind: SpireOIDCDiscoveryProvider
 metadata:
   name: cluster
 spec:
-  trustDomain: apps.example.openshift.io
-  agentSocketName: spire-agent.sock
   jwtIssuer: https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io

@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - ZeroTrustWorkloadIdentityManager.yaml
 
 patches:
   - target:
@@ -11,36 +12,21 @@ patches:
       version: v1alpha1
     patch: |-
       - op: replace
-        path: /spec/trustDomain
-        value: 'apps.example.openshift.io'
-      - op: replace
-        path: /spec/clusterName
-        value: 'cluster'
-      - op: replace
         path: /spec/jwtIssuer
         value: 'https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io'
-  - target:
-      kind: SpireAgent
-      group: operator.openshift.io
-      version: v1alpha1
-    patch: |-
-      - op: replace
-        path: /spec/trustDomain
-        value: 'apps.example.openshift.io'
-      - op: replace
-        path: /spec/clusterName
-        value: 'cluster'
   - target:
       kind: SpireServer
       group: operator.openshift.io
       version: v1alpha1
     patch: |-
       - op: replace
-        path: /spec/trustDomain
-        value: 'apps.example.openshift.io'
-      - op: replace
-        path: /spec/clusterName
-        value: 'cluster'
-      - op: replace
         path: /spec/jwtIssuer
         value: 'https://spire-spiffe-oidc-discovery-provider.apps.example.openshift.io'
+  - target:
+      kind: ZeroTrustWorkloadIdentityManager
+      group: operator.openshift.io
+      version: v1alpha1
+    patch: |-
+      - op: replace
+        path: /spec/trustDomain
+        value: 'apps.example.openshift.io'
