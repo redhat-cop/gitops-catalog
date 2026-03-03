@@ -4,16 +4,16 @@ Installs the Ansible Automation Platform operator.
 
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
+Please refer to [AAP Lifecycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform) for AAP versions matching your OCP version
+
 The current *overlays* available are for the following channels:
 
-* [stable-2.1](overlays/stable-2.1)
-* [stable-2.1-cluster-scoped](overlays/stable-2.1-cluster-scoped)
-* [stable-2.2](overlays/stable-2.2)
-* [stable-2.2-cluster-scoped](overlays/stable-2.2-cluster-scoped)
-* [stable-2.3](overlays/stable-2.3)
-* [stable-2.3-cluster-scoped](overlays/stable-2.3-cluster-scoped)
 * [stable-2.4](overlays/stable-2.4)
 * [stable-2.4-cluster-scoped](overlays/stable-2.4-cluster-scoped)
+* [stable-2.5](overlays/stable-2.5)
+* [stable-2.5-cluster-scoped](overlays/stable-2.5-cluster-scoped)
+* [stable-2.6](overlays/stable-2.6)
+* [stable-2.6-cluster-scoped](overlays/stable-2.6-cluster-scoped)
 
 ## Usage
 
