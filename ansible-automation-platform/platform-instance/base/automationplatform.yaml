@@ -4,8 +4,6 @@ kind: AnsibleAutomationPlatform
 metadata:
   name: automation-platform
   namespace: ansible-automation-platform
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   route_tls_termination_mechanism: Edge
   no_log: true

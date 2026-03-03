@@ -4,8 +4,6 @@ kind: EDA
 metadata:
   name: automation-eda
   namespace: ansible-automation-platform
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   ingress_type: Route
   event_stream:
