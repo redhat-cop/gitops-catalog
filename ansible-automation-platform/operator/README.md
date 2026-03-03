@@ -4,7 +4,7 @@ Installs the Ansible Automation Platform operator.
 
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
-Please refer to [AAP Lifecycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform) for AAP versions matching your OCP version
+Please refer to [Ansible Automation Platform Lifecycle](https://access.redhat.com/support/policy/updates/ansible-automation-platform) for Ansible Automation Platform versions matching your OCP version
 
 The current *overlays* available are for the following channels:
 

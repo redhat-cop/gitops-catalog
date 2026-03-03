@@ -13,7 +13,7 @@ The current *overlays* available are:
 * [default](overlays/default)
 
 ## Usage
-This is using the default deploy all component CR, please refer to [AAP 2.6 Docs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/installing_on_openshift_container_platform/appendix-operator-crs_appendix-operator-crs#operator-crs) for example custom resources for connecting exsiting components
+This is using the default deploy all component CR, please refer to [Ansible Automation Platform 2.6 Docs](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/installing_on_openshift_container_platform/appendix-operator-crs_appendix-operator-crs#operator-crs) for example custom resources for connecting existing components
 
 If you have cloned the `gitops-catalog` repository, you can install Logging infrastructure by running from the root `gitops-catalog` directory
 

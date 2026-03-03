@@ -13,4 +13,4 @@ spec:
     replicas: 1
   database:
     postgres_data_volume_init: false
-    idle_disabled: false 
+    idle_disabled: false
