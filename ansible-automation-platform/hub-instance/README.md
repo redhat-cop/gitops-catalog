@@ -4,10 +4,6 @@ Installs the Private Automation Hub
 
 ## Prerequisites
 
-Do not use the `base` directory directly, as you will need to patch
-
-* the `ConsoleLink`
-
 The current *overlays* available are:
 
 * [default](overlays/default)

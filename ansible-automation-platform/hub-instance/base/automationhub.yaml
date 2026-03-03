@@ -3,6 +3,8 @@ kind: AutomationHub
 metadata:
   name: automation-hub
   namespace: ansible-automation-platform
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   route_tls_termination_mechanism: Edge
   ingress_type: Route

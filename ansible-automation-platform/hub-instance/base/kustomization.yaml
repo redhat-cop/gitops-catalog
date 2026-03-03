@@ -4,4 +4,3 @@ kind: Kustomization
 
 resources:
   - automationhub.yaml
-  - console-link.yaml
