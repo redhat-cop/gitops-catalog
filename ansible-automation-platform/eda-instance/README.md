@@ -1,6 +1,6 @@
 # Ansible Automation Platform instances
 
-Installs the Automation Event Driven Ansible Controller
+Installs the Event Driven Ansible Controller
 
 ## Prerequisites
 
