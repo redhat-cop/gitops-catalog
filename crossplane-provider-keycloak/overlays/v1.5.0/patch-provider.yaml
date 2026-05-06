@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/package
+  value: xpkg.upbound.io/crossplane-contrib/provider-keycloak:v1.5.0
