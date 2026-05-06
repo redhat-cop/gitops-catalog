@@ -1,1 +1,1 @@
-**Version: 0.1.2**
+Legacy stub for any consumers of the older Development channel of the Cluster Observability Operator
