@@ -1,0 +1,33 @@
+---
+apiVersion: eda.ansible.com/v1alpha1
+kind: EDA
+metadata:
+  name: automation-eda
+  namespace: ansible-automation-platform
+spec:
+  ingress_type: Route
+  event_stream:
+    gunicorn_workers: 2
+    mtls: true
+    replicas: 1
+  no_log: true
+  activation_worker:
+    replicas: 2
+  image_pull_policy: IfNotPresent
+  ui:
+    replicas: 1
+  api:
+    gunicorn_workers: 2
+    replicas: 1
+  scheduler:
+    replicas: 2
+  database:
+    postgres_data_volume_init: false
+  redis:
+    replicas: 1
+  admin_user: admin
+  default_worker:
+    replicas: 2
+  worker:
+    replicas: 2
+  automation_server_url: http://aap-controller.example.com # Change to URL of the Automation Controller instance to run ansible jobs against (connect directly)
