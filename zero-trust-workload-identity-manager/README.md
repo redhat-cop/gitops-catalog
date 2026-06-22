@@ -10,6 +10,7 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
+* [stable-v1](operator/overlays/stable-v1)
 * [tech-preview](operator/overlays/tech-preview)
 
 ### Usage
@@ -37,22 +38,22 @@ resources:
 
 ## Deploy an Instance of Zero Trust Workload Identity Manager
 
-Once the Operator has been installed, an instance of Zero Trust Workload Identity Manager can be deployed. The content is available within the [instance](instance) directory. Similar to the _operator_ deployment described in the prior section, it is not recommended to use the `base` directory, and instead use the contents in the `overlays/default` directory.
+Once the Operator has been installed, an instance of Zero Trust Workload Identity Manager can be deployed. The content is available within the [instance](instance) directory. Similar to the _operator_ deployment described in the prior section, it is not recommended to use the `base` directory, and instead use the contents in the `overlays/<channel>>` directory.
 
 ### Usage
 
-The default instance enables the configuration of both the `trustDomain`, `jwtIssuer` and `clusterName` fields that are present across multiple Custom Resources associated with the Zero Trust Workload Identity Manager. Update either of these values as desired within the `patches` section of the [kustomization.yaml](instance/overlays/default/kustomization.yaml) file within the `instance/overlays/default` directory.
+Cluster specific values for `trustDomain`, `jwtIssuer` and `clusterName` fields that are present across multiple Custom Resources associated with the Zero Trust Workload Identity Manager. Update these values as desired within the `patches` section of the `kustomization.yaml` within the desired _overlay_ directory `instance/overlays/<channel>/kustomization.yaml`.
 
 The instance can be installed by running the following command from the root of the `gitops-catalog` directory.
 
 ```
-oc apply -k zero-trust-workload-identity-manager/instance/overlays/stable-v1
+oc apply -k zero-trust-workload-identity-manager/instance/overlays/<channel>
 ```
 
 Or, without cloning:
 
 ```
-oc apply -k https://github.com/redhat-cop/gitops-catalog/zero-trust-workload-identity-manager/instance/overlays/stable-v1
+oc apply -k https://github.com/redhat-cop/gitops-catalog/zero-trust-workload-identity-manager/instance/overlays/<channel>
 ```
 
 
