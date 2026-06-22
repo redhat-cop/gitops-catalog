@@ -30,3 +30,6 @@ patches:
       - op: replace
         path: /spec/trustDomain
         value: 'apps.example.openshift.io'
+      - op: replace
+        path: /spec/clusterName
+        value: 'cluster'
