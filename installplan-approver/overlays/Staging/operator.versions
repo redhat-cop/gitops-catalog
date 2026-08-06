@@ -1,0 +1,2 @@
+INSTALL_VERSION=operator-install-version
+UPGRADE_VERSION=operator-upgrade-version
