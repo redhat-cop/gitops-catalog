@@ -19,7 +19,7 @@ In general, the root folder should represent the functionality being provided wi
 │       └── default/
 ```
 
-Overlays for operators should generally use the `channel` name as the name of the overlay if multiple channels are available. For example, if the channel names are `tech-preview` and `stable` then name the overlays the same corresponding to the channels.
+Overlays for operators **must** use the `channel` name as the name of the overlay. For example, if the channel names are `tech-preview` and `stable` then name the overlays the same corresponding to the channels. This ensures automated workflows can create and remove overlays as operator channels are released and deprecated.
 
 When adding new objects into an example, avoid combining objects into a single yaml file.  Each object should have its own yaml file that is referenced as a resource in the `kustomization.yaml` file.  Some exceptions may exist, such as combining `role` and `roleBinding` into a single RBAC file.
 

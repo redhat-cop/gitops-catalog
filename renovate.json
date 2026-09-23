@@ -3,5 +3,14 @@
   "extends": [
     "config:best-practices",
     "schedule:earlyMondays"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.github/workflows/.+\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\S+:\\s*(?<currentValue>\\S+)"
+      ]
+    }
   ]
 }
