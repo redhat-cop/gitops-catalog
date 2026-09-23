@@ -5,11 +5,11 @@ on:  # yamllint disable-line rule:truthy
     - cron: '0 8 * * 1'  # Weekly on Monday 8am UTC
   workflow_dispatch:
     inputs:
-      ocp_version:
-        description: 'OpenShift version tag (e.g., v4.17)'
-        default: 'v4.17'
+      ocp_versions:
+        description: 'Space-separated OCP versions (e.g., v4.18 v4.19 v4.20 v4.21 v4.22)'
+        default: 'v4.18 v4.19 v4.20 v4.21 v4.22'
       mode:
-        description: 'report = dry run, generate = create PR with missing overlays'
+        description: 'report = dry run, generate = create PR with missing/stale overlays'
         type: choice
         options:
           - report
@@ -17,7 +17,7 @@ on:  # yamllint disable-line rule:truthy
         default: report
 
 env:
-  OCP_VERSION: ${{ inputs.ocp_version || 'v4.17' }}
+  OCP_VERSIONS: ${{ inputs.ocp_versions || 'v4.18 v4.19 v4.20 v4.21 v4.22' }}
   OPM_VERSION: v1.47.0
 
 jobs:
@@ -47,37 +47,40 @@ jobs:
 
       - name: Render and cache catalog data
         run: |
-          CATALOG_IMAGE="registry.redhat.io/redhat/redhat-operator-index:${OCP_VERSION}"
-          echo "Rendering catalog: ${CATALOG_IMAGE}"
-          opm render "${CATALOG_IMAGE}" | \
-            jq -c 'select(.schema == "olm.channel") | {package, name}' \
-            > /tmp/catalog-channels.json
-          echo "Extracted $(wc -l < /tmp/catalog-channels.json) channel entries"
+          mkdir -p /tmp/catalog-cache
+          for version in ${OCP_VERSIONS}; do
+            image="registry.redhat.io/redhat/redhat-operator-index:${version}"
+            echo "Rendering catalog: ${image}"
+            opm render "${image}" | \
+              jq -c 'select(.schema == "olm.channel") | {package, name}' \
+              > "/tmp/catalog-cache/${version}.json"
+            echo "  ${version}: $(wc -l < "/tmp/catalog-cache/${version}.json") channel entries"
+          done
 
-      - name: Check for missing channel overlays
+      - name: Check for missing and stale channel overlays
         id: check
         env:
-          CATALOG_CACHE: /tmp/catalog-channels.json
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
         run: |
           output=$(./scripts/check-catalog-channels.sh report)
           echo "$output"
           echo "report<<EOF" >> "$GITHUB_OUTPUT"
           echo "$output" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
-          if echo "$output" | grep -q "^  missing:"; then
-            echo "has_missing=true" >> "$GITHUB_OUTPUT"
+          if echo "$output" | grep -qE "^  (missing|stale):"; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
           else
-            echo "has_missing=false" >> "$GITHUB_OUTPUT"
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Generate missing overlays
-        if: steps.check.outputs.has_missing == 'true' && (inputs.mode == 'generate' || github.event_name == 'schedule')
+      - name: Generate overlay changes
+        if: steps.check.outputs.has_changes == 'true' && (inputs.mode == 'generate' || github.event_name == 'schedule')
         env:
-          CATALOG_CACHE: /tmp/catalog-channels.json
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
         run: ./scripts/check-catalog-channels.sh generate
 
       - name: Validate generated manifests
-        if: steps.check.outputs.has_missing == 'true' && (inputs.mode == 'generate' || github.event_name == 'schedule')
+        if: steps.check.outputs.has_changes == 'true' && (inputs.mode == 'generate' || github.event_name == 'schedule')
         run: |
           LATEST=$(curl -s https://api.github.com/repos/kubernetes-sigs/kustomize/releases/latest | jq .name | sed 's#kustomize/##; s#"##g')
           curl "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${LATEST}/kustomize_${LATEST}_linux_amd64.tar.gz" \
@@ -85,18 +88,19 @@ jobs:
           ./scripts/validate_kustomize.sh
 
       - name: Create Pull Request
-        if: steps.check.outputs.has_missing == 'true' && (inputs.mode == 'generate' || github.event_name == 'schedule')
+        if: steps.check.outputs.has_changes == 'true' && (inputs.mode == 'generate' || github.event_name == 'schedule')
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "feat: add missing operator channel overlays"
-          title: "feat: add missing operator channel overlays (OCP ${{ env.OCP_VERSION }})"
+          commit-message: "feat: sync operator channel overlays"
+          title: "feat: sync operator channel overlays"
           body: |
-            ## Missing Operator Channel Overlays
+            ## Operator Channel Overlay Sync
 
-            New OLM channels were detected in the Red Hat operator catalog index
-            (`${{ env.OCP_VERSION }}`) that do not have corresponding overlay
-            directories in this repository.
+            Compared OLM channels across supported Red Hat catalog indices
+            (`${{ env.OCP_VERSIONS }}`) against overlay directories in this
+            repository. Missing overlays were added and stale overlays (not
+            present in any supported version) were removed.
 
             <details>
             <summary>Full report</summary>
@@ -107,6 +111,6 @@ jobs:
             </details>
 
             Generated by the weekly channel freshness check.
-          branch: automation/missing-channels-${{ env.OCP_VERSION }}
+          branch: automation/sync-channel-overlays
           labels: automation
           delete-branch: true

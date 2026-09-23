@@ -2,24 +2,28 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-OCP_VERSION="${OCP_VERSION:-v4.17}"
-CATALOG_IMAGE="${CATALOG_IMAGE:-registry.redhat.io/redhat/redhat-operator-index:${OCP_VERSION}}"
+OCP_VERSIONS="${OCP_VERSIONS:-v4.18 v4.19 v4.20 v4.21 v4.22}"
+CATALOG_IMAGE_BASE="${CATALOG_IMAGE_BASE:-registry.redhat.io/redhat/redhat-operator-index}"
 MODE="${1:-report}" # report | generate
-CATALOG_CACHE="${CATALOG_CACHE:-}"
-HAS_MISSING=false
+CATALOG_CACHE_DIR="${CATALOG_CACHE_DIR:-}"
+HAS_CHANGES=false
 
 usage() {
   cat <<EOF
 Usage: $(basename "$0") [report|generate]
 
-Compares OLM channels available in the Red Hat operator catalog index against
-existing overlay directories in this repository. In 'generate' mode, creates
-missing overlay directories.
+Compares OLM channels available across multiple Red Hat operator catalog index
+versions against existing overlay directories in this repository.
+
+Channels present in any supported version but missing from the repo are reported
+as missing. Existing overlays not present in any supported version are reported
+as stale and removed in 'generate' mode.
 
 Environment variables:
-  OCP_VERSION      OpenShift version tag (default: v4.17)
-  CATALOG_IMAGE    Full catalog index image reference (overrides OCP_VERSION)
-  CATALOG_CACHE    Path to pre-rendered catalog JSON (skip opm render)
+  OCP_VERSIONS       Space-separated list of OCP versions (default: v4.18 v4.19 v4.20 v4.21 v4.22)
+  CATALOG_IMAGE_BASE Base image path (default: registry.redhat.io/redhat/redhat-operator-index)
+  CATALOG_CACHE_DIR  Directory containing pre-rendered catalog JSON files named
+                     <version>.json (skip opm render)
 
 Requires: opm, yq, jq
 EOF
@@ -30,7 +34,7 @@ check_prereqs() {
   for cmd in jq yq; do
     command -v "$cmd" &>/dev/null || missing+=("$cmd")
   done
-  if [[ -z "${CATALOG_CACHE:-}" ]]; then
+  if [[ -z "${CATALOG_CACHE_DIR:-}" ]]; then
     command -v opm &>/dev/null || missing+=("opm")
   fi
   if [[ ${#missing[@]} -gt 0 ]]; then
@@ -39,15 +43,34 @@ check_prereqs() {
   fi
 }
 
-extract_channel_data() {
-  if [[ -n "${CATALOG_CACHE:-}" && -f "${CATALOG_CACHE}" ]]; then
-    echo "Using cached catalog data: ${CATALOG_CACHE}" >&2
-    cat "${CATALOG_CACHE}"
+extract_channel_data_for_version() {
+  local version="$1"
+  local cache_file="${CATALOG_CACHE_DIR:+${CATALOG_CACHE_DIR}/${version}.json}"
+
+  if [[ -n "${cache_file}" && -f "${cache_file}" ]]; then
+    echo "  Using cached data: ${cache_file}" >&2
+    cat "${cache_file}"
   else
-    echo "Rendering catalog from ${CATALOG_IMAGE} (this may take a few minutes)..." >&2
-    opm render "${CATALOG_IMAGE}" |
+    local image="${CATALOG_IMAGE_BASE}:${version}"
+    echo "  Rendering ${image}..." >&2
+    opm render "${image}" |
       jq -c 'select(.schema == "olm.channel") | {package, name}'
   fi
+}
+
+extract_all_channel_data() {
+  local combined=""
+  for version in ${OCP_VERSIONS}; do
+    echo "Processing catalog index ${version}..." >&2
+    local version_data
+    version_data="$(extract_channel_data_for_version "$version")"
+    if [[ -n "$combined" ]]; then
+      combined="${combined}"$'\n'"${version_data}"
+    else
+      combined="${version_data}"
+    fi
+  done
+  echo "$combined" | sort -u
 }
 
 get_catalog_channels() {
@@ -57,10 +80,8 @@ get_catalog_channels() {
 }
 
 find_subscription_dirs() {
-  # New layout: <operator>/operator/base/subscription.yaml
   find "${REPO_ROOT}" -maxdepth 4 -path '*/operator/base/subscription.yaml' -type f 2>/dev/null
 
-  # Old layout: <operator>/base/subscription.yaml (not under operator/)
   find "${REPO_ROOT}" -maxdepth 3 -path '*/base/subscription.yaml' -type f 2>/dev/null |
     while read -r f; do
       [[ "$f" == */operator/base/* ]] && continue
@@ -96,10 +117,9 @@ get_operator_name() {
 }
 
 create_overlay() {
-  local operator_dir="$1"
-  local sub_file="$2"
-  local pkg_name="$3"
-  local channel="$4"
+  local sub_file="$1"
+  local pkg_name="$2"
+  local channel="$3"
 
   local overlay_dir
   overlay_dir="$(get_overlay_dir "$sub_file")"
@@ -127,7 +147,32 @@ YAML
   value: ${channel}
 YAML
 
-  echo "  CREATED: ${channel_dir#"${REPO_ROOT}/"}"
+  echo "    CREATED: ${channel_dir#"${REPO_ROOT}/"}"
+}
+
+remove_overlay() {
+  local sub_file="$1"
+  local channel="$2"
+
+  local overlay_dir
+  overlay_dir="$(get_overlay_dir "$sub_file")"
+  local channel_dir="${overlay_dir}/${channel}"
+
+  if [[ -d "${channel_dir}" ]]; then
+    rm -rf "${channel_dir}"
+    echo "    REMOVED: ${channel_dir#"${REPO_ROOT}/"}"
+  fi
+}
+
+# Names that are overlays in the repo but not real OLM channels
+SPECIAL_OVERLAYS="latest default"
+
+is_special_overlay() {
+  local name="$1"
+  for special in ${SPECIAL_OVERLAYS}; do
+    [[ "$name" == "$special" ]] && return 0
+  done
+  return 1
 }
 
 process_operator() {
@@ -143,39 +188,57 @@ process_operator() {
     return
   fi
 
-  local catalog_channels existing_overlays
+  local catalog_channels
   catalog_channels="$(get_catalog_channels "$pkg_name")"
 
   if [[ -z "$catalog_channels" ]]; then
     return
   fi
 
-  local overlay_dir
+  local overlay_dir existing_overlays
   overlay_dir="$(get_overlay_dir "$sub_file")"
   existing_overlays="$(get_existing_overlays "$overlay_dir")"
 
-  # Find channels in catalog but not in existing overlays
-  local missing_channels
-  missing_channels="$(comm -23 <(echo "$catalog_channels") <(echo "$existing_overlays"))"
+  # Filter special overlay names from both comparisons
+  local filtered_existing=""
+  while IFS= read -r overlay; do
+    [[ -z "$overlay" ]] && continue
+    is_special_overlay "$overlay" && continue
+    filtered_existing="${filtered_existing:+${filtered_existing}$'\n'}${overlay}"
+  done <<<"$existing_overlays"
 
-  # Filter out special overlay names that aren't real OLM channels
-  missing_channels="$(echo "$missing_channels" | grep -v '^latest$' | grep -v '^default$' || true)"
+  local missing_channels stale_channels
+  missing_channels="$(comm -23 <(echo "$catalog_channels") <(echo "$filtered_existing") 2>/dev/null || true)"
+  stale_channels="$(comm -13 <(echo "$catalog_channels") <(echo "$filtered_existing") 2>/dev/null || true)"
 
-  if [[ -z "$missing_channels" ]]; then
+  # Nothing to report
+  if [[ -z "$missing_channels" && -z "$stale_channels" ]]; then
     return
   fi
 
-  HAS_MISSING=true
+  HAS_CHANGES=true
   echo "${operator_name} (package: ${pkg_name})"
   echo "  catalog channels:  $(echo "$catalog_channels" | tr '\n' ' ')"
   echo "  existing overlays: $(echo "$existing_overlays" | tr '\n' ' ')"
-  echo "  missing:           $(echo "$missing_channels" | tr '\n' ' ')"
 
-  if [[ "$MODE" == "generate" ]]; then
-    while IFS= read -r channel; do
-      [[ -z "$channel" ]] && continue
-      create_overlay "$operator_name" "$sub_file" "$pkg_name" "$channel"
-    done <<<"$missing_channels"
+  if [[ -n "$missing_channels" ]]; then
+    echo "  missing:           $(echo "$missing_channels" | tr '\n' ' ')"
+    if [[ "$MODE" == "generate" ]]; then
+      while IFS= read -r channel; do
+        [[ -z "$channel" ]] && continue
+        create_overlay "$sub_file" "$pkg_name" "$channel"
+      done <<<"$missing_channels"
+    fi
+  fi
+
+  if [[ -n "$stale_channels" ]]; then
+    echo "  stale:             $(echo "$stale_channels" | tr '\n' ' ')"
+    if [[ "$MODE" == "generate" ]]; then
+      while IFS= read -r channel; do
+        [[ -z "$channel" ]] && continue
+        remove_overlay "$sub_file" "$channel"
+      done <<<"$stale_channels"
+    fi
   fi
 
   echo ""
@@ -189,12 +252,12 @@ main() {
 
   check_prereqs
 
-  echo "Catalog: ${CATALOG_IMAGE}"
+  echo "Supported OCP versions: ${OCP_VERSIONS}"
   echo "Mode: ${MODE}"
   echo ""
 
-  echo "Extracting channel data from catalog index..."
-  CHANNEL_DATA="$(extract_channel_data)"
+  echo "Extracting channel data from catalog indices..."
+  CHANNEL_DATA="$(extract_all_channel_data)"
   echo "Done. Checking operators..."
   echo ""
 
@@ -203,8 +266,8 @@ main() {
     process_operator "$sub_file"
   done < <(find_subscription_dirs | sort -u)
 
-  if [[ "$HAS_MISSING" == "false" ]]; then
-    echo "All operators are up to date — no missing channel overlays found."
+  if [[ "$HAS_CHANGES" == "false" ]]; then
+    echo "All operators are up to date — no missing or stale channel overlays found."
   fi
 }
 
