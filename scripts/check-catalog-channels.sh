@@ -199,7 +199,7 @@ update_readme() {
   local overlay_dir link_prefix channels channel_lines
   overlay_dir="$(get_overlay_dir "$sub_file")"
   link_prefix="$(get_overlay_link_prefix "$sub_file")"
-  channels="$(get_existing_overlays "$overlay_dir")"
+  channels="$(get_existing_overlays "$overlay_dir" | sort -V)"
 
   [[ -z "$channels" ]] && return 0
 
