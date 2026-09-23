@@ -161,6 +161,67 @@ get_existing_overlays() {
   fi
 }
 
+# Returns the top-level operator directory (absolute path) from a subscription path.
+get_operator_root() {
+  local sub_file="$1"
+  if [[ "$sub_file" == */operator/base/subscription.yaml ]]; then
+    dirname "$(dirname "$(dirname "$sub_file")")"
+  else
+    dirname "$(dirname "$sub_file")"
+  fi
+}
+
+# Returns the relative path prefix from the operator root to the overlays dir,
+# for use in README links (e.g. "operator/overlays" or "overlays").
+get_overlay_link_prefix() {
+  local sub_file="$1"
+  if [[ "$sub_file" == */operator/base/subscription.yaml ]]; then
+    echo "operator/overlays"
+  else
+    echo "overlays"
+  fi
+}
+
+# Rewrites the channel list in the operator's README.md to match the
+# overlay directories currently on disk. Skips operators whose README
+# is missing or lacks the standard channel-list section.
+update_readme() {
+  local sub_file="$1"
+  local operator_root
+  operator_root="$(get_operator_root "$sub_file")"
+  local readme="${operator_root}/README.md"
+
+  [[ -f "$readme" ]] || return 0
+
+  local marker="The current *overlays* available are for the following channels:"
+  grep -qF "$marker" "$readme" || return 0
+
+  local overlay_dir link_prefix channels channel_lines
+  overlay_dir="$(get_overlay_dir "$sub_file")"
+  link_prefix="$(get_overlay_link_prefix "$sub_file")"
+  channels="$(get_existing_overlays "$overlay_dir")"
+
+  [[ -z "$channels" ]] && return 0
+
+  channel_lines=""
+  while IFS= read -r ch; do
+    [[ -z "$ch" ]] && continue
+    channel_lines+="* [${ch}](${link_prefix}/${ch})"$'\n'
+  done <<<"$channels"
+
+  # Replace everything between the marker line and "## Usage" (exclusive).
+  local tmp="${readme}.tmp"
+  awk -v marker="$marker" -v replacement="$channel_lines" '
+    BEGIN { replacing=0 }
+    replacing && /^## Usage/ { replacing=0; print ""; print; next }
+    replacing { next }
+    { print }
+    index($0, marker) { replacing=1; print ""; printf "%s", replacement }
+  ' "$readme" > "$tmp" && mv "$tmp" "$readme"
+
+  echo "    UPDATED: ${readme#"${REPO_ROOT}/"}"
+}
+
 # Extracts the top-level operator directory name from a subscription path.
 # Accounts for both nested (operator/base/) and flat (base/) layouts.
 get_operator_name() {
@@ -321,6 +382,10 @@ process_operator() {
         remove_overlay "$sub_file" "$channel"
       done <<<"$stale_channels"
     fi
+  fi
+
+  if [[ "$MODE" == "generate" ]]; then
+    update_readme "$sub_file"
   fi
 
   echo ""
