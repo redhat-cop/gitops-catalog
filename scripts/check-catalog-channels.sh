@@ -45,7 +45,7 @@ extract_channel_data() {
     cat "${CATALOG_CACHE}"
   else
     echo "Rendering catalog from ${CATALOG_IMAGE} (this may take a few minutes)..." >&2
-    opm render "${CATALOG_IMAGE}" 2>/dev/null |
+    opm render "${CATALOG_IMAGE}" |
       jq -c 'select(.schema == "olm.channel") | {package, name}'
   fi
 }

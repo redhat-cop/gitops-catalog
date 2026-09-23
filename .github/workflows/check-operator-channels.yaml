@@ -49,7 +49,7 @@ jobs:
         run: |
           CATALOG_IMAGE="registry.redhat.io/redhat/redhat-operator-index:${OCP_VERSION}"
           echo "Rendering catalog: ${CATALOG_IMAGE}"
-          opm render "${CATALOG_IMAGE}" 2>/dev/null | \
+          opm render "${CATALOG_IMAGE}" | \
             jq -c 'select(.schema == "olm.channel") | {package, name}' \
             > /tmp/catalog-channels.json
           echo "Extracted $(wc -l < /tmp/catalog-channels.json) channel entries"
