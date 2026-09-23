@@ -209,11 +209,11 @@ update_readme() {
     channel_lines+="* [${ch}](${link_prefix}/${ch})"$'\n'
   done <<<"$channels"
 
-  # Replace everything between the marker line and "## Usage" (exclusive).
+  # Replace everything between the marker line and the next Usage heading (exclusive).
   local tmp="${readme}.tmp"
   awk -v marker="$marker" -v replacement="$channel_lines" '
     BEGIN { replacing=0 }
-    replacing && /^## Usage/ { replacing=0; print ""; print; next }
+    replacing && /^#{2,3} Usage/ { replacing=0; print ""; print; next }
     replacing { next }
     { print }
     index($0, marker) { replacing=1; print ""; printf "%s", replacement }
