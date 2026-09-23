@@ -1,0 +1,131 @@
+name: Check Istio Version Updates
+
+on:  # yamllint disable-line rule:truthy
+  schedule:
+    - cron: '0 9 * * 1'  # Weekly on Monday 9am UTC (1h after channel check)
+  workflow_dispatch:
+    inputs:
+      ocp_versions:
+        description: 'Space-separated OCP versions (e.g., v4.18 v4.19 v4.20 v4.21 v4.22)'
+        default: 'v4.18 v4.19 v4.20 v4.21 v4.22'
+      mode:
+        description: 'report = dry run, generate = create PR with missing/stale overlays'
+        type: choice
+        options:
+          - report
+          - generate
+        default: report
+
+env:
+  OCP_VERSIONS: ${{ inputs.ocp_versions || 'v4.18 v4.19 v4.20 v4.21 v4.22' }}
+  PACKAGE_NAME: servicemeshoperator3
+  CATALOG: redhat-operators
+  # renovate: datasource=github-releases depName=operator-framework/operator-registry
+  OPM_VERSION: v1.74.0
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install opm
+        run: |
+          curl -sLO "https://github.com/operator-framework/operator-registry/releases/download/${OPM_VERSION}/linux-amd64-opm"
+          chmod +x linux-amd64-opm
+          sudo mv linux-amd64-opm /usr/local/bin/opm
+          opm version
+
+      - name: Install yq
+        uses: mikefarah/yq@c14f446382944492701b16c1ddb48bb9dbe683e3 # v4.53.6
+
+      - name: Authenticate to Red Hat registry
+        run: |
+          mkdir -p "${HOME}/.docker"
+          echo '${{ secrets.REDHAT_PULL_SECRET }}' > "${HOME}/.docker/config.json"
+
+      - name: Render and cache catalog data
+        run: |
+          mkdir -p /tmp/catalog-cache
+          index_name="${CATALOG%-operators}-operator-index"
+          for version in ${OCP_VERSIONS}; do
+            image="registry.redhat.io/redhat/${index_name}:${version}"
+            cache_file="/tmp/catalog-cache/${CATALOG}-${version}.json"
+            echo "Rendering catalog: ${image}"
+            opm render "${image}" | \
+              jq -c --arg pkg "${PACKAGE_NAME}" \
+                'select(.package == $pkg and (.schema == "olm.channel" or .schema == "olm.bundle"))' \
+              > "${cache_file}"
+            echo "  ${CATALOG} ${version}: $(wc -l < "${cache_file}") entries"
+          done
+
+      - name: Report
+        id: report
+        env:
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
+        run: |
+          output=$(./scripts/check-istio-versions.sh report)
+          echo "report<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$output" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+          if [ -n "$output" ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate overlay changes
+        if: >-
+          steps.report.outputs.has_changes == 'true' &&
+          (inputs.mode == 'generate' || github.event_name == 'schedule')
+        env:
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
+        run: ./scripts/check-istio-versions.sh generate
+
+      - name: Build commit summary
+        if: >-
+          steps.report.outputs.has_changes == 'true' &&
+          (inputs.mode == 'generate' || github.event_name == 'schedule')
+        id: summary
+        env:
+          REPORT: ${{ steps.report.outputs.report }}
+        run: |
+          added=$(echo "$REPORT" | grep 'missing:' | sed 's/.*missing:[[:space:]]*//' | xargs || true)
+          removed=$(echo "$REPORT" | grep 'stale:' | sed 's/.*stale:[[:space:]]*//' | xargs || true)
+          msg=""
+          [ -n "$added" ] && msg="Added: ${added}"
+          [ -n "$removed" ] && msg="${msg:+${msg}
+          }Removed: ${removed}"
+          echo "message<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$msg" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        if: >-
+          steps.report.outputs.has_changes == 'true' &&
+          (inputs.mode == 'generate' || github.event_name == 'schedule')
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            chore(redhat-openshift-servicemesh-3): update Istio version overlays
+
+            ${{ steps.summary.outputs.message }}
+          title: "chore(redhat-openshift-servicemesh-3): update Istio version overlays"
+          body: |
+            ## Istio Version Overlay Update
+
+            Compared Istio versions from the Sail operator's CRD across supported Red Hat catalog indices (`${{ env.OCP_VERSIONS }}`) against instance overlay directories for `redhat-openshift-servicemesh-3`.
+            <details>
+            <summary>Full report</summary>
+
+            ```
+            ${{ steps.report.outputs.report }}
+            ```
+            </details>
+            Generated by the automated Istio version check.
+          branch: automation/sync-istio-version-overlays
+          labels: automation
+          delete-branch: true
