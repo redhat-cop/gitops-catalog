@@ -1,0 +1,176 @@
+name: Check Operator Channel Updates
+
+on:  # yamllint disable-line rule:truthy
+  schedule:
+    - cron: '0 8 * * 1'  # Weekly on Monday 8am UTC
+  workflow_dispatch:
+    inputs:
+      ocp_versions:
+        description: 'Space-separated OCP versions (e.g., v4.18 v4.19 v4.20 v4.21 v4.22)'
+        default: 'v4.18 v4.19 v4.20 v4.21 v4.22'
+      mode:
+        description: 'report = dry run, generate = create PRs with missing/stale overlays'
+        type: choice
+        options:
+          - report
+          - generate
+        default: report
+      ignore_missing:
+        description: 'Skip operators not found in any catalog instead of failing'
+        type: boolean
+        default: false
+
+env:
+  OCP_VERSIONS: ${{ inputs.ocp_versions || 'v4.18 v4.19 v4.20 v4.21 v4.22' }}
+  # renovate: datasource=github-releases depName=operator-framework/operator-registry
+  OPM_VERSION: v1.74.0
+  IGNORE_MISSING: ${{ inputs.ignore_missing == true || github.event_name == 'schedule' }}
+
+jobs:
+  check-channels:
+    runs-on: ubuntu-latest
+    outputs:
+      operators: ${{ steps.list.outputs.operators }}
+    permissions:
+      contents: read
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install opm
+        run: |
+          curl -sLO "https://github.com/operator-framework/operator-registry/releases/download/${OPM_VERSION}/linux-amd64-opm"
+          chmod +x linux-amd64-opm
+          sudo mv linux-amd64-opm /usr/local/bin/opm
+          opm version
+
+      - name: Install yq
+        uses: mikefarah/yq@c14f446382944492701b16c1ddb48bb9dbe683e3 # v4.53.6
+
+      - name: Authenticate to Red Hat registry
+        run: |
+          mkdir -p "${HOME}/.docker"
+          echo '${{ secrets.REDHAT_PULL_SECRET }}' > "${HOME}/.docker/config.json"
+
+      - name: Render and cache catalog data
+        run: |
+          mkdir -p /tmp/catalog-cache
+          catalogs="redhat-operators certified-operators community-operators"
+          for catalog in ${catalogs}; do
+            index_name="${catalog%-operators}-operator-index"
+            for version in ${OCP_VERSIONS}; do
+              image="registry.redhat.io/redhat/${index_name}:${version}"
+              cache_file="/tmp/catalog-cache/${catalog}-${version}.json"
+              echo "Rendering catalog: ${image}"
+              opm render "${image}" | \
+                jq -c --arg src "${catalog}" \
+                  'select(.schema == "olm.channel") | {package, name, source: $src}' \
+                > "${cache_file}"
+              echo "  ${catalog} ${version}: $(wc -l < "${cache_file}") channel entries"
+            done
+          done
+
+      - name: Report
+        env:
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
+        run: ./scripts/check-catalog-channels.sh report
+
+      - name: List operators with changes
+        id: list
+        env:
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
+        run: |
+          operators=$(./scripts/check-catalog-channels.sh list | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "operators=${operators}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload catalog cache
+        if: steps.list.outputs.operators != '[]'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: catalog-cache
+          path: /tmp/catalog-cache/
+          retention-days: 1
+
+  create-prs:
+    needs: check-channels
+    if: >-
+      needs.check-channels.outputs.operators != '[]' &&
+      (inputs.mode == 'generate' || github.event_name == 'schedule')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    strategy:
+      matrix:
+        operator: ${{ fromJson(needs.check-channels.outputs.operators) }}
+      fail-fast: false
+      max-parallel: 5
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install yq
+        uses: mikefarah/yq@c14f446382944492701b16c1ddb48bb9dbe683e3 # v4.53.6
+
+      - name: Download catalog cache
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: catalog-cache
+          path: /tmp/catalog-cache/
+
+      - name: Generate report
+        id: report
+        env:
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
+          OPERATOR_FILTER: ${{ matrix.operator }}
+        run: |
+          output=$(./scripts/check-catalog-channels.sh report)
+          echo "report<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$output" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Generate overlay changes
+        env:
+          CATALOG_CACHE_DIR: /tmp/catalog-cache
+          OPERATOR_FILTER: ${{ matrix.operator }}
+        run: ./scripts/check-catalog-channels.sh generate
+
+      - name: Build commit summary
+        id: summary
+        env:
+          REPORT: ${{ steps.report.outputs.report }}
+        run: |
+          added=$(echo "$REPORT" | grep 'missing:' | sed 's/.*missing:[[:space:]]*//' | xargs || true)
+          removed=$(echo "$REPORT" | grep 'stale:' | sed 's/.*stale:[[:space:]]*//' | xargs || true)
+          msg=""
+          [ -n "$added" ] && msg="Added: ${added}"
+          [ -n "$removed" ] && msg="${msg:+${msg}
+          }Removed: ${removed}"
+          echo "message<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$msg" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            chore(${{ matrix.operator }}): update channel overlays
+
+            ${{ steps.summary.outputs.message }}
+          title: "chore(${{ matrix.operator }}): update channel overlays"
+          body: |
+            ## Channel Overlay Update: `${{ matrix.operator }}`
+
+            Compared OLM channels across supported Red Hat, Certified, and Community catalog indices (`${{ env.OCP_VERSIONS }}`) against overlay directories for `${{ matrix.operator }}`.
+            <details>
+            <summary>Full report</summary>
+
+            ```
+            ${{ steps.report.outputs.report }}
+            ```
+            </details>
+            Generated by the automated channel updates check.
+          branch: automation/sync-channel-overlay-${{ matrix.operator }}
+          labels: automation
+          delete-branch: true
