@@ -47,6 +47,14 @@ jobs:
       - name: Install yq
         uses: mikefarah/yq@c14f446382944492701b16c1ddb48bb9dbe683e3 # v4.53.6
 
+      - name: Restore catalog cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: /tmp/catalog-cache
+          key: catalog-cache-operator-channels-${{ github.run_id }}
+          restore-keys: |
+            catalog-cache-operator-channels-
+
       - name: Authenticate to Red Hat registry
         run: |
           mkdir -p "${HOME}/.docker"
