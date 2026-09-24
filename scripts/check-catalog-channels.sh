@@ -14,7 +14,10 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 OCP_VERSIONS="${OCP_VERSIONS:-v4.18 v4.19 v4.20 v4.21 v4.22}"
 CATALOGS="${CATALOGS:-redhat-operators certified-operators community-operators}"
 MODE="${1:-report}" # report | generate | list
-CATALOG_CACHE_DIR="${CATALOG_CACHE_DIR:-}"
+CATALOG_CACHE="${CATALOG_CACHE:-true}"
+CATALOG_CACHE_DIR="${CATALOG_CACHE_DIR:-/tmp/catalog-cache}"
+CATALOG_CACHE_REFRESH="${CATALOG_CACHE_REFRESH:-true}"
+SKOPEO_TIMEOUT="${SKOPEO_TIMEOUT:-30}"
 OPERATOR_FILTER="${OPERATOR_FILTER:-}"
 HAS_CHANGES=false
 ERRORS=false
@@ -37,27 +40,43 @@ of operators that have changes (one per line), for use in CI matrix strategies.
 Environment variables:
   OCP_VERSIONS       Space-separated list of OCP versions (default: v4.18 v4.19 v4.20 v4.21 v4.22)
   CATALOGS           Space-separated catalog sources (default: redhat-operators certified-operators community-operators)
-  CATALOG_CACHE_DIR  Directory containing pre-rendered catalog JSON files named
-                     <catalog>-<version>.json (skip opm render)
+  CATALOG_CACHE      Enable digest-based caching of rendered catalog data
+                     (default: true). Set to false to always render live.
+  CATALOG_CACHE_DIR  Directory for digest-keyed catalog JSON cache files.
+                     Files are named packages-<catalog>-<version>-<digest>.json.
+                     (default: /tmp/catalog-cache)
+  CATALOG_CACHE_REFRESH
+                     Check digests and re-render on cache miss (default: true).
+                     Set to false to only read existing cache files without
+                     requiring skopeo or opm.
+  SKOPEO_TIMEOUT     Timeout in seconds for skopeo digest lookups (default: 30)
   OPERATOR_FILTER    If set, only process the operator with this name
   IGNORE_MISSING     If true, skip operators not found in any catalog instead of erroring (default: false)
   IGNORED_OPERATORS  Space-separated list of operator directory names to skip entirely,
                      e.g. operators that use a custom CatalogSource (default: rhoda-operator)
 
-Requires: opm, yq, jq
+Requires: opm, skopeo (when cache refresh enabled), yq, jq
 EOF
 }
 
 check_prereqs() {
-  # opm is only required when rendering live from the registry;
-  # cached JSON files (CATALOG_CACHE_DIR) bypass the opm dependency.
   local missing=()
   for cmd in jq yq; do
     command -v "$cmd" &>/dev/null || missing+=("$cmd")
   done
-  if [[ -z "${CATALOG_CACHE_DIR:-}" ]]; then
+
+  if [[ "${CATALOG_CACHE}" == "true" && "${CATALOG_CACHE_REFRESH}" != "true" ]]; then
+    # Cache-only mode: read existing files, no skopeo or opm needed.
+    :
+  elif [[ "${CATALOG_CACHE}" == "true" ]]; then
+    # Cache with refresh: skopeo for digests, opm for cache misses.
+    command -v skopeo &>/dev/null || missing+=("skopeo")
+    command -v opm &>/dev/null || missing+=("opm")
+  else
+    # No caching: always render live.
     command -v opm &>/dev/null || missing+=("opm")
   fi
+
   if [[ ${#missing[@]} -gt 0 ]]; then
     echo "ERROR: missing required tools: ${missing[*]}" >&2
     exit 1
@@ -73,27 +92,76 @@ get_catalog_image_base() {
   echo "registry.redhat.io/redhat/${index_name}"
 }
 
+# Returns the image digest in a filename-safe format (sha256_<hex>).
+# Returns empty string when skopeo is unavailable or the inspect fails.
+get_image_digest() {
+  local image="$1"
+  command -v skopeo &>/dev/null || return 0
+  local digest
+  digest="$(timeout "${SKOPEO_TIMEOUT}" skopeo inspect --raw "docker://${image}" 2>/dev/null | skopeo manifest-digest /dev/stdin 2>/dev/null)" || return 0
+  echo "${digest//:/_}"
+}
+
 # Extracts channel metadata from a single catalog+version combination.
-# Uses cached JSON if CATALOG_CACHE_DIR is set; otherwise renders the
-# catalog image live with `opm render` and filters for olm.channel entries.
+# When caching is enabled, uses digest-keyed files to avoid redundant
+# opm render calls.  Falls back to existing cache files when the digest
+# cannot be obtained (e.g. no skopeo or registry auth).
 # Output: one JSON object per line with {package, name, source}.
 extract_channel_data_for_catalog_version() {
   local catalog="$1"
   local version="$2"
-  local cache_file="${CATALOG_CACHE_DIR:+${CATALOG_CACHE_DIR}/${catalog}-${version}.json}"
+  local image_base
+  image_base="$(get_catalog_image_base "$catalog")"
+  local image="${image_base}:${version}"
 
-  if [[ -n "${cache_file}" && -f "${cache_file}" ]]; then
-    echo "  Using cached data: ${cache_file}" >&2
-    cat "${cache_file}"
-  else
-    local image_base
-    image_base="$(get_catalog_image_base "$catalog")"
-    local image="${image_base}:${version}"
-    echo "  Rendering ${image}..." >&2
+  if [[ "${CATALOG_CACHE}" != "true" ]]; then
+    echo "  Rendering ${image} (caching disabled)..." >&2
     opm render "${image}" |
       jq -c --arg src "$catalog" \
         'select(.schema == "olm.channel") | {package, name, source: $src}'
+    return
   fi
+
+  mkdir -p "${CATALOG_CACHE_DIR}"
+
+  # Refresh disabled: only read existing cache files
+  if [[ "${CATALOG_CACHE_REFRESH}" != "true" ]]; then
+    local fallback_files=("${CATALOG_CACHE_DIR}/packages-${catalog}-${version}-sha256_"*.json)
+    if [[ -f "${fallback_files[0]}" ]]; then
+      echo "  Using cached data: ${fallback_files[0]##*/}" >&2
+      cat "${fallback_files[0]}"
+    else
+      echo "  ERROR: No cache file for ${catalog}-${version} and refresh is disabled" >&2
+      return 1
+    fi
+    return
+  fi
+
+  # Refresh enabled: check digest and render on cache miss
+  local digest
+  digest="$(get_image_digest "${image}")"
+  local cache_file="${CATALOG_CACHE_DIR}/packages-${catalog}-${version}-${digest}.json"
+
+  if [[ -f "${cache_file}" ]]; then
+    echo "  Cache hit: ${cache_file##*/}" >&2
+    cat "${cache_file}"
+    return
+  fi
+
+  echo "  Cache miss for ${image} (${digest}), rendering..." >&2
+  local old_file
+  for old_file in "${CATALOG_CACHE_DIR}/packages-${catalog}-${version}-sha256_"*.json; do
+    [[ -f "${old_file}" ]] || continue
+    echo "    Removing stale cache: ${old_file##*/}" >&2
+    rm -f "${old_file}"
+  done
+
+  opm render "${image}" |
+    jq -c --arg src "$catalog" \
+      'select(.schema == "olm.channel") | {package, name, source: $src}' \
+    > "${cache_file}"
+  echo "    Cached: ${cache_file##*/} ($(wc -l < "${cache_file}") entries)" >&2
+  cat "${cache_file}"
 }
 
 # Collects channel data across all catalog×version combinations and

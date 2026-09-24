@@ -52,33 +52,11 @@ jobs:
           mkdir -p "${HOME}/.docker"
           echo '${{ secrets.REDHAT_PULL_SECRET }}' > "${HOME}/.docker/config.json"
 
-      - name: Render and cache catalog data
-        run: |
-          mkdir -p /tmp/catalog-cache
-          catalogs="redhat-operators certified-operators community-operators"
-          for catalog in ${catalogs}; do
-            index_name="${catalog%-operators}-operator-index"
-            for version in ${OCP_VERSIONS}; do
-              image="registry.redhat.io/redhat/${index_name}:${version}"
-              cache_file="/tmp/catalog-cache/${catalog}-${version}.json"
-              echo "Rendering catalog: ${image}"
-              opm render "${image}" | \
-                jq -c --arg src "${catalog}" \
-                  'select(.schema == "olm.channel") | {package, name, source: $src}' \
-                > "${cache_file}"
-              echo "  ${catalog} ${version}: $(wc -l < "${cache_file}") channel entries"
-            done
-          done
-
       - name: Report
-        env:
-          CATALOG_CACHE_DIR: /tmp/catalog-cache
         run: ./scripts/check-catalog-channels.sh report
 
       - name: List operators with changes
         id: list
-        env:
-          CATALOG_CACHE_DIR: /tmp/catalog-cache
         run: |
           operators=$(./scripts/check-catalog-channels.sh list | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "operators=${operators}" >> "$GITHUB_OUTPUT"
@@ -121,7 +99,7 @@ jobs:
       - name: Generate report
         id: report
         env:
-          CATALOG_CACHE_DIR: /tmp/catalog-cache
+          CATALOG_CACHE_REFRESH: 'false'
           OPERATOR_FILTER: ${{ matrix.operator }}
         run: |
           output=$(./scripts/check-catalog-channels.sh report)
@@ -131,7 +109,7 @@ jobs:
 
       - name: Generate overlay changes
         env:
-          CATALOG_CACHE_DIR: /tmp/catalog-cache
+          CATALOG_CACHE_REFRESH: 'false'
           OPERATOR_FILTER: ${{ matrix.operator }}
         run: ./scripts/check-catalog-channels.sh generate
 
