@@ -57,6 +57,15 @@ jobs:
 
       - name: Authenticate to Red Hat registry
         run: |
+          # --- Creating a new secret for REDHAT_PULL_SECRET ---
+          #
+          # 1. Navigate to https://access.redhat.com/terms-based-registry/
+          # 2. Click New service account
+          # 3. Enter name and description, click create
+          # 4. Navigate to the "Docker configuration" tab and copy the auth.json output
+          # 5. Create/update the secret in the repo `Settings` > `Secrets and variables` > `Actions` > `New repository secret`
+          # 6. Name the secret REDHAT_PULL_SECRET and paste the auth.json output
+
           mkdir -p "${HOME}/.docker"
           echo '${{ secrets.REDHAT_PULL_SECRET }}' > "${HOME}/.docker/config.json"
 
