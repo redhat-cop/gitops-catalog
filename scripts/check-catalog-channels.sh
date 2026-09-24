@@ -23,7 +23,7 @@ HAS_CHANGES=false
 ERRORS=false
 IGNORE_MISSING="${IGNORE_MISSING:-false}"
 MISSING_CATALOG_MSGS=()
-IGNORED_OPERATORS="${IGNORED_OPERATORS:-rhoda-operator}"
+IGNORED_OPERATORS="${IGNORED_OPERATORS:-}"
 
 usage() {
   cat <<EOF
@@ -53,7 +53,7 @@ Environment variables:
   OPERATOR_FILTER    If set, only process the operator with this name
   IGNORE_MISSING     If true, skip operators not found in any catalog instead of erroring (default: false)
   IGNORED_OPERATORS  Space-separated list of operator directory names to skip entirely,
-                     e.g. operators that use a custom CatalogSource (default: rhoda-operator)
+                     e.g. operators that use a custom CatalogSource (default: empty)
 
 Requires: opm, skopeo (when cache refresh enabled), yq, jq
 EOF
