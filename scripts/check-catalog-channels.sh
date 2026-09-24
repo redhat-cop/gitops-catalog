@@ -81,6 +81,15 @@ check_prereqs() {
     echo "ERROR: missing required tools: ${missing[*]}" >&2
     exit 1
   fi
+
+  # Verify registry auth when registry access is needed
+  if [[ "${CATALOG_CACHE}" != "true" || "${CATALOG_CACHE_REFRESH}" == "true" ]]; then
+    if ! skopeo login --get-login registry.redhat.io &>/dev/null; then
+      echo "ERROR: not authenticated to registry.redhat.io" >&2
+      echo "Place a valid pull secret in ~/.config/containers/auth.json" >&2
+      exit 1
+    fi
+  fi
 }
 
 # Derives the registry image path from a catalog name.
@@ -464,6 +473,16 @@ main() {
     usage
     exit 0
   fi
+
+  case "$MODE" in
+    report|generate|list)
+      ;;
+    *)
+      echo "ERROR: invalid mode: $MODE" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
 
   check_prereqs
 
