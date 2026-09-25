@@ -1,1 +1,0 @@
-Installs the *pipelines-1.7* channel of the Pipeline Operator which tracks the 1.7.X version.

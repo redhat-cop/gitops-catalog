@@ -5,12 +5,18 @@ Installs the OpenShift Pipelines (Tekton) operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
+
 * [latest](overlays/latest)
-* [stable](overlays/stable)
+* [pipelines-1.15](overlays/pipelines-1.15)
+* [pipelines-1.16](overlays/pipelines-1.16)
+* [pipelines-1.17](overlays/pipelines-1.17)
 * [pipelines-1.18](overlays/pipelines-1.18)
 * [pipelines-1.19](overlays/pipelines-1.19)
 * [pipelines-1.20](overlays/pipelines-1.20)
-* [preview](overlays/preview)
+* [pipelines-1.21](overlays/pipelines-1.21)
+* [pipelines-1.22](overlays/pipelines-1.22)
+* [pipelines-1.23](overlays/pipelines-1.23)
+* [pipelines-1.24](overlays/pipelines-1.24)
 
 ## Usage
 
