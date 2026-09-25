@@ -1,0 +1,7 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../operator/overlays/stable-4.20
+  - ../../../instance/overlays/vsphere

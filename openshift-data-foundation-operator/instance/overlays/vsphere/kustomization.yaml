@@ -6,5 +6,8 @@ namespace: openshift-storage
 
 resources:
   - ../../base
-  - ocsinitialization.yaml
-  - storagecluster.yaml
+
+components:
+  - ../../components/vsphere
+  - ../../components/ceph-tools
+  - ../../components/node-labeler

@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+resources:
+  - enable-console-plugin-job.yaml
+  - enable-console-plugin-rbac.yaml
+  - enable-console-plugin-sa.yaml
+  - openshift-data-foundation-console-plugin.yaml
