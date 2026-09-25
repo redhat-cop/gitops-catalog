@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/channel
+  value: support-required-upgrade-3.5
