@@ -8,7 +8,4 @@ patches:
   - target:
       kind: Subscription
       name: openshift-zero-trust-workload-identity-manager
-    patch: |-
-      - op: replace
-        path: /spec/channel
-        value: 'tech-preview-v0.2'
+    path: patch-channel.yaml
