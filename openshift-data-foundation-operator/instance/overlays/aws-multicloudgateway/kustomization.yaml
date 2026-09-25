@@ -5,4 +5,8 @@ kind: Kustomization
 namespace: openshift-storage
 
 resources:
-  - storagecluster.yaml
+  - ../../base
+
+components:
+  - ../../components/aws-multicloudgateway
+  - ../../components/ceph
