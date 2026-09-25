@@ -5,9 +5,13 @@ Installs the OpenShift Container Storage operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [stable-4.6](overlays/stable-4.6)
-* [stable-4.7](overlays/stable-4.7)
-* [stable-4.8](overlays/stable-4.8)
+
+* [stable-4.17](operator/overlays/stable-4.17)
+* [stable-4.18](operator/overlays/stable-4.18)
+* [stable-4.19](operator/overlays/stable-4.19)
+* [stable-4.20](operator/overlays/stable-4.20)
+* [stable-4.21](operator/overlays/stable-4.21)
+* [stable-4.22](operator/overlays/stable-4.22)
 
 ## Usage
 
