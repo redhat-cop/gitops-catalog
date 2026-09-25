@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/channel
+  value: odh-2.8.z
