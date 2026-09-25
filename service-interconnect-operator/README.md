@@ -6,7 +6,17 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
+* [alpha](operator/overlays/alpha)
 * [stable](operator/overlays/stable)
+* [stable-1](operator/overlays/stable-1)
+* [stable-1.4](operator/overlays/stable-1.4)
+* [stable-1.5](operator/overlays/stable-1.5)
+* [stable-1.8](operator/overlays/stable-1.8)
+* [stable-1.9](operator/overlays/stable-1.9)
+* [stable-2](operator/overlays/stable-2)
+* [stable-2.0](operator/overlays/stable-2.0)
+* [stable-2.1](operator/overlays/stable-2.1)
+* [stable-2.2](operator/overlays/stable-2.2)
 
 ## Usage
 
