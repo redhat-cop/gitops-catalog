@@ -5,10 +5,8 @@ Installs the Openshift SR-IOV Operator.
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [4.9](overlays/4.9)
-* [4.10](overlays/4.10)
-* [4.11](overlays/4.11)
-* [4.12](overlays/4.12)
+
+* [stable](overlays/stable)
 
 ## Usage
 
