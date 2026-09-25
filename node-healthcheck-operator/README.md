@@ -14,6 +14,11 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
+* [4.12-eus](operator/overlays/4.12-eus)
+* [4.14-eus](operator/overlays/4.14-eus)
+* [4.16-eus](operator/overlays/4.16-eus)
+* [4.18-eus](operator/overlays/4.18-eus)
+* [candidate](operator/overlays/candidate)
 * [stable](operator/overlays/stable)
 
 ## Usage
