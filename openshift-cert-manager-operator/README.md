@@ -7,12 +7,12 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 The current *overlays* available are for the following channels:
 
 * [stable-v1](operator/overlays/stable-v1)
-* [stable-v1.10](operator/overlays/stable-v1.10)
-* [stable-v1.11](operator/overlays/stable-v1.11)
-* [stable-v1.12](operator/overlays/stable-v1.12)
-* [stable-v1.13](operator/overlays/stable-v1.13)
-* [stable-v1.14](operator/overlays/stable-v1.14)
-* [tech-preview](operator/overlays/tech-preview)
+* [stable-v1.15](operator/overlays/stable-v1.15)
+* [stable-v1.16](operator/overlays/stable-v1.16)
+* [stable-v1.17](operator/overlays/stable-v1.17)
+* [stable-v1.18](operator/overlays/stable-v1.18)
+* [stable-v1.19](operator/overlays/stable-v1.19)
+* [stable-v1.20](operator/overlays/stable-v1.20)
 
 ## Usage
 
