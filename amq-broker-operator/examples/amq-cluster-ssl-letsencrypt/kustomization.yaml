@@ -6,7 +6,7 @@ namespace: amq-cluster-ssl
 resources:
   - namespace.yaml
   - operator-group.yaml
-  - ../../operator/overlays/v7.12
+  - ../../operator/overlays/7.12.x
   - ../../instance/overlays/clustered-ephemeral-tls-letsencrypt
 
 components:
