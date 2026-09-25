@@ -1,1 +1,0 @@
-Installs the *tech-preview* channel version of the OpenShift Jaeger Operator with the latest version for this channel
