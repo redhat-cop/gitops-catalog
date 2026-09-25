@@ -6,8 +6,6 @@ resources:
 
 patches:
   - target:
-      group: operators.coreos.com
-      version: v1alpha1
       kind: Subscription
       name: amq-broker-rhel8
     path: patch-channel.yaml
