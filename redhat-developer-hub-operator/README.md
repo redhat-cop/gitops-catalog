@@ -11,6 +11,16 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 The current *overlays* available are for the following channels:
 
 * [fast](operator/overlays/fast)
+* [fast-1.1](operator/overlays/fast-1.1)
+* [fast-1.2](operator/overlays/fast-1.2)
+* [fast-1.3](operator/overlays/fast-1.3)
+* [fast-1.4](operator/overlays/fast-1.4)
+* [fast-1.5](operator/overlays/fast-1.5)
+* [fast-1.6](operator/overlays/fast-1.6)
+* [fast-1.7](operator/overlays/fast-1.7)
+* [fast-1.8](operator/overlays/fast-1.8)
+* [fast-1.9](operator/overlays/fast-1.9)
+* [fast-1.10](operator/overlays/fast-1.10)
 
 ## Usage
 
