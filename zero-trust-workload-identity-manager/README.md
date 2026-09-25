@@ -11,7 +11,8 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 The current *overlays* available are for the following channels:
 
 * [stable-v1](operator/overlays/stable-v1)
-* [tech-preview](operator/overlays/tech-preview)
+* [tech-preview-v0.1](operator/overlays/tech-preview-v0.1)
+* [tech-preview-v0.2](operator/overlays/tech-preview-v0.2)
 
 ### Usage
 
