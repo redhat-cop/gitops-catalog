@@ -5,10 +5,13 @@ Installs the OpenShift LVM Storage Operator
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [4.15-stable](overlays/4.15-stable)
-* [4.14-stable](overlays/4.14-stable)
-* [4.13-stable](overlays/4.13-stable)
-* [4.12-stable](overlays/4.12-stable)
+
+* [stable-4.17](operator/overlays/stable-4.17)
+* [stable-4.18](operator/overlays/stable-4.18)
+* [stable-4.19](operator/overlays/stable-4.19)
+* [stable-4.20](operator/overlays/stable-4.20)
+* [stable-4.21](operator/overlays/stable-4.21)
+* [stable-4.22](operator/overlays/stable-4.22)
 
 ## Usage
 
