@@ -1,7 +1,6 @@
 apiVersion: ocs.openshift.io/v1
-kind: OCSInitialization
+kind: StorageCluster
 metadata:
-  name: ocsinit
-  namespace: openshift-storage
+  name: ocs-storagecluster
 spec:
   enableCephTools: true
