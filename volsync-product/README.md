@@ -6,10 +6,13 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
-* [acm-2.5](operator/overlays/acm-2.5)
-* [acm-2.6](operator/overlays/acm-2.6)
-* [acm-2.7](operator/overlays/acm-2.7)
 * [stable](operator/overlays/stable)
+* [stable-0.11](operator/overlays/stable-0.11)
+* [stable-0.12](operator/overlays/stable-0.12)
+* [stable-0.13](operator/overlays/stable-0.13)
+* [stable-0.14](operator/overlays/stable-0.14)
+* [stable-0.15](operator/overlays/stable-0.15)
+* [stable-0.16](operator/overlays/stable-0.16)
 
 ## Usage
 
