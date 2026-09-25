@@ -6,6 +6,9 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
+* [fast](operator/overlays/fast)
+* [fast-3](operator/overlays/fast-3)
+* [odh-2.8.z](operator/overlays/odh-2.8.z)
 * [rolling](operator/overlays/rolling)
 * [stable](operator/overlays/stable)
 
