@@ -7,7 +7,13 @@ This operator enables direct networking between Pods and Services in different K
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
-* [stable-0-12](overlays/stable-0-12)
+
+* [stable-0.19](overlays/stable-0.19)
+* [stable-0.20](overlays/stable-0.20)
+* [stable-0.21](overlays/stable-0.21)
+* [stable-0.22](overlays/stable-0.22)
+* [stable-0.23](overlays/stable-0.23)
+* [stable-0.24](overlays/stable-0.24)
 
 ## Usage
 
