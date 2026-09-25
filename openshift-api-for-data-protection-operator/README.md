@@ -7,7 +7,10 @@ This operator provides functionality to safely backup and restore, perform disas
 Do not use the `base` directory directly, as you will need to patch the `channel` based on the version of OpenShift you are using, or the version of the operator you want to use.
 
 The current *overlays* available are for the following channels:
+
 * [stable](overlays/stable)
+* [stable-1.0](overlays/stable-1.0)
+* [stable-1.4](overlays/stable-1.4)
 
 ## Usage
 
