@@ -9,6 +9,10 @@ The current *overlays* available are for the following channels:
 * [candidates](operator/overlays/candidates)
 * [stable](operator/overlays/stable)
 * [stable-3.0](operator/overlays/stable-3.0)
+* [stable-3.1](operator/overlays/stable-3.1)
+* [stable-3.2](operator/overlays/stable-3.2)
+* [stable-3.3](operator/overlays/stable-3.3)
+* [stable-3.4](operator/overlays/stable-3.4)
 
 ## Usage
 
