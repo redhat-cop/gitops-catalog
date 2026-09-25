@@ -6,9 +6,6 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 The current *overlays* available are for the following channels:
 
-* [gitops-1.3](operator/overlays/gitops-1.3)
-* [gitops-1.4](operator/overlays/gitops-1.4)
-* [gitops-1.5](operator/overlays/gitops-1.5)
 * [gitops-1.6](operator/overlays/gitops-1.6)
 * [gitops-1.7](operator/overlays/gitops-1.7)
 * [gitops-1.8](operator/overlays/gitops-1.8)
@@ -20,8 +17,12 @@ The current *overlays* available are for the following channels:
 * [gitops-1.14](operator/overlays/gitops-1.14)
 * [gitops-1.15](operator/overlays/gitops-1.15)
 * [gitops-1.16](operator/overlays/gitops-1.16)
+* [gitops-1.17](operator/overlays/gitops-1.17)
+* [gitops-1.18](operator/overlays/gitops-1.18)
+* [gitops-1.19](operator/overlays/gitops-1.19)
+* [gitops-1.20](operator/overlays/gitops-1.20)
+* [gitops-1.21](operator/overlays/gitops-1.21)
 * [latest](operator/overlays/latest)
-* [preview](operator/overlays/preview)
 
 ## Usage
 
