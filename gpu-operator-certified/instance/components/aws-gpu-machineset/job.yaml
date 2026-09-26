@@ -64,7 +64,7 @@ spec:
       containers:
         - name: job-aws-gpu-machineset
           # image: image-registry.openshift-image-registry.svc:5000/openshift/tools:latest
-          image: registry.redhat.io/openshift4/ose-cli
+          image: registry.redhat.io/openshift4/ose-cli-rhel9
           env:
             - name: NAMESPACE
               valueFrom:

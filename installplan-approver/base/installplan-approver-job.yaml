@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - image: registry.redhat.io/openshift4/ose-cli:v4.4
+        - image: registry.redhat.io/openshift4/ose-cli-rhel9:v4.4
           command:
             - /bin/bash
             - -c
