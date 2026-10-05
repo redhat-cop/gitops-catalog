@@ -8,6 +8,10 @@ The current operator overlays are:
 
 * [stable](operator/overlays/stable)
 * [stable-v1.5](operator/overlays/stable-v1.5)
+* [stable-v1.4](operator/overlays/stable-v1.4)
+* [stable-v1.3](operator/overlays/stable-v1.3)
+* [stable-v1.2](operator/overlays/stable-v1.2)
+* [stable-v1.1](operator/overlays/stable-v1.1)
 
 ## Usage
 
