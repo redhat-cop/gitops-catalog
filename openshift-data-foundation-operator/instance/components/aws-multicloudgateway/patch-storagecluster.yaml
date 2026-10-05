@@ -1,0 +1,8 @@
+apiVersion: ocs.openshift.io/v1
+kind: StorageCluster
+metadata:
+  name: ocs-storagecluster
+spec:
+  multiCloudGateway:
+    dbStorageClassName: gp3-csi
+    reconcileStrategy: standalone
