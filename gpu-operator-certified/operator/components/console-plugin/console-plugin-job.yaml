@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
         - name: minion
-          image: registry.redhat.io/openshift4/ose-cli
+          image: registry.redhat.io/openshift4/ose-cli-rhel9
           env:
             - name: PLUGIN_NAME
               value: console-plugin-nvidia-gpu
