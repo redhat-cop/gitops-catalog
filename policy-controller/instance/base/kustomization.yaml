@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: policy-controller-operator
 
 resources:
-  - namespace.yaml
   - policycontroller.yaml

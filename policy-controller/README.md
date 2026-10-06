@@ -35,7 +35,9 @@ resources:
 
 ## Instance
 
-The instance creates a `PolicyController` resource in `policy-controller-operator`. That resource installs the admission controller. It checks only namespaces labeled `policy.rhtas.com/include=true`.
+Apply an operator overlay before the instance. The operator creates the `policy-controller-operator` namespace.
+
+The instance creates a `PolicyController` resource in that namespace. That resource installs the admission controller. It checks only namespaces labeled `policy.rhtas.com/include=true`.
 
 A cluster image policy is not included. It has to name the signing service from your Trusted Artifact Signer deployment. Apply one after that deployment exists, and only on the namespaces you want checked.
 
