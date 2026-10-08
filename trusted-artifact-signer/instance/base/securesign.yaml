@@ -1,0 +1,35 @@
+apiVersion: rhtas.redhat.com/v1
+kind: Securesign
+metadata:
+  name: securesign-sample
+  namespace: trusted-artifact-signer
+spec:
+  fulcio:
+    ingress:
+      enabled: true
+    config:
+      oidcIssuers:
+        - clientID: trusted-artifact-signer
+          issuerURL: https://replace-with-your-oidc-issuer
+          issuer: https://replace-with-your-oidc-issuer
+          type: email
+    signer:
+      certificateChain:
+        organizationName: Red Hat
+  rekor:
+    ingress:
+      enabled: true
+  tuf:
+    ingress:
+      enabled: true
+  tsa:
+    ingress:
+      enabled: true
+    signer:
+      certificateChain:
+        intermediateCA:
+          - organizationName: Red Hat
+        leafCA:
+          organizationName: Red Hat
+        rootCA:
+          organizationName: Red Hat
