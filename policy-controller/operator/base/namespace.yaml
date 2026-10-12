@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/display-name: "Policy Controller Operator"
+  labels:
+    openshift.io/cluster-monitoring: "true"
+  name: policy-controller-operator
