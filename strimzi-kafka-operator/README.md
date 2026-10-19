@@ -40,6 +40,7 @@ The current *overlays* available are for the following channels:
 * [strimzi-1.0.x](operator/overlays/strimzi-1.0.x)
 * [strimzi-1.1.x](operator/overlays/strimzi-1.1.x)
 * [strimzi-1.2.x](operator/overlays/strimzi-1.2.x)
+* [strimzi-1.3.x](operator/overlays/strimzi-1.3.x)
 
 ## Usage
 
