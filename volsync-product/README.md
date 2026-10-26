@@ -13,6 +13,7 @@ The current *overlays* available are for the following channels:
 * [stable-0.14](operator/overlays/stable-0.14)
 * [stable-0.15](operator/overlays/stable-0.15)
 * [stable-0.16](operator/overlays/stable-0.16)
+* [stable-0.17](operator/overlays/stable-0.17)
 
 ## Usage
 
