@@ -46,6 +46,7 @@ Devfile
 DotNET
 ECK
 Eventing
+Fulcio
 FullAccess
 GPUs
 Gi
@@ -96,6 +97,7 @@ OLM
 OSSM
 Observability
 OpenDataHub
+OpenID
 OpenShift
 OpenTelemetry
 OperatorGroup
@@ -117,6 +119,7 @@ Schemas
 SecretManager
 SecureCluster
 ServiceMesh
+Sigstore
 Skupper
 SonarQube
 Stackrox
