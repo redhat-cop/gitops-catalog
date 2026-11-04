@@ -7,3 +7,4 @@ resources:
   - checluster.yaml
   - namespace.yaml
   - network-policy.yaml
+  - allow-webhook-from-apiserver.yaml
