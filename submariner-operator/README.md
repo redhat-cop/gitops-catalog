@@ -14,6 +14,7 @@ The current *overlays* available are for the following channels:
 * [stable-0.22](overlays/stable-0.22)
 * [stable-0.23](overlays/stable-0.23)
 * [stable-0.24](overlays/stable-0.24)
+* [stable-0.25](overlays/stable-0.25)
 
 ## Usage
 
