@@ -21,6 +21,7 @@ The current *overlays* available are for the following channels:
 * [fast-1.8](operator/overlays/fast-1.8)
 * [fast-1.9](operator/overlays/fast-1.9)
 * [fast-1.10](operator/overlays/fast-1.10)
+* [fast-2.1](operator/overlays/fast-2.1)
 
 ## Usage
 
