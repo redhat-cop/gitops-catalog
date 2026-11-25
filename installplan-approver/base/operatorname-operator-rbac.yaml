@@ -2,9 +2,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: installplan-approver
+  namespace: operatorname-operator
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 rules:
   - apiGroups:
       - operators.coreos.com
+      - apps.open-cluster-management.io
     resources:
       - installplans
       - subscriptions
@@ -17,10 +21,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: installplan-approvers
+  namespace: operatorname-operator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: installplan-approver
 subjects:
   - kind: ServiceAccount
-    name: installplan-approver-job
+    name: installplan-approver

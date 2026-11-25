@@ -1,8 +1,12 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: openshift-operators
+
 resources:
-  - serviceaccount.yaml
-  - rbac.yaml
-  - installplan-approver-job.yaml
+  - operatorname-operator-subscription.yaml
+  - operatorname-operator-operatorgroup.yaml
+  - operatorname-operator-install-approvaljob.yaml
+  - operatorname-operator-upgrade-approvaljob.yaml
+  - operatorname-operator-rbac.yaml
+  - operatorname-operator-sa.yaml

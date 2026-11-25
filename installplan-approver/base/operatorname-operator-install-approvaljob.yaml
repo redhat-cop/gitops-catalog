@@ -1,0 +1,52 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  name: installplan-approver-install
+  namespace: operatorname-operator
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:v4.4
+          env:
+            - name: APPROVAL_NAMESPACE
+              value: "operatorname-operator"
+            - name: APPROVAL_SUB
+              value: "operatorname-operator"
+          envFrom:
+            - configMapRef:
+                name: operatorname-versions
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/approver
+              echo "Starting Approval Script"
+              namespace="$APPROVAL_NAMESPACE"
+              subscription="$APPROVAL_SUB"
+              desiredcsv="$INSTALL_VERSION"
+              echo "Install version to be approved: $desiredcsv"
+              for installplan in $(oc get installplan -n $namespace -o jsonpath="{.items[?(@.spec.clusterServiceVersionNames[*] == \"$desiredcsv\")].metadata.name}")
+              do
+                echo "Found installplan $installplan"
+                if [ "`oc get installplan $installplan -n $namespace -o jsonpath="{.spec.approved}"`" == "false" ]; then
+
+                    echo "Approving Subscription $subscription with install plan $installplan"
+
+                    oc patch -n $namespace installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
+
+                 else
+                    echo "Install Plan $installplan already approved"
+                 fi
+              done
+          imagePullPolicy: IfNotPresent
+          name: installplan-approver-install
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: installplan-approver
+      serviceAccountName: installplan-approver
+      terminationGracePeriodSeconds: 30
