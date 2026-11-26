@@ -59,6 +59,5 @@ spec:
             name: job-gitops-console-plugin
             defaultMode: 0755
       restartPolicy: Never
-      serviceAccount: job-gitops-console-plugin
       serviceAccountName: job-gitops-console-plugin
   backoffLimit: 4
